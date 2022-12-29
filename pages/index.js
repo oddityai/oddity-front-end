@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 import App from "./App";
 import ReactGA from "react-ga4";
+import LogRocket from "logrocket";
 
 const Index = () => {
   useEffect(() => {
