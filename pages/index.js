@@ -8,7 +8,6 @@ import htmlToPdfmake from "html-to-pdfmake";
 import { jsPDF } from "jspdf";
 import Loader from "../public/Loader.gif";
 import Loader2 from "../public/Loader.svg";
-import Logo from "./logo.png";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
