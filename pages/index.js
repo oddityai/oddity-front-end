@@ -63,7 +63,9 @@ export default function Home() {
       setIsLoading(false);
       setResult("");
       setError(
-        "The response is too large to send. Can you try asking a slightly more specific question?"
+        "The response is too large to send. Can you try asking a slightly more specific question?" +
+          " " +
+          error.message
       );
       console.error(error);
       // alert(error.message);
