@@ -8,6 +8,7 @@ import htmlToPdfmake from "html-to-pdfmake";
 import { jsPDF } from "jspdf";
 import Loader from "../public/Loader.gif";
 import Loader2 from "../public/Loader.svg";
+import LogRocket from "logrocket";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -59,6 +60,17 @@ export default function Home() {
     }
   }
 
+  const shareOnTwitter = () => {
+    const url = encodeURIComponent("www.oddityai.com");
+    const text = encodeURIComponent(
+      "Check out this new AI powered homework bot!"
+    );
+    const via = "myusername";
+    window.open(
+      `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=Oddity_AI`
+    );
+  };
+
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
   //   // var dd = { content: html };
@@ -74,6 +86,20 @@ export default function Home() {
   //     document.getElementById("exportthis").innerHTML = result;
   //   }
   // }, [result]);
+
+  if (window.location.href.includes("oddityai")) {
+    LogRocket.init("nzb3qh/oddity-ai");
+
+    // the below i to identify users when i add auth0
+
+    // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
+    //   name: "James Morrison",
+    //   email: "jamesmorrison@example.com",
+
+    //   // Add your own custom user variables here, ie:
+    //   subscriptionType: "pro",
+    // });
+  }
 
   return (
     <div>
@@ -148,6 +174,7 @@ export default function Home() {
                   id="input-question"
                 />
                 <br />
+
                 <button
                   style={{
                     fontWeight: 500,
@@ -193,6 +220,22 @@ export default function Home() {
               })}
             </div>
           )}
+          {/* <button
+            onClick={shareOnTwitter}
+            style={{
+              fontWeight: 500,
+              color: "white",
+              borderRadius: 42,
+              border: "none",
+              height: 42,
+              backgroundColor: "#0a99f2",
+              width: 206,
+              fontFamily: "'ColfaxAI', sans-serif",
+            }}
+            id="submit-button"
+          >
+            Share us on twitter!
+          </button> */}
         </div>
         {/* {result && <div id="exportthis"></div>}
       <main className={styles.main}>
