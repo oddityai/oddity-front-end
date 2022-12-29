@@ -12,9 +12,9 @@ import LogRocket from "logrocket";
 import AppBar from "./AppBar";
 import App from "next/app";
 import TextField from "@mui/material/TextField";
-import ReactGA from "react-ga";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import ReactGA from "react-ga4";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -111,20 +111,6 @@ export default function Home() {
   //     document.getElementById("exportthis").innerHTML = result;
   //   }
   // }, [result]);
-
-  useEffect(() => {
-    // if (window.location.href.includes("oddityai")) {
-    LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
-    ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
-    // the below i to identify users when i add auth0
-    // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
-    //   name: "James Morrison",
-    //   email: "jamesmorrison@example.com",
-    //   // Add your own custom user variables here, ie:
-    //   subscriptionType: "pro",
-    // });
-    // }
-  }, [process.env]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
