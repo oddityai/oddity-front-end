@@ -12,6 +12,7 @@ import LogRocket from "logrocket";
 import AppBar from "./AppBar";
 import App from "next/app";
 import TextField from "@mui/material/TextField";
+import ReactGA from "react-ga";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -65,7 +66,7 @@ export default function Home() {
       setError(
         "The response is too large to send. Can you try asking a slightly more specific question?" +
           " " +
-          error.message
+          error
       );
       console.error(error);
       // alert(error.message);
@@ -101,7 +102,8 @@ export default function Home() {
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-      LogRocket.init("nzb3qh/oddity-ai");
+      LogRocket.init(process.env.LOGROCKET_API_KEY);
+      ReactGA.initialize(process.env.GOOGLE_ANALYTICS_API_KEY);
 
       // the below i to identify users when i add auth0
 
