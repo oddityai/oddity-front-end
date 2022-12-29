@@ -13,6 +13,8 @@ import AppBar from "./AppBar";
 import App from "next/app";
 import TextField from "@mui/material/TextField";
 import ReactGA from "react-ga";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -58,6 +60,11 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoading(false);
+      ReactGA.event({
+        category: "SUCCESS - User succeeded to submit request.",
+        userPrompt: animalInput,
+        errorMessage: "none",
+      });
       // setAnimalInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
@@ -66,8 +73,13 @@ export default function Home() {
       setError(
         "The response is too large to send. Can you try asking a slightly more specific question?" +
           " " +
-          error
+          error.message
       );
+      ReactGA.event({
+        category: "FAILURE - User failed to submit request.",
+        userPrompt: animalInput,
+        errorMessage: error.message,
+      });
       console.error(error);
       // alert(error.message);
     }
@@ -269,20 +281,54 @@ export default function Home() {
         }}
       >
         <a
-          href="https://twitter.com/Oddity_AI"
-          target="_blank"
           className="twitter-button"
+          style={{
+            color: "#0a99f2",
+            cursor: "pointer",
+            fontWeight: 500,
+            fontSize: 16,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {
+            ReactGA.event({
+              category: "User clicked on Twitter Page",
+              errorMessage: "none",
+            });
+            window.open("https://twitter.com/Oddity_AI");
+          }}
         >
-          <i className="fab fa-twitter"></i> Follow us on Twitter
+          <i className="fab fa-twitter"></i> Follow us on Twitter{" "}
+          <TwitterIcon style={{ marginLeft: 8 }} />
         </a>
         <br />
         <br />
         <a
-          href="https://www.facebook.com/profile.php?id=100088926106665"
-          target="_blank"
+          style={{
+            color: "#0a99f2",
+            cursor: "pointer",
+            fontWeight: 500,
+            fontSize: 16,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onClick={() => {
+            ReactGA.event({
+              category: "User clicked on Facebook Page",
+              errorMessage: "none",
+            });
+            window.open(
+              "https://www.facebook.com/profile.php?id=100088926106665"
+            );
+          }}
           className="facebook-button"
         >
           <i className="fab fa-facebook-f"></i> Follow us on Facebook
+          <FacebookIcon style={{ marginLeft: 8 }} />
         </a>
         <br />
         <br />
