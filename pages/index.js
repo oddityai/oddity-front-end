@@ -6,10 +6,8 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake";
 import { jsPDF } from "jspdf";
-import Loader from "../public/Loader.gif";
-import Loader2 from "../public/Loader.svg";
 import Logo from "../public/logo.png";
-
+import LogRocket from "logrocket";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const test = [];
@@ -76,6 +74,19 @@ export default function Home() {
   //   }
   // }, [result]);
 
+  useEffect(() => {
+    if (window.location.href.includes("oddityai")) {
+      LogRocket.init("nzb3qh/oddity-ai");
+      // the below i to identify users when i add auth0
+      // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
+      //   name: "James Morrison",
+      //   email: "jamesmorrison@example.com",
+      //   // Add your own custom user variables here, ie:
+      //   subscriptionType: "pro",
+      // });
+    }
+  }, []);
+
   return (
     <div>
       <>
@@ -98,7 +109,7 @@ export default function Home() {
             OddityAI.com
           </h1>
           <p style={{ color: "#6B1B6F" }} id="call-to-action">
-            Improve your grades with AI!
+            Your AI powered tutor!
           </p>
           <div
             clasName="container"
@@ -112,7 +123,7 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Ask me your homework questions.
+              Ask me anything.
             </p>
             {isLoading ? (
               <div style={{ textAlign: "center" }}>
