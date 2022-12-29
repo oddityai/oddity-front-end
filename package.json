@@ -13,6 +13,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "next": "^13.1.1",
+    "next-images": "^1.8.4",
     "openai": "^3.1.0",
     "pdfmake": "^0.2.7",
     "react": "^18.2.0",

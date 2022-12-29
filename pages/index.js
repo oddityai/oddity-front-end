@@ -8,7 +8,7 @@ import htmlToPdfmake from "html-to-pdfmake";
 import { jsPDF } from "jspdf";
 import Loader from "../public/Loader.gif";
 import Loader2 from "../public/Loader.svg";
-import Logo from "../public/logo.png";
+import Logo from "./logo.png";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -88,16 +88,25 @@ export default function Home() {
             textAlign: "center",
             padding: "20px 20px",
             color: "#232A31",
-            fontFamily: "sans-serif",
+            fontFamily: "'ColfaxAI', sans-serif",
           }}
           id="exportthis"
         >
           <title>Student Queries</title>
 
-          <h1 style={{ fontSize: 36, margin: 0, padding: "30 0" }} id="title">
+          <h1
+            style={{
+              fontSize: 24,
+              fontWeight: 600,
+              color: "rgba(0, 0, 0, 0.87)",
+              fontFamily: "'ColfaxAI', sans-serif",
+              margin: 0,
+            }}
+            id="title"
+          >
             OddityAI.com
           </h1>
-          <p style={{ color: "#6B1B6F" }} id="call-to-action">
+          <p style={{ color: "#0a99f2" }} id="call-to-action">
             Your AI powered tutor!
           </p>
           <div
@@ -106,8 +115,10 @@ export default function Home() {
           >
             <p
               style={{
-                fontSize: 18,
-                fontWeight: "bold",
+                fontSize: 20,
+                fontWeight: 600,
+                color: "rgba(0, 0, 0, 0.87)",
+                fontFamily: "'ColfaxAI', sans-serif",
                 marginTop: 15,
               }}
               id="form-title"
@@ -138,7 +149,20 @@ export default function Home() {
                   id="input-question"
                 />
                 <br />
-                <button id="submit-button" type="submit">
+                <button
+                  style={{
+                    fontWeight: 500,
+                    color: "white",
+                    borderRadius: 42,
+                    border: "none",
+                    height: 42,
+                    backgroundColor: "#0a99f2",
+                    width: 206,
+                    fontFamily: "'ColfaxAI', sans-serif",
+                  }}
+                  id="submit-button"
+                  type="submit"
+                >
                   Get Answer
                 </button>
               </form>
@@ -154,15 +178,16 @@ export default function Home() {
                       marginLeft: "15%",
                       marginRight: "15%",
                       marginTop: 24,
-                      backgroundColor: i === 0 ? "#f0f0f0" : "",
+                      backgroundColor: i === 0 ? "#F5F5F5" : "",
                       width: "70%",
-                      border: "1px solid silver",
                       borderRadius: 12,
+                      boxShadow:
+                        "0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12)",
                     }}
                   >
-                    <div style={{ padding: 16 }}>
-                      <h3>Question: {answer.input}</h3>
-                      <h4>Answer: {answer.result}</h4>
+                    <div style={{ padding: 8 }}>
+                      <h3>Q: {answer.input}</h3>
+                      <h4>A: {answer.result}</h4>
                     </div>
                   </div>
                 );
