@@ -27,8 +27,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function onSubmit(event) {
-    event.preventDefault();
+  async function onSubmit(event, value) {
+    const input = value ? value : animalInput;
+    if (event) {
+      event.preventDefault();
+    }
     setIsLoading(true);
     try {
       const response = await fetch("/api/generate", {
@@ -36,11 +39,11 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: animalInput }),
+        body: JSON.stringify({ animal: input }),
       });
 
-      const data = await response.json();
-
+      let data = await response.json();
+      data.result = JSON.parse(data.result);
       if (response.status !== 200) {
         throw (
           data.error ||
@@ -48,10 +51,11 @@ export default function Home() {
         );
       }
 
-      setResult(data.result);
+      setResult(data.result.response);
       const res = {
-        result: data.result,
-        input: animalInput,
+        result: data.result.response,
+        input: input,
+        additionalQuestions: data.result.additionalQuestions,
       };
       const answersCopy = answers.slice();
       answersCopy.unshift(res);
@@ -156,8 +160,6 @@ export default function Home() {
             ) : (
               <form onSubmit={onSubmit}>
                 <TextField
-                  type="text"
-                  name="question"
                   value={animalInput}
                   onChange={(e) => setAnimalInput(e.target.value)}
                   placeholder={
@@ -166,7 +168,6 @@ export default function Home() {
                       : "Ask your question"
                   }
                   size="100"
-                  required=""
                   style={{
                     width: "100%",
                     fontSize: 14,
@@ -218,6 +219,26 @@ export default function Home() {
                     <div style={{ padding: 8 }}>
                       <h3>Q: {answer.input}</h3>
                       <h4>A: {answer.result}</h4>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <h5>Additional questions you can ask are:</h5>
+                        <div
+                          style={{ color: "blue", cursor: "pointer" }}
+                          onClick={() => {
+                            onSubmit(null, answer.additionalQuestions[0]);
+                          }}
+                        >
+                          {answer.additionalQuestions[0]}
+                        </div>
+                        <br />
+                        <div
+                          style={{ color: "blue", cursor: "pointer" }}
+                          onClick={() => {
+                            onSubmit(null, answer.additionalQuestions[1]);
+                          }}
+                        >
+                          {answer.additionalQuestions[1]}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
