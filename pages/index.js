@@ -22,6 +22,7 @@ export default function Home() {
   const [result, setResult] = useState();
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -54,12 +55,18 @@ export default function Home() {
       setAnswers(answersCopy);
       setAnimalInput("");
       setResult("");
+      setError("");
       setIsLoading(false);
       // setAnimalInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
+      setIsLoading(false);
+      setResult("");
+      setError(
+        "The response is too large to send. Can you try asking a slightly more specific question?"
+      );
       console.error(error);
-      alert(error.message);
+      // alert(error.message);
     }
   }
 
@@ -171,7 +178,7 @@ export default function Home() {
                   id="input-question"
                 />
                 <br />
-
+                <p style={{ textAlign: "center", color: "red" }}>{error}</p>
                 <button
                   style={{
                     fontWeight: 500,
