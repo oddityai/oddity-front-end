@@ -9,6 +9,9 @@ import { jsPDF } from "jspdf";
 import Loader from "../public/Loader.gif";
 import Loader2 from "../public/Loader.svg";
 import LogRocket from "logrocket";
+import AppBar from "./AppBar";
+import App from "next/app";
+import TextField from "@mui/material/TextField";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -105,6 +108,7 @@ export default function Home() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
+      <AppBar />
       <div>
         <Head>
           <title>Oddity AI</title>
@@ -121,23 +125,8 @@ export default function Home() {
         >
           <title>Student Queries</title>
 
-          <h1
-            style={{
-              fontSize: 24,
-              fontWeight: 600,
-              color: "rgba(0, 0, 0, 0.87)",
-              fontFamily: "'ColfaxAI', sans-serif",
-              margin: 0,
-            }}
-            id="title"
-          >
-            OddityAI.com
-          </h1>
-          <p style={{ color: "#0a99f2" }} id="call-to-action">
-            Your AI powered tutor!
-          </p>
           <div
-            clasName="container"
+            className="container"
             style={{ textAlign: "left", margin: "auto", maxWidth: 500 }}
           >
             <p
@@ -150,7 +139,9 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Ask me anything.
+              Get quick and accurate homework help from our AI tutor – just type
+              your question into the chat box and receive reliable answers and
+              helpful explanations in real-time.
             </p>
             {isLoading ? (
               <div style={{ textAlign: "center" }}>
@@ -158,7 +149,7 @@ export default function Home() {
               </div>
             ) : (
               <form onSubmit={onSubmit}>
-                <input
+                <TextField
                   type="text"
                   name="question"
                   value={animalInput}
@@ -268,27 +259,27 @@ export default function Home() {
         <a
           href="https://twitter.com/Oddity_AI"
           target="_blank"
-          class="twitter-button"
+          className="twitter-button"
         >
-          <i class="fab fa-twitter"></i> Follow us on Twitter
+          <i className="fab fa-twitter"></i> Follow us on Twitter
         </a>
         <br />
         <br />
         <a
           href="https://www.facebook.com/profile.php?id=100088926106665"
           target="_blank"
-          class="facebook-button"
+          className="facebook-button"
         >
-          <i class="fab fa-facebook-f"></i> Follow us on Facebook
+          <i className="fab fa-facebook-f"></i> Follow us on Facebook
         </a>
         <br />
         <br />
         {/* <a
           href="https://discord.gg/yourserver"
           target="_blank"
-          class="discord-button"
+          className="discord-button"
         >
-          <i class="fab fa-discord"></i> Join our Discord server
+          <i className="fab fa-discord"></i> Join our Discord server
         </a> */}
       </div>
     </div>

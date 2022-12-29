@@ -8,6 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.2",
     "@netlify/plugin-nextjs": "^4.29.4",
     "html-to-pdfmake": "^2.4.11",
     "html2canvas": "^1.4.1",
