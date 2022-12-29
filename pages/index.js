@@ -154,7 +154,11 @@ export default function Home() {
                   name="question"
                   value={animalInput}
                   onChange={(e) => setAnimalInput(e.target.value)}
-                  placeholder="Ask your question"
+                  placeholder={
+                    answers.length
+                      ? "Ask another question. It's free!"
+                      : "Ask your question"
+                  }
                   size="100"
                   required=""
                   style={{
@@ -251,9 +255,6 @@ export default function Home() {
       <div
         style={{
           textAlign: "center",
-          position: "absolute",
-          bottom: 30,
-          right: 30,
         }}
       >
         <a
