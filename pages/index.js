@@ -87,23 +87,25 @@ export default function Home() {
   //   }
   // }, [result]);
 
-  if (window.location.href.includes("oddityai")) {
-    LogRocket.init("nzb3qh/oddity-ai");
+  useEffect(() => {
+    if (window.location.href.includes("oddityai")) {
+      LogRocket.init("nzb3qh/oddity-ai");
 
-    // the below i to identify users when i add auth0
+      // the below i to identify users when i add auth0
 
-    // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
-    //   name: "James Morrison",
-    //   email: "jamesmorrison@example.com",
+      // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
+      //   name: "James Morrison",
+      //   email: "jamesmorrison@example.com",
 
-    //   // Add your own custom user variables here, ie:
-    //   subscriptionType: "pro",
-    // });
-  }
+      //   // Add your own custom user variables here, ie:
+      //   subscriptionType: "pro",
+      // });
+    }
+  }, []);
 
   return (
-    <div>
-      <>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div>
         <Head>
           <title>Oddity AI</title>
           <link rel="icon" href="/logo.png" />
@@ -182,12 +184,13 @@ export default function Home() {
                     borderRadius: 42,
                     border: "none",
                     height: 42,
-                    backgroundColor: "#0a99f2",
+                    backgroundColor: animalInput.length ? "#0a99f2" : "silver",
                     width: 206,
                     fontFamily: "'ColfaxAI', sans-serif",
                   }}
                   id="submit-button"
                   type="submit"
+                  disabled={!animalInput.length}
                 >
                   Get Answer
                 </button>
@@ -253,7 +256,41 @@ export default function Home() {
           <input type="submit" value="Generate names" />
         </form>
       </main> */}
-      </>
+      </div>
+      <div
+        style={{
+          textAlign: "center",
+          position: "absolute",
+          bottom: 30,
+          right: 30,
+        }}
+      >
+        <a
+          href="https://twitter.com/Oddity_AI"
+          target="_blank"
+          class="twitter-button"
+        >
+          <i class="fab fa-twitter"></i> Follow us on Twitter
+        </a>
+        <br />
+        <br />
+        <a
+          href="https://www.facebook.com/profile.php?id=100088926106665"
+          target="_blank"
+          class="facebook-button"
+        >
+          <i class="fab fa-facebook-f"></i> Follow us on Facebook
+        </a>
+        <br />
+        <br />
+        {/* <a
+          href="https://discord.gg/yourserver"
+          target="_blank"
+          class="discord-button"
+        >
+          <i class="fab fa-discord"></i> Join our Discord server
+        </a> */}
+      </div>
     </div>
   );
 }
