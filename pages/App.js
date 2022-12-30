@@ -149,7 +149,7 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Get quick and accurate answers for your homework – just type any
+              Get quick and accurate answers for your homework – type any
               question into the chat box and receive reliable answers and
               helpful explanations in real-time.
             </p>
