@@ -167,8 +167,8 @@ export default function Home() {
               id="form-title"
             >
               Get quick and accurate answers for your homework – type any
-              question into the chat box and receive reliable answers and
-              helpful explanations from our powerful Artificial Intelligence in
+              question into the chat box to receive reliable answers and helpful
+              explanations from our powerful Artificial Intelligence in
               real-time.
             </p>
             {isLoading ? (
