@@ -42,21 +42,37 @@ export default function Home() {
         },
         body: JSON.stringify({ animal: input }),
       });
+      const response2 = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          animal: `Return the data in JSON format. The key of the json should be an array of strings called 'additionalQuestions', with 2 suggestions of other way I could ask for more information about ${input}.`,
+        }),
+      });
 
       let data = await response.json();
-      data.result = JSON.parse(data.result);
+      let data2 = await response2.json();
+      console.log(data2.result.additionalQuestions);
       if (response.status !== 200) {
         throw (
           data.error ||
           new Error(`Request failed with status ${response.status}`)
         );
       }
+      if (response2.status !== 200) {
+        throw (
+          data.error ||
+          new Error(`Request failed with status ${response.status}`)
+        );
+      }
 
-      setResult(data.result.response);
+      setResult(data.result);
       const res = {
-        result: data.result.response,
+        result: data.result,
         input: input,
-        additionalQuestions: data.result.additionalQuestions,
+        additionalQuestions: JSON.parse(data2.result).additionalQuestions,
       };
       const answersCopy = answers.slice();
       answersCopy.unshift(res);
@@ -218,12 +234,12 @@ export default function Home() {
                       onClick={() => {
                         onSubmit(
                           null,
-                          `Solve the following system of equations: 3x + 2y = 8, x - y = 3. (math)`
+                          `Solve the following system of equations: 3x + 2y = 8, x - y = 3.`
                         );
                       }}
                     >
                       Solve the following system of equations: 3x + 2y = 8, x -
-                      y = 3. (math)
+                      y = 3.
                     </div>
                     <br />
                     <div

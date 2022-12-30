@@ -19,12 +19,13 @@ export default async function (req, res) {
   const animal = req.body.animal || "";
 
   try {
-    const prompt = `Return the data in JSON format. One key of the JSON format should be called 'response' and the response is your reply to this question: "${animal}". The second key of the json should be an array of strings called 'additionalQuestions', with 2 suggestions of other way I could ask for more information about my first question. {}`;
+    const prompt = `${animal} {}`;
+    // const prompt = `Return the data in JSON format. One key of the JSON format should be called 'response' and the response is your reply to this question: "${animal}". The second key of the json should be an array of strings called 'additionalQuestions', with 2 suggestions of other way I could ask for more information about my first question. {}`;
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,
       temperature: 1,
-      max_tokens: 4000,
+      max_tokens: 3800,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
