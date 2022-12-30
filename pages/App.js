@@ -40,39 +40,41 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ animal: input }),
-      });
-      const response2 = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
-          animal: `Return the data in JSON format. The key of the json should be an array of strings called 'additionalQuestions', with 2 suggestions of other way I could ask for more information about ${input}.`,
+          animal: `Answer this question simply for me and dont add too much fluff: "${input}"`,
         }),
       });
+      // const response2 = await fetch("/api/generate", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
+      //   }),
+      // });
 
       let data = await response.json();
-      let data2 = await response2.json();
-      console.log(data2.result.additionalQuestions);
+      // let data2 = await response2.json();
+      // console.log(data2.result.explanation);
       if (response.status !== 200) {
         throw (
           data.error ||
           new Error(`Request failed with status ${response.status}`)
         );
       }
-      if (response2.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        );
-      }
+      // if (response2.status !== 200) {
+      //   throw (
+      //     data.error ||
+      //     new Error(`Request failed with status ${response.status}`)
+      //   );
+      // }
 
       setResult(data.result);
       const res = {
         result: data.result,
         input: input,
-        additionalQuestions: JSON.parse(data2.result).additionalQuestions,
+        // explanation: JSON.parse(data2.result).explanation,
       };
       const answersCopy = answers.slice();
       answersCopy.unshift(res);
@@ -214,50 +216,6 @@ export default function Home() {
                   Get Answer
                 </button>
                 <p style={{ textAlign: "center", color: "red" }}>{error}</p>
-                {Boolean(!answers.length) && (
-                  <>
-                    <h3>Or use an example prompt below:</h3>
-                    <div
-                      style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => {
-                        onSubmit(
-                          null,
-                          `Summarize the book Catcher in the Rye.`
-                        );
-                      }}
-                    >
-                      Summarize the book Catcher in the Rye.
-                    </div>
-                    <br />
-                    <div
-                      style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => {
-                        onSubmit(
-                          null,
-                          `Solve the following system of equations: 3x + 2y = 8, x - y = 3.`
-                        );
-                      }}
-                    >
-                      Solve the following system of equations: 3x + 2y = 8, x -
-                      y = 3.
-                    </div>
-                    <br />
-                    <div
-                      style={{ color: "blue", cursor: "pointer" }}
-                      onClick={() => {
-                        onSubmit(
-                          null,
-                          "Who were the ancient Egyptian Pharaohs and what did they do?"
-                        );
-                      }}
-                    >
-                      Who were the ancient Egyptian Pharaohs and what did they
-                      do?
-                    </div>
-
-                    <br />
-                  </>
-                )}
               </form>
             )}
           </div>
@@ -281,26 +239,26 @@ export default function Home() {
                     <div style={{ padding: 8 }}>
                       <h3>Q: {answer.input}</h3>
                       <h4>A: {answer.result}</h4>
-                      <div style={{ display: "flex", flexDirection: "column" }}>
-                        <h5>Additional questions you can ask are:</h5>
-                        <div
-                          style={{ color: "blue", cursor: "pointer" }}
-                          onClick={() => {
-                            onSubmit(null, answer.additionalQuestions[0]);
-                          }}
-                        >
-                          {answer.additionalQuestions[0]}
-                        </div>
-                        <br />
-                        <div
-                          style={{ color: "blue", cursor: "pointer" }}
-                          onClick={() => {
-                            onSubmit(null, answer.additionalQuestions[1]);
-                          }}
-                        >
-                          {answer.additionalQuestions[1]}
-                        </div>
-                      </div>
+                      {/* <div style={{ display: "flex", flexDirection: "column" }}>
+                          <h5>Additional questions you can ask are:</h5>
+                          <div
+                            style={{ color: "blue", cursor: "pointer" }}
+                            onClick={() => {
+                              onSubmit(null, answer.explanation[0]);
+                            }}
+                          >
+                            {answer.explanation[0]}
+                          </div>
+                          <br />
+                          <div
+                            style={{ color: "blue", cursor: "pointer" }}
+                            onClick={() => {
+                              onSubmit(null, answer.explanation[1]);
+                            }}
+                          >
+                            {answer.explanation[1]}
+                          </div>
+                        </div> */}
                     </div>
                   </div>
                 );
