@@ -149,8 +149,8 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Get quick and accurate homework help from our AI tutor – just type
-              your question into the chat box and receive reliable answers and
+              Get quick and accurate answers for your homework – just type any
+              question into the chat box and receive reliable answers and
               helpful explanations in real-time.
             </p>
             {isLoading ? (
