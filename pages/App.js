@@ -29,14 +29,7 @@ export default function Home() {
 
   async function onSubmit(event, value) {
     const input = value ? value : animalInput;
-    if (
-      input.toUpperCase().contains("PEDO") ||
-      (input.toUpperCase().contains("CHILD") &&
-        input.toUpperCase().contains("PORN"))
-    ) {
-      setAnimalInput("");
-      return;
-    }
+
     if (event) {
       event.preventDefault();
     }
