@@ -29,6 +29,14 @@ export default function Home() {
 
   async function onSubmit(event, value) {
     const input = value ? value : animalInput;
+    if (
+      input.toUpperCase().contains("PEDO") ||
+      (input.toUpperCase().contains("CHILD") &&
+        input.toUpperCase().contains("PORN"))
+    ) {
+      setAnimalInput("");
+      return;
+    }
     if (event) {
       event.preventDefault();
     }
@@ -151,7 +159,8 @@ export default function Home() {
             >
               Get quick and accurate answers for your homework – type any
               question into the chat box and receive reliable answers and
-              helpful explanations in real-time.
+              helpful explanations from our powerful Artificial Intelligence in
+              real-time.
             </p>
             {isLoading ? (
               <div style={{ textAlign: "center" }}>
