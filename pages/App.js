@@ -180,7 +180,6 @@ export default function Home() {
                   id="input-question"
                 />
                 <br />
-                <p style={{ textAlign: "center", color: "red" }}>{error}</p>
                 <button
                   style={{
                     fontWeight: 500,
@@ -198,6 +197,51 @@ export default function Home() {
                 >
                   Get Answer
                 </button>
+                <p style={{ textAlign: "center", color: "red" }}>{error}</p>
+                {Boolean(!answers.length) && (
+                  <>
+                    <h3>Or use an example prompt below:</h3>
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => {
+                        onSubmit(
+                          null,
+                          `Summarize the book Catcher in the Rye.`
+                        );
+                      }}
+                    >
+                      Summarize the book Catcher in the Rye.
+                    </div>
+                    <br />
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => {
+                        onSubmit(
+                          null,
+                          `Solve the following system of equations: 3x + 2y = 8, x - y = 3. (math)`
+                        );
+                      }}
+                    >
+                      Solve the following system of equations: 3x + 2y = 8, x -
+                      y = 3. (math)
+                    </div>
+                    <br />
+                    <div
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() => {
+                        onSubmit(
+                          null,
+                          "Who were the ancient Egyptian Pharaohs and what did they do?"
+                        );
+                      }}
+                    >
+                      Who were the ancient Egyptian Pharaohs and what did they
+                      do?
+                    </div>
+
+                    <br />
+                  </>
+                )}
               </form>
             )}
           </div>
