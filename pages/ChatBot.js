@@ -72,8 +72,8 @@ const ChatBot = ({
                   fontSize: 15,
                 }}
               >
-                Ask me anything to receive reliable answers from our powerful
-                AI.
+                Ask me your homework questions to receive reliable answers from
+                our powerful AI.
               </p>
             </div>
           </div>
