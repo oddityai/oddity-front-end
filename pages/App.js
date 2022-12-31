@@ -168,8 +168,7 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Type any question into the chat box to receive reliable answers
-              from our powerful AI.
+              The AI Homework Bot
             </p>
             <ChatBot
               setAnimalInput={setAnimalInput}
