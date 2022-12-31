@@ -14,11 +14,11 @@ const ChatBot = ({
     <div
       style={{
         border: "1px solid silver",
-        height: "70vh",
+        height: "55vh",
         overflowX: "hidden",
 
         backgroundColor: "white",
-        borderRadius: 4,
+        borderRadius: 8,
       }}
     >
       <div
@@ -28,9 +28,57 @@ const ChatBot = ({
           justifyContent: "space-between",
         }}
       >
-        <div style={{ height: "60vh", overflowY: "scroll" }}>
+        <div style={{ height: "45vh", overflowY: "scroll" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: 12,
+              marginLeft: "5%",
+              marginRight: "5%",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#304FFD",
+                borderRadius: "100%",
+                padding: 10,
+                margin: 8,
+                height: 25,
+                alignItems: "center",
+                alignContent: "center",
+                justifyItems: "center",
+                justifyContent: "center",
+                width: 25,
+              }}
+            >
+              <SmartToyIcon style={{ color: "white" }} />
+            </div>
+            <div
+              style={{
+                backgroundColor: "#304FFD",
+                borderRadius: 16,
+                marginLeft: 16,
+                maxWidth: "80%",
+                width: "auto",
+              }}
+            >
+              <p
+                style={{
+                  color: "white",
+                  fontWeight: "none",
+                  padding: 5,
+                  margin: 8,
+                  fontSize: 15,
+                }}
+              >
+                Ask me anything to receive reliable answers from our powerful
+                AI.
+              </p>
+            </div>
+          </div>
           {Boolean(answers.length) && (
-            <div style={{ marginTop: 8 }}>
+            <div>
               {answers.map((answer, i) => {
                 return (
                   <div
@@ -191,12 +239,12 @@ const ChatBot = ({
               style={{
                 width: "100%",
                 fontSize: 14,
+                border: "none",
                 marginLeft: 10,
                 padding: "15px 0",
                 marginTop: 10,
                 marginBottom: 10,
               }}
-              id="input-question"
             />
             <br />
             <button
