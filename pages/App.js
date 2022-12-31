@@ -168,10 +168,8 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Get quick and accurate answers for your homework – type any
-              question into the chat box to receive reliable answers and helpful
-              explanations from our powerful Artificial Intelligence in
-              real-time.
+              Type any question into the chat box to receive reliable answers +
+              from our powerful AI.
             </p>
             {isLoading ? (
               <div style={{ textAlign: "center" }}>
