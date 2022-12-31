@@ -77,9 +77,9 @@ const ChatBot = ({
               </p>
             </div>
           </div>
-          {Boolean(answers.length) && (
+          {Boolean(answers?.length) && (
             <div>
-              {answers.map((answer, i) => {
+              {answers?.map((answer, i) => {
                 return (
                   <div
                     id={i}
@@ -257,13 +257,13 @@ const ChatBot = ({
                 marginRight: 10,
                 marginTop: 30,
                 height: 40,
-                backgroundColor: animalInput.length ? "#0a99f2" : "silver",
+                backgroundColor: animalInput?.length ? "#0a99f2" : "silver",
                 width: 120,
                 fontFamily: "'ColfaxAI', sans-serif",
               }}
               id="submit-button"
               type="submit"
-              disabled={!animalInput.length}
+              disabled={!animalInput?.length}
             >
               Send
             </button>
