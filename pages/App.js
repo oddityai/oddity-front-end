@@ -11,10 +11,10 @@ import Loader2 from "../public/Loader.svg";
 import LogRocket from "logrocket";
 import AppBar from "./AppBar";
 import App from "next/app";
-import TextField from "@mui/material/TextField";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import ReactGA from "react-ga4";
+import ChatBot from "./ChatBot";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -77,7 +77,7 @@ export default function Home() {
         // explanation: JSON.parse(data2.result).explanation,
       };
       const answersCopy = answers.slice();
-      answersCopy.unshift(res);
+      answersCopy.push(res);
       setAnswers(answersCopy);
       setAnimalInput("");
       setResult("");
@@ -168,101 +168,19 @@ export default function Home() {
               }}
               id="form-title"
             >
-              Type any question into the chat box to receive reliable answers +
+              Type any question into the chat box to receive reliable answers
               from our powerful AI.
             </p>
-            {isLoading ? (
-              <div style={{ textAlign: "center" }}>
-                <h2>Thinking...</h2>
-              </div>
-            ) : (
-              <form onSubmit={onSubmit}>
-                <TextField
-                  value={animalInput}
-                  onChange={(e) => setAnimalInput(e.target.value)}
-                  placeholder={
-                    answers.length
-                      ? "Ask another question. It's free!"
-                      : "Ask your question"
-                  }
-                  size="100"
-                  style={{
-                    width: "100%",
-                    fontSize: 14,
-                    padding: "15px 0",
-                    marginTop: 10,
-                    marginBottom: 10,
-                  }}
-                  id="input-question"
-                />
-                <br />
-                <button
-                  style={{
-                    fontWeight: 500,
-                    color: "white",
-                    borderRadius: 42,
-                    border: "none",
-                    height: 42,
-                    backgroundColor: animalInput.length ? "#0a99f2" : "silver",
-                    width: 206,
-                    fontFamily: "'ColfaxAI', sans-serif",
-                  }}
-                  id="submit-button"
-                  type="submit"
-                  disabled={!animalInput.length}
-                >
-                  Get Answer
-                </button>
-                <p style={{ textAlign: "center", color: "red" }}>{error}</p>
-              </form>
-            )}
+            <ChatBot
+              setAnimalInput={setAnimalInput}
+              onSubmit={onSubmit}
+              isLoading={isLoading}
+              animalInput={animalInput}
+              answers={answers}
+              error={error}
+            />
           </div>
-          {Boolean(answers.length) && (
-            <div>
-              {answers.map((answer, i) => {
-                return (
-                  <div
-                    id={i}
-                    style={{
-                      marginLeft: "15%",
-                      marginRight: "15%",
-                      marginTop: 24,
-                      backgroundColor: i === 0 ? "#F5F5F5" : "",
-                      width: "70%",
-                      borderRadius: 12,
-                      boxShadow:
-                        "0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12)",
-                    }}
-                  >
-                    <div style={{ padding: 8 }}>
-                      <h3>Q: {answer.input}</h3>
-                      <h4>A: {answer.result}</h4>
-                      {/* <div style={{ display: "flex", flexDirection: "column" }}>
-                          <h5>Additional questions you can ask are:</h5>
-                          <div
-                            style={{ color: "blue", cursor: "pointer" }}
-                            onClick={() => {
-                              onSubmit(null, answer.explanation[0]);
-                            }}
-                          >
-                            {answer.explanation[0]}
-                          </div>
-                          <br />
-                          <div
-                            style={{ color: "blue", cursor: "pointer" }}
-                            onClick={() => {
-                              onSubmit(null, answer.explanation[1]);
-                            }}
-                          >
-                            {answer.explanation[1]}
-                          </div>
-                        </div> */}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
+
           {/* <button
             onClick={shareOnTwitter}
             style={{
