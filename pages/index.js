@@ -9,7 +9,7 @@ import Hotjar from "@hotjar/browser";
 const Index = () => {
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-      LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
+      // LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       Hotjar.init(3307089, 6);
 
