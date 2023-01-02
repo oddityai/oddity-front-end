@@ -220,10 +220,7 @@ export default function Home() {
               />
             </div>
           </Dialog>
-          <h2 style={{ fontSize: 22 }}>
-            We have a number of AI's specially deigned for different subjects.
-            Which do you want help with?
-          </h2>
+          <h2 style={{ fontSize: 22 }}>Use AI to get straight A's in class.</h2>
 
           <Buttons handleClick={handleClick} />
 
