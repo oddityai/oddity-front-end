@@ -8,8 +8,19 @@ const ChatBot = ({
   setAnimalInput,
   onSubmit,
   answers,
+  subject,
   isLoading,
 }) => {
+  const TYPES = {
+    math: "I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.",
+    history:
+      "I am specially designed to help you with your history homework. Ask me about anything that ever happened!",
+    english:
+      "I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book!",
+    chat: "I'm a conversational AI. What do you want to talk about?",
+    science:
+      "I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! ",
+  };
   return (
     <div
       style={{
@@ -72,8 +83,7 @@ const ChatBot = ({
                   fontSize: 15,
                 }}
               >
-                Ask me your homework questions to receive reliable answers from
-                our powerful AI.
+                {TYPES[subject]}
               </p>
             </div>
           </div>

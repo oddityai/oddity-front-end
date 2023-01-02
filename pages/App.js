@@ -13,12 +13,23 @@ import AppBar from "./AppBar";
 import App from "next/app";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import CloseIcon from "@mui/icons-material/Close";
 import ReactGA from "react-ga4";
 import ChatBot from "./ChatBot";
+import Buttons from "./Buttons";
+import Dialog from "@mui/material/Dialog";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const test = [];
+
+const TYPES = {
+  math: "Answer this math question for me:",
+  history: "",
+  english: "",
+  science: "",
+  chat: "",
+};
 
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
@@ -26,6 +37,13 @@ export default function Home() {
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [subject, setSubject] = useState("math");
+
+  const handleClick = (subject) => {
+    setIsModalOpen(true);
+    setSubject(subject);
+  };
 
   async function onSubmit(event, value) {
     const input = value ? value : animalInput;
@@ -34,6 +52,7 @@ export default function Home() {
       event.preventDefault();
     }
     setIsLoading(true);
+    console.log({ thing: TYPES[subject], input: input });
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -41,7 +60,7 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          animal: `Answer this question simply for me and dont add too much fluff: "${input}"`,
+          animal: `${TYPES[subject]}: "${input}"`,
         }),
       });
       // const response2 = await fetch("/api/generate", {
@@ -154,31 +173,59 @@ export default function Home() {
         >
           <title>Student Queries</title>
 
-          <div
-            className="container"
-            style={{ textAlign: "left", margin: "auto", maxWidth: 500 }}
+          <Dialog
+            onClose={() => {
+              setIsModalOpen(false);
+              setAnswers([]);
+            }}
+            open={isModalOpen}
           >
-            <p
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <CloseIcon
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setAnswers([]);
+                }}
+              />
+            </div>
+            <div
+              className="container"
               style={{
-                fontSize: 20,
-                fontWeight: 600,
-                color: "rgba(0, 0, 0, 0.87)",
-                fontFamily: "'ColfaxAI', sans-serif",
-                marginTop: 15,
+                textAlign: "left",
+                margin: "auto",
+                maxWidth: 500,
+                padding: 8,
               }}
-              id="form-title"
             >
-              The AI Homework Bot
-            </p>
-            <ChatBot
-              setAnimalInput={setAnimalInput}
-              onSubmit={onSubmit}
-              isLoading={isLoading}
-              animalInput={animalInput}
-              answers={answers}
-              error={error}
-            />
-          </div>
+              <p
+                style={{
+                  fontSize: 20,
+                  fontWeight: 600,
+                  color: "rgba(0, 0, 0, 0.87)",
+                  fontFamily: "'ColfaxAI', sans-serif",
+                  marginTop: 15,
+                }}
+                id="form-title"
+              >
+                {`OddityAI ${subject} AI`}
+              </p>
+              <ChatBot
+                setAnimalInput={setAnimalInput}
+                onSubmit={onSubmit}
+                isLoading={isLoading}
+                animalInput={animalInput}
+                subject={subject}
+                answers={answers}
+                error={error}
+              />
+            </div>
+          </Dialog>
+          <h2 style={{ fontSize: 22 }}>
+            We have a number of AI's specially deigned for different subjects.
+            Which do you want help with?
+          </h2>
+
+          <Buttons handleClick={handleClick} />
 
           {/* <button
             onClick={shareOnTwitter}
