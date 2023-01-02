@@ -24,7 +24,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const test = [];
 
 const TYPES = {
-  math: "Answer this math question for me:",
+  math: "Answer this math question for me. You have to be exactly precise. :",
   history: "",
   english: "",
   science: "",
