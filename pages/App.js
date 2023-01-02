@@ -219,7 +219,7 @@ export default function Home() {
           textAlign: "center",
         }}
       >
-        <a
+        {/* <a
           className="twitter-button"
           style={{
             color: "#0a99f2",
@@ -241,9 +241,9 @@ export default function Home() {
         >
           <i className="fab fa-twitter"></i> Follow us on Twitter{" "}
           <TwitterIcon style={{ marginLeft: 8 }} />
-        </a>
-        <br />
-        <br />
+        </a> */}
+        {/* <br />
+        <br /> */}
         <a
           style={{
             color: "#0a99f2",
