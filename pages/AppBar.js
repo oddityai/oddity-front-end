@@ -26,7 +26,7 @@ export default function ButtonAppBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             OddityAI.com
           </Typography>
-          <Button color="inherit">Your homework, made easier with AI</Button>
+          <Button color="inherit">the thanos of homework 🤌</Button>
         </Toolbar>
       </AppBar>
     </Box>

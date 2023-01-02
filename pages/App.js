@@ -313,7 +313,7 @@ export default function Home() {
           }}
           className="facebook-button"
         >
-          <i className="fab fa-facebook-f"></i> Follow us on Facebook
+          <i className="fab fa-facebook-f"></i> Contact us on Facebook
           <FacebookIcon style={{ marginLeft: 8 }} />
         </a>
         <br />
