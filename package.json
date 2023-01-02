@@ -10,6 +10,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@hotjar/browser": "^1.0.6",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.2",
     "@netlify/plugin-nextjs": "^4.29.4",
