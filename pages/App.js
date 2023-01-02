@@ -102,11 +102,7 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoading(false);
-      ReactGA.event({
-        category: "SUCCESS - User succeeded to submit request.",
-        userPrompt: animalInput,
-        errorMessage: "none",
-      });
+      Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
     } catch (error) {
       // Consider implementing your own error handling logic here
@@ -117,11 +113,8 @@ export default function Home() {
           " " +
           error.message
       );
-      ReactGA.event({
-        category: "FAILURE - User failed to submit request.",
-        userPrompt: animalInput,
-        errorMessage: error.message,
-      });
+      Hotjar.event("FAILURE - User failed to submit request.");
+
       console.error(error);
       // alert(error.message);
     }
@@ -300,10 +293,7 @@ export default function Home() {
             justifyContent: "center",
           }}
           onClick={() => {
-            ReactGA.event({
-              category: "User clicked on Facebook Page",
-              errorMessage: "none",
-            });
+            Hotjar.event("User clicked on Facebook Page");
             window.open(
               "https://www.facebook.com/profile.php?id=100088926106665"
             );
