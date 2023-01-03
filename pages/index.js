@@ -4,7 +4,7 @@ import App from "./App";
 import ReactGA from "react-ga4";
 import LogRocket from "logrocket";
 import { hotjar } from "react-hotjar";
-import Hnujar from "@hotjar/browser";
+import Hotjar from "@hotjar/browser";
 import { Nunito } from "@next/font/google";
 
 const nunito = Nunito({ subsets: ["latin"] });
