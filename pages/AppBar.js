@@ -34,6 +34,30 @@ export default function ButtonAppBar() {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
+  const [pathState, setPath] = useState("");
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
+  const path = () => {
+    if (window) {
+      return window.location.pathname;
+    } else {
+      return "";
+    }
+  };
+
+  useEffect(() => {
+    setPath(path());
+  }, [path]);
   return (
     <div
       className={nunito.className}
@@ -45,7 +69,7 @@ export default function ButtonAppBar() {
     >
       <div
         style={{
-          margin: 8,
+          padding: 8,
           justifyContent: "space-between",
           display: "flex",
           justifyItems: "center",
@@ -53,19 +77,25 @@ export default function ButtonAppBar() {
           alignItems: "center",
         }}
       >
-        <div
+        <Link
           style={{
+            textDecoration: "none",
+            padding: 8,
+            cursor: "pointer",
             display: "flex",
             justifyItems: "center",
             alignItems: "center",
+            borderRadius: 4,
+            color: "black",
           }}
+          href="/"
         >
           <img
             style={{ height: 30, marginRight: 8, textDecoration: "none" }}
             src="/logo.png"
           />
           <div style={{ fontSize: 18 }}> OddityAI.com</div>
-        </div>
+        </Link>
         <div>
           <div
             style={{
@@ -76,14 +106,16 @@ export default function ButtonAppBar() {
             }}
           >
             {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
-              <Link style={{ textDecoration: 'none', marginLeft: 8, color: 'black' }} href="/home">
+              <Link style={{ textDecoration: 'none', padding: 8,
+              borderRadius: 4, color: 'black' }} href="/">
                 {" "}
                 <div
                   style={{
                     textDecoration: "none",
                     textTransform: 'none',
                     color: "black",
-  16                 marginLeft: 8, fontSize: 18,
+  16                 padding: 8,
+  borderRadius: 4, fontSize: 18,
                   }}
                 >
                   Home
@@ -94,10 +126,13 @@ export default function ButtonAppBar() {
               <Link
                 style={{
                   textDecoration: "none",
-                  marginLeft: 8,
+                  padding: 8,
+                  borderRadius: 4,
+                  backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
+
                   color: "black",
                 }}
-                href="/home"
+                href="/"
               >
                 {" "}
                 Home
@@ -107,24 +142,29 @@ export default function ButtonAppBar() {
               <Link
                 style={{
                   textDecoration: "none",
-                  marginLeft: 8,
+                  padding: 8,
+                  borderRadius: 4,
+                  backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
+
                   color: "black",
                 }}
-                href="/"
+                href="/app"
               >
                 {" "}
                 App
               </Link>
             </div>
             {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
-              <Link style={{ textDecoration: 'none', marginLeft: 8, color: 'black' }} href="/about">
+              <Link style={{ textDecoration: 'none', padding: 8,
+              borderRadius: 4, color: 'black' }} href="/about">
                 {" "}
                 <div
                   style={{
                     textDecoration: "none",
                     textTransform: 'none',
                     color: "black",
-  16                 marginLeft: 8, fontSize: 18,
+  16                 padding: 8,
+  borderRadius: 4, fontSize: 18,
                   }}
                 >
                   About
@@ -135,7 +175,10 @@ export default function ButtonAppBar() {
               <Link
                 style={{
                   textDecoration: "none",
-                  marginLeft: 8,
+                  padding: 8,
+                  borderRadius: 4,
+                  backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+
                   color: "black",
                 }}
                 href="/contact"
@@ -148,7 +191,8 @@ export default function ButtonAppBar() {
               <Link
                 style={{
                   textDecoration: "none",
-                  marginLeft: 8,
+                  padding: 8,
+                  borderRadius: 4,
                   color: "black",
                 }}
                 href="/contact"
@@ -161,7 +205,8 @@ export default function ButtonAppBar() {
               <Link
                 style={{
                   textDecoration: "none",
-                  marginLeft: 8,
+                  padding: 8,
+                  borderRadius: 4,
                   color: "black",
                 }}
                 href="/contact"
