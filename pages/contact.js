@@ -1,8 +1,28 @@
+import { useEffect, useState } from "react";
 import AppBar from "./AppBar";
 import { Nunito } from "@next/font/google";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
+  const getWindowSize = () => {
+    if (typeof window !== "undefined") {
+      // Client-side-only code
+      const { innerWidth, innerHeight } = window;
+      return { innerWidth, innerHeight };
+    }
+  };
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   return (
     <div className={nunito.className}>
       <AppBar />
@@ -20,7 +40,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -52,7 +72,7 @@ const Contact = () => {
               justifyContent: "center",
               alignItems: "center",
               position: "relative",
-              width: "50%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >

@@ -5,6 +5,26 @@ import Button from "@mui/material/Button";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
+  const getWindowSize = () => {
+    if (typeof window !== "undefined") {
+      // Client-side-only code
+      const { innerWidth, innerHeight } = window;
+      return { innerWidth, innerHeight };
+    }
+  };
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+  console.log({ windowSize });
   return (
     <div className={nunito.className}>
       <AppBar />
@@ -30,7 +50,7 @@ const Contact = () => {
               position: "relative",
               backgroundColor: "white",
               borderRadius: 12,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -42,7 +62,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -90,7 +110,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -114,7 +134,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -147,7 +167,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -159,7 +179,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -189,7 +209,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -211,7 +231,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -244,7 +264,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -256,7 +276,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: "50%",
+              width: innerWidth > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
