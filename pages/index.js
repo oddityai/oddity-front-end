@@ -29,6 +29,11 @@ const Contact = () => {
   return (
     <div className={nunito.className}>
       <AppBar />
+      <style jsx global>{`
+        body {
+          margin: 0;
+        }
+      `}</style>
       <div>
         <div
           style={{
