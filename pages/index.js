@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import LogRocket from "logrocket";
 import Hotjar from "@hotjar/browser";
+import ReactGA from "react-ga4";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
