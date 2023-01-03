@@ -156,7 +156,7 @@ export default function Home() {
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-      LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
+      Hotjar.init(3307089, 6);
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {

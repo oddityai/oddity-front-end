@@ -3,6 +3,7 @@ import AppBar from "./AppBar";
 import { Nunito } from "@next/font/google";
 
 import LogRocket from "logrocket";
+import Hotjar from "@hotjar/browser";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
@@ -39,7 +40,7 @@ const Contact = () => {
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-      LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
+      Hotjar.init(3307089, 6);
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
