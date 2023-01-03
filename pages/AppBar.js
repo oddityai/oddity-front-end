@@ -63,7 +63,7 @@ export default function ButtonAppBar() {
       className={nunito.className}
       style={{
         backgroundColor: "white",
-        borderBottom: "1px solid silver",
+        borderBottom: "1px solid rgb(242, 247, 255)",
         width: "100%",
       }}
     >
@@ -86,7 +86,7 @@ export default function ButtonAppBar() {
             justifyItems: "center",
             alignItems: "center",
             borderRadius: 4,
-            color: "black",
+            color: "#0057be",
           }}
           href="/"
         >
@@ -113,7 +113,7 @@ export default function ButtonAppBar() {
                   style={{
                     textDecoration: "none",
                     textTransform: 'none',
-                    color: "black",
+                    color: "#0057be",
   16                 padding: 8,
   borderRadius: 4, fontSize: 18,
                   }}
@@ -130,7 +130,7 @@ export default function ButtonAppBar() {
                   borderRadius: 4,
                   // backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
 
-                  color: "black",
+                  color: "#0057be",
                 }}
                 href="/"
               >
@@ -146,7 +146,7 @@ export default function ButtonAppBar() {
                   borderRadius: 4,
                   // backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
 
-                  color: "black",
+                  color: "#0057be",
                 }}
                 href="/app"
               >
@@ -162,7 +162,7 @@ export default function ButtonAppBar() {
                   style={{
                     textDecoration: "none",
                     textTransform: 'none',
-                    color: "black",
+                    color: "#0057be",
   16                 padding: 8,
   borderRadius: 4, fontSize: 18,
                   }}
@@ -179,7 +179,7 @@ export default function ButtonAppBar() {
                   borderRadius: 4,
                   // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                  color: "black",
+                  color: "#0057be",
                 }}
                 href="/contact"
               >
@@ -193,7 +193,7 @@ export default function ButtonAppBar() {
                   textDecoration: "none",
                   padding: 8,
                   borderRadius: 4,
-                  color: "black",
+                  color: "#0057be",
                 }}
                 href="/contact"
               >
@@ -207,7 +207,7 @@ export default function ButtonAppBar() {
                   textDecoration: "none",
                   padding: 8,
                   borderRadius: 4,
-                  color: "black",
+                  color: "#0057be",
                 }}
                 href="/contact"
               >
