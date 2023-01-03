@@ -128,7 +128,7 @@ export default function ButtonAppBar() {
                   textDecoration: "none",
                   padding: 8,
                   borderRadius: 4,
-                  backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
+                  // backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
 
                   color: "black",
                 }}
@@ -144,7 +144,7 @@ export default function ButtonAppBar() {
                   textDecoration: "none",
                   padding: 8,
                   borderRadius: 4,
-                  backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
+                  // backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
 
                   color: "black",
                 }}
@@ -177,7 +177,7 @@ export default function ButtonAppBar() {
                   textDecoration: "none",
                   padding: 8,
                   borderRadius: 4,
-                  backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+                  // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
                   color: "black",
                 }}
