@@ -45,11 +45,11 @@ const Buttons = ({ children, handleClick }) => {
             >
               English AI
             </p>
-            {/* <p style={{ fontSize: 12, color: "gray" }}>
+            <p style={{ fontSize: 12, color: "gray" }}>
               Here we can summarize books, write poems/songs or answer questions
               about characters. Each answer is unique so nobody will have the
               same answers as you.
-            </p> */}
+            </p>
             <Button
               onClick={() => handleClick("english")}
               style={{
@@ -69,10 +69,10 @@ const Buttons = ({ children, handleClick }) => {
             <p style={{ fontSize: 16, fontWeight: 600 }}>
               History / Social Studies AI
             </p>
-            {/* <p style={{ fontSize: 12, color: "gray" }}>
+            <p style={{ fontSize: 12, color: "gray" }}>
               This AI can answer any questions about anything that ever happened
               in history. Each answer is unique.
-            </p> */}
+            </p>
             <Button
               onClick={() => handleClick("history")}
               style={{
@@ -90,10 +90,10 @@ const Buttons = ({ children, handleClick }) => {
               </span>
             </Button>
             <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI (beta)</p>
-            {/* <p style={{ fontSize: 12, color: "gray" }}>
+            <p style={{ fontSize: 12, color: "gray" }}>
               This AI will try its best to answer math questions. Sometimes a
               calculator is better.
-            </p> */}
+            </p>
             <Button
               onClick={() => handleClick("math")}
               style={{
@@ -109,10 +109,10 @@ const Buttons = ({ children, handleClick }) => {
               <span style={{ fontSize: 14, marginLeft: 8 }}>Math Answers</span>
             </Button>
             <p style={{ fontSize: 16, fontWeight: 600 }}>Science AI</p>
-            {/* <p style={{ fontSize: 12, color: "gray" }}>
+            <p style={{ fontSize: 12, color: "gray" }}>
               This Science AI is programmed to answer anything you could ever
-              want to know about how things work.
-            </p> */}
+              want to know about science.
+            </p>
             <Button
               onClick={() => handleClick("science")}
               style={{
@@ -130,10 +130,10 @@ const Buttons = ({ children, handleClick }) => {
               </span>
             </Button>
             <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
-            {/* <p style={{ fontSize: 12, color: "gray" }}>
+            <p style={{ fontSize: 12, color: "gray" }}>
               This is a fun chatbot so you can talk directly to our AI
               him/her-self.
-            </p> */}
+            </p>
             <Button
               onClick={() => handleClick("chat")}
               style={{
