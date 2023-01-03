@@ -167,25 +167,27 @@ const Contact = () => {
             <br />
             <br />
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              alignItems: "center",
-              position: "relative",
-              border: "1px solid silver",
-              backgroundColor: "white",
-              borderRadius: 12,
-              width: windowSize > 500 ? "50%" : "90%",
-              maxWidth: 400,
-            }}
-          >
-            <img
-              src="/buttons-page.png"
-              style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
-            />
-          </div>
+          <Link href="/app">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                justifyItems: "center",
+                alignItems: "center",
+                position: "relative",
+                border: "1px solid silver",
+                backgroundColor: "white",
+                borderRadius: 12,
+                width: windowSize > 500 ? "50%" : "90%",
+                maxWidth: 400,
+              }}
+            >
+              <img
+                src="/buttons-page.png"
+                style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              />
+            </div>
+          </Link>
         </div>
 
         <div
