@@ -14,28 +14,32 @@ const nunito = Nunito({ subsets: ["latin"] });
 
 export default function ButtonAppBar() {
   return (
-    <Box className={nunito.className} sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <SmartToyIcon />
-          </IconButton>
-          <Typography
-            className={nunito.className}
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
-            OddityAI.com
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <div
+      className={nunito.className}
+      style={{
+        backgroundColor: "white",
+        width: "100%",
+      }}
+    >
+      <div
+        style={{
+          padding: 16,
+          justifyContent: "space-between",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyItems: "center",
+            alignItems: "center",
+          }}
+        >
+          <img style={{ height: 30, marginRight: 8 }} src="/logo.png" />
+          <div>OddityAI.com</div>
+        </div>
+      </div>
+    </div>
   );
 }
