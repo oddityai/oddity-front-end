@@ -97,7 +97,8 @@ const Contact = () => {
                   padding: 14,
                   marginBottom: 16,
                   color: "white",
-                  width: 225,
+                  maxWidth: 225,
+                  width: "80%",
                   textTransform: "none",
                   height: 50,
                 }}

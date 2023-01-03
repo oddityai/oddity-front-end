@@ -290,28 +290,7 @@ export default function Home() {
         </a> */}
         {/* <br />
         <br /> */}
-        <a
-          style={{
-            color: "#0a99f2",
-            cursor: "pointer",
-            fontWeight: 500,
-            fontSize: 16,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onClick={() => {
-            Hotjar.event("User clicked on Facebook Page");
-            window.open(
-              "https://www.facebook.com/profile.php?id=100088926106665"
-            );
-          }}
-          className="facebook-button"
-        >
-          <i className="fab fa-facebook-f"></i> Contact us on Facebook
-          <FacebookIcon style={{ marginLeft: 8 }} />
-        </a>
+
         <br />
         <br />
         {/* <a
