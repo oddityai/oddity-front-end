@@ -50,7 +50,7 @@ const Contact = () => {
               position: "relative",
               backgroundColor: "white",
               borderRadius: 12,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -62,7 +62,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -110,7 +110,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -134,7 +134,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -167,7 +167,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -179,7 +179,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -209,7 +209,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -231,7 +231,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -264,7 +264,7 @@ const Contact = () => {
               border: "1px solid silver",
               backgroundColor: "white",
               borderRadius: 12,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
@@ -276,7 +276,7 @@ const Contact = () => {
           <div
             style={{
               padding: 16,
-              width: innerWidth > 500 ? "50%" : "90%",
+              width: windowSize > 500 ? "50%" : "90%",
               maxWidth: 400,
             }}
           >
