@@ -18,7 +18,9 @@ import ReactGA from "react-ga4";
 import ChatBot from "./ChatBot";
 import Buttons from "./Buttons";
 import Dialog from "@mui/material/Dialog";
+import { Nunito } from "@next/font/google";
 
+const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 const test = [];
@@ -213,7 +215,9 @@ export default function Home() {
               />
             </div>
           </Dialog>
-          <h2 style={{ fontSize: 22 }}>Use AI to get straight A's in class.</h2>
+          <h2 className={nunito.className} style={{ fontSize: 22 }}>
+            Use AI to get straight A's in class
+          </h2>
 
           <Buttons handleClick={handleClick} />
 

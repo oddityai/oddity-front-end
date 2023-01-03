@@ -8,10 +8,13 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import { Nunito } from "@next/font/google";
+
+const nunito = Nunito({ subsets: ["latin"] });
 
 export default function ButtonAppBar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box className={nunito.className} sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -23,10 +26,14 @@ export default function ButtonAppBar() {
           >
             <SmartToyIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            className={nunito.className}
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          >
             OddityAI.com
           </Typography>
-          <Button color="inherit">the thanos of homework 🤌</Button>
         </Toolbar>
       </AppBar>
     </Box>

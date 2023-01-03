@@ -1,6 +1,8 @@
 import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
+import { Nunito } from "@next/font/google";
+const nunito = Nunito({ subsets: ["latin"] });
 
 const ChatBot = ({
   error,
@@ -82,6 +84,7 @@ const ChatBot = ({
                   margin: 8,
                   fontSize: 15,
                 }}
+                className={nunito.className}
               >
                 {TYPES[subject]}
               </p>
@@ -195,6 +198,7 @@ const ChatBot = ({
                               margin: 8,
                               fontSize: 15,
                             }}
+                            className={nunito.className}
                           >
                             {answer.result}
                           </p>
