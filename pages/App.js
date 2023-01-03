@@ -157,7 +157,7 @@ export default function Home() {
   // }, [result]);
 
   useEffect(() => {
-    if (window.location.href.includes("datemateai")) {
+    if (window.location.href.includes("oddityai")) {
       LogRocket.init(process.env.REACT_APP_LOGROCKET_API_KEY);
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       // the below i to identify users when i add auth0
