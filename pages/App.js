@@ -219,6 +219,10 @@ export default function Home() {
           <h2 className={nunito.className} style={{ fontSize: 22 }}>
             Use AI to get straight A's in class
           </h2>
+          <h3 className={nunito.className} style={{ fontSize: 18 }}>
+            Choose one of our AI bots below and get answers to your homework.
+            Each AI is specially designed for each subject.
+          </h3>
 
           <Buttons handleClick={handleClick} />
 
