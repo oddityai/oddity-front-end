@@ -2,7 +2,6 @@ import AppBar from "./AppBar";
 import { Nunito } from "@next/font/google";
 
 import LogRocket from "logrocket";
-import LogRocket from "logrocket";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const About = () => {

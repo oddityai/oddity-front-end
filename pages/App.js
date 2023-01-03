@@ -21,8 +21,6 @@ import Dialog from "@mui/material/Dialog";
 import { Nunito } from "@next/font/google";
 import Hotjar from "@hotjar/browser";
 
-import LogRocket from "logrocket";
-
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
