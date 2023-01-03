@@ -48,7 +48,7 @@ export default function Home() {
     setSubject(subject);
   };
 
-  async function onSubmit(event, value) {
+  async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput;
 
     if (event) {
@@ -108,6 +108,10 @@ export default function Home() {
       Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
     } catch (error) {
+      if (!tries && tries < 1) {
+        onSubmit(event, value + " (limit 1606 chars)", url, type, 1);
+        return;
+      }
       // Consider implementing your own error handling logic here
       setIsLoading(false);
       setResult("");
@@ -293,13 +297,6 @@ export default function Home() {
 
         <br />
         <br />
-        {/* <a
-          href="https://discord.gg/yourserver"
-          target="_blank"
-          className="discord-button"
-        >
-          <i className="fab fa-discord"></i> Join our Discord server
-        </a> */}
       </div>
     </div>
   );
