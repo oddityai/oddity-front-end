@@ -62,7 +62,7 @@ const Contact = () => {
           >
             <img
               src="/landing-robot.png"
-              style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              style={{ maxHeight: "100%", maxWidth: "100%" }}
             />
           </div>
           <div
@@ -326,16 +326,16 @@ const Contact = () => {
             textAlign: "center",
           }}
         >
-          <h3>
-            Use our AI and never do homework again! <br /> It's free!
-          </h3>{" "}
-          <Link style={{ textDecoration: "none" }} href="/app">
+          <div style={{ width: "50%" }}>
+            <h3>
+              Use our AI and never do homework again! <br /> It's free!
+            </h3>{" "}
+          </div>
+          <Link style={{ textDecoration: "none", width: "50%" }} href="/app">
             <Button
               style={{
-                zIndex: 10,
                 backgroundColor: "#304FFD",
                 padding: 14,
-                marginBottom: 16,
                 color: "white",
                 minWidth: 150,
                 width: "80%",
