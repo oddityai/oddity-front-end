@@ -34,7 +34,7 @@ const Contact = () => {
   useEffect(() => {
     if (
       window.location.href.includes("oddityai") &&
-      !window.localStorage.getItem("hotjar") === "true"
+      window.localStorage.getItem("hotjar") !== "true"
     ) {
       Hotjar.init(3307089, 6);
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
