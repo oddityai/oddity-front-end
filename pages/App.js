@@ -19,6 +19,7 @@ import ChatBot from "./ChatBot";
 import Buttons from "./Buttons";
 import Dialog from "@mui/material/Dialog";
 import { Nunito } from "@next/font/google";
+import Hotjar from "@hotjar/browser";
 
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
