@@ -98,6 +98,7 @@ const Contact = () => {
                   marginBottom: 16,
                   color: "white",
                   maxWidth: 225,
+                  minWidth: 150,
                   width: "80%",
                   textTransform: "none",
                   height: 50,
@@ -331,7 +332,9 @@ const Contact = () => {
                 padding: 14,
                 marginBottom: 16,
                 color: "white",
-                width: 225,
+                minWidth: 150,
+                width: "80%",
+                maxWidth: 225,
                 textTransform: "none",
                 height: 50,
               }}

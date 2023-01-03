@@ -94,7 +94,7 @@ export default function ButtonAppBar() {
             style={{ height: 30, marginRight: 8, textDecoration: "none" }}
             src="/logo.png"
           />
-          <div style={{ fontSize: 18 }}> OddityAI.com</div>
+          <div style={{ fontSize: 18, color: "#0057be" }}> OddityAI</div>
         </Link>
         <div>
           <div
