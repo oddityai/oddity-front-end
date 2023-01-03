@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import AppBar from "./AppBar";
 import { Nunito } from "@next/font/google";
 
+import LogRocket from "logrocket";
+
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
   const getWindowSize = () => {
@@ -12,6 +14,17 @@ const Contact = () => {
     }
   };
   const [windowSize, setWindowSize] = useState(getWindowSize());
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   useEffect(() => {
     function handleWindowResize() {
       setWindowSize(getWindowSize());

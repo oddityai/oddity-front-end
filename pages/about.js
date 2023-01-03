@@ -1,8 +1,21 @@
 import AppBar from "./AppBar";
 import { Nunito } from "@next/font/google";
 
+import LogRocket from "logrocket";
+
 const nunito = Nunito({ subsets: ["latin"] });
 const About = () => {
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   return (
     <div className={nunito.className}>
       <AppBar />
