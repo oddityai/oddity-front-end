@@ -9,4 +9,9 @@ export default handleAuth({
       returnTo: "/app",
     });
   },
+  async signup(req, res) {
+    await handleLogin(req, res, {
+      returnTo: "/app",
+    });
+  },
 });
