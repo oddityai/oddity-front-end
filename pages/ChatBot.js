@@ -93,6 +93,7 @@ const ChatBot = ({
           {Boolean(answers?.length) && (
             <div>
               {answers?.map((answer, i) => {
+                console.log({ answer });
                 return (
                   <div
                     id={i}
@@ -201,6 +202,18 @@ const ChatBot = ({
                             className={nunito.className}
                           >
                             {answer.result}
+                            {(i === 2 ||
+                              i === 6 ||
+                              i === 12 ||
+                              i === 25 ||
+                              i === 50) && (
+                              <>
+                                <br />
+                                <br />
+                                Keep OddityAI free by telling your friends about
+                                us!
+                              </>
+                            )}
                           </p>
                         </div>
                       </div>
