@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
@@ -13,6 +14,13 @@ const ChatBot = ({
   subject,
   isLoading,
 }) => {
+  useEffect(() => {
+    var objDiv = document.getElementById("test1");
+    if (objDiv) {
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
+  }, [answers]);
+
   const TYPES = {
     math: "I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.",
     history:
@@ -41,7 +49,7 @@ const ChatBot = ({
           justifyContent: "space-between",
         }}
       >
-        <div style={{ height: "45vh", overflowY: "scroll" }}>
+        <div id="test1" style={{ height: "45vh", overflowY: "scroll" }}>
           <div
             style={{
               display: "flex",
