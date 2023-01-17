@@ -20,6 +20,7 @@ import Buttons from "./Buttons";
 import Dialog from "@mui/material/Dialog";
 import { Nunito } from "@next/font/google";
 import Hotjar from "@hotjar/browser";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -38,10 +39,11 @@ export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
   const [answers, setAnswers] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingScreen, setIsLoadingScreen] = useState(false);
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [subject, setSubject] = useState("math");
+  const { user, isLoading } = useUser();
 
   const handleClick = (subject) => {
     setIsModalOpen(true);
@@ -54,7 +56,7 @@ export default function Home() {
     if (event) {
       event.preventDefault();
     }
-    setIsLoading(true);
+    setIsLoadingScreen(true);
     console.log({ thing: TYPES[subject], input: input });
     try {
       const response = await fetch("/api/generate", {
@@ -104,7 +106,7 @@ export default function Home() {
       setAnimalInput("");
       setResult("");
       setError("");
-      setIsLoading(false);
+      setIsLoadingScreen(false);
       Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
     } catch (error) {
@@ -113,7 +115,7 @@ export default function Home() {
         return;
       }
       // Consider implementing your own error handling logic here
-      setIsLoading(false);
+      setIsLoadingScreen(false);
       setResult("");
       setError(
         "The response is too large to send. Can you try asking a slightly more specific question?" +
@@ -173,6 +175,16 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!isLoading && !user?.nickname) {
+      window.location.href = "/";
+    }
+  }, [isLoading, user]);
+
+  if (isLoading) {
+    return <>Logging in</>;
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar />
@@ -231,7 +243,7 @@ export default function Home() {
               <ChatBot
                 setAnimalInput={setAnimalInput}
                 onSubmit={onSubmit}
-                isLoading={isLoading}
+                isLoadingScreen={isLoadingScreen}
                 animalInput={animalInput}
                 subject={subject}
                 answers={answers}

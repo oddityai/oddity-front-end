@@ -7,6 +7,7 @@ import Link from "next/link";
 import LogRocket from "logrocket";
 import Hotjar from "@hotjar/browser";
 import ReactGA from "react-ga4";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
@@ -17,6 +18,13 @@ const Contact = () => {
       return { innerWidth, innerHeight };
     }
   };
+  const { user, error, isLoading } = useUser();
+
+  console.log({
+    user,
+    error,
+    isLoading,
+  });
   const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
     function handleWindowResize() {
@@ -47,6 +55,16 @@ const Contact = () => {
       // });
     }
   }, []);
+  useEffect(() => {
+    if (user) {
+      Hotjar.identify(user?.sid, {
+        userId: user?.sub,
+        username: user?.nickname,
+        email: user?.email,
+        picture: user?.picture,
+      });
+    }
+  }, [isLoading, user]);
 
   return (
     <div className={nunito.className}>
@@ -56,6 +74,7 @@ const Contact = () => {
           margin: 0;
         }
       `}</style>
+
       <div>
         <div
           style={{
@@ -116,7 +135,7 @@ const Contact = () => {
             <h3 style={{ textAlign: "center" }}>
               Use AI and never do homework again!
             </h3>{" "}
-            <Link style={{ textDecoration: "none" }} href="/app">
+            <Link style={{ textDecoration: "none" }} href="/api/auth/signup">
               <Button
                 style={{
                   zIndex: 10,
@@ -355,7 +374,10 @@ const Contact = () => {
               Use our AI and never do homework again! <br /> It's free!
             </h3>{" "}
           </div>
-          <Link style={{ textDecoration: "none", width: "50%" }} href="/app">
+          <Link
+            style={{ textDecoration: "none", width: "50%" }}
+            href="/api/auth/signup"
+          >
             <Button
               style={{
                 backgroundColor: "#304FFD",

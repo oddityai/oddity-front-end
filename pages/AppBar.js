@@ -11,6 +11,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { Nunito } from "@next/font/google";
 import Link from "next/link";
 import HamburgerMenu from "./HamburgerMenu";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -22,6 +23,8 @@ export default function ButtonAppBar() {
       return { innerWidth, innerHeight };
     }
   };
+  const { user, error, isLoading } = useUser();
+
   const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
     function handleWindowResize() {
@@ -67,45 +70,46 @@ export default function ButtonAppBar() {
         width: "100%",
       }}
     >
-      <div
-        style={{
-          padding: 8,
-          justifyContent: "space-between",
-          display: "flex",
-          justifyItems: "center",
-          alignContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Link
+      {!isLoading && (
+        <div
           style={{
-            textDecoration: "none",
             padding: 8,
-            cursor: "pointer",
+            justifyContent: "space-between",
             display: "flex",
             justifyItems: "center",
+            alignContent: "center",
             alignItems: "center",
-            borderRadius: 4,
-            color: "#0057be",
           }}
-          href="/"
         >
-          <img
-            style={{ height: 30, marginRight: 8, textDecoration: "none" }}
-            src="/logo.png"
-          />
-          <div style={{ fontSize: 18, color: "#0057be" }}> OddityAI</div>
-        </Link>
-        <div>
-          <div
+          <Link
             style={{
-              padding: 16,
+              textDecoration: "none",
+              padding: 8,
+              cursor: "pointer",
               display: "flex",
               justifyItems: "center",
-              justifyContent: "space-between",
+              alignItems: "center",
+              borderRadius: 4,
+              color: "#0057be",
             }}
+            href="/"
           >
-            {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
+            <img
+              style={{ height: 30, marginRight: 8, textDecoration: "none" }}
+              src="/logo.png"
+            />
+            <div style={{ fontSize: 18, color: "#0057be" }}> OddityAI</div>
+          </Link>
+          <div>
+            <div
+              style={{
+                padding: 16,
+                display: "flex",
+                justifyItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
               <Link style={{ textDecoration: 'none', padding: 8,
               borderRadius: 4, color: 'black' }} href="/">
                 {" "}
@@ -122,39 +126,41 @@ export default function ButtonAppBar() {
                 </div>
               </Link>
             </div> */}
-            <div style={{ marginRight: 8, textDecoration: "none" }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  padding: 8,
-                  borderRadius: 4,
-                  // backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
+              <div style={{ marginRight: 8, textDecoration: "none" }}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    padding: 8,
+                    borderRadius: 4,
+                    // backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
 
-                  color: "#0057be",
-                }}
-                href="/"
-              >
-                {" "}
-                Home
-              </Link>
-            </div>
-            <div style={{ marginRight: 8, textDecoration: "none" }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  padding: 8,
-                  borderRadius: 4,
-                  // backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
+                    color: "#0057be",
+                  }}
+                  href="/"
+                >
+                  {" "}
+                  Home
+                </Link>
+              </div>
+              {user?.nickname && (
+                <div style={{ marginRight: 8, textDecoration: "none" }}>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      padding: 8,
+                      borderRadius: 4,
+                      // backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
 
-                  color: "#0057be",
-                }}
-                href="/app"
-              >
-                {" "}
-                App
-              </Link>
-            </div>
-            {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
+                      color: "#0057be",
+                    }}
+                    href="/app"
+                  >
+                    {" "}
+                    App
+                  </Link>
+                </div>
+              )}
+              {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
               <Link style={{ textDecoration: 'none', padding: 8,
               borderRadius: 4, color: 'black' }} href="/about">
                 {" "}
@@ -171,23 +177,77 @@ export default function ButtonAppBar() {
                 </div>
               </Link>
             </div> */}
-            <div style={{ marginRight: 8, textDecoration: "none" }}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  padding: 8,
-                  borderRadius: 4,
-                  // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+              <div style={{ marginRight: 8, textDecoration: "none" }}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    padding: 8,
+                    borderRadius: 4,
+                    // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                  color: "#0057be",
-                }}
-                href="/contact"
-              >
-                {" "}
-                Contact
-              </Link>
-            </div>
-            {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
+                    color: "#0057be",
+                  }}
+                  href="/contact"
+                >
+                  {" "}
+                  Contact
+                </Link>
+              </div>
+              {!user?.nickname && (
+                <>
+                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        padding: 8,
+                        borderRadius: 4,
+                        // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+
+                        color: "#0057be",
+                      }}
+                      href="/api/auth/signup"
+                    >
+                      {" "}
+                      Signup
+                    </Link>
+                  </div>
+                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        padding: 8,
+                        borderRadius: 4,
+                        // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+
+                        color: "#0057be",
+                      }}
+                      href="/api/auth/login"
+                    >
+                      {" "}
+                      Login
+                    </Link>
+                  </div>
+                </>
+              )}
+              {user?.nickname && (
+                <div style={{ marginRight: 8, textDecoration: "none" }}>
+                  <Link
+                    style={{
+                      textDecoration: "none",
+                      padding: 8,
+                      borderRadius: 4,
+                      // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+
+                      color: "#0057be",
+                    }}
+                    href="/api/auth/logout"
+                  >
+                    {" "}
+                    Logout
+                  </Link>
+                </div>
+              )}
+              {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
               <Link
                 style={{
                   textDecoration: "none",
@@ -201,7 +261,7 @@ export default function ButtonAppBar() {
                 Login
               </Link>
             </div> */}
-            {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
+              {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
               <Link
                 style={{
                   textDecoration: "none",
@@ -215,9 +275,10 @@ export default function ButtonAppBar() {
                 Signup
               </Link>
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

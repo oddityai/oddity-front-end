@@ -217,7 +217,7 @@ export default function Home() {
             </div>
           </Dialog>
           <h2 className={nunito.className} style={{ fontSize: 22 }}>
-            Use AI to get straight A's in class
+            fdsa get straight A's in class
           </h2>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose one of our AI bots below and get answers to your homework.
