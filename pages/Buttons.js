@@ -67,6 +67,33 @@ const Buttons = ({ children, handleClick }) => {
                 </span>
               </Button>
             </div>
+
+
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
+              <p style={{ fontSize: 12, color: "gray" }}>
+                This is a fun chatbot so you can talk directly to our AI
+                him/her-self.
+              </p>
+              <Button
+                onClick={() => handleClick("chat")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#b58024",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Chat with an AI
+                </span>
+              </Button>
+            </div>
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
@@ -94,31 +121,7 @@ const Buttons = ({ children, handleClick }) => {
                 </span>
               </Button>
             </div>
-            <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
-            >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI (beta)</p>
-              <p style={{ fontSize: 12, color: "gray" }}>
-                This AI will try its best to answer math questions. Sometimes a
-                calculator is better.
-              </p>
-              <Button
-                onClick={() => handleClick("math")}
-                style={{
-                  zIndex: 10,
-                  backgroundColor: "#a334e3",
-                  padding: 14,
-                  marginBottom: 16,
-                  color: "white",
-                  width: "100%",
-                }}
-              >
-                {children || <PercentIcon style={{ color: "white" }} />}{" "}
-                <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Math Answers
-                </span>
-              </Button>
-            </div>
+
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
@@ -147,25 +150,25 @@ const Buttons = ({ children, handleClick }) => {
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI (beta)</p>
               <p style={{ fontSize: 12, color: "gray" }}>
-                This is a fun chatbot so you can talk directly to our AI
-                him/her-self.
+                This AI will try its best to answer math questions. Sometimes a
+                calculator is better.
               </p>
               <Button
-                onClick={() => handleClick("chat")}
+                onClick={() => handleClick("math")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: "#b58024",
+                  backgroundColor: "#a334e3",
                   padding: 14,
                   marginBottom: 16,
                   color: "white",
                   width: "100%",
                 }}
               >
-                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
+                {children || <PercentIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Chat with an AI
+                  Math Answers
                 </span>
               </Button>
             </div>

@@ -20,11 +20,6 @@ const Contact = () => {
   };
   const { user, error, isLoading } = useUser();
 
-  console.log({
-    user,
-    error,
-    isLoading,
-  });
   const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
     function handleWindowResize() {
@@ -37,12 +32,10 @@ const Contact = () => {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-  console.log({ windowSize });
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
       Hotjar.init(3307089, 6);
-      console.log("hotjar running");
 
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       window.sessionStorage.setItem("hotjar", "true");
@@ -57,7 +50,6 @@ const Contact = () => {
   }, []);
   useEffect(() => {
     if (user?.nickname) {
-      console.log("identifying", { user });
       Hotjar.identify(user?.sid, {
         userId: user?.sub,
         username: user?.nickname,
@@ -186,7 +178,7 @@ const Contact = () => {
             <br />
             <br />
           </div>
-          <Link href="/app">
+          <Link href="/App">
             <div
               style={{
                 display: "flex",

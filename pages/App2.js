@@ -55,7 +55,6 @@ export default function Home() {
       event.preventDefault();
     }
     setIsLoading(true);
-    console.log({ thing: TYPES[subject], input: input });
     try {
       const response = await fetch("/api/generate", {
         method: "POST",

@@ -6,12 +6,12 @@ export default handleAuth({
   }),
   async login(req, res) {
     await handleLogin(req, res, {
-      returnTo: "/app",
+      returnTo: "/App",
     });
   },
   async signup(req, res) {
     await handleLogin(req, res, {
-      returnTo: "/app",
+      returnTo: "/App",
       authorizationParams: { screen_hint: "signup" },
     });
   },

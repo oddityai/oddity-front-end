@@ -153,7 +153,7 @@ export default function ButtonAppBar() {
 
                       color: "#0057be",
                     }}
-                    href="/app"
+                    href="/App"
                   >
                     {" "}
                     App
@@ -195,6 +195,22 @@ export default function ButtonAppBar() {
               </div>
               {!user?.nickname && (
                 <>
+                                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                    <Link
+                      style={{
+                        textDecoration: "none",
+                        padding: 8,
+                        borderRadius: 4,
+                        // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
+
+                        color: "#0057be",
+                      }}
+                      href="/api/auth/login"
+                    >
+                      {" "}
+                      Login
+                    </Link>
+                  </div>
                   <div style={{ marginRight: 8, textDecoration: "none" }}>
                     <Link
                       style={{
@@ -211,22 +227,7 @@ export default function ButtonAppBar() {
                       Signup
                     </Link>
                   </div>
-                  <div style={{ marginRight: 8, textDecoration: "none" }}>
-                    <Link
-                      style={{
-                        textDecoration: "none",
-                        padding: 8,
-                        borderRadius: 4,
-                        // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                        color: "#0057be",
-                      }}
-                      href="/api/auth/login"
-                    >
-                      {" "}
-                      Login
-                    </Link>
-                  </div>
                 </>
               )}
               {user?.nickname && (

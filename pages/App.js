@@ -21,6 +21,9 @@ import Dialog from "@mui/material/Dialog";
 import { Nunito } from "@next/font/google";
 import Hotjar from "@hotjar/browser";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import { db } from '../firebase';
+
+import Tabs from "./Tabs"
 
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -32,7 +35,7 @@ const TYPES = {
   history: "",
   english: "",
   science: "",
-  chat: "",
+  chat: "Reply to this as if you are a friendly ai friend.",
 };
 
 export default function Home() {
@@ -42,8 +45,50 @@ export default function Home() {
   const [isLoadingScreen, setIsLoadingScreen] = useState(false);
   const [error, setError] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [profileData, setProfileData] = useState({});
   const [subject, setSubject] = useState("math");
   const { user, isLoading } = useUser();
+
+  console.log({profileData})
+
+  useEffect(() => {
+      if (user?.nickname && !isLoading) {
+        db.collection('profiles')
+        .where('username', '==', user?.nickname)
+        .onSnapshot((snapshot) => {
+          const userData = snapshot.docs.map((doc) => {
+            return { ...doc.data(), ...{ id: doc.id } };
+          })[0];
+          if (userData) {
+            setProfileData(userData);
+          } else {
+            if ((sessionStorage.getItem('profileStatus1') === user?.sid )) {
+              return;
+            }
+            const newUser = {
+              username: user?.nickname,
+              email: user?.email,
+              id: user?.sub.split('|')[1],
+              name: user?.name,
+              chatHistory: [],
+            };
+            db.collection('profiles').add(newUser);
+            setProfileData(newUser);
+            sessionStorage.setItem('profileStatus1', user?.sid)
+            fetch("https://hooks.zapier.com/hooks/catch/14323156/bjvsllr/", {
+              method: "POST",
+              body: JSON.stringify({
+                name: user?.given_name,
+                to: user?.email,
+
+                email: user?.name
+              })
+            })
+          }
+        });
+      }
+  }, [user]);
 
   const handleClick = (subject) => {
     setIsModalOpen(true);
@@ -57,7 +102,6 @@ export default function Home() {
       event.preventDefault();
     }
     setIsLoadingScreen(true);
-    console.log({ thing: TYPES[subject], input: input });
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -98,6 +142,7 @@ export default function Home() {
       const res = {
         result: data.result,
         input: input,
+        type: subject
         // explanation: JSON.parse(data2.result).explanation,
       };
       const answersCopy = answers.slice();
@@ -107,6 +152,14 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoadingScreen(false);
+      console.log({profileData})
+      const userCopy = profileData.chatHistory;
+      userCopy.unshift(res)
+      db.collection('profiles')
+      .doc(profileData?.id)
+      .update({
+        chatHistory: userCopy
+      });
       Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
     } catch (error) {
@@ -157,11 +210,8 @@ export default function Home() {
   // }, [result]);
 
   useEffect(() => {
-    console.log(Hotjar.isReady());
     if (window.location.href.includes("oddityai")) {
       Hotjar.init(3307089, 6);
-      console.log("hotjar running");
-      console.log(Hotjar.isReady());
 
       ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       window.sessionStorage.setItem("hotjar", "true");
@@ -251,80 +301,19 @@ export default function Home() {
               />
             </div>
           </Dialog>
-          <h2 className={nunito.className} style={{ fontSize: 22 }}>
-            Use AI to get straight A's in class
-          </h2>
-          <h3 className={nunito.className} style={{ fontSize: 18 }}>
-            Choose one of our AI bots below and get answers to your homework.
-            Each AI is specially designed for each subject.
-          </h3>
 
-          <Buttons handleClick={handleClick} />
 
-          {/* <button
-            onClick={shareOnTwitter}
-            style={{
-              fontWeight: 500,
-              color: "white",
-              borderRadius: 42,
-              border: "none",
-              height: 42,
-              backgroundColor: "#0a99f2",
-              width: 206,
-              fontFamily: "'ColfaxAI', sans-serif",
-            }}
-            id="submit-button"
-          >
-            Share us on twitter!
-          </button> */}
+                <Tabs profileData={profileData} answers={answers} handleClick={handleClick} />
+
         </div>
-        {/* {result && <div id="exportthis"></div>}
-      <main className={styles.main}>
-        <img src="/dog.png" className={styles.icon} />
-        <h3>Super fast AI Resume Builder</h3>
-        <form onSubmit={onSubmit}>
-          <textarea
-            type="text"
-            name="animal"
-            placeholder="Enter an animal"
-            value={animalInput}
-            onChange={(e) => setAnimalInput(e.target.value)}
-          />
 
-          <input type="submit" value="Generate names" />
-        </form>
-      </main> */}
       </div>
       <div
         style={{
           textAlign: "center",
         }}
       >
-        {/* <a
-          className="twitter-button"
-          style={{
-            color: "#0a99f2",
-            cursor: "pointer",
-            fontWeight: 500,
-            fontSize: 16,
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onClick={() => {
-            ReactGA.event({
-              category: "User clicked on Twitter Page",
-              errorMessage: "none",
-            });
-            window.open("https://twitter.com/Oddity_AI");
-          }}
-        >
-          <i className="fab fa-twitter"></i> Follow us on Twitter{" "}
-          <TwitterIcon style={{ marginLeft: 8 }} />
-        </a> */}
-        {/* <br />
-        <br /> */}
+
 
         <br />
         <br />

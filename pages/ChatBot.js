@@ -26,7 +26,7 @@ const ChatBot = ({
     history:
       "I am specially designed to help you with your history homework. Ask me about anything that ever happened!",
     english:
-      "I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book!",
+      "I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!",
     chat: "I'm a conversational AI. What do you want to talk about?",
     science:
       "I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! ",
@@ -101,7 +101,6 @@ const ChatBot = ({
           {Boolean(answers?.length) && (
             <div>
               {answers?.map((answer, i) => {
-                console.log({ answer });
                 return (
                   <div
                     id={i}
