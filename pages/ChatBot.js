@@ -353,7 +353,6 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )}
-            <UploadButton isLoading={isLoading} handleChange={handleChange} />
             <button
               style={{
                 fontWeight: 500,
