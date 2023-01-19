@@ -307,7 +307,6 @@ const ChatBot = ({
               position: "relative",
             }}
           >
-            {console.log({ isLoading })}
             {Boolean(isLoading) && <ChatBubble />}
             <TextField
               value={animalInput}
@@ -323,7 +322,6 @@ const ChatBot = ({
                   ? "Ask another question. It's free!"
                   : "Ask your question"
               }
-              size="100"
               style={{
                 width: "100%",
                 fontSize: 14,
@@ -334,6 +332,7 @@ const ChatBot = ({
                 marginBottom: 10,
               }}
             />
+            <br />
             {listening ? (
               <IconButton
                 onClick={stopListening}

@@ -106,7 +106,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
                 src="/check-mark.png"
                 style={{ width: "80%", marginLeft: "10%" }}
               />
-              <br />
+
               <p style={{ fontSize: 18, textAlign: "center", fontWeight: 600 }}>
                 Do not try to upload an entire page.
               </p>
