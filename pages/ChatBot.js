@@ -11,6 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
 const startListening = () => SpeechRecognition.startListening({ continuous: true });
 const nunito = Nunito({ subsets: ["latin"] });
+const appId = 'c6a6bc4f-0a1c-46ba-ad66-3322fbcaf51d';
+const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
+SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
 const ChatBot = ({
   error,
