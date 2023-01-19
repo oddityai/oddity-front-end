@@ -35,10 +35,13 @@ const ChatBot = ({
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
-  const startListening = () => {
+  const startListening = (e) => {
+    e.preventDefault()
+
     SpeechRecognition.startListening()
   };
-  const stopListening = () => {
+  const stopListening = (e) => {
+    e.preventDefault()
     SpeechRecognition.stopListening()
   };
 
@@ -276,8 +279,8 @@ const ChatBot = ({
             </div>
           )}
         </div>
-        <form onSubmit={()=> {
-          onSubmit()
+        <form onSubmit={(e)=> {
+          onSubmit(e)
           resetTranscript()
         }}>
           <div
