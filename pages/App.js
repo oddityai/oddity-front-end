@@ -21,9 +21,10 @@ import Dialog from "@mui/material/Dialog";
 import { Nunito } from "@next/font/google";
 import Hotjar from "@hotjar/browser";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { db } from '../firebase';
+import { db } from "../firebase";
+import Tesseract from "tesseract.js";
 
-import Tabs from "./Tabs"
+import Tabs from "./Tabs";
 
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -36,7 +37,8 @@ const TYPES = {
   english: "Answer this English question for me: ",
   science: "Answer this science question for me: ",
   chat: "Reply to this as if you are a friendly ai friend: ",
-  feedback: "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
+  feedback:
+    "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
 };
 
 export default function Home() {
@@ -51,12 +53,12 @@ export default function Home() {
   const [subject, setSubject] = useState("math");
   const { user, isLoading } = useUser();
 
-  console.log({profileData})
+  console.log({ profileData });
 
   useEffect(() => {
-      if (user?.nickname && !isLoading) {
-        db.collection('profiles')
-        .where('username', '==', user?.nickname)
+    if (user?.nickname && !isLoading) {
+      db.collection("profiles")
+        .where("username", "==", user?.nickname)
         .onSnapshot((snapshot) => {
           const userData = snapshot.docs.map((doc) => {
             return { ...doc.data(), ...{ id: doc.id } };
@@ -64,23 +66,22 @@ export default function Home() {
           if (userData) {
             setProfileData(userData);
           } else {
-            if ((sessionStorage.getItem('profileStatus1') === user?.sid )) {
+            if (sessionStorage.getItem("profileStatus1") === user?.sid) {
               return;
             }
             const newUser = {
               username: user?.nickname,
               email: user?.email,
-              id: user?.sub.split('|')[1],
+              id: user?.sub.split("|")[1],
               name: user?.name,
               chatHistory: [],
             };
-            db.collection('profiles').add(newUser);
+            db.collection("profiles").add(newUser);
             setProfileData(newUser);
-            sessionStorage.setItem('profileStatus1', user?.sid)
-
+            sessionStorage.setItem("profileStatus1", user?.sid);
           }
         });
-      }
+    }
   }, [user]);
 
   const handleClick = (subject) => {
@@ -135,7 +136,8 @@ export default function Home() {
       const res = {
         result: data.result,
         input: input,
-        type: subject
+        url: url,
+        type: subject,
         // explanation: JSON.parse(data2.result).explanation,
       };
       const answersCopy = answers.slice();
@@ -145,13 +147,11 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoadingScreen(false);
-      console.log({profileData})
+      console.log({ profileData });
       const userCopy = profileData.chatHistory;
-      userCopy.unshift(res)
-      db.collection('profiles')
-      .doc(profileData?.id)
-      .update({
-        chatHistory: userCopy
+      userCopy.unshift(res);
+      db.collection("profiles").doc(profileData?.id).update({
+        chatHistory: userCopy,
       });
       Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
@@ -184,6 +184,40 @@ export default function Home() {
     window.open(
       `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=Oddity_AI`
     );
+  };
+
+  const handleChange = async (url, type) => {
+    console.log({ url, type });
+    setIsModalOpen(true);
+    setIsLoadingScreen(true);
+    const { createWorker } = Tesseract;
+
+    const worker = await createWorker();
+    await worker.loadLanguage("eng");
+    await worker.initialize("eng");
+
+    await worker.setParameters({
+      // tessedit_ocr_engine_mode: 0,
+      // tessedit_pageseg_mode: "1",
+      // tessedit_create_txt: "1",
+      // tosp_ignore_big_gaps: "1",
+      // tessedit_pageseg_mode: "6",
+      // preserve_interword_spaces: "1",
+      // tessedit_char_whitelist:
+      //   "abcdefghijklmnopqrstuvwxyzABCEDEFGHIJKLMNOPQRSTUVWXYZ ",
+    });
+
+    const options = {
+      // tessedit_ocr_engine_mode: 0,
+      // tessedit_pageseg_mode: "1",
+      // preserve_interword_spaces: "1",
+    };
+
+    const {
+      data: { text },
+    } = await worker.recognize(url, "eng", options);
+    console.log({ text });
+    onSubmit(null, text, url, type);
   };
 
   // useEffect(() => {
@@ -252,6 +286,7 @@ export default function Home() {
               setIsModalOpen(false);
               setAnswers([]);
             }}
+            style={{ width: "100%", height: "100%" }}
             open={isModalOpen}
           >
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -286,6 +321,7 @@ export default function Home() {
               <ChatBot
                 setAnimalInput={setAnimalInput}
                 onSubmit={onSubmit}
+                handleChange={handleChange}
                 isLoading={isLoadingScreen}
                 animalInput={animalInput}
                 subject={subject}
@@ -295,19 +331,18 @@ export default function Home() {
             </div>
           </Dialog>
 
-
-                <Tabs profileData={profileData} answers={answers} handleClick={handleClick} />
-
+          <Tabs
+            profileData={profileData}
+            answers={answers}
+            handleClick={handleClick}
+          />
         </div>
-
       </div>
       <div
         style={{
           textAlign: "center",
         }}
       >
-
-
         <br />
         <br />
       </div>

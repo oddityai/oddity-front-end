@@ -3,15 +3,19 @@ import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
 import { Nunito } from "@next/font/google";
-import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import MicNoneIcon from '@mui/icons-material/MicNone';
-import IconButton from '@mui/material/IconButton';
-
-import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
-const startListening = () => SpeechRecognition.startListening({ continuous: true });
+import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+import MicNoneIcon from "@mui/icons-material/MicNone";
+import IconButton from "@mui/material/IconButton";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import UploadButton from "./UploadButton";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+const startListening = () =>
+  SpeechRecognition.startListening({ continuous: true });
 const nunito = Nunito({ subsets: ["latin"] });
-const appId = 'c6a6bc4f-0a1c-46ba-ad66-3322fbcaf51d';
+const appId = "c6a6bc4f-0a1c-46ba-ad66-3322fbcaf51d";
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
@@ -23,7 +27,12 @@ const ChatBot = ({
   answers,
   subject,
   isLoading,
+  handleChange,
 }) => {
+  const { user } = useUser();
+
+  console.log({ user });
+
   useEffect(() => {
     var objDiv = document.getElementById("test1");
     if (objDiv) {
@@ -35,34 +44,30 @@ const ChatBot = ({
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
   const startListening = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    SpeechRecognition.startListening()
+    SpeechRecognition.startListening();
   };
   const stopListening = (e) => {
-    e.preventDefault()
-    SpeechRecognition.stopListening()
+    e.preventDefault();
+    SpeechRecognition.stopListening();
   };
 
   useEffect(() => {
-    setAnimalInput(transcript)
-  } ,[transcript])
+    setAnimalInput(transcript);
+  }, [transcript]);
 
   const TYPES = {
-    math: "I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.",
-    history:
-      "I am specially designed to help you with your history homework. Ask me about anything that ever happened!",
-    english:
-      "I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!",
-    chat: "I'm a conversational AI. What do you want to talk about?",
-    science:
-      "I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! ",
-    feedback:
-      "We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?",
+    math: `Hi ${user.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
+    history: `Hi ${user.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
+    english: `Hi ${user.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
+    chat: `I'm a conversational AI. You can type below or use the voice-to-text feature. What do you want to talk about?`,
+    science: `Hi ${user.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
+    feedback: `Hi ${user.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
   };
   return (
     <div
@@ -82,7 +87,7 @@ const ChatBot = ({
           justifyContent: "space-between",
         }}
       >
-        <div id="test1" style={{ height: "45vh", overflowY: "scroll" }}>
+        <div id="test1" style={{ height: "40vh", overflowY: "scroll" }}>
           <div
             style={{
               display: "flex",
@@ -162,17 +167,21 @@ const ChatBot = ({
                             width: "auto",
                           }}
                         >
-                          <p
-                            style={{
-                              color: "black",
-                              fontWeight: "none",
-                              padding: 5,
-                              margin: 8,
-                              fontSize: 15,
-                            }}
-                          >
-                            {answer.input}
-                          </p>
+                          {answer.url ? (
+                            <img style={{ width: "80%" }} src={answer.url} />
+                          ) : (
+                            <p
+                              style={{
+                                color: "black",
+                                fontWeight: "none",
+                                padding: 5,
+                                margin: 8,
+                                fontSize: 15,
+                              }}
+                            >
+                              {answer.input}
+                            </p>
+                          )}
                         </div>
                         <div
                           style={{
@@ -284,10 +293,12 @@ const ChatBot = ({
             </div>
           )}
         </div>
-        <form onSubmit={(e)=> {
-          onSubmit(e)
-          resetTranscript()
-        }}>
+        <form
+          onSubmit={(e) => {
+            onSubmit(e);
+            resetTranscript();
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -300,6 +311,12 @@ const ChatBot = ({
             {Boolean(isLoading) && <ChatBubble />}
             <TextField
               value={animalInput}
+              multiline
+              onKeyDown={(e) => {
+                if (event.which === 13) {
+                  onSubmit(e);
+                }
+              }}
               onChange={(e) => setAnimalInput(e.target.value)}
               placeholder={
                 answers?.length
@@ -317,17 +334,29 @@ const ChatBot = ({
                 marginBottom: 10,
               }}
             />
-            {
-              listening ?
-              <IconButton onClick={stopListening} color="primary" aria-label="upload picture" component="label">
-  <KeyboardVoiceIcon style={{color: 'blue'}} />
-</IconButton>
-              :
-              <IconButton onClick={startListening} color="gray" aria-label="upload picture" component="label">
-                  <MicNoneIcon />
-
-</IconButton>
-            }
+            {listening ? (
+              <IconButton
+                onClick={stopListening}
+                color="primary"
+                style={{ height: 50, marginTop: 25 }}
+                aria-label="upload picture"
+                component="label"
+              >
+                <KeyboardVoiceIcon style={{ color: "blue" }} />
+              </IconButton>
+            ) : (
+              <IconButton
+                onClick={startListening}
+                color="gray"
+                style={{ height: 50, marginTop: 25 }}
+                aria-label="upload picture"
+                component="label"
+              >
+                <MicNoneIcon />
+              </IconButton>
+            )}
+            <br />
+            <UploadButton isLoading={isLoading} handleChange={handleChange} />
             <br />
             <button
               style={{
@@ -339,7 +368,8 @@ const ChatBot = ({
                 marginRight: 10,
                 marginTop: 30,
                 height: 40,
-                backgroundColor: (!animalInput?.length || isLoading) ? "silver" : "#0a99f2",
+                backgroundColor:
+                  !animalInput?.length || isLoading ? "silver" : "#0a99f2",
                 width: 120,
                 fontFamily: "'ColfaxAI', sans-serif",
               }}
