@@ -76,15 +76,7 @@ export default function Home() {
             db.collection('profiles').add(newUser);
             setProfileData(newUser);
             sessionStorage.setItem('profileStatus1', user?.sid)
-            fetch("https://hooks.zapier.com/hooks/catch/14323156/bjvsllr/", {
-              method: "POST",
-              body: JSON.stringify({
-                name: user?.given_name,
-                to: user?.email,
 
-                email: user?.name
-              })
-            })
           }
         });
       }
@@ -301,7 +293,13 @@ export default function Home() {
               />
             </div>
           </Dialog>
-
+          <h2 className={nunito.className} style={{ fontSize: 22 }}>
+            Use AI to get straight A's in class
+          </h2>
+          <h3 className={nunito.className} style={{ fontSize: 18 }}>
+            Choose one of our AI bots below and get answers to your homework.
+            Each AI is specially designed for each subject.
+          </h3>
 
                 <Tabs profileData={profileData} answers={answers} handleClick={handleClick} />
 
