@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
+import ImageIcon from "@mui/icons-material/Image";
+
 import { Nunito } from "@next/font/google";
 import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import SpeechRecognition, {
@@ -30,6 +32,8 @@ const ChatBot = ({
   handleChange,
 }) => {
   const { user } = useUser();
+
+  const [modalOpen, setIsModalOpen] = useState(false);
 
   console.log({ user });
 
@@ -353,6 +357,21 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )}
+            <IconButton
+              onClick={() => setIsModalOpen(true)}
+              color="gray"
+              style={{ height: 50, marginTop: 25 }}
+              aria-label="upload picture"
+              component="label"
+            >
+              <ImageIcon />
+            </IconButton>
+            <UploadButton
+              modalOpen={modalOpen}
+              setIsModalOpen={setIsModalOpen}
+              isLoading={isLoading}
+              handleChange={handleChange}
+            />
             <button
               style={{
                 fontWeight: 500,

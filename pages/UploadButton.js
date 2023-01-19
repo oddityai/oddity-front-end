@@ -22,12 +22,18 @@ const nunito = Nunito({ subsets: ["latin"] });
 
 export const storage = firebaseApp?.storage();
 
-const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
+const ImageUploadModal = ({
+  handleChange,
+  children,
+  onSubmit,
+  isLoading,
+  setIsModalOpen,
+  modalOpen,
+}) => {
   const inputRef = useRef();
   const inputRef2 = useRef();
   const [file, setFile] = useState({});
   const [bio, setBio] = useState("");
-  const [modalOpen, setIsModalOpen] = useState(false);
 
   function uploadFile(e, type) {
     setIsModalOpen(false);
@@ -135,15 +141,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
           </DialogContentText>
         </DialogContent>
       </Dialog>
-      <IconButton
-        onClick={() => setIsModalOpen(true)}
-        color="gray"
-        style={{ height: 50, marginTop: 25 }}
-        aria-label="upload picture"
-        component="label"
-      >
-        <ImageIcon />
-      </IconButton>
+
       <>
         <form onSubmit={generateFirebaseUrl}>
           <input
