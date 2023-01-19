@@ -332,7 +332,6 @@ const ChatBot = ({
                 marginBottom: 10,
               }}
             />
-            <br />
             {listening ? (
               <IconButton
                 onClick={stopListening}
@@ -354,9 +353,7 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )}
-            <br />
             <UploadButton isLoading={isLoading} handleChange={handleChange} />
-            <br />
             <button
               style={{
                 fontWeight: 500,
