@@ -53,8 +53,6 @@ export default function Home() {
   const [subject, setSubject] = useState("math");
   const { user, isLoading } = useUser();
 
-  console.log({ profileData });
-
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection("profiles")
@@ -147,7 +145,6 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoadingScreen(false);
-      console.log({ profileData });
       const userCopy = profileData.chatHistory;
       userCopy.unshift(res);
       db.collection("profiles").doc(profileData?.id).update({
@@ -187,7 +184,6 @@ export default function Home() {
   };
 
   const handleChange = async (url, type) => {
-    console.log({ url, type });
     setIsModalOpen(true);
     setIsLoadingScreen(true);
     const { createWorker } = Tesseract;
@@ -216,7 +212,6 @@ export default function Home() {
     const {
       data: { text },
     } = await worker.recognize(url, "eng", options);
-    console.log({ text });
     onSubmit(null, text, url, type);
   };
 

@@ -35,8 +35,6 @@ const ChatBot = ({
 
   const [modalOpen, setIsModalOpen] = useState(false);
 
-  console.log({ user });
-
   useEffect(() => {
     var objDiv = document.getElementById("test1");
     if (objDiv) {
@@ -366,12 +364,7 @@ const ChatBot = ({
             >
               <ImageIcon />
             </IconButton>
-            <UploadButton
-              modalOpen={modalOpen}
-              setIsModalOpen={setIsModalOpen}
-              isLoading={isLoading}
-              handleChange={handleChange}
-            />
+
             <button
               style={{
                 fontWeight: 500,
@@ -396,6 +389,12 @@ const ChatBot = ({
           </div>
           <p style={{ textAlign: "center", color: "red" }}>{error}</p>
         </form>
+        <UploadButton
+          modalOpen={modalOpen}
+          setIsModalOpen={setIsModalOpen}
+          isLoading={isLoading}
+          handleChange={handleChange}
+        />
       </div>
     </div>
   );
