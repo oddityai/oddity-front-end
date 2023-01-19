@@ -1,8 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
 import { Nunito } from "@next/font/google";
+import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import MicNoneIcon from '@mui/icons-material/MicNone';
+import IconButton from '@mui/material/IconButton';
+
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+const startListening = () => SpeechRecognition.startListening({ continuous: true });
 const nunito = Nunito({ subsets: ["latin"] });
 
 const ChatBot = ({
@@ -20,6 +27,24 @@ const ChatBot = ({
       objDiv.scrollTop = objDiv.scrollHeight;
     }
   }, [answers]);
+
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition();
+
+  const startListening = () => {
+    SpeechRecognition.startListening()
+  };
+  const stopListening = () => {
+    SpeechRecognition.stopListening()
+  };
+
+  useEffect(() => {
+    setAnimalInput(transcript)
+  } ,[transcript])
 
   const TYPES = {
     math: "I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.",
@@ -251,7 +276,10 @@ const ChatBot = ({
             </div>
           )}
         </div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={()=> {
+          onSubmit()
+          resetTranscript()
+        }}>
           <div
             style={{
               display: "flex",
@@ -280,6 +308,17 @@ const ChatBot = ({
                 marginBottom: 10,
               }}
             />
+            {
+              listening ?
+              <IconButton onClick={stopListening} color="primary" aria-label="upload picture" component="label">
+  <KeyboardVoiceIcon style={{color: 'blue'}} />
+</IconButton>
+              :
+              <IconButton onClick={startListening} color="gray" aria-label="upload picture" component="label">
+                  <MicNoneIcon />
+
+</IconButton>
+            }
             <br />
             <button
               style={{
