@@ -142,24 +142,22 @@ const ImageUploadModal = ({
         </DialogContent>
       </Dialog>
 
-      <>
-        <form onSubmit={generateFirebaseUrl}>
-          <input
-            style={{ display: "hidden", height: 0, width: 0 }}
-            ref={inputRef}
-            type="file"
-            onChange={(e) => uploadFile(e, "reply")}
-            accept="image/*"
-          />
-          <input
-            style={{ display: "hidden", height: 0, width: 0 }}
-            ref={inputRef2}
-            type="file"
-            onChange={(e) => uploadFile(e, "first")}
-            accept="image/*"
-          />
-        </form>
-      </>
+      <form onSubmit={generateFirebaseUrl}>
+        <input
+          style={{ display: "hidden", height: 0, width: 0 }}
+          ref={inputRef}
+          type="file"
+          onChange={(e) => uploadFile(e, "reply")}
+          accept="image/*"
+        />
+        <input
+          style={{ display: "hidden", height: 0, width: 0 }}
+          ref={inputRef2}
+          type="file"
+          onChange={(e) => uploadFile(e, "first")}
+          accept="image/*"
+        />
+      </form>
     </>
   );
 };

@@ -387,7 +387,7 @@ const ChatBot = ({
               Send
             </button>
           </div>
-          <p style={{ textAlign: "center", color: "red" }}>{error}</p>
+          {/* <p style={{ textAlign: "center", color: "red" }}>{error}</p> */}
         </form>
         <UploadButton
           modalOpen={modalOpen}

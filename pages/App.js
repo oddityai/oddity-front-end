@@ -158,16 +158,18 @@ export default function Home() {
         return;
       }
       // Consider implementing your own error handling logic here
-      setIsLoadingScreen(false);
-      setResult("");
-      setError(
-        "The response is too large to send. Can you try asking a slightly more specific question?" +
-          " " +
-          error.message
-      );
-      Hotjar.event("FAILURE - User failed to submit request.");
+      if (tries > 1) {
+        setIsLoadingScreen(false);
+        setResult("");
+        setError(
+          "The response is too large to send. Can you try asking a slightly more specific question?" +
+            " " +
+            error.message
+        );
+        Hotjar.event("FAILURE - User failed to submit request.");
+        console.error(error);
+      }
 
-      console.error(error);
       // alert(error.message);
     }
   }
