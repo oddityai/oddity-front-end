@@ -58,6 +58,8 @@ const ChatBot = ({
     chat: "I'm a conversational AI. What do you want to talk about?",
     science:
       "I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! ",
+    feedback:
+      "We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?",
   };
   return (
     <div
@@ -291,6 +293,7 @@ const ChatBot = ({
               position: "relative",
             }}
           >
+            {console.log({ isLoading })}
             {Boolean(isLoading) && <ChatBubble />}
             <TextField
               value={animalInput}
@@ -333,13 +336,13 @@ const ChatBot = ({
                 marginRight: 10,
                 marginTop: 30,
                 height: 40,
-                backgroundColor: animalInput?.length ? "#0a99f2" : "silver",
+                backgroundColor: (!animalInput?.length || isLoading) ? "silver" : "#0a99f2",
                 width: 120,
                 fontFamily: "'ColfaxAI', sans-serif",
               }}
               id="submit-button"
               type="submit"
-              disabled={!animalInput?.length}
+              disabled={!animalInput?.length || isLoading}
             >
               Send
             </button>

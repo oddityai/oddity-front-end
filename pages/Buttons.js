@@ -21,7 +21,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ScienceIcon from "@mui/icons-material/Science";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import { Nunito } from "@next/font/google";
-
+import EmailIcon from '@mui/icons-material/Email';
 const nunito = Nunito({ subsets: ["latin"] });
 const Buttons = ({ children, handleClick }) => {
   return (
@@ -169,6 +169,30 @@ const Buttons = ({ children, handleClick }) => {
                 {children || <PercentIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   Math Answers
+                </span>
+              </Button>
+            </div>
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Give Feedback</p>
+              <p style={{ fontSize: 12, color: "gray" }}>
+                Give this AI feedback so we can improve the app. Want a new feature? Find a bug? Tell us about it!
+              </p>
+              <Button
+                onClick={() => handleClick("feedback")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#ff4a47",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <EmailIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Talk the to OddityAI Team!
                 </span>
               </Button>
             </div>

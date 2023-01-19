@@ -32,10 +32,11 @@ const test = [];
 
 const TYPES = {
   math: "Answer this math question for me. You have to be exactly precise. :",
-  history: "",
-  english: "",
-  science: "",
-  chat: "Reply to this as if you are a friendly ai friend.",
+  history: "Answer this history question for me: ",
+  english: "Answer this English question for me: ",
+  science: "Answer this science question for me: ",
+  chat: "Reply to this as if you are a friendly ai friend: ",
+  feedback: "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
 };
 
 export default function Home() {
@@ -285,7 +286,7 @@ export default function Home() {
               <ChatBot
                 setAnimalInput={setAnimalInput}
                 onSubmit={onSubmit}
-                isLoadingScreen={isLoadingScreen}
+                isLoading={isLoadingScreen}
                 animalInput={animalInput}
                 subject={subject}
                 answers={answers}
