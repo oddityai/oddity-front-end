@@ -1,6 +1,6 @@
 [
   {
-    "origin": ["https://wwww.odddityai.com", "http://localhost:3000"],
+    "origin": ["https://wwww.oddityai.com", "http://localhost:3000"],
     "method": ["GET"],
     "maxAgeSeconds": 3600
   }
