@@ -64,12 +64,22 @@ const ChatBot = ({
   }, [transcript]);
 
   const TYPES = {
-    math: `Hi ${user?.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
-    history: `Hi ${user?.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
-    english: `Hi ${user?.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
+    math: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
+    history: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
+    english: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
     chat: `I'm a conversational AI. You can type below or use the voice-to-text feature. What do you want to talk about?`,
-    science: `Hi ${user?.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
-    feedback: `Hi ${user?.given_name}! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
+    science: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
+    feedback: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
   };
   return (
     <div
