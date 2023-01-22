@@ -3,7 +3,10 @@ import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
 import ImageIcon from "@mui/icons-material/Image";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CachedIcon from "@mui/icons-material/Cached";
 
+import Alert from "@mui/material/Alert";
 import { Nunito } from "@next/font/google";
 import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import SpeechRecognition, {
@@ -34,6 +37,7 @@ const ChatBot = ({
   const { user } = useUser();
 
   const [modalOpen, setIsModalOpen] = useState(false);
+  const [showClipboardCopy, setShowClipboardCopy] = useState(false);
 
   useEffect(() => {
     var objDiv = document.getElementById("test1");
@@ -66,21 +70,60 @@ const ChatBot = ({
   const TYPES = {
     math: `Hi ${
       user?.given_name ? user?.given_name : ""
-    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
+    }! I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
     history: `Hi ${
       user?.given_name ? user?.given_name : ""
-    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
+    }! I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
     english: `Hi ${
       user?.given_name ? user?.given_name : ""
-    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
-    chat: `I'm a conversational AI. You can type below or use the voice-to-text feature. What do you want to talk about?`,
+    }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
+    chat: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    }! I'm a conversational AI. You can type below or use the voice-to-text feature. What do you want to talk about?`,
     science: `Hi ${
       user?.given_name ? user?.given_name : ""
-    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
+    }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
     feedback: `Hi ${
       user?.given_name ? user?.given_name : ""
-    } ! You can type below, upload a screenshot of the question or use the voice-to-text option to talk to me. We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
+    }! We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
+    reply: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    }! Type or paste a message in the chat and I will give you a way to reply to it.`,
   };
+
+  const fallbackCopyTextToClipboard = (text) => {
+    var textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand("copy");
+      var msg = successful ? "successful" : "unsuccessful";
+      console.log("Fallback: Copying text command was " + msg);
+    } catch (err) {
+      console.error("Fallback: Oops, unable to copy", err);
+    }
+
+    document.body.removeChild(textArea);
+  };
+
+  const copyToClipboard = (text) => {
+    if (!navigator.clipboard) {
+      fallbackCopyTextToClipboard(text);
+      return;
+    }
+    navigator.clipboard.writeText(text).then(
+      function () {
+        console.log("Async: Copying to clipboard was successful!");
+      },
+      function (err) {
+        console.error("Async: Could not copy text: ", err);
+      }
+    );
+  };
+
   return (
     <div
       style={{
@@ -276,6 +319,82 @@ const ChatBot = ({
                               </>
                             )}
                           </p>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "flex-end",
+                              margin: 16,
+                            }}
+                          >
+                            {showClipboardCopy && (
+                              <Alert
+                                className={nunito.className}
+                                severity="success"
+                              >
+                                Copied to clipboard!
+                              </Alert>
+                            )}
+                            <IconButton
+                              onClick={() => {
+                                copyToClipboard(answer.result);
+                                setShowClipboardCopy(true);
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <ContentCopyIcon
+                                  style={{ color: "white", height: 20 }}
+                                />
+                                <p
+                                  style={{
+                                    color: "white",
+                                    fontSize: 12,
+                                    marginTop: 4,
+                                  }}
+                                  className={nunito.className}
+                                >
+                                  Copy
+                                </p>
+                              </div>
+                            </IconButton>
+
+                            <IconButton
+                              onClick={() =>
+                                onSubmit(
+                                  null,
+                                  answer.input,
+                                  answer.url,
+                                  answer.type
+                                )
+                              }
+                            >
+                              <div
+                                style={{
+                                  display: "flex",
+                                  marginLeft: 16,
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <CachedIcon
+                                  style={{ color: "white", height: 20 }}
+                                />
+                                <p
+                                  style={{
+                                    color: "white",
+                                    fontSize: 12,
+                                    marginTop: 4,
+                                  }}
+                                  className={nunito.className}
+                                >
+                                  Redo
+                                </p>
+                              </div>{" "}
+                            </IconButton>
+                          </div>
                         </div>
                       </div>
                       {/* <div style={{ display: "flex", flexDirection: "column" }}>

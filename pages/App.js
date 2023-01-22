@@ -39,6 +39,8 @@ const TYPES = {
   chat: "Reply to this as if you are a friendly ai friend: ",
   feedback:
     "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
+
+  reply: "Generate a reply to the following message: ",
 };
 
 export default function Home() {
@@ -79,6 +81,26 @@ export default function Home() {
             sessionStorage.setItem("profileStatus1", user?.sid);
           }
         });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user?.nickname && !isLoading) {
+      db.collection("profiles").onSnapshot((snapshot) => {
+        const userData = snapshot.docs.map((doc) => {
+          return { ...doc.data(), ...{ id: doc.id } };
+        });
+        if (userData) {
+          const histories = userData?.map((ele) => {
+            return ele?.chatHistory?.map((chat) => {
+              if (chat.type === "english") {
+                console.log({ chat });
+                return chat;
+              }
+            });
+          });
+        }
+      });
     }
   }, [user]);
 

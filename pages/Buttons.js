@@ -21,7 +21,7 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ScienceIcon from "@mui/icons-material/Science";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import { Nunito } from "@next/font/google";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from "@mui/icons-material/Email";
 const nunito = Nunito({ subsets: ["latin"] });
 const Buttons = ({ children, handleClick }) => {
   return (
@@ -68,32 +68,6 @@ const Buttons = ({ children, handleClick }) => {
               </Button>
             </div>
 
-
-            <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
-            >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
-              <p style={{ fontSize: 12, color: "gray" }}>
-                This is a fun chatbot so you can talk directly to our AI
-                him/her-self.
-              </p>
-              <Button
-                onClick={() => handleClick("chat")}
-                style={{
-                  zIndex: 10,
-                  backgroundColor: "#b58024",
-                  padding: 14,
-                  marginBottom: 16,
-                  color: "white",
-                  width: "100%",
-                }}
-              >
-                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
-                <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Chat with an AI
-                </span>
-              </Button>
-            </div>
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
@@ -172,12 +146,66 @@ const Buttons = ({ children, handleClick }) => {
                 </span>
               </Button>
             </div>
+
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
+              <p style={{ fontSize: 12, color: "gray" }}>
+                This is a fun chatbot so you can talk directly to our AI
+                him/her-self.
+              </p>
+              <Button
+                onClick={() => handleClick("chat")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#b58024",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Chat with an AI
+                </span>
+              </Button>
+            </div>
+
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Message Replyer</p>
+              <p style={{ fontSize: 12, color: "gray" }}>
+                This AI will help you reply to social media posts, messages or
+                even text!
+              </p>
+              <Button
+                onClick={() => handleClick("reply")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#ff6f00",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Generate message replies
+                </span>
+              </Button>
+            </div>
+
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>Give Feedback</p>
               <p style={{ fontSize: 12, color: "gray" }}>
-                Give this AI feedback so we can improve the app. Want a new feature? Find a bug? Tell us about it!
+                Give this AI feedback so we can improve the app. Want a new
+                feature? Find a bug? Tell us about it!
               </p>
               <Button
                 onClick={() => handleClick("feedback")}
