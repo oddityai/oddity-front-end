@@ -492,7 +492,7 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )}
-            <IconButton
+            {/* <IconButton
               onClick={() => setIsModalOpen(true)}
               color="gray"
               style={{ height: 50, marginTop: 25 }}
@@ -500,7 +500,7 @@ const ChatBot = ({
               component="label"
             >
               <ImageIcon />
-            </IconButton>
+            </IconButton> */}
 
             <button
               style={{
