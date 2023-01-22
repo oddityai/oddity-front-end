@@ -40,6 +40,14 @@ const ChatBot = ({
   const [showClipboardCopy, setShowClipboardCopy] = useState(false);
 
   useEffect(() => {
+    if (showClipboardCopy) {
+      setTimeout(() => {
+        setShowClipboardCopy(false);
+      }, 2000);
+    }
+  }, [showClipboardCopy]);
+
+  useEffect(() => {
     var objDiv = document.getElementById("test1");
     if (objDiv) {
       objDiv.scrollTop = objDiv.scrollHeight;
