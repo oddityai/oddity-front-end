@@ -138,7 +138,7 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
           })}
         </div>
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={3}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
           You currently have <bold>(25)</bold> credits remaining.
         </h3>
