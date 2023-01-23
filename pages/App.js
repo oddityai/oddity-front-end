@@ -23,8 +23,10 @@ import Hotjar from "@hotjar/browser";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { db } from "../firebase";
 import Tesseract from "tesseract.js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import Tabs from "./Tabs";
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const nunito = Nunito({ subsets: ["latin"] });
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -32,7 +34,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 const test = [];
 
 const TYPES = {
-  math: "Answer this math question for me. You have to be exactly precise. :",
+  math: "Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :",
   history: "Answer this history question for me: ",
   english: "Answer this English question for me: ",
   science: "Answer this science question for me: ",
@@ -54,6 +56,20 @@ export default function Home() {
   const [profileData, setProfileData] = useState({});
   const [subject, setSubject] = useState("math");
   const { user, isLoading } = useUser();
+
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
@@ -91,14 +107,15 @@ export default function Home() {
           return { ...doc.data(), ...{ id: doc.id } };
         });
         if (userData) {
-          const histories = userData?.map((ele) => {
+          const histories = [];
+          userData?.map((ele) => {
             return ele?.chatHistory?.map((chat) => {
-              if (chat.type === "english") {
-                console.log({ chat });
-                return chat;
+              if (chat.type === "math") {
+                histories.push({ chat, ele });
               }
             });
           });
+          console.log({ histories });
         }
       });
     }
@@ -284,6 +301,40 @@ export default function Home() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar />
+      {/* <form action="/api/checkout_sessions?user_id=123" method="POST">
+        <section>
+          <button type="submit" role="link">
+            Checkout
+          </button>
+        </section>
+        <style jsx>
+          {`
+            section {
+              background: #ffffff;
+              display: flex;
+              flex-direction: column;
+              width: 400px;
+              height: 112px;
+              border-radius: 6px;
+              justify-content: space-between;
+            }
+            button {
+              height: 36px;
+              background: #556cd6;
+              border-radius: 4px;
+              color: white;
+              border: 0;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.2s ease;
+              box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+            }
+            button:hover {
+              opacity: 0.8;
+            }
+          `}
+        </style>
+      </form> */}
       <div>
         <Head>
           <title>Oddity AI</title>

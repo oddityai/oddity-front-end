@@ -186,6 +186,7 @@ const ChatBot = ({
               }}
             >
               <p
+                className={nunito.className}
                 style={{
                   color: "white",
                   fontWeight: "none",
@@ -193,7 +194,6 @@ const ChatBot = ({
                   margin: 8,
                   fontSize: 15,
                 }}
-                className={nunito.className}
               >
                 {TYPES[subject]}
               </p>
@@ -234,6 +234,7 @@ const ChatBot = ({
                             <img style={{ width: "80%" }} src={answer.url} />
                           ) : (
                             <p
+                              className={nunito.className}
                               style={{
                                 color: "black",
                                 fontWeight: "none",
@@ -260,6 +261,7 @@ const ChatBot = ({
                           }}
                         >
                           <p
+                            className={nunito.className}
                             style={{
                               color: "black",
                               fontSize: 12,
@@ -304,6 +306,7 @@ const ChatBot = ({
                           }}
                         >
                           <p
+                            className={nunito.className}
                             style={{
                               color: "white",
                               fontWeight: "none",
@@ -311,7 +314,6 @@ const ChatBot = ({
                               margin: 8,
                               fontSize: 15,
                             }}
-                            className={nunito.className}
                           >
                             {answer.result}
                             {(i === 2 ||
@@ -358,12 +360,12 @@ const ChatBot = ({
                                   style={{ color: "white", height: 20 }}
                                 />
                                 <p
+                                  className={nunito.className}
                                   style={{
                                     color: "white",
                                     fontSize: 12,
                                     marginTop: 4,
                                   }}
-                                  className={nunito.className}
                                 >
                                   Copy
                                 </p>
@@ -391,12 +393,12 @@ const ChatBot = ({
                                   style={{ color: "white", height: 20 }}
                                 />
                                 <p
+                                  className={nunito.className}
                                   style={{
                                     color: "white",
                                     fontSize: 12,
                                     marginTop: 4,
                                   }}
-                                  className={nunito.className}
                                 >
                                   Redo
                                 </p>
@@ -524,7 +526,7 @@ const ChatBot = ({
               Send
             </button>
           </div>
-          {/* <p style={{ textAlign: "center", color: "red" }}>{error}</p> */}
+          {/* <p className={nunito.className}  style={{ textAlign: "center", color: "red" }}>{error}</p> */}
         </form>
         <UploadButton
           modalOpen={modalOpen}

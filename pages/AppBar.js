@@ -82,6 +82,7 @@ export default function ButtonAppBar() {
           }}
         >
           <Link
+            className={nunito.className}
             style={{
               textDecoration: "none",
               padding: 8,
@@ -98,7 +99,13 @@ export default function ButtonAppBar() {
               style={{ height: 30, marginRight: 8, textDecoration: "none" }}
               src="/logo.png"
             />
-            <div style={{ fontSize: 18, color: "#0057be" }}> OddityAI</div>
+            <div
+              className={nunito.className}
+              style={{ fontSize: 18, color: "#0057be" }}
+            >
+              {" "}
+              OddityAI
+            </div>
           </Link>
           <div>
             <div
@@ -110,7 +117,7 @@ export default function ButtonAppBar() {
               }}
             >
               {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
-              <Link style={{ textDecoration: 'none', padding: 8,
+              <Link className={nunito.className}  style={{ textDecoration: 'none', padding: 8,
               borderRadius: 4, color: 'black' }} href="/">
                 {" "}
                 <div
@@ -128,6 +135,7 @@ export default function ButtonAppBar() {
             </div> */}
               <div style={{ marginRight: 8, textDecoration: "none" }}>
                 <Link
+                  className={nunito.className}
                   style={{
                     textDecoration: "none",
                     padding: 8,
@@ -145,6 +153,7 @@ export default function ButtonAppBar() {
               {user?.nickname && (
                 <div style={{ marginRight: 8, textDecoration: "none" }}>
                   <Link
+                    className={nunito.className}
                     style={{
                       textDecoration: "none",
                       padding: 8,
@@ -161,7 +170,7 @@ export default function ButtonAppBar() {
                 </div>
               )}
               {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
-              <Link style={{ textDecoration: 'none', padding: 8,
+              <Link className={nunito.className}  style={{ textDecoration: 'none', padding: 8,
               borderRadius: 4, color: 'black' }} href="/about">
                 {" "}
                 <div
@@ -179,6 +188,7 @@ export default function ButtonAppBar() {
             </div> */}
               <div style={{ marginRight: 8, textDecoration: "none" }}>
                 <Link
+                  className={nunito.className}
                   style={{
                     textDecoration: "none",
                     padding: 8,
@@ -195,8 +205,9 @@ export default function ButtonAppBar() {
               </div>
               {!user?.nickname && (
                 <>
-                                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                  <div style={{ marginRight: 8, textDecoration: "none" }}>
                     <Link
+                      className={nunito.className}
                       style={{
                         textDecoration: "none",
                         padding: 8,
@@ -213,6 +224,7 @@ export default function ButtonAppBar() {
                   </div>
                   <div style={{ marginRight: 8, textDecoration: "none" }}>
                     <Link
+                      className={nunito.className}
                       style={{
                         textDecoration: "none",
                         padding: 8,
@@ -227,12 +239,12 @@ export default function ButtonAppBar() {
                       Signup
                     </Link>
                   </div>
-
                 </>
               )}
               {user?.nickname && (
                 <div style={{ marginRight: 8, textDecoration: "none" }}>
                   <Link
+                    className={nunito.className}
                     style={{
                       textDecoration: "none",
                       padding: 8,
@@ -249,7 +261,7 @@ export default function ButtonAppBar() {
                 </div>
               )}
               {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
-              <Link
+              <Link className={nunito.className} 
                 style={{
                   textDecoration: "none",
                   padding: 8,
@@ -263,7 +275,7 @@ export default function ButtonAppBar() {
               </Link>
             </div> */}
               {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
-              <Link
+              <Link className={nunito.className} 
                 style={{
                   textDecoration: "none",
                   padding: 8,
