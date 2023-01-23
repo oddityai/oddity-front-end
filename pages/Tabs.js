@@ -7,7 +7,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Buttons from "./Buttons";
+import Buttons2 from "./Buttons2";
 import { Nunito } from "@next/font/google";
+import { loadStripe } from "@stripe/stripe-js";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -69,14 +71,20 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
         >
           <Tab
             className={nunito.className}
-            label="Chatbots"
+            label="HOMEWORK BOTS"
             {...a11yProps(0)}
           />
           <Tab
             className={nunito.className}
-            label="Chat History"
+            label="fun BOTS"
             {...a11yProps(1)}
           />
+          <Tab
+            className={nunito.className}
+            label="Chat History"
+            {...a11yProps(2)}
+          />
+
           {/* <Tab
             className={nunito.className}
             label="Free Credits"
@@ -100,6 +108,15 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
         </>
       </TabPanel>
       <TabPanel value={value} index={1}>
+        <>
+          <h3 className={nunito.className} style={{ fontSize: 18 }}>
+            Choose a fun/experimental AI bot to play with. Want a new AI bot?
+            Suggest one to us using the Feedback bot below.
+          </h3>
+          <Buttons2 handleClick={handleClick} />
+        </>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         <div>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Here you can see a history of all your chats with our AI Bots.
@@ -225,23 +242,40 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
                 <p className={nunito.className}>
                   Get 25 free credits for signing up
                 </p>
-                <Button
-                  disabled
-                  style={{
-                    zIndex: 10,
-                    backgroundColor: "gray",
-                    padding: 14,
-                    textTransform: "none",
-                    marginLeft: 8,
-                    color: "white",
-                    width: 150,
-                    height: 50,
-                    marginTop: 32,
-                    marginBottom: 16,
-                  }}
-                >
-                  Free
-                </Button>
+                {/* <form action="/api/checkout_sessions?user_id=123" method="POST">
+                  <section>
+                    <button disabled type="submit" role="link">
+                      Free
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        hover: none;
+                        cursor: none;
+                        background: gray;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form> */}
               </div>
             </div>
             <div
@@ -256,31 +290,45 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>Starter Pack</h3>
                 <hr s />
-                <h3 className={nunito.className}>$5 / 100 credits</h3>
+                <h3 className={nunito.className}>$10 / 200 credits</h3>
                 <hr s />
-                <h4>100 credits</h4>
+                <h4>200 credits</h4>
                 <p className={nunito.className}>Enough for a few months</p>
                 <p className={nunito.className}>
                   Usable on any current/future AI bots
                 </p>
-
-                <Button
-                  onClick={handleSubmitReferralCode}
-                  style={{
-                    zIndex: 10,
-                    backgroundColor: "#304FFD",
-                    padding: 14,
-                    textTransform: "none",
-                    marginLeft: 8,
-                    color: "white",
-                    width: 150,
-                    height: 50,
-                    marginTop: 32,
-                    marginBottom: 16,
-                  }}
-                >
-                  Buy now
-                </Button>
+                {/* <form action="/api/checkout_sessions?user_id=123" method="POST">
+                  <section>
+                    <button type="submit" role="link">
+                      Buy Now
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #556cd6;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form> */}
               </div>
             </div>
             <div
@@ -295,30 +343,45 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>Best Deal</h3>
                 <hr />
-                <h3 className={nunito.className}>$15 / 500 credits</h3>
+                <h3 className={nunito.className}>$30 / 1000 credits</h3>
                 <hr />
-                <h4>500 credits</h4>
+                <h4>1000 credits</h4>
                 <p className={nunito.className}>Enough for a year</p>
                 <p className={nunito.className}>
                   Usable on any current/future AI bots
                 </p>
-                <Button
-                  onClick={handleSubmitReferralCode}
-                  style={{
-                    zIndex: 10,
-                    backgroundColor: "#304FFD",
-                    padding: 14,
-                    textTransform: "none",
-                    marginLeft: 8,
-                    color: "white",
-                    width: 150,
-                    height: 50,
-                    marginTop: 32,
-                    marginBottom: 16,
-                  }}
-                >
-                  Buy now
-                </Button>
+                {/* <form action="/api/checkout_sessions?user_id=123" method="POST">
+                  <section>
+                    <button type="submit" role="link">
+                      Buy Now
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #556cd6;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form> */}
               </div>
             </div>
           </div>

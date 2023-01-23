@@ -87,7 +87,7 @@ const ChatBot = ({
     }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
     chat: `Hi ${
       user?.given_name ? user?.given_name : ""
-    }! I'm a conversational AI. You can type below or use the voice-to-text feature. What do you want to talk about?`,
+    }! I'm a conversational AI. What do you want to talk about?`,
     science: `Hi ${
       user?.given_name ? user?.given_name : ""
     }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
@@ -97,6 +97,9 @@ const ChatBot = ({
     reply: `Hi ${
       user?.given_name ? user?.given_name : ""
     }! Type or paste a message in the chat and I will give you a way to reply to it.`,
+    joke: `Hi ${
+      user?.given_name ? user?.given_name : ""
+    }! Tell me what you want me to make a joke about.`,
   };
 
   const fallbackCopyTextToClipboard = (text) => {
@@ -324,8 +327,8 @@ const ChatBot = ({
                               <>
                                 <br />
                                 <br />
-                                Keep OddityAI free by telling your friends about
-                                us!
+                                Please help Oddity by telling your friends by
+                                telling them about us!
                               </>
                             )}
                           </p>

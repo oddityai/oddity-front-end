@@ -23,7 +23,6 @@ import Hotjar from "@hotjar/browser";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { db } from "../firebase";
 import Tesseract from "tesseract.js";
-import { loadStripe } from "@stripe/stripe-js";
 
 import Tabs from "./Tabs";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -43,6 +42,7 @@ const TYPES = {
     "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
 
   reply: "Generate a reply to the following message: ",
+  joke: "Write a funny joke about the following prompt. It has to be very funny. : ",
 };
 
 export default function Home() {
@@ -109,9 +109,15 @@ export default function Home() {
         if (userData) {
           const histories = [];
           userData?.map((ele) => {
+            console.log(`${ele.chatHistory?.length} - ${ele.username}`);
             return ele?.chatHistory?.map((chat) => {
               if (chat.type === "math") {
-                histories.push({ chat, ele });
+                histories.push({
+                  length: ele.chatHistory?.length,
+                  username: ele.username,
+                  chat,
+                  ele,
+                });
               }
             });
           });
@@ -301,40 +307,7 @@ export default function Home() {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar />
-      {/* <form action="/api/checkout_sessions?user_id=123" method="POST">
-        <section>
-          <button type="submit" role="link">
-            Checkout
-          </button>
-        </section>
-        <style jsx>
-          {`
-            section {
-              background: #ffffff;
-              display: flex;
-              flex-direction: column;
-              width: 400px;
-              height: 112px;
-              border-radius: 6px;
-              justify-content: space-between;
-            }
-            button {
-              height: 36px;
-              background: #556cd6;
-              border-radius: 4px;
-              color: white;
-              border: 0;
-              font-weight: 600;
-              cursor: pointer;
-              transition: all 0.2s ease;
-              box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-            }
-            button:hover {
-              opacity: 0.8;
-            }
-          `}
-        </style>
-      </form> */}
+
       <div>
         <Head>
           <title>Oddity AI</title>
