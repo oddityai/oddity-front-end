@@ -109,19 +109,14 @@ export default function Home() {
         if (userData) {
           const histories = [];
           userData?.map((ele) => {
-            console.log(`${ele.chatHistory?.length} - ${ele.username}`);
-            return ele?.chatHistory?.map((chat) => {
-              if (chat.type === "math") {
-                histories.push({
-                  length: ele.chatHistory?.length,
-                  username: ele.username,
-                  chat,
-                  ele,
-                });
-              }
-            });
+            if (ele?.chatHistory?.length) {
+              histories.push({
+                username: ele?.username,
+                length: ele?.chatHistory?.length,
+                history: ele?.chatHistory,
+              });
+            }
           });
-          console.log({ histories });
         }
       });
     }
@@ -179,7 +174,7 @@ export default function Home() {
       const res = {
         result: data.result,
         input: input,
-        url: url,
+        // url: url,
         type: subject,
         // explanation: JSON.parse(data2.result).explanation,
       };
@@ -190,11 +185,13 @@ export default function Home() {
       setResult("");
       setError("");
       setIsLoadingScreen(false);
-      const userCopy = profileData.chatHistory;
+      const userCopy = profileData.chatHistory.slice();
       userCopy.unshift(res);
+      console.log("SAVING", userCopy);
       db.collection("profiles").doc(profileData?.id).update({
         chatHistory: userCopy,
       });
+      console.log("end save", profileData?.id);
       Hotjar.event("SUCCESS - User succeeded to submit request.");
       // setAnimalInput("");
     } catch (error) {
