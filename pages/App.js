@@ -117,6 +117,7 @@ export default function Home() {
               });
             }
           });
+          console.log({ histories });
         }
       });
     }
@@ -237,20 +238,18 @@ export default function Home() {
     await worker.initialize("eng");
 
     await worker.setParameters({
-      // tessedit_ocr_engine_mode: 0,
-      // tessedit_pageseg_mode: "1",
-      // tessedit_create_txt: "1",
-      // tosp_ignore_big_gaps: "1",
-      // tessedit_pageseg_mode: "6",
-      // preserve_interword_spaces: "1",
-      // tessedit_char_whitelist:
-      //   "abcdefghijklmnopqrstuvwxyzABCEDEFGHIJKLMNOPQRSTUVWXYZ ",
+      tessedit_ocr_engine_mode: 0,
+      tessedit_pageseg_mode: "1",
+      tessedit_create_txt: "1",
+      tosp_ignore_big_gaps: "1",
+      tessedit_pageseg_mode: "6",
+      preserve_interword_spaces: "1",
     });
 
     const options = {
-      // tessedit_ocr_engine_mode: 0,
-      // tessedit_pageseg_mode: "1",
-      // preserve_interword_spaces: "1",
+      tessedit_ocr_engine_mode: 0,
+      tessedit_pageseg_mode: "1",
+      preserve_interword_spaces: "1",
     };
 
     const {

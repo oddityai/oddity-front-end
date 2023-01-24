@@ -327,8 +327,8 @@ const ChatBot = ({
                               <>
                                 <br />
                                 <br />
-                                Please help Oddity by telling your friends by
-                                telling them about us!
+                                Don't forget to tell your friends about
+                                OddityAI!
                               </>
                             )}
                           </p>
