@@ -196,7 +196,9 @@ const Contact = () => {
             </span>
             <br />
             <br />
-            {/* Just take a clear picture of your homework paper and our high powered AI will give  */}
+            Just take a clear picture of your homework paper and our high
+            powered AI will read your homework and provide you with all the
+            answers for free.
             <br />
             <br />
           </div>
