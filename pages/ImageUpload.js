@@ -34,12 +34,14 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
   const [rawText, setRawText] = useState("");
   const [results, setResults] = useState();
   const [input, setInput] = useState("");
+  const [error, setError] = useState("");
 
   function uploadFile(e, type) {
     if (e.target.files[0]) setFile({ file: e.target.files[0], type: type });
   }
 
   const generateFirebaseUrl = async () => {
+    setError("");
     console.log(1);
     const path = `/images/${file.file.name}`;
     const ref = storage.ref(path);
@@ -133,6 +135,9 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
           console.log({ result });
         } catch (error) {
           setIsProcessing(false);
+          setError(
+            "Image either unclear or too large. Please make sure you take a good quality picture."
+          );
           console.log({ error });
         }
       });
@@ -236,6 +241,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
                 {step === 4 && (
                   <img src={url} style={{ width: "80%", marginLeft: "10%" }} />
                 )}
+                {error && <p style={{ color: "red", fontSize: 16 }}>{error}</p>}
                 <Button
                   style={{
                     zIndex: 10,
