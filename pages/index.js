@@ -179,7 +179,7 @@ const Contact = () => {
               }}
             >
               <img
-                src="/buttons-page.png"
+                src="/final-step.png"
                 style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
               />
             </div>
@@ -192,12 +192,11 @@ const Contact = () => {
             }}
           >
             <span style={{ fontWeight: 600, fontSize: 24 }}>
-              Let our AI bots help you with your homework.
+              Upload a picture and get answers in seconds!
             </span>
             <br />
             <br />
-            We have a number of AI bots that are specially designed to help you
-            with all your homework subjects.
+            {/* Just take a clear picture of your homework paper and our high powered AI will give  */}
             <br />
             <br />
           </div>
