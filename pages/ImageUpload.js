@@ -243,7 +243,17 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
                 {step === 4 && (
                   <img src={url} style={{ width: "80%", marginLeft: "10%" }} />
                 )}
-                {error && <p style={{ color: "red", fontSize: 16 }}>{error}</p>}
+                {error && (
+                  <>
+                    <p style={{ color: "red", fontSize: 16 }}>{error}</p>
+                    <p style={{ color: "red", fontSize: 16 }}>
+                      Try: Upload only half a page at a time
+                    </p>
+                    <p style={{ color: "red", fontSize: 16 }}>
+                      Make sure the image is clear, it's technology not magic.
+                    </p>
+                  </>
+                )}
                 <Button
                   style={{
                     zIndex: 10,
