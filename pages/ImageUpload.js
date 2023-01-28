@@ -138,6 +138,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
           setError(
             "Image either unclear or too large. Please make sure you take a good quality picture."
           );
+          setStep(0);
           console.log({ error });
         }
       });
