@@ -109,7 +109,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  animal: `Answer this question: ${endpoint}, if it is a math question, show your work and use deductive reasoning.`,
+                  animal: `Answer this question: ${endpoint}.`,
                 }),
               })
                 .then((response) => response.json())
