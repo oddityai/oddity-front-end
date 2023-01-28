@@ -113,8 +113,8 @@ const Contact = () => {
             </span>
             <br />
             <br />
-            We have a number of AI bots that are specially designed to help you
-            with all your homework.
+            Upload a worksheet or use AI bots that are specially designed to
+            help you with all your homework.
             <br />
             <br />
           </div>
@@ -148,6 +148,58 @@ const Contact = () => {
                 Try it free!
               </Button>
             </Link>
+          </div>
+        </div>
+        <div
+          style={{
+            padding: 16,
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            backgroundColor: "#f2f7ff",
+
+            fontSize: 18,
+          }}
+        >
+          <Link href="/App">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                justifyItems: "center",
+                alignItems: "center",
+                position: "relative",
+                border: "1px solid silver",
+                backgroundColor: "white",
+                borderRadius: 12,
+                width: windowSize > 500 ? "50%" : "90%",
+                maxWidth: 400,
+              }}
+            >
+              <img
+                src="/buttons-page.png"
+                style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              />
+            </div>
+          </Link>
+          <div
+            style={{
+              padding: 16,
+              width: windowSize > 500 ? "50%" : "90%",
+              maxWidth: 400,
+            }}
+          >
+            <span style={{ fontWeight: 600, fontSize: 24 }}>
+              Let our AI bots help you with your homework.
+            </span>
+            <br />
+            <br />
+            We have a number of AI bots that are specially designed to help you
+            with all your homework subjects.
+            <br />
+            <br />
           </div>
         </div>
         <div

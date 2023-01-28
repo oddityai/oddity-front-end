@@ -129,8 +129,10 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
               console.log({ error });
             });
 
+          setIsProcessing(false);
           console.log({ result });
         } catch (error) {
+          setIsProcessing(false);
           console.log({ error });
         }
       });
