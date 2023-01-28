@@ -41,6 +41,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
   }
 
   const generateFirebaseUrl = async () => {
+    setStep(0);
     setError("");
     console.log(1);
     const path = `/images/${file.file.name}`;
@@ -138,7 +139,7 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
           setError(
             "Image either unclear or too large. Please make sure you take a good quality picture."
           );
-          setStep(0);
+          setStep(1);
           console.log({ error });
         }
       });
