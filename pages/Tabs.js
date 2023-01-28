@@ -10,6 +10,8 @@ import Buttons from "./Buttons";
 import Buttons2 from "./Buttons2";
 import { Nunito } from "@next/font/google";
 import { loadStripe } from "@stripe/stripe-js";
+import ImageUpload from "./ImageUpload";
+import Dialog from "@mui/material/Dialog";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -71,14 +73,19 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
         >
           <Tab
             className={nunito.className}
-            label="HOMEWORK BOTS"
+            label="WORKSHEET UPLOAD"
             {...a11yProps(0)}
           />
           <Tab
             className={nunito.className}
-            label="fun BOTS"
+            label="HOMEWORK BOTS"
             {...a11yProps(1)}
           />
+          {/* <Tab
+            className={nunito.className}
+            label="fun BOTS"
+            {...a11yProps(2)}
+          /> */}
           <Tab
             className={nunito.className}
             label="Chat History"
@@ -101,13 +108,41 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
       <TabPanel value={value} index={0}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
+            Upload a *CLEAR* picture of your homework and our AI will give you a
+            list of answers.
+          </h3>
+          <p style={{ color: "gray" }}>
+            Don't have a picture? Try our
+            <span
+              style={{ color: "blue", cursor: "pointer", margin: "0 4px" }}
+              onClick={() => setValue(1)}
+            >
+              homework-bots
+            </span>{" "}
+            to ask specific questions.
+          </p>
+          {/* <p>
+            Please make sure the image is clear. The AI needs to be able to read
+            the paper. It's not magic, it's technology.
+            <br />
+            <br />
+            Disclaimer: *Just like cheating off the kid next to you, the answers
+            are probably right but they might not all be right.
+          </p> */}
+          <ImageUpload />
+        </>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <>
+          <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose one of our AI bots below and get answers to your homework.
             Each AI is specially designed for each subject.
           </h3>
           <Buttons handleClick={handleClick} />
         </>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+
+      {/* <TabPanel value={value} index={2}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose a fun/experimental AI bot to play with. Want a new AI bot?
@@ -115,7 +150,7 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
           </h3>
           <Buttons2 handleClick={handleClick} />
         </>
-      </TabPanel>
+      </TabPanel> */}
       <TabPanel value={value} index={2}>
         <div>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>

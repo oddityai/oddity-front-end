@@ -37,7 +37,7 @@ const TYPES = {
   history: "Answer this history question for me: ",
   english: "Answer this English question for me: ",
   science: "Answer this science question for me: ",
-  chat: "Reply to this as if you are a friendly ai friend: ",
+  chat: "",
   feedback:
     "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
 
@@ -110,11 +110,21 @@ export default function Home() {
           const histories = [];
           userData?.map((ele) => {
             if (ele?.chatHistory?.length) {
-              histories.push({
-                username: ele?.username,
-                length: ele?.chatHistory?.length,
-                history: ele?.chatHistory,
+              ele?.chatHistory.map((chat) => {
+                if (chat.type === "reply") {
+                  histories.push({
+                    username: ele?.username,
+                    chat: chat.input,
+                    reply: chat.response,
+                    full: chat,
+                  });
+                }
               });
+              // histories.push({
+              //   username: ele?.username,
+              //   length: ele?.chatHistory?.length,
+              //   history: ele?.chatHistory,
+              // });
             }
           });
           console.log({ histories });

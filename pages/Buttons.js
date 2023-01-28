@@ -1,23 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import Button from "@mui/material/Button";
-import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-// import firebase from "firebase/compat/app";
-// import "firebase/compat/storage";
-import { Favorite } from "@mui/icons-material";
-import Dialog from "@mui/material/Dialog";
-import TextField from "@mui/material/TextField";
-import { ModalRoot } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import PercentIcon from "@mui/icons-material/Percent";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ScienceIcon from "@mui/icons-material/Science";
 import PsychologyIcon from "@mui/icons-material/Psychology";
 import { Nunito } from "@next/font/google";

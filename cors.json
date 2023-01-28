@@ -3,6 +3,7 @@
     "origin": [
       "https://oddityai.com/app",
       "https://oddityai.com",
+      "https://oddity-api.herokuapp.com",
       "http://localhost:3000"
     ],
     "method": ["GET"],

@@ -51,6 +51,7 @@ const Contact = () => {
   }, []);
   useEffect(() => {
     if (user?.nickname) {
+      console.log("Identifying", user?.nickname);
       Hotjar.identify(user?.sid, {
         userId: user?.sub,
         username: user?.nickname,
