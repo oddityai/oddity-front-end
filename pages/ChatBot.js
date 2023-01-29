@@ -169,9 +169,7 @@ const ChatBot = ({
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  animal: `Answer the question. Return the result in Q and A format: 
-                  
-                  ${endpoint}`,
+                  animal: `Q: ${endpoint}`,
                 }),
               })
                 .then((response) => response.json())
