@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import TextField from "@mui/material/TextField";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ChatBubble from "./ChatBubble";
 import ImageIcon from "@mui/icons-material/Image";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import CachedIcon from "@mui/icons-material/Cached";
+import "firebase/compat/storage";
+import { firebaseApp } from "../firebase";
 
 import Alert from "@mui/material/Alert";
 import { Nunito } from "@next/font/google";
@@ -24,6 +26,7 @@ const nunito = Nunito({ subsets: ["latin"] });
 const appId = "c6a6bc4f-0a1c-46ba-ad66-3322fbcaf51d";
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
+export const storage = firebaseApp?.storage();
 
 const ChatBot = ({
   error,
@@ -39,6 +42,17 @@ const ChatBot = ({
 
   const [modalOpen, setIsModalOpen] = useState(false);
   const [showClipboardCopy, setShowClipboardCopy] = useState(false);
+  const inputRef = useRef();
+  const inputRef2 = useRef();
+  const [file, setFile] = useState({});
+  const [bio, setBio] = useState("");
+  const [step, setStep] = useState(0);
+  const [url, setUrl] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [rawText, setRawText] = useState("");
+  const [results, setResults] = useState();
+  const [input, setInput] = useState("");
+  const [errorx, setError] = useState("");
 
   useEffect(() => {
     if (showClipboardCopy) {
@@ -75,6 +89,145 @@ const ChatBot = ({
   useEffect(() => {
     setAnimalInput(transcript);
   }, [transcript]);
+
+  const generateFirebaseUrl = async () => {
+    setStep(0);
+    setError("");
+    console.log(1);
+    const path = `/images/${file.file.name}`;
+    const ref = storage.ref(path);
+    console.log(2);
+    setIsModalOpen(true);
+    setIsProcessing(true);
+    await ref.put(file.file);
+    const url = await ref.getDownloadURL();
+    console.log("url: ", url);
+    console.log("url: ", btoa(url));
+    setUrl(url);
+    setStep(1);
+    fetch(`https://oddity-api.herokuapp.com/test`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(async (res) => {
+        console.log({ res });
+        const input = res.description;
+        console.log(input);
+        setInput(input);
+        setStep(2);
+        try {
+          const response = await fetch("/api/page", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              //   animal: `Extract the questions from this text and return them as an array of strings: ${input}  {}. Return the data in an array of strings as a string so i can json.parse it`,
+              animal: `
+              Extract all of the questions from the following text and return them as an array of strings: 
+
+              ${input}
+              `,
+            }),
+          });
+          // const response2 = await fetch("/api/generate", {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify({
+          //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
+          //   }),
+          // });
+
+          let data = await response.json();
+          // let data2 = await response2.json();
+          // console.log(data2.result.explanation);
+          //   if (response.status !== 200) {
+          //     throw (
+          //       data.error ||
+          //       new Error(`Request failed with status ${response.status}`)
+          //     );
+          //   }
+          const result = JSON.parse(
+            `[${data.result.split("[")[1].split("]")[0]}]`
+          );
+          setStep(3);
+          setRawText(data.result);
+          console.log(3);
+          const apiCalls = result.map((endpoint) => {
+            return new Promise((resolve, reject) => {
+              fetch("/api/page", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  animal: `Answer the question. Return the result in Q and A format: 
+                  
+                  ${endpoint}`,
+                }),
+              })
+                .then((response) => response.json())
+                .then((data) => resolve(data))
+                .catch((error) => reject(error));
+            });
+          });
+
+          Promise.all(apiCalls)
+            .then((results) => {
+              console.log({ results });
+              setStep(4);
+              setResults(results);
+            })
+            .catch((error) => {
+              // handle the error
+              console.log({ error });
+            });
+
+          setIsProcessing(false);
+          console.log({ result });
+        } catch (error) {
+          setIsProcessing(false);
+          setError(
+            "Image either unclear or too large. Please make sure you take a good quality picture."
+          );
+          setStep(1);
+          console.log({ error });
+        }
+      });
+    setFile(null);
+  };
+
+  useEffect(() => {
+    if (file?.file) {
+      generateFirebaseUrl(file.type);
+    }
+  }, [file]);
+
+  function uploadFile(e, type) {
+    if (e.target.files[0]) setFile({ file: e.target.files[0], type: type });
+  }
+
+  const handleInputClick = (type) => {
+    inputRef.current.click();
+  };
+
+  const handleInputClick2 = (type) => {
+    inputRef2.current.click();
+  };
+
+  const handleBioClick = () => {
+    if (!bio.length) {
+      return;
+    }
+  };
 
   const TYPES = {
     math: `Hi ${
@@ -498,12 +651,27 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )} */}
+            <IconButton
+              onClick={() => handleInputClick("reply")}
+              color="gray"
+              aria-label="upload picture"
+              component="label"
+            >
+              <ImageIcon />
+            </IconButton>
+
             <ImageUpload
-              modalOpen={modalOpen}
+              error={errorx}
+              isProcessing={isProcessing}
+              url={url}
+              rawText={rawText}
+              results={results}
+              isModalOpen={modalOpen}
               setIsModalOpen={setIsModalOpen}
-              isLoading={isLoading}
+              step={step}
               subject={subject}
-              handleChange={handleChange}
+              input={input}
+              handleInputClick={handleInputClick}
             />
 
             <button
@@ -531,6 +699,22 @@ const ChatBot = ({
           {/* <p className={nunito.className}  style={{ textAlign: "center", color: "red" }}>{error}</p> */}
         </form>
       </div>
+      <form onSubmit={generateFirebaseUrl}>
+        <input
+          style={{ display: "hidden", height: 0, width: 0 }}
+          ref={inputRef}
+          type="file"
+          onChange={(e) => uploadFile(e, "reply")}
+          accept="image/*"
+        />
+        <input
+          style={{ display: "hidden", height: 0, width: 0 }}
+          ref={inputRef2}
+          type="file"
+          onChange={(e) => uploadFile(e, "first")}
+          accept="image/*"
+        />
+      </form>
     </div>
   );
 };
