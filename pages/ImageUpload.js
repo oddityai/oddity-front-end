@@ -22,7 +22,13 @@ const nunito = Nunito({ subsets: ["latin"] });
 
 export const storage = firebaseApp?.storage();
 
-const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
+const ImageUploadModal = ({
+  handleChange,
+  children,
+  onSubmit,
+  isLoading,
+  subject,
+}) => {
   const inputRef = useRef();
   const inputRef2 = useRef();
   const [file, setFile] = useState({});
@@ -112,7 +118,9 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  animal: `Answer this question: ${endpoint}.`,
+                  animal: `Answer this ${subject} question: ${endpoint}. ${
+                    subject === "math" && "Use deductive reasoning."
+                  }`,
                 }),
               })
                 .then((response) => response.json())

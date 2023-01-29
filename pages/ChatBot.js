@@ -502,6 +502,7 @@ const ChatBot = ({
               modalOpen={modalOpen}
               setIsModalOpen={setIsModalOpen}
               isLoading={isLoading}
+              subject={subject}
               handleChange={handleChange}
             />
 
