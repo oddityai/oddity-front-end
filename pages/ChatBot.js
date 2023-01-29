@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import UploadButton from "./UploadButton";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import ImageUpload from "./ImageUpload";
 const startListening = () =>
   SpeechRecognition.startListening({ continuous: true });
 const nunito = Nunito({ subsets: ["latin"] });
@@ -476,7 +477,7 @@ const ChatBot = ({
                 marginBottom: 10,
               }}
             />
-            {listening ? (
+            {/* {listening ? (
               <IconButton
                 onClick={stopListening}
                 color="primary"
@@ -496,16 +497,13 @@ const ChatBot = ({
               >
                 <MicNoneIcon />
               </IconButton>
-            )}
-            {/* <IconButton
-              onClick={() => setIsModalOpen(true)}
-              color="gray"
-              style={{ height: 50, marginTop: 25 }}
-              aria-label="upload picture"
-              component="label"
-            >
-              <ImageIcon />
-            </IconButton> */}
+            )} */}
+            <ImageUpload
+              modalOpen={modalOpen}
+              setIsModalOpen={setIsModalOpen}
+              isLoading={isLoading}
+              handleChange={handleChange}
+            />
 
             <button
               style={{
@@ -531,12 +529,6 @@ const ChatBot = ({
           </div>
           {/* <p className={nunito.className}  style={{ textAlign: "center", color: "red" }}>{error}</p> */}
         </form>
-        <UploadButton
-          modalOpen={modalOpen}
-          setIsModalOpen={setIsModalOpen}
-          isLoading={isLoading}
-          handleChange={handleChange}
-        />
       </div>
     </div>
   );

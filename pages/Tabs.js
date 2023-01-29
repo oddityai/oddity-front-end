@@ -71,21 +71,21 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
           className={nunito.className}
           aria-label="basic tabs example"
         >
-          <Tab
+          {/* <Tab
             className={nunito.className}
             label="WORKSHEET UPLOAD"
+            {...a11yProps(0)}
+          /> */}
+          <Tab
+            className={nunito.className}
+            label="HOMEWORK BOTS"
             {...a11yProps(0)}
           />
           <Tab
             className={nunito.className}
-            label="HOMEWORK BOTS"
+            label="fun BOTS"
             {...a11yProps(1)}
           />
-          {/* <Tab
-            className={nunito.className}
-            label="fun BOTS"
-            {...a11yProps(2)}
-          /> */}
           <Tab
             className={nunito.className}
             label="Chat History"
@@ -105,7 +105,7 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
           {/* <Tab label="Oddity Feed" {...a11yProps(4)} /> */}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Upload a *CLEAR* picture of your homework and our AI will give you a
@@ -121,18 +121,18 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
             </span>{" "}
             to ask specific questions.
           </p>
-          {/* <p>
+          <p>
             Please make sure the image is clear. The AI needs to be able to read
             the paper. It's not magic, it's technology.
             <br />
             <br />
             Disclaimer: *Just like cheating off the kid next to you, the answers
             are probably right but they might not all be right.
-          </p> */}
+          </p>
           <ImageUpload />
         </>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
+      </TabPanel> */}
+      <TabPanel value={value} index={0}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose one of our AI bots below and get answers to your homework.
@@ -142,7 +142,7 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
         </>
       </TabPanel>
 
-      {/* <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose a fun/experimental AI bot to play with. Want a new AI bot?
@@ -150,7 +150,7 @@ export default function BasicTabs({ handleClick, answers, profileData }) {
           </h3>
           <Buttons2 handleClick={handleClick} />
         </>
-      </TabPanel> */}
+      </TabPanel>
       <TabPanel value={value} index={2}>
         <div>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>

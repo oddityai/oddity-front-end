@@ -176,6 +176,14 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
 
   return (
     <>
+      <IconButton
+        onClick={() => handleInputClick("reply")}
+        color="gray"
+        aria-label="upload picture"
+        component="label"
+      >
+        <ImageIcon />
+      </IconButton>
       <div
         style={{
           padding: 16,
@@ -287,20 +295,6 @@ const ImageUploadModal = ({ handleChange, children, onSubmit, isLoading }) => {
         <img src="/x-mark.png" style={{ width: "40%", marginLeft: "30%" }} />
         <br />
         <br /> */}
-
-        <Button
-          style={{
-            zIndex: 10,
-            backgroundColor: "#304FFD",
-            padding: 14,
-            marginBottom: 16,
-            color: "white",
-            width: "100%",
-          }}
-          onClick={() => handleInputClick("reply")}
-        >
-          Choose Image
-        </Button>
       </div>
       <form onSubmit={generateFirebaseUrl}>
         <input
