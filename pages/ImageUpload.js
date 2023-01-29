@@ -118,7 +118,7 @@ const ImageUploadModal = ({
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  animal: `Answer this ${subject} question: ${endpoint}. ${
+                  animal: `Answer this question: ${endpoint}. ${
                     subject === "math" && "Use deductive reasoning."
                   }`,
                 }),
