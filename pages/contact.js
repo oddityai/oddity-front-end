@@ -85,13 +85,11 @@ const Contact = () => {
             <br />
             <br />
             If you have any questions, concerns or feedback, we would love to
-            hear from you. You can reach us through our Facebook{" "}
+            hear from you. You can reach us through our Twitter{" "}
             <span
               style={{ color: "#0a99f2", cursor: "pointer" }}
               onClick={() => {
-                window.open(
-                  "https://www.facebook.com/profile.php?id=100088926106665"
-                );
+                window.open("https://twitter.com/oddity_ai");
               }}
             >
               here

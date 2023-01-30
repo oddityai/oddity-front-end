@@ -130,7 +130,7 @@ const ChatBot = ({
             body: JSON.stringify({
               //   animal: `Extract the questions from this text and return them as an array of strings: ${input}  {}. Return the data in an array of strings as a string so i can json.parse it`,
               animal: `
-              Extract all of the questions from the following text and return them as an array of strings: 
+              Extract the complete/logical questions from the following text as they are. Don't rephrase the questions. Return them as an array of strings: 
 
               ${input}
               `,
