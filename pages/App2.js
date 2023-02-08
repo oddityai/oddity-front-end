@@ -153,10 +153,6 @@ export default function Home() {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar />
       <div>
-        <Head>
-          <title>Oddity AI</title>
-          <link rel="icon" href="/logo.png" />
-        </Head>
         <div
           style={{
             textAlign: "center",
@@ -166,8 +162,6 @@ export default function Home() {
           }}
           id="exportthis"
         >
-          <title>Student Queries</title>
-
           <Dialog
             onClose={() => {
               setIsModalOpen(false);
