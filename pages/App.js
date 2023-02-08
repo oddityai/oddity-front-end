@@ -111,7 +111,7 @@ export default function Home() {
           userData?.map((ele) => {
             if (ele?.chatHistory?.length) {
               ele?.chatHistory.map((chat) => {
-                if (chat.type === "reply") {
+                if (chat.type === "math") {
                   histories.push({
                     username: ele?.username,
                     chat: chat.input,

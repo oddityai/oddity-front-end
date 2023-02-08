@@ -108,13 +108,20 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <span style={{ fontWeight: 600, fontSize: 24 }}>
-              Use our powerful AI to solve your homework problems.
-            </span>
+            <h1 style={{ fontWeight: 600, fontSize: 24 }}>
+              AI Homework Helper- The AI That Does Homework
+            </h1>
             <br />
             <br />
-            Upload a worksheet or use AI bots that are specially designed to
-            help you with all your homework.
+            <h2
+              style={{
+                fontSize: 18,
+                fontWeight: "none !important",
+              }}
+            >
+              Upload a worksheet or use homework AI helper that are specially
+              designed to provide you with all your homework solutions.
+            </h2>
             <br />
             <br />
           </div>
@@ -127,8 +134,12 @@ const Contact = () => {
               alignItems: "center",
             }}
           >
-            <h3 style={{ textAlign: "center" }}>
-              Use AI and never do homework again!
+            <h2 style={{ textAlign: "center" }}>
+              Let our homework AI helper help you with your homework.{" "}
+            </h2>{" "}
+            <h3 style={{ textAlign: "center", fontSize: 18 }}>
+              We have a number of AI homework solvers that are specially
+              designed to help you with all your homework subjects.
             </h3>{" "}
             <Link style={{ textDecoration: "none" }} href="/api/auth/signup">
               <Button
@@ -294,13 +305,15 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <span style={{ fontWeight: 600, fontSize: 24 }}>
-              History Answers
-            </span>
+            <p style={{ fontWeight: 600, fontSize: 24 }}>History Answers</p>
             <br />
             <br />
-            From ancient civilizations to modern politics, our AI is here to
-            assist you with any topic you may be struggling with.
+            <h2 style={{ fontSize: 18, fontWeight: "none" }}>
+              From ancient civilizations to modern politics, our AI homework
+              helper is here to assist you with any topic you may be struggling
+              with.{" "}
+            </h2>
+
             <br />
           </div>
         </div>
@@ -324,11 +337,13 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <span style={{ fontWeight: 600, fontSize: 24 }}>English Help</span>
+            <p style={{ fontWeight: 600, fontSize: 24 }}>English Help</p>
             <br />
             <br />
-            From grammar to literature analysis, our AI is here to assist you
-            with any task you may be struggling with.
+            <h2 style={{ fontWeight: "none", fontSize: 18 }}>
+              From grammar to literature analysis, our AI is here to assist you
+              with any task you may be struggling with.
+            </h2>
             <br />
             <br />
           </div>
@@ -391,22 +406,22 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <span style={{ fontWeight: 600, fontSize: 24 }}>
-              Science Answers
-            </span>
+            <p style={{ fontWeight: 600, fontSize: 24 }}>Science Answers</p>
             <br />
             <br />
-            From biology to chemistry to physics, our AI is equipped to assist
-            you with any topic you may be struggling with. Need help
-            understanding a complex scientific concept? Want to know how to
-            complete a lab report? Our AI is here to provide you with accurate
-            and reliable answers.
+            <h2 style={{ fontSize: 18, fontWeight: "none" }}>
+              From biology to chemistry to physics, our homework AI is equipped
+              to assist you with any topic you may be struggling with. Need help
+              understanding a complex scientific concept? Want to know how to
+              complete a lab report? Our AI that does homework is here to
+              provide you with accurate and reliable answers.
+            </h2>
             <br />
             <br />
           </div>
         </div>
       </div>
-      <div style={{ backgroundColor: "#f2f7ff" }}>
+      <div style={{ backgroundColor: "#f2f7ff", margin: "16px 0" }}>
         <div
           style={{
             margin: 16,
@@ -418,9 +433,87 @@ const Contact = () => {
           }}
         >
           <div style={{ width: "50%" }}>
-            <h3>
-              Use our AI and never do homework again! <br /> It's free!
-            </h3>{" "}
+            <h1 style={{ fontSize: 20, fontWeight: 600 }}>
+              Use our homework AI and never do homework again! It's free!
+            </h1>{" "}
+          </div>
+          <Link
+            style={{ textDecoration: "none", width: "50%" }}
+            href="/api/auth/signup"
+          >
+            <Button
+              style={{
+                backgroundColor: "#304FFD",
+                padding: 14,
+                color: "white",
+                minWidth: 150,
+                width: "80%",
+                maxWidth: 225,
+                textTransform: "none",
+                height: 50,
+              }}
+            >
+              Try it free!
+            </Button>
+          </Link>
+        </div>
+        <div
+          style={{
+            margin: 16,
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            textAlign: "center",
+            backgroundColor: "white",
+          }}
+        >
+          <div style={{ width: "80%" }}>
+            <h1 style={{ fontSize: 24 }}>AI that does homework</h1>
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <h2 style={{ width: "50%", margin: 24, fontSize: 18 }}>
+                {" "}
+                Are you looking for an AI that does homework? Look no further,
+                Oddity AI is here to provide all of your AI homework solutions.
+                Using this AI homework Helper
+              </h2>
+              <p
+                style={{
+                  width: "50%",
+                  margin: 24,
+                  fontSize: 13,
+                  fontWeight: 600,
+                }}
+              >
+                Oddity AI is the groundbreaking new artificial intelligence that
+                students have been dreaming of for years. This AI homework
+                helper has revolutionized the way people approach their
+                schoolwork, making it easier than ever to get work done quickly
+                and efficiently. With Oddity AI, users can ask questions
+                directly to the AI and receive instant answers in seconds. The
+                AI not only gives accurate answers but also provides detailed
+                explanations of how each answer was reached so users can gain a
+                deeper understanding of their schoolwork.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div></div>
+        <div
+          style={{
+            margin: 16,
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ width: "50%" }}>
+            <h1 style={{ fontSize: 20, fontWeight: 600 }}>
+              Homework AI - Oddity AI is the homework AI that does homework for
+              you.
+            </h1>{" "}
           </div>
           <Link
             style={{ textDecoration: "none", width: "50%" }}
