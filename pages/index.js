@@ -97,6 +97,8 @@ const Contact = () => {
             }}
           >
             <img
+              alt="ai-homework-helper"
+              name="ai-homework-helper"
               src="/landing-robot.png"
               style={{ maxHeight: "100%", maxWidth: "100%" }}
             />
@@ -190,6 +192,8 @@ const Contact = () => {
               }}
             >
               <img
+                alt="ai-for-homework"
+                name="ai-for-homework"
                 src="/final-step.png"
                 style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
               />
@@ -260,6 +264,8 @@ const Contact = () => {
               }}
             >
               <img
+                alt="ai-homework"
+                name="ai-homework"
                 src="/buttons-page.png"
                 style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
               />
@@ -294,6 +300,8 @@ const Contact = () => {
             }}
           >
             <img
+              name="ai-homework-solutions"
+              alt="ai-homework-solutions"
               src="/history-page1.png"
               style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
             />
@@ -362,6 +370,8 @@ const Contact = () => {
             }}
           >
             <img
+              name="ai-homework-writer"
+              alt="ai-homework-writer"
               src="/english-page-1.png"
               style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
             />
@@ -395,6 +405,8 @@ const Contact = () => {
             }}
           >
             <img
+              name="homework-ai"
+              alt="homework-ai"
               src="/science-page-1.png"
               style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
             />
