@@ -26,7 +26,5 @@ homework helper"
         <NextScript />
       </body>
     </Html>
-
-    <p>Hello world!</p>
   </div>
 );
