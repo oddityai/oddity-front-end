@@ -1,7 +1,11 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
-export default () => (
-  <div>
+const Doc = () => {
+  const getInitialProps = async (ctx) => {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  };
+  return (
     <Html>
       <Head>
         <title>AI Homework Helper | Homework AI</title>
@@ -26,5 +30,7 @@ homework helper"
         <NextScript />
       </body>
     </Html>
-  </div>
-);
+  );
+};
+
+export default Doc;

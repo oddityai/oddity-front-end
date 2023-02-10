@@ -32,6 +32,7 @@ const About = () => {
   return (
     <div className={nunito.className}>
       <AppBar />
+
       <div>
         <div
           style={{

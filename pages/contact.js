@@ -57,6 +57,7 @@ const Contact = () => {
   return (
     <div className={nunito.className}>
       <AppBar />
+
       <div>
         <div
           style={{

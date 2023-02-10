@@ -70,7 +70,7 @@ export default function ButtonAppBar() {
         width: "100%",
       }}
     >
-      {!isLoading && (
+      {true && (
         <div
           style={{
             padding: 8,
