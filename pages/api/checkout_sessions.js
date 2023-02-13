@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/App?canceled=true`,
         automatic_tax: { enabled: true },
       });
-      res.redirect(303, session.url);
+      // res.redirect(303, session.url);
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message);
     }

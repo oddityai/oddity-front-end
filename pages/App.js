@@ -23,6 +23,7 @@ import Hotjar from "@hotjar/browser";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { db } from "../firebase";
 import Tesseract from "tesseract.js";
+import Image from "next/image";
 
 import Tabs from "./Tabs";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -59,16 +60,15 @@ export default function Home() {
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search);
-    if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
-    }
-
-    if (query.get("canceled")) {
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you’re ready."
-      );
-    }
+    // const query = new URLSearchParams(window.location.search);
+    // if (query.get("success")) {
+    //   console.log("Order placed! You will receive an email confirmation.");
+    // }
+    // if (query.get("canceled")) {
+    //   console.log(
+    //     "Order canceled -- continue to shop around and checkout when you’re ready."
+    //   );
+    // }
   }, []);
 
   useEffect(() => {
@@ -330,7 +330,7 @@ homework, ai homework writer, homework helper ai, homework ai, ai
 homework solver, ai for homework, ai  homework, ai homework solutions, ai
 homework helper"
         />{" "}
-      </Head>
+      </Head>{" "}
       <div>
         <div
           style={{

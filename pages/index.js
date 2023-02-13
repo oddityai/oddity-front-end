@@ -10,6 +10,7 @@ import ReactGA from "react-ga4";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { loadStripe } from "@stripe/stripe-js";
 import { Html, Head, Main, NextScript } from "next/document";
+import Image from "next/image";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
@@ -98,11 +99,14 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <img
+            <Image
               alt="ai-homework-helper"
               name="ai-homework-helper"
+              width="0"
+              sizes="100vw"
+              height="0"
+              style={{ width: "100%", height: "auto" }}
               src="/landing-robot.png"
-              style={{ maxHeight: "100%", maxWidth: "100%" }}
             />
           </div>
           <div
@@ -193,11 +197,14 @@ const Contact = () => {
                 maxWidth: 400,
               }}
             >
-              <img
+              <Image
                 alt="ai-for-homework"
                 name="ai-for-homework"
                 src="/final-step.png"
-                style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+                width="0"
+                sizes="100vw"
+                height="0"
+                style={{ width: "100%", height: "auto" }}
               />
             </div>
           </Link>
@@ -265,11 +272,14 @@ const Contact = () => {
                 maxWidth: 400,
               }}
             >
-              <img
+              <Image
                 alt="ai-homework"
                 name="ai-homework"
                 src="/buttons-page.png"
-                style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+                width="0"
+                sizes="100vw"
+                height="0"
+                style={{ width: "100%", height: "auto" }}
               />
             </div>
           </Link>
@@ -301,11 +311,14 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <img
+            <Image
               name="ai-homework-solutions"
               alt="ai-homework-solutions"
               src="/history-page1.png"
-              style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              width="0"
+              sizes="100vw"
+              height="0"
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
           <div
@@ -371,11 +384,14 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <img
+            <Image
               name="ai-homework-writer"
               alt="ai-homework-writer"
               src="/english-page-1.png"
-              style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              width="0"
+              sizes="100vw"
+              height="0"
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
         </div>
@@ -406,11 +422,14 @@ const Contact = () => {
               maxWidth: 400,
             }}
           >
-            <img
+            <Image
               name="homework-ai"
               alt="homework-ai"
               src="/science-page-1.png"
-              style={{ maxHeight: "100%", maxWidth: "100%", margin: 16 }}
+              width="0"
+              sizes="100vw"
+              height="0"
+              style={{ width: "100%", height: "auto" }}
             />
           </div>
           <div
