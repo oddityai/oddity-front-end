@@ -99,6 +99,7 @@ const Contact = () => {
           >
             <Image
               alt="ai-homework-helper"
+              title="ai-homework-helper"
               name="ai-homework-helper"
               width="0"
               sizes="100vw"
@@ -197,6 +198,7 @@ const Contact = () => {
             >
               <Image
                 alt="ai-for-homework"
+                title="ai-for-homework"
                 name="ai-for-homework"
                 src="/final-step.png"
                 width="0"
@@ -272,6 +274,7 @@ const Contact = () => {
             >
               <Image
                 alt="ai-homework"
+                title="ai-homework"
                 name="ai-homework"
                 src="/buttons-page.png"
                 width="0"
@@ -312,6 +315,7 @@ const Contact = () => {
             <Image
               name="ai-homework-solutions"
               alt="ai-homework-solutions"
+              title="ai-homework-solutions"
               src="/history-page1.png"
               width="0"
               sizes="100vw"
@@ -385,6 +389,7 @@ const Contact = () => {
             <Image
               name="ai-homework-writer"
               alt="ai-homework-writer"
+              title="ai-homework-writer"
               src="/english-page-1.png"
               width="0"
               sizes="100vw"
@@ -423,6 +428,7 @@ const Contact = () => {
             <Image
               name="homework-ai"
               alt="homework-ai"
+              title="homework-ai"
               src="/science-page-1.png"
               width="0"
               sizes="100vw"
