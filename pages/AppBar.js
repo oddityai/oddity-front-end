@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import SmartToyIcon from "@mui/icons-material/SmartToy";
+
 import { Nunito } from "@next/font/google";
 import Link from "next/link";
-import HamburgerMenu from "./HamburgerMenu";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Image from "next/image";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -95,13 +87,10 @@ export default function ButtonAppBar() {
             }}
             href="/"
           >
-            <img
-              style={{ height: 30, marginRight: 8, textDecoration: "none" }}
-              src="/logo.png"
-            />
+            <Image alt="oddity-logo" height={30} width={30} src="/logo.png" />
             <div
               className={nunito.className}
-              style={{ fontSize: 18, color: "#0057be" }}
+              style={{ fontSize: 18, color: "#0057be", marginLeft: 8 }}
             >
               {" "}
               OddityAI
