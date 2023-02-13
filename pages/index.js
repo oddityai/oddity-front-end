@@ -447,9 +447,9 @@ const Contact = () => {
           }}
         >
           <div style={{ width: "50%" }}>
-            <h1 style={{ fontSize: 20, fontWeight: 600 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 600 }}>
               Use our homework AI and never do homework again! It's free!
-            </h1>{" "}
+            </h2>{" "}
           </div>
           <Link
             style={{ textDecoration: "none", width: "50%" }}
@@ -483,7 +483,7 @@ const Contact = () => {
           }}
         >
           <div style={{ width: "80%" }}>
-            <h1 style={{ fontSize: 24 }}>AI that does homework</h1>
+            <h2 style={{ fontSize: 24 }}>AI that does homework</h2>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <h2 style={{ width: "50%", margin: 24, fontSize: 18 }}>
                 {" "}
@@ -524,10 +524,10 @@ const Contact = () => {
           }}
         >
           <div style={{ width: "50%" }}>
-            <h1 style={{ fontSize: 20, fontWeight: 600 }}>
+            <h2 style={{ fontSize: 20, fontWeight: 600 }}>
               Homework AI - Oddity AI is the homework AI that does homework for
               you.
-            </h1>{" "}
+            </h2>{" "}
           </div>
           <Link
             style={{ textDecoration: "none", width: "50%" }}
