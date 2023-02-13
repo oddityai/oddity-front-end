@@ -9,6 +9,7 @@ const Doc = () => {
     <Html>
       <Head>
         <title>AI Homework Helper | Homework AI</title>
+        <link rel="canonical" href="https://oddityai.com" />
         <meta
           name="description"
           content="Homework AI Is the AI That Does Homework. If You
