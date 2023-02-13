@@ -10,22 +10,16 @@ import { firebaseApp } from "../firebase";
 
 import Alert from "@mui/material/Alert";
 import { Nunito } from "@next/font/google";
-import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+
 import MicNoneIcon from "@mui/icons-material/MicNone";
 import IconButton from "@mui/material/IconButton";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import UploadButton from "./UploadButton";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import ImageUpload from "./ImageUpload";
-const startListening = () =>
-  SpeechRecognition.startListening({ continuous: true });
+
 const nunito = Nunito({ subsets: ["latin"] });
 const appId = "c6a6bc4f-0a1c-46ba-ad66-3322fbcaf51d";
-const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
-SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 export const storage = firebaseApp?.storage();
 
 const ChatBot = ({
@@ -68,27 +62,6 @@ const ChatBot = ({
       objDiv.scrollTop = objDiv.scrollHeight;
     }
   }, [answers]);
-
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-
-  const startListening = (e) => {
-    e.preventDefault();
-
-    SpeechRecognition.startListening();
-  };
-  const stopListening = (e) => {
-    e.preventDefault();
-    SpeechRecognition.stopListening();
-  };
-
-  useEffect(() => {
-    setAnimalInput(transcript);
-  }, [transcript]);
 
   const generateFirebaseUrl = async () => {
     setStep(0);
@@ -614,7 +587,6 @@ const ChatBot = ({
         <form
           onSubmit={(e) => {
             onSubmit(e);
-            resetTranscript();
           }}
         >
           <div

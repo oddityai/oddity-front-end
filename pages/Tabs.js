@@ -9,7 +9,6 @@ import TextField from "@mui/material/TextField";
 import Buttons from "./Buttons";
 import Buttons2 from "./Buttons2";
 import { Nunito } from "@next/font/google";
-import { loadStripe } from "@stripe/stripe-js";
 import ImageUpload from "./ImageUpload";
 import Dialog from "@mui/material/Dialog";
 

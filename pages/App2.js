@@ -1,14 +1,9 @@
 import Head from "next/head";
-import html2canvas from "html2canvas";
 import { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-import htmlToPdfmake from "html-to-pdfmake";
-import { jsPDF } from "jspdf";
-import Loader from "../public/Loader.gif";
-import Loader2 from "../public/Loader.svg";
-import LogRocket from "logrocket";
+
 import AppBar from "./AppBar";
 import App from "next/app";
 import TwitterIcon from "@mui/icons-material/Twitter";

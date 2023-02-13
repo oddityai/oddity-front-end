@@ -8,8 +8,6 @@ import LogRocket from "logrocket";
 import Hotjar from "@hotjar/browser";
 import ReactGA from "react-ga4";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { loadStripe } from "@stripe/stripe-js";
-import { Html, Head, Main, NextScript } from "next/document";
 import Image from "next/image";
 
 const nunito = Nunito({ subsets: ["latin"] });
