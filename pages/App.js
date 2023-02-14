@@ -92,35 +92,37 @@ export default function Home() {
   }, [user]);
 
   useEffect(() => {
-    if (user?.nickname && !isLoading) {
-      db.collection("profiles").onSnapshot((snapshot) => {
-        const userData = snapshot.docs.map((doc) => {
-          return { ...doc.data(), ...{ id: doc.id } };
-        });
-        if (userData) {
-          const histories = [];
-          userData?.map((ele) => {
-            if (ele?.chatHistory?.length) {
-              ele?.chatHistory.map((chat) => {
-                if (chat.type === "feedback") {
-                  histories.push({
-                    username: ele?.username,
-                    chat: chat.input,
-                    reply: chat.response,
-                    full: chat,
-                  });
-                }
-              });
-              // histories.push({
-              //   username: ele?.username,
-              //   length: ele?.chatHistory?.length,
-              //   history: ele?.chatHistory,
-              // });
-            }
+    if (window.location.href.includes("localhost")) {
+      if (user?.nickname && !isLoading) {
+        db.collection("profiles").onSnapshot((snapshot) => {
+          const userData = snapshot.docs.map((doc) => {
+            return { ...doc.data(), ...{ id: doc.id } };
           });
-          console.log({ histories });
-        }
-      });
+          if (userData) {
+            const histories = [];
+            userData?.map((ele) => {
+              if (ele?.chatHistory?.length) {
+                ele?.chatHistory.map((chat) => {
+                  if (chat.type === "feedback") {
+                    histories.push({
+                      username: ele?.username,
+                      chat: chat.input,
+                      reply: chat.response,
+                      full: chat,
+                    });
+                  }
+                });
+                // histories.push({
+                //   username: ele?.username,
+                //   length: ele?.chatHistory?.length,
+                //   history: ele?.chatHistory,
+                // });
+              }
+            });
+            console.log({ histories });
+          }
+        });
+      }
     }
   }, [user]);
 

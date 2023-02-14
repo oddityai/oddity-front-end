@@ -74,8 +74,6 @@ const ChatBot = ({
     setIsProcessing(true);
     await ref.put(file.file);
     const url = await ref.getDownloadURL();
-    console.log("url: ", url);
-    console.log("url: ", btoa(url));
     setUrl(url);
     setStep(1);
     fetch(`https://oddity-api.herokuapp.com/test`, {
