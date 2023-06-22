@@ -1,53 +1,47 @@
-import Head from "next/head";
-import { useState, useEffect } from "react";
-import styles from "./index.module.css";
+import Head from 'next/head'
+import { useEffect, useState } from 'react'
 
-import AppBar from "./AppBar";
-import App from "next/app";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import CloseIcon from "@mui/icons-material/Close";
-import ReactGA from "react-ga4";
-import ChatBot from "./ChatBot";
-import Buttons from "./Buttons";
-import Dialog from "@mui/material/Dialog";
-import { Nunito } from "@next/font/google";
-import Hotjar from "@hotjar/browser";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { db } from "../firebase";
-import Tesseract from "tesseract.js";
-import Image from "next/image";
+import { useUser } from '@auth0/nextjs-auth0/client'
+import Hotjar from '@hotjar/browser'
+import CloseIcon from '@mui/icons-material/Close'
+import Dialog from '@mui/material/Dialog'
+import { Nunito } from '@next/font/google'
+import ReactGA from 'react-ga4'
+import Tesseract from 'tesseract.js'
+import { db } from '../firebase'
+import AppBar from './AppBar'
+import ChatBot from './ChatBot'
 
-import Tabs from "./Tabs";
+import Tabs from './Tabs'
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ['latin'] })
 
-const test = [];
+const test = []
 
 const TYPES = {
-  math: "Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :",
-  history: "Answer this history question for me: ",
-  english: "Answer this English question for me: ",
-  science: "Answer this science question for me: ",
-  chat: "",
+  math: 'Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :',
+  history: 'Answer this history question for me: ',
+  english: 'Answer this English question for me: ',
+  science: 'Answer this science question for me: ',
+  chat: '',
   feedback:
-    "Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ",
+    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ',
 
-  reply: "Generate a reply to the following message: ",
-  joke: "Write a funny joke about the following prompt. It has to be very funny. : ",
-};
+  reply: 'Generate a reply to the following message: ',
+  joke: 'Write a funny joke about the following prompt. It has to be very funny. : ',
+}
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
-  const [result, setResult] = useState();
-  const [answers, setAnswers] = useState([]);
-  const [isLoadingScreen, setIsLoadingScreen] = useState(false);
-  const [error, setError] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [animalInput, setAnimalInput] = useState('')
+  const [result, setResult] = useState()
+  const [answers, setAnswers] = useState([])
+  const [isLoadingScreen, setIsLoadingScreen] = useState(false)
+  const [error, setError] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const [profileData, setProfileData] = useState({});
-  const [subject, setSubject] = useState("math");
-  const { user, isLoading } = useUser();
+  const [profileData, setProfileData] = useState({})
+  const [subject, setSubject] = useState('math')
+  const { user, isLoading } = useUser()
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -60,94 +54,112 @@ export default function Home() {
     //     "Order canceled -- continue to shop around and checkout when you’re ready."
     //   );
     // }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
-      db.collection("profiles")
-        .where("username", "==", user?.nickname)
+      db.collection('profiles')
+        .where('username', '==', user?.nickname)
         .onSnapshot((snapshot) => {
           const userData = snapshot.docs.map((doc) => {
-            return { ...doc.data(), ...{ id: doc.id } };
-          })[0];
+            return { ...doc.data(), ...{ id: doc.id } }
+          })[0]
           if (userData) {
-            setProfileData(userData);
+            setProfileData(userData)
           } else {
-            if (sessionStorage.getItem("profileStatus1") === user?.sid) {
-              return;
+            if (sessionStorage.getItem('profileStatus1') === user?.sid) {
+              return
             }
             const newUser = {
               username: user?.nickname,
               email: user?.email,
-              id: user?.sub.split("|")[1],
+              id: user?.sub.split('|')[1],
               name: user?.name,
               chatHistory: [],
-            };
-            db.collection("profiles").add(newUser);
-            setProfileData(newUser);
-            sessionStorage.setItem("profileStatus1", user?.sid);
+            }
+            db.collection('profiles').add(newUser)
+            setProfileData(newUser)
+            sessionStorage.setItem('profileStatus1', user?.sid)
           }
-        });
+        })
     }
-  }, [user]);
+  }, [user])
 
-  useEffect(() => {
-    if (window.location.href.includes("localhost")) {
-      if (user?.nickname && !isLoading) {
-        db.collection("profiles").onSnapshot((snapshot) => {
-          const userData = snapshot.docs.map((doc) => {
-            return { ...doc.data(), ...{ id: doc.id } };
-          });
-          if (userData) {
-            const histories = [];
-            userData?.map((ele) => {
-              if (ele?.chatHistory?.length) {
-                ele?.chatHistory.map((chat) => {
-                  if (chat.type === "feedback") {
-                    histories.push({
-                      username: ele?.username,
-                      chat: chat.input,
-                      reply: chat.response,
-                      full: chat,
-                    });
-                  }
-                });
-                // histories.push({
-                //   username: ele?.username,
-                //   length: ele?.chatHistory?.length,
-                //   history: ele?.chatHistory,
-                // });
-              }
-            });
-            console.log({ histories });
-          }
-        });
-      }
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (window.location.href.includes('localhost')) {
+  //     if (user?.nickname && !isLoading) {
+  //       db.collection('profiles').onSnapshot((snapshot) => {
+  //         const userData = snapshot.docs.map((doc) => {
+  //           return { ...doc.data(), ...{ id: doc.id } }
+  //         })
+  //         if (userData) {
+  //           const histories = []
+  //           userData?.map((ele) => {
+  //             if (ele?.chatHistory?.length) {
+  //               ele?.chatHistory.map((chat) => {
+  //                 if (chat.type === 'feedback') {
+  //                   histories.push({
+  //                     username: ele?.username,
+  //                     chat: chat.input,
+  //                     reply: chat.response,
+  //                     full: chat,
+  //                   })
+  //                 }
+  //               })
+  //               // histories.push({
+  //               //   username: ele?.username,
+  //               //   length: ele?.chatHistory?.length,
+  //               //   history: ele?.chatHistory,
+  //               // });
+  //             }
+  //           })
+  //           console.log({ histories })
+  //         }
+  //       })
+  //     }
+  //   }
+  // }, [user])
 
   const handleClick = (subject) => {
-    setIsModalOpen(true);
-    setSubject(subject);
-  };
+    // if (profileData.credits > 0) {
+    setIsModalOpen(true)
+    setSubject(subject)
+    // } else {
+    //   alert(
+    //     `${profileData.name}, you need credits to chat with our bots! Visit the Free and Buy pages!`
+    //   )
+    // }
+  }
+
+  // const handleCreditPurchase = () => {
+  //   const userRef = db.collection('profiles').doc(profileData.user_id)
+  //     userRef
+  //       .set({ credits: +100 }, { merge: true })
+  //       .then(() => {
+  //         console.log('Credits added successfully (100)')
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error adding (100) credits: ', error)
+  //       })
+  // }
 
   async function onSubmit(event, value, url, tries) {
-    const input = value ? value : animalInput;
+    const input = value ? value : animalInput
 
     if (event) {
-      event.preventDefault();
+      event.preventDefault()
     }
-    setIsLoadingScreen(true);
+    setIsLoadingScreen(true)
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
+      const response = await fetch('/api/generate', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           animal: `${TYPES[subject]}: "${input}"`,
         }),
-      });
+      })
       // const response2 = await fetch("/api/generate", {
       //   method: "POST",
       //   headers: {
@@ -158,14 +170,14 @@ export default function Home() {
       //   }),
       // });
 
-      let data = await response.json();
+      let data = await response.json()
       // let data2 = await response2.json();
       // console.log(data2.result.explanation);
       if (response.status !== 200) {
         throw (
           data.error ||
           new Error(`Request failed with status ${response.status}`)
-        );
+        )
       }
       // if (response2.status !== 200) {
       //   throw (
@@ -174,46 +186,46 @@ export default function Home() {
       //   );
       // }
 
-      setResult(data.result);
+      setResult(data.result)
       const res = {
         result: data.result,
         input: input,
         // url: url,
         type: subject,
         // explanation: JSON.parse(data2.result).explanation,
-      };
-      const answersCopy = answers.slice();
-      answersCopy.push(res);
-      setAnswers(answersCopy);
-      setAnimalInput("");
-      setResult("");
-      setError("");
-      setIsLoadingScreen(false);
-      const userCopy = profileData.chatHistory.slice();
-      userCopy.unshift(res);
-      console.log("SAVING", userCopy);
-      db.collection("profiles").doc(profileData?.id).update({
+      }
+      const answersCopy = answers.slice()
+      answersCopy.push(res)
+      setAnswers(answersCopy)
+      setAnimalInput('')
+      setResult('')
+      setError('')
+      setIsLoadingScreen(false)
+      const userCopy = profileData.chatHistory.slice()
+      userCopy.unshift(res)
+      console.log('SAVING', userCopy)
+      db.collection('profiles').doc(profileData?.id).update({
         chatHistory: userCopy,
-      });
-      console.log("end save", profileData?.id);
-      Hotjar.event("SUCCESS - User succeeded to submit request.");
+      })
+      console.log('end save', profileData?.id)
+      Hotjar.event('SUCCESS - User succeeded to submit request.')
       // setAnimalInput("");
     } catch (error) {
       if (!tries && tries < 1) {
-        onSubmit(event, value + " (limit 1606 chars)", url, type, 1);
-        return;
+        onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
+        return
       }
       // Consider implementing your own error handling logic here
       if (tries > 1) {
-        setIsLoadingScreen(false);
-        setResult("");
+        setIsLoadingScreen(false)
+        setResult('')
         setError(
-          "The response is too large to send. Can you try asking a slightly more specific question?" +
-            " " +
+          'The response is too large to send. Can you try asking a slightly more specific question?' +
+            ' ' +
             error.message
-        );
-        Hotjar.event("FAILURE - User failed to submit request.");
-        console.error(error);
+        )
+        Hotjar.event('FAILURE - User failed to submit request.')
+        console.error(error)
       }
 
       // alert(error.message);
@@ -221,45 +233,45 @@ export default function Home() {
   }
 
   const shareOnTwitter = () => {
-    const url = encodeURIComponent("www.oddityai.com");
+    const url = encodeURIComponent('www.oddityai.com')
     const text = encodeURIComponent(
-      "Check out this new AI powered homework bot!"
-    );
-    const via = "myusername";
+      'Check out this new AI powered homework bot!'
+    )
+    const via = 'myusername'
     window.open(
       `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=Oddity_AI`
-    );
-  };
+    )
+  }
 
   const handleChange = async (url, type) => {
-    setIsModalOpen(true);
-    setIsLoadingScreen(true);
-    const { createWorker } = Tesseract;
+    setIsModalOpen(true)
+    setIsLoadingScreen(true)
+    const { createWorker } = Tesseract
 
-    const worker = await createWorker();
-    await worker.loadLanguage("eng");
-    await worker.initialize("eng");
+    const worker = await createWorker()
+    await worker.loadLanguage('eng')
+    await worker.initialize('eng')
 
     await worker.setParameters({
       tessedit_ocr_engine_mode: 0,
-      tessedit_pageseg_mode: "1",
-      tessedit_create_txt: "1",
-      tosp_ignore_big_gaps: "1",
-      tessedit_pageseg_mode: "6",
-      preserve_interword_spaces: "1",
-    });
+      tessedit_pageseg_mode: '1',
+      tessedit_create_txt: '1',
+      tosp_ignore_big_gaps: '1',
+      tessedit_pageseg_mode: '6',
+      preserve_interword_spaces: '1',
+    })
 
     const options = {
       tessedit_ocr_engine_mode: 0,
-      tessedit_pageseg_mode: "1",
-      preserve_interword_spaces: "1",
-    };
+      tessedit_pageseg_mode: '1',
+      preserve_interword_spaces: '1',
+    }
 
     const {
       data: { text },
-    } = await worker.recognize(url, "eng", options);
-    onSubmit(null, text, url, type);
-  };
+    } = await worker.recognize(url, 'eng', options)
+    onSubmit(null, text, url, type)
+  }
 
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
@@ -278,11 +290,11 @@ export default function Home() {
   // }, [result]);
 
   useEffect(() => {
-    if (window.location.href.includes("oddityai")) {
-      Hotjar.init(3307089, 6);
+    if (window.location.href.includes('oddityai')) {
+      Hotjar.init(3307089, 6)
 
-      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
-      window.sessionStorage.setItem("hotjar", "true");
+      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY)
+      window.sessionStorage.setItem('hotjar', 'true')
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
       //   name: "James Morrison",
@@ -291,70 +303,70 @@ export default function Home() {
       //   subscriptionType: "pro",
       // });
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (!isLoading && !user?.nickname) {
-      window.location.href = "/";
+      window.location.href = '/'
     }
-  }, [isLoading, user]);
+  }, [isLoading, user])
 
   if (isLoading) {
-    return <>Logging in</>;
+    return <>Logging in</>
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta
-          name="description"
-          content="Homework AI Is the AI That Does Homework. If You
+          name='description'
+          content='Homework AI Is the AI That Does Homework. If You
 Are a Student Who Needs Homework Solutions This AI Homework Helper
 Is for You. Give This AI Homework App a Try, It’ll Solve & Write Your
-Homework"
+Homework'
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel='shortcut icon' href='/favicon.ico' />
         <meta
-          name="keywords"
-          content="student homework app ai, ai that does homework, ai doing
+          name='keywords'
+          content='student homework app ai, ai that does homework, ai doing
 homework, ai homework writer, homework helper ai, homework ai, ai
 homework solver, ai for homework, ai  homework, ai homework solutions, ai
-homework helper"
-        />{" "}
-      </Head>{" "}
+homework helper'
+        />{' '}
+      </Head>{' '}
       <div>
         <div
           style={{
-            textAlign: "center",
-            padding: "20px 20px",
-            color: "#232A31",
+            textAlign: 'center',
+            padding: '20px 20px',
+            color: '#232A31',
             fontFamily: "'ColfaxAI', sans-serif",
           }}
-          id="exportthis"
+          id='exportthis'
         >
           <Dialog
             onClose={() => {
-              setIsModalOpen(false);
-              setAnswers([]);
+              setIsModalOpen(false)
+              setAnswers([])
             }}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: '100%', height: '100%' }}
             open={isModalOpen}
           >
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <CloseIcon
                 onClick={() => {
-                  setIsModalOpen(false);
-                  setAnswers([]);
+                  setIsModalOpen(false)
+                  setAnswers([])
                 }}
               />
             </div>
             <div
-              className="container"
+              className='container'
               style={{
-                textAlign: "left",
-                margin: "auto",
+                textAlign: 'left',
+                margin: 'auto',
                 maxWidth: 500,
                 padding: 8,
               }}
@@ -363,11 +375,11 @@ homework helper"
                 style={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: "rgba(0, 0, 0, 0.87)",
+                  color: 'rgba(0, 0, 0, 0.87)',
                   fontFamily: "'ColfaxAI', sans-serif",
                   marginTop: 15,
                 }}
-                id="form-title"
+                id='form-title'
               >
                 {`OddityAI ${subject} AI`}
               </p>
@@ -393,12 +405,12 @@ homework helper"
       </div>
       <div
         style={{
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         <br />
         <br />
       </div>
     </div>
-  );
+  )
 }
