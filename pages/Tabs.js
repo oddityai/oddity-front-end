@@ -302,6 +302,9 @@ export default function BasicTabs({
               <h4>100 credits</h4>
               <p className={nunito.className}>Enough for a few months</p>
               <p className={nunito.className}>
+                Questions and image uploads cost 1 credit
+              </p>
+              <p className={nunito.className}>
                 Usable on any current/future AI bots
               </p>
               <form action={`/api/checkout_sessions?user_id=123`} method='POST'>
