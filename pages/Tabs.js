@@ -153,7 +153,7 @@ export default function BasicTabs({
       <TabPanel value={value} index={2}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
           You currently have{' '}
-          <bold>({profileData.credits ? profileData.credits : '0'})</bold>{' '}
+          <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
           credits remaining.
         </h3>
         {/* <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
