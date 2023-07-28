@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^2.1.0",
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@hotjar/browser": "^1.0.6",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.2",
@@ -25,7 +28,6 @@
     "react-dom": "^18.2.0",
     "react-ga4": "^1.4.1",
     "react-hotjar": "^5.3.0",
-    "react-stripe-elements": "^6.1.2",
     "regenerator-runtime": "^0.13.11",
     "socket.io-client": "^4.6.2",
     "stripe": "^12.9.0",

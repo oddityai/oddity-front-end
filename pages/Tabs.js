@@ -221,25 +221,25 @@ export default function BasicTabs({
             </div>
           </div>
         </div> */}
-        <div
+        {/* <div
           style={{
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
           }}
+        > */}
+        <div
+          style={{
+            margin: '16px auto',
+            width: '30%',
+            backgroundColor: '#f5f5f5',
+            borderRadius: 8,
+            minWidth: 200,
+            boxShadow: '5px 5px 10px gray',
+          }}
         >
-          <div
-            style={{
-              margin: '16px auto',
-              width: '30%',
-              backgroundColor: '#f5f5f5',
-              borderRadius: 8,
-              minWidth: 200,
-              boxShadow: '5px 5px 10px gray',
-            }}
-          >
-            {/* <div style={{ padding: 8 }}>
+          {/* <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Free</h3>
               <hr s />
               <h3 className={nunito.className}>Referral / 25 free credits</h3>
@@ -283,69 +283,65 @@ export default function BasicTabs({
                 </style>
               </form>
             </div> */}
+        </div>
+        <div
+          style={{
+            margin: '16px auto',
+            width: '30%',
+            backgroundColor: '#f5f5f5',
+            borderRadius: 8,
+            minWidth: 200,
+            boxShadow: '5px 5px 10px gray',
+          }}
+        >
+          <div style={{ padding: 8 }}>
+            <h3 className={nunito.className}>Starter Pack</h3>
+            <hr s />
+            <h3 className={nunito.className}>$5 / 100 credits</h3>
+            <hr s />
+            <h4>100 credits</h4>
+            <p className={nunito.className}>Enough for a few months</p>
+            <p className={nunito.className}>
+              Questions and image uploads cost 1 credit
+            </p>
+            <p className={nunito.className}>
+              Usable on any current/future AI bots
+            </p>
+            <form action={`/api/checkout_sessions?user_id=123`} method='POST'>
+              <section>
+                <button type='submit' role='link'>
+                  Buy Now
+                </button>
+              </section>
+              <style jsx>
+                {`
+                  section {
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 6px;
+                    justify-content: space-between;
+                  }
+                  button {
+                    margin-top: 8px;
+                    height: 36px;
+                    background: #556cd6;
+                    border-radius: 4px;
+                    color: white;
+                    border: 0;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.5s ease;
+                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                  }
+                  button:hover {
+                    opacity: 0.8;
+                  }
+                `}
+              </style>
+            </form>
           </div>
-          <div
-            style={{
-              margin: '16px auto',
-              width: '30%',
-              backgroundColor: '#f5f5f5',
-              borderRadius: 8,
-              minWidth: 200,
-              boxShadow: '5px 5px 10px gray',
-            }}
-          >
-            <div style={{ padding: 8 }}>
-              <h3 className={nunito.className}>Starter Pack</h3>
-              <hr s />
-              <h3 className={nunito.className}>$5 / 100 credits</h3>
-              <hr s />
-              <h4>100 credits</h4>
-              <p className={nunito.className}>Enough for a few months</p>
-              <p className={nunito.className}>
-                Questions and image uploads cost 1 credit
-              </p>
-              <p className={nunito.className}>
-                Usable on any current/future AI bots
-              </p>
-              <form action={`/api/checkout_sessions?user_id=123`} method='POST'>
-                <section>
-                  <button
-                    type='submit'
-                    // onClick={handleBuyCredits}
-                    role='link'
-                  >
-                    Buy Now
-                  </button>
-                </section>
-                <style jsx>
-                  {`
-                    section {
-                      display: flex;
-                      flex-direction: column;
-                      border-radius: 6px;
-                      justify-content: space-between;
-                    }
-                    button {
-                      margin-top: 8px;
-                      height: 36px;
-                      background: #556cd6;
-                      border-radius: 4px;
-                      color: white;
-                      border: 0;
-                      font-weight: 600;
-                      cursor: pointer;
-                      transition: all 0.5s ease;
-                      box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                    }
-                    button:hover {
-                      opacity: 0.8;
-                    }
-                  `}
-                </style>
-              </form>
-            </div>
-          </div>
-          {/* <div
+        </div>
+        {/* <div
               style={{
                 margin: '16px auto',
                 width: '30%',
@@ -410,7 +406,7 @@ export default function BasicTabs({
                 </form>
               </div>
             </div> */}
-        </div>
+        {/* </div> */}
       </TabPanel>
       <TabPanel value={value} index={3}>
         <div>
