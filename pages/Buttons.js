@@ -9,7 +9,7 @@ import Button from '@mui/material/Button'
 import { Nunito } from '@next/font/google'
 
 const nunito = Nunito({ subsets: ['latin'] })
-const Buttons = ({ children, handleClick }) => {
+const Buttons = ({ children, handleClick, handleFeedback }) => {
   return (
     <div
       className={nunito.className}
@@ -142,7 +142,7 @@ const Buttons = ({ children, handleClick }) => {
                 feature? Find a bug? Tell us about it!
               </p>
               <Button
-                onClick={() => handleClick('feedback')}
+                onClick={() => handleFeedback('feedback')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#ff4a47',

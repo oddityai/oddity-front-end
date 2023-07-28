@@ -1,11 +1,11 @@
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
-
 import { useUser } from '@auth0/nextjs-auth0/client'
 import Hotjar from '@hotjar/browser'
 import CloseIcon from '@mui/icons-material/Close'
 import Dialog from '@mui/material/Dialog'
 import { Nunito } from '@next/font/google'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import ReactGA from 'react-ga4'
 import Tesseract from 'tesseract.js'
 import { db } from '../firebase'
@@ -42,6 +42,7 @@ export default function Home() {
   const [profileData, setProfileData] = useState({})
   const [subject, setSubject] = useState('math')
   const { user, isLoading } = useUser()
+  const router = useRouter()
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -85,6 +86,23 @@ export default function Home() {
     }
   }, [user])
 
+  useEffect(() => {
+    if (router.query.success === 'true' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+
+      try {
+        userRef.update({
+          credits: (profileData.credits || 0) + 100,
+        })
+        console.log('Credits successfully added (100)')
+        router.push('/App')
+      } catch (error) {
+        console.error(`Error adding credits: ${error}`)
+      }
+    }
+  }, [router.query.success, profileData.id])
+
   // useEffect(() => {
   //   if (window.location.href.includes('localhost')) {
   //     if (user?.nickname && !isLoading) {
@@ -121,14 +139,16 @@ export default function Home() {
   // }, [user])
 
   const handleClick = (subject) => {
-    // if (profileData.credits > 0) {
+    if (profileData.credits > 0) {
+      setIsModalOpen(true)
+      setSubject(subject)
+    } else {
+      alert('You must have credits to continue! Visit the "Credits" tab!')
+    }
+  }
+  const handleFeedback = (subject) => {
     setIsModalOpen(true)
     setSubject(subject)
-    // } else {
-    //   alert(
-    //     `${profileData.name}, you need credits to chat with our bots! Visit the Free and Buy pages!`
-    //   )
-    // }
   }
 
   // const handleCreditPurchase = () => {
@@ -142,10 +162,23 @@ export default function Home() {
   //         console.error('Error adding (100) credits: ', error)
   //       })
   // }
-
+  const useCredit = () => {
+    const usersRef = db.collection('profiles')
+    const userRef = usersRef.doc(profileData.id)
+    userRef.update({
+      credits: profileData.credits - 1,
+    })
+  }
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
-
+    if (
+      subject !== 'feedback' &&
+      subject !== 'chat' &&
+      subject !== 'joke' &&
+      subject !== 'reply'
+    ) {
+      useCredit()
+    }
     if (event) {
       event.preventDefault()
     }
@@ -314,7 +347,9 @@ export default function Home() {
   if (isLoading) {
     return <>Logging in</>
   }
-
+  if (!profileData) {
+    return <div>Loading...</div>
+  }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar />
@@ -392,6 +427,8 @@ homework helper'
                 subject={subject}
                 answers={answers}
                 error={error}
+                profileData={profileData}
+                useCredit={useCredit}
               />
             </div>
           </Dialog>
@@ -400,6 +437,7 @@ homework helper'
             profileData={profileData}
             answers={answers}
             handleClick={handleClick}
+            handleFeedback={handleFeedback}
           />
         </div>
       </div>

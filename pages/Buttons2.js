@@ -9,7 +9,7 @@ import PsychologyIcon from '@mui/icons-material/Psychology'
 import { Nunito } from '@next/font/google'
 
 const nunito = Nunito({ subsets: ['latin'] })
-const Buttons = ({ children, handleClick }) => {
+const Buttons = ({ children, handleFeedback }) => {
   return (
     <div
       className={nunito.className}
@@ -33,7 +33,7 @@ const Buttons = ({ children, handleClick }) => {
                 him/her-self about anything.
               </p>
               <Button
-                onClick={() => handleClick('chat')}
+                onClick={() => handleFeedback('chat')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#b58024',
@@ -61,7 +61,7 @@ const Buttons = ({ children, handleClick }) => {
                 Just give me a prompt.
               </p>
               <Button
-                onClick={() => handleClick('joke')}
+                onClick={() => handleFeedback('joke')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#00c3ff',
@@ -89,7 +89,7 @@ const Buttons = ({ children, handleClick }) => {
                 even texts!
               </p>
               <Button
-                onClick={() => handleClick('reply')}
+                onClick={() => handleFeedback('reply')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#ff6f00',
@@ -115,7 +115,7 @@ const Buttons = ({ children, handleClick }) => {
                 bot? Find a bug? Tell us about it!
               </p>
               <Button
-                onClick={() => handleClick('feedback')}
+                onClick={() => handleFeedback('feedback')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#ff4a47',
