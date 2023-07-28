@@ -76,7 +76,7 @@ export default function Home() {
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: '100',
+              credits: '20',
               chatHistory: [],
             }
             db.collection('profiles').add(newUser)
