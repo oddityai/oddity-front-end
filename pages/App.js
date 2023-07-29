@@ -1,7 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client'
 import Hotjar from '@hotjar/browser'
 import CloseIcon from '@mui/icons-material/Close'
+import { Modal, Typography } from '@mui/material'
 import Dialog from '@mui/material/Dialog'
+import { Box } from '@mui/system'
 import { Nunito } from '@next/font/google'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -38,24 +40,13 @@ export default function Home() {
   const [isLoadingScreen, setIsLoadingScreen] = useState(false)
   const [error, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
 
   const [profileData, setProfileData] = useState({})
   const [subject, setSubject] = useState('math')
   const { user, isLoading } = useUser()
   const router = useRouter()
-
-  useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    // const query = new URLSearchParams(window.location.search);
-    // if (query.get("success")) {
-    //   console.log("Order placed! You will receive an email confirmation.");
-    // }
-    // if (query.get("canceled")) {
-    //   console.log(
-    //     "Order canceled -- continue to shop around and checkout when you’re ready."
-    //   );
-    // }
-  }, [])
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
@@ -144,7 +135,8 @@ export default function Home() {
       setIsModalOpen(true)
       setSubject(subject)
     } else {
-      alert('You must have credits to continue! Visit the "Credits" tab!')
+      // alert('You must have credits to continue! Visit the "Credits" tab!')
+      handleOpen()
     }
   }
   const handleFeedback = (subject) => {
@@ -257,7 +249,8 @@ export default function Home() {
         // alert(error.message);
       }
     } else {
-      alert('You must have credits to continue! Visit the "Credits" tab!')
+      // alert('You must have credits to continue! Visit the "Credits" tab!')
+      handleOpen()
     }
   }
 
@@ -301,7 +294,11 @@ export default function Home() {
     } = await worker.recognize(url, 'eng', options)
     onSubmit(null, text, url, type)
   }
-
+  const [value, setValue] = useState(0)
+  const handleClose = () => {
+    setOpen(false)
+    setValue(2)
+  }
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
   //   // var dd = { content: html };
@@ -346,6 +343,19 @@ export default function Home() {
   if (!profileData) {
     return <div>Loading...</div>
   }
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: '#dc3545',
+    border: '2px solid #BC2534',
+    borderRadius: '10px',
+    boxShadow: 24,
+    p: 4,
+    color: 'white',
+  }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar />
@@ -368,6 +378,22 @@ homework helper'
         />{' '}
       </Head>{' '}
       <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+        >
+          <Box sx={style}>
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
+              You need credits to continue!
+            </Typography>
+            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+              Purchase credits to continue using OddityAI! Only $5 for 100
+              credits!
+            </Typography>
+          </Box>
+        </Modal>
         <div
           style={{
             textAlign: 'center',
@@ -434,6 +460,9 @@ homework helper'
             answers={answers}
             handleClick={handleClick}
             handleFeedback={handleFeedback}
+            handleClose={handleClose}
+            value={value}
+            setValue={setValue}
           />
         </div>
       </div>

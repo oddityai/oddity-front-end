@@ -48,8 +48,10 @@ export default function BasicTabs({
   handleFeedback,
   answers,
   profileData,
+  handleClose,
+  value,
+  setValue,
 }) {
-  const [value, setValue] = React.useState(0)
   const [referralCode, setReferralCode] = React.useState('')
 
   const handleChange = (event, newValue) => {
