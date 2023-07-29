@@ -349,12 +349,13 @@ export default function Home() {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: '#dc3545',
-    border: '2px solid #BC2534',
+    bgcolor: 'rgb(188, 37, 52, 0.95)',
+    border: '2px solid #871420',
     borderRadius: '10px',
     boxShadow: 24,
     p: 4,
     color: 'white',
+    textAlign: 'center',
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
