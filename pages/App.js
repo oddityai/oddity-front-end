@@ -152,23 +152,14 @@ export default function Home() {
     setSubject(subject)
   }
 
-  // const handleCreditPurchase = () => {
-  //   const userRef = db.collection('profiles').doc(profileData.user_id)
-  //     userRef
-  //       .set({ credits: +100 }, { merge: true })
-  //       .then(() => {
-  //         console.log('Credits added successfully (100)')
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error adding (100) credits: ', error)
-  //       })
-  // }
   const useCredit = () => {
     const usersRef = db.collection('profiles')
     const userRef = usersRef.doc(profileData.id)
-    userRef.update({
-      credits: profileData.credits - 1,
-    })
+    if (profileData.credits >= 0) {
+      userRef.update({
+        credits: profileData.credits - 1,
+      })
+    }
   }
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
