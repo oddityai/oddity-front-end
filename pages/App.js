@@ -163,97 +163,101 @@ export default function Home() {
   }
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
-    if (
-      subject !== 'feedback' &&
-      subject !== 'chat' &&
-      subject !== 'joke' &&
-      subject !== 'reply'
-    ) {
-      useCredit()
-    }
-    if (event) {
-      event.preventDefault()
-    }
-    setIsLoadingScreen(true)
-    try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          animal: `${TYPES[subject]}: "${input}"`,
-        }),
-      })
-      // const response2 = await fetch("/api/generate", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({
-      //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
-      //   }),
-      // });
+    if (profileData.credits > 0) {
+      if (
+        subject !== 'feedback' &&
+        subject !== 'chat' &&
+        subject !== 'joke' &&
+        subject !== 'reply'
+      ) {
+        useCredit()
+      }
+      if (event) {
+        event.preventDefault()
+      }
+      setIsLoadingScreen(true)
+      try {
+        const response = await fetch('/api/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            animal: `${TYPES[subject]}: "${input}"`,
+          }),
+        })
+        // const response2 = await fetch("/api/generate", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
+        //   }),
+        // });
 
-      let data = await response.json()
-      // let data2 = await response2.json();
-      // console.log(data2.result.explanation);
-      if (response.status !== 200) {
-        throw (
-          data.error ||
-          new Error(`Request failed with status ${response.status}`)
-        )
-      }
-      // if (response2.status !== 200) {
-      //   throw (
-      //     data.error ||
-      //     new Error(`Request failed with status ${response.status}`)
-      //   );
-      // }
+        let data = await response.json()
+        // let data2 = await response2.json();
+        // console.log(data2.result.explanation);
+        if (response.status !== 200) {
+          throw (
+            data.error ||
+            new Error(`Request failed with status ${response.status}`)
+          )
+        }
+        // if (response2.status !== 200) {
+        //   throw (
+        //     data.error ||
+        //     new Error(`Request failed with status ${response.status}`)
+        //   );
+        // }
 
-      setResult(data.result)
-      const res = {
-        result: data.result,
-        input: input,
-        // url: url,
-        type: subject,
-        // explanation: JSON.parse(data2.result).explanation,
-      }
-      const answersCopy = answers.slice()
-      answersCopy.push(res)
-      setAnswers(answersCopy)
-      setAnimalInput('')
-      setResult('')
-      setError('')
-      setIsLoadingScreen(false)
-      const userCopy = profileData.chatHistory.slice()
-      userCopy.unshift(res)
-      console.log('SAVING', userCopy)
-      db.collection('profiles').doc(profileData?.id).update({
-        chatHistory: userCopy,
-      })
-      console.log('end save', profileData?.id)
-      Hotjar.event('SUCCESS - User succeeded to submit request.')
-      // setAnimalInput("");
-    } catch (error) {
-      if (!tries && tries < 1) {
-        onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
-        return
-      }
-      // Consider implementing your own error handling logic here
-      if (tries > 1) {
-        setIsLoadingScreen(false)
+        setResult(data.result)
+        const res = {
+          result: data.result,
+          input: input,
+          // url: url,
+          type: subject,
+          // explanation: JSON.parse(data2.result).explanation,
+        }
+        const answersCopy = answers.slice()
+        answersCopy.push(res)
+        setAnswers(answersCopy)
+        setAnimalInput('')
         setResult('')
-        setError(
-          'The response is too large to send. Can you try asking a slightly more specific question?' +
-            ' ' +
-            error.message
-        )
-        Hotjar.event('FAILURE - User failed to submit request.')
-        console.error(error)
-      }
+        setError('')
+        setIsLoadingScreen(false)
+        const userCopy = profileData.chatHistory.slice()
+        userCopy.unshift(res)
+        console.log('SAVING', userCopy)
+        db.collection('profiles').doc(profileData?.id).update({
+          chatHistory: userCopy,
+        })
+        console.log('end save', profileData?.id)
+        Hotjar.event('SUCCESS - User succeeded to submit request.')
+        // setAnimalInput("");
+      } catch (error) {
+        if (!tries && tries < 1) {
+          onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
+          return
+        }
+        // Consider implementing your own error handling logic here
+        if (tries > 1) {
+          setIsLoadingScreen(false)
+          setResult('')
+          setError(
+            'The response is too large to send. Can you try asking a slightly more specific question?' +
+              ' ' +
+              error.message
+          )
+          Hotjar.event('FAILURE - User failed to submit request.')
+          console.error(error)
+        }
 
-      // alert(error.message);
+        // alert(error.message);
+      }
+    } else {
+      alert('You must have credits to continue! Visit the "Credits" tab!')
     }
   }
 
