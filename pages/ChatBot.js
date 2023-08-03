@@ -645,14 +645,19 @@ const ChatBot = ({
                 <MicNoneIcon />
               </IconButton>
             )} */}
-            <IconButton
-              onClick={() => handleInputClick('reply')}
-              color='gray'
-              aria-label='upload picture'
-              component='label'
-            >
-              <ImageIcon />
-            </IconButton>
+            {subject !== 'feedback' &&
+              subject !== 'chat' &&
+              subject !== 'joke' &&
+              subject !== 'reply' && (
+                <IconButton
+                  onClick={() => handleInputClick('reply')}
+                  color='gray'
+                  aria-label='upload picture'
+                  component='label'
+                >
+                  <ImageIcon />
+                </IconButton>
+              )}
 
             <ImageUpload
               error={errorx}

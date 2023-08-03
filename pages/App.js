@@ -25,13 +25,13 @@ const TYPES = {
   history: 'Answer this history question for me: ',
   english: 'Answer this English question for me: ',
   science: 'Answer this science question for me: ',
-  chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab:',
+  chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked:',
   feedback:
-    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab: ',
+    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
 
   reply:
-    'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab: ',
-  joke: 'Write a funny joke about the following prompt. It has to be very funny, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab. : ',
+    'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
+  joke: 'Write a funny joke about the following prompt. It has to be very funny, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked. : ',
 }
 
 export default function Home() {
