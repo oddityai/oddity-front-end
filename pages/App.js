@@ -27,7 +27,7 @@ const TYPES = {
   science: 'Answer this science question for me: ',
   chat: '',
   feedback:
-    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying: ',
+    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math: ',
 
   reply: 'Generate a reply to the following message: ',
   joke: 'Write a funny joke about the following prompt. It has to be very funny. : ',
