@@ -334,7 +334,7 @@ const ChatBot = ({
                   fontSize: 15,
                 }}
               >
-                P.S. You can follow our new Twitter page{' '}
+                P.S. You can follow our 𝕏 page{' '}
                 <a
                   style={{
                     color: 'white',
