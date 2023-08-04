@@ -124,13 +124,16 @@ const ChatBot = ({
           //       new Error(`Request failed with status ${response.status}`)
           //     );
           //   }
-          const result = JSON.parse(
-            `[${data.result.split('[')[1].split(']')[0]}]`
-          )
+          console.log(`DATA: ${data.result}`)
+          const result = data.result.match(/"([^"]*)"/g)
+          // JSON.parse(
+          //   `[${data.result.split('[')[0].split(']')[0]}]`
+          // )
           setStep(3)
           setRawText(data.result)
           console.log(3)
-          const apiCalls = result.map((endpoint) => {
+          console.log(result)
+          const apiCalls = result?.map((endpoint) => {
             return new Promise((resolve, reject) => {
               fetch('/api/page', {
                 method: 'POST',
@@ -138,7 +141,7 @@ const ChatBot = ({
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  animal: `Q: ${endpoint}`,
+                  animal: `${endpoint}`,
                 }),
               })
                 .then((response) => response.json())
