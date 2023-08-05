@@ -507,7 +507,7 @@ homework helper'
             handleClose={handleClose}
             value={value}
             setValue={setValue}
-            handleAddReferralCodes={handleAddReferralCodes}
+            // handleAddReferralCodes={handleAddReferralCodes}
           />
         </div>
       </div>
