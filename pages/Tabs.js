@@ -401,7 +401,6 @@ export default function BasicTabs({
             boxShadow: '5px 5px 10px gray',
           }}
         >
-          //comment to redeploy
           {/* <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Free</h3>
               <hr s />
