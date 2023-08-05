@@ -63,12 +63,17 @@ export default function Home() {
             if (sessionStorage.getItem('profileStatus1') === user?.sid) {
               return
             }
+            const firstRef = user?.nickname.slice(0, 3).toUpperCase()
+            const secondRef = Math.floor(1000 + Math.random() * 9000)
+            const refCode = `${firstRef}-${secondRef}`
             const newUser = {
               username: user?.nickname,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
               credits: 20,
+              referralCode: refCode,
+              usedCodes: [],
               chatHistory: [],
             }
             db.collection('profiles').add(newUser)
@@ -78,6 +83,43 @@ export default function Home() {
         })
     }
   }, [user])
+  const generateReferralCode = (nickname) => {
+    const firstRef = nickname?.slice(0, 3).toUpperCase()
+    const secondRef = Math.floor(1000 + Math.random() * 9000)
+    return `${firstRef}-${secondRef}`
+  }
+
+  const updateProfileWithReferralCode = async (profileDoc) => {
+    const nickname = profileDoc.data().username || 'ODT'
+    const referralCode = generateReferralCode(nickname)
+    await profileDoc.ref.set(
+      {
+        referralCode: referralCode,
+        usedCodes: [referralCode],
+      },
+      { merge: true }
+    )
+  }
+
+  const updateProfilesWithReferralCodes = async () => {
+    try {
+      // Get all profiles from the 'profiles' collection
+      const profilesSnapshot = await db.collection('profiles').get()
+
+      // Process each profile with the generated referral code
+      for (const profileDoc of profilesSnapshot.docs) {
+        await updateProfileWithReferralCode(profileDoc)
+      }
+
+      console.log('Referral codes added successfully!')
+    } catch (error) {
+      console.error('Error adding referral codes:', error)
+    }
+  }
+
+  const handleAddReferralCodes = async () => {
+    await updateProfilesWithReferralCodes()
+  }
 
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {
@@ -465,6 +507,7 @@ homework helper'
             handleClose={handleClose}
             value={value}
             setValue={setValue}
+            handleAddReferralCodes={handleAddReferralCodes}
           />
         </div>
       </div>

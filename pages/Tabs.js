@@ -1,3 +1,4 @@
+import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
@@ -5,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import { Nunito } from '@next/font/google'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { db } from '../firebase'
 import Buttons from './Buttons'
 import Buttons2 from './Buttons2'
 
@@ -51,15 +53,172 @@ export default function BasicTabs({
   handleClose,
   value,
   setValue,
+  handleAddReferralCodes,
 }) {
   const [referralCode, setReferralCode] = React.useState('')
+  const [codesArray, setCodesArray] = React.useState([])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
 
-  const handleSubmitReferralCode = () => {
+  function checkReferralCodeExists(referralCode) {
+    return db
+      .collection('profiles')
+      .where('referralCode', '==', referralCode)
+      .get()
+      .then((querySnapshot) => {
+        // If there are any documents with the given referral code, return true; otherwise, return false
+        return !querySnapshot.empty
+      })
+      .catch((error) => {
+        console.error('Error checking referral code:', error)
+        return false
+      })
+  }
+
+  function addCreditsToUser(userId, creditsToAdd) {
+    return db
+      .collection('profiles')
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const currentCredits = doc.data().credits || 0
+          const updatedCredits = currentCredits + creditsToAdd
+          // if (codesArray.includes(referralCode)) {
+          //   console.log('Code used already!')
+          // } else {
+          return db.collection('profiles').doc(userId).update({
+            credits: updatedCredits,
+          })
+          // }
+        } else {
+          throw new Error('User not found')
+        }
+      })
+      .catch((error) => {
+        console.error('Error adding credits to user:', error)
+      })
+  }
+  function addCreditsAndCodesToUser(userId, creditsToAdd) {
+    console.log('userId:', userId)
+    console.log('creditsToAdd:', creditsToAdd)
+    console.log('referralCode:', referralCode)
+    if (codesArray.includes(referralCode)) {
+      console.log('Code used already!')
+    } else {
+      return db
+        .collection('profiles')
+        .doc(userId)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            const currentCredits = doc.data().credits || 0
+            const updatedCredits = currentCredits + creditsToAdd
+
+            // Fetch the current usedCodes array or initialize it as an empty array
+            const usedCodesarray = doc.data().usedCodes || []
+
+            // Add the new referralCode to the usedCodes array
+            usedCodesarray.push(referralCode)
+            setCodesArray(usedCodesarray)
+            console.log('usedCodesarray:', usedCodesarray)
+
+            // Perform the update operation
+            return db.collection('profiles').doc(userId).update({
+              credits: updatedCredits,
+              usedCodes: usedCodesarray,
+            })
+            setReferralCode('')
+          } else {
+            throw new Error('User not found')
+          }
+        })
+        .catch((error) => {
+          console.error('Error adding credits to user:', error)
+          // Rethrow the error to propagate it to the calling code.
+          throw error
+        })
+    }
+  }
+
+  function findUserByReferralCode(code) {
+    return db
+      .collection('profiles')
+      .where('referralCode', '==', code)
+      .get()
+      .then((querySnapshot) => {
+        // Assuming there is only one user with the given referral code
+        if (!querySnapshot.empty) {
+          return querySnapshot.docs[0]
+        } else {
+          return null // Return null if user not found with the referral code
+        }
+      })
+      .catch((error) => {
+        console.error('Error finding user by referral code:', error)
+        return null
+      })
+  }
+  async function handleSubmitReferralCode() {
     console.log(referralCode)
+    const exists = await checkReferralCodeExists(referralCode)
+    if (exists) {
+      console.log(`Referral code ${referralCode} exists in the database.`)
+
+      // Assuming you have access to the currently logged-in user's userId
+      const loggedInUserId = profileData.id
+      const creditsToAdd = 50
+
+      // Check if referralCode is already used
+      if (codesArray.includes(referralCode)) {
+        console.log('Code used already!')
+      } else {
+        try {
+          // Adding credits to the logged-in user and updating usedCodesarray
+          await addCreditsAndCodesToUser(loggedInUserId, creditsToAdd)
+          console.log(`Added ${creditsToAdd} credits to user ${loggedInUserId}`)
+        } catch (error) {
+          console.error('Error adding credits to logged-in user:', error)
+        }
+      }
+
+      // Finding and adding credits to the user with the existing referral code
+      try {
+        const userWithReferralCode = await findUserByReferralCode(referralCode)
+
+        if (userWithReferralCode) {
+          // Process the user data (Optional - for debugging purposes)
+          // console.log("User found with referral code:", userWithReferralCode.data());
+
+          // Adding credits to the user found by referral code
+          if (!codesArray.includes(referralCode)) {
+            try {
+              const creditsToAdd = 50
+
+              await addCreditsToUser(userWithReferralCode.id, creditsToAdd)
+              console.log(
+                `Added ${creditsToAdd} credits to user ${userWithReferralCode.id}`
+              )
+            } catch (error) {
+              console.error(
+                'Error adding credits to user with referral code:',
+                error
+              )
+            }
+          }
+        } else {
+          console.log(`User with referral code ${referralCode} not found.`)
+        }
+      } catch (error) {
+        console.error('Error finding user by referral code:', error)
+      }
+    } else {
+      console.log(
+        `Referral code ${referralCode} does not exist in the database.`
+      )
+    }
     setReferralCode('')
   }
 
@@ -158,7 +317,7 @@ export default function BasicTabs({
           <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
           credits remaining.
         </h3>
-        {/* <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
+        <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
           <div style={{ padding: 8 }}>
             <h2
               className={nunito.className}
@@ -171,8 +330,10 @@ export default function BasicTabs({
               extra credits for free.
             </h3>
             <h3 className={nunito.className}>
-              Your referral code is:{' '}
-              <span style={{ color: '#24b557' }}>TRI-3948</span>
+              Your referral code is: <br />
+              <span style={{ color: '#24b557' }}>
+                {profileData?.referralCode}
+              </span>
             </h3>
           </div>
         </div>
@@ -222,7 +383,7 @@ export default function BasicTabs({
               </Button>
             </div>
           </div>
-        </div> */}
+        </div>
         {/* <div
           style={{
             display: 'flex',
@@ -313,6 +474,9 @@ export default function BasicTabs({
               <section>
                 <button type='submit' role='link'>
                   Buy Now
+                </button>
+                <button type='button' onClick={handleAddReferralCodes}>
+                  TEST FOR JOSHER
                 </button>
               </section>
               <style jsx>
