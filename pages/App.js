@@ -83,43 +83,43 @@ export default function Home() {
         })
     }
   }, [user])
-  const generateReferralCode = (nickname) => {
-    const firstRef = nickname?.slice(0, 3).toUpperCase()
-    const secondRef = Math.floor(1000 + Math.random() * 9000)
-    return `${firstRef}-${secondRef}`
-  }
+  // const generateReferralCode = (nickname) => {
+  //   const firstRef = nickname?.slice(0, 3).toUpperCase()
+  //   const secondRef = Math.floor(1000 + Math.random() * 9000)
+  //   return `${firstRef}-${secondRef}`
+  // }
 
-  const updateProfileWithReferralCode = async (profileDoc) => {
-    const nickname = profileDoc.data().username || 'ODT'
-    const referralCode = generateReferralCode(nickname)
-    await profileDoc.ref.set(
-      {
-        referralCode: referralCode,
-        usedCodes: [referralCode],
-      },
-      { merge: true }
-    )
-  }
+  // const updateProfileWithReferralCode = async (profileDoc) => {
+  //   const nickname = profileDoc.data().username || 'ODT'
+  //   const referralCode = generateReferralCode(nickname)
+  //   await profileDoc.ref.set(
+  //     {
+  //       referralCode: referralCode,
+  //       usedCodes: [referralCode],
+  //     },
+  //     { merge: true }
+  //   )
+  // }
 
-  const updateProfilesWithReferralCodes = async () => {
-    try {
-      // Get all profiles from the 'profiles' collection
-      const profilesSnapshot = await db.collection('profiles').get()
+  // const updateProfilesWithReferralCodes = async () => {
+  //   try {
+  //     // Get all profiles from the 'profiles' collection
+  //     const profilesSnapshot = await db.collection('profiles').get()
 
-      // Process each profile with the generated referral code
-      for (const profileDoc of profilesSnapshot.docs) {
-        await updateProfileWithReferralCode(profileDoc)
-      }
+  //     // Process each profile with the generated referral code
+  //     for (const profileDoc of profilesSnapshot.docs) {
+  //       await updateProfileWithReferralCode(profileDoc)
+  //     }
 
-      console.log('Referral codes added successfully!')
-    } catch (error) {
-      console.error('Error adding referral codes:', error)
-    }
-  }
+  //     console.log('Referral codes added successfully!')
+  //   } catch (error) {
+  //     console.error('Error adding referral codes:', error)
+  //   }
+  // }
 
-  const handleAddReferralCodes = async () => {
-    await updateProfilesWithReferralCodes()
-  }
+  // const handleAddReferralCodes = async () => {
+  //   await updateProfilesWithReferralCodes()
+  // }
 
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {

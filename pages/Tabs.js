@@ -53,7 +53,6 @@ export default function BasicTabs({
   handleClose,
   value,
   setValue,
-  handleAddReferralCodes,
 }) {
   const [referralCode, setReferralCode] = React.useState('')
   const [codesArray, setCodesArray] = React.useState([])
@@ -474,9 +473,6 @@ export default function BasicTabs({
               <section>
                 <button type='submit' role='link'>
                   Buy Now
-                </button>
-                <button type='button' onClick={handleAddReferralCodes}>
-                  TEST FOR JOSHER
                 </button>
               </section>
               <style jsx>
