@@ -341,7 +341,7 @@ export default function BasicTabs({
         >
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>
-              Have a referral code? <br /> Enter it below to get 25 credits
+              Have a referral code? <br /> Enter it below to get 50 credits
               instantly!
             </h3>
             <div
