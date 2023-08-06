@@ -129,7 +129,6 @@ export default function BasicTabs({
               credits: updatedCredits,
               usedCodes: usedCodesarray,
             })
-            setReferralCode('')
           } else {
             throw new Error('User not found')
           }
@@ -310,79 +309,90 @@ export default function BasicTabs({
           <Buttons2 handleFeedback={handleFeedback} />
         </>
       </TabPanel>
+
       <TabPanel value={value} index={2}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
           You currently have{' '}
           <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
           credits remaining.
         </h3>
-        <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
-          <div style={{ padding: 8 }}>
-            <h2
-              className={nunito.className}
-              style={{ fontSize: 22, color: '#ff6f00' }}
-            >
-              Get 50 free credits for inviting your friends!
-            </h2>
-            <h3 className={nunito.className}>
-              If someone signs up using your referral code, you both get 50
-              extra credits for free.
-            </h3>
-            <h3 className={nunito.className}>
-              Your referral code is: <br />
-              <span style={{ color: '#24b557' }}>
-                {profileData?.referralCode}
-              </span>
-            </h3>
-          </div>
-        </div>
-        <div
-          style={{ backgroundColor: '#f5f5f5', borderRadius: 8, marginTop: 16 }}
-        >
-          <div style={{ padding: 8 }}>
-            <h3 className={nunito.className}>
-              Have a referral code? <br /> Enter it below to get 50 credits
-              instantly!
-            </h3>
+        {profileData?.referralCode != null && (
+          <>
+            {' '}
+            <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
+              <div style={{ padding: 8 }}>
+                <h2
+                  className={nunito.className}
+                  style={{ fontSize: 22, color: '#ff6f00' }}
+                >
+                  Get 50 free credits for inviting your friends!
+                </h2>
+                <h3 className={nunito.className}>
+                  If someone signs up using your referral code, you both get 50
+                  extra credits for free.
+                </h3>
+                <h3 className={nunito.className}>
+                  Your referral code is: <br />
+                  <span style={{ color: '#24b557' }}>
+                    {profileData?.referralCode}
+                  </span>
+                </h3>
+              </div>
+            </div>
             <div
               style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                backgroundColor: '#f5f5f5',
+                borderRadius: 8,
+                marginTop: 16,
               }}
             >
-              <TextField
-                style={{
-                  width: 150,
-                  fontSize: 14,
-                  border: 'none',
-                  marginLeft: 10,
-                  backgroundColor: 'white',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}
-                value={referralCode}
-                onChange={(e) => setReferralCode(e.target.value)}
-                placeholder='Referral code'
-              />
-              <Button
-                onClick={handleSubmitReferralCode}
-                style={{
-                  zIndex: 10,
-                  backgroundColor: '#ff4a47',
-                  padding: 14,
-                  textTransform: 'none',
-                  marginLeft: 8,
-                  color: 'white',
-                  width: 150,
-                  height: 50,
-                }}
-              >
-                Get free credits!
-              </Button>
+              <div style={{ padding: 8 }}>
+                <h3 className={nunito.className}>
+                  Have a referral code? <br /> Enter it below to get 50 credits
+                  instantly!
+                </h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TextField
+                    style={{
+                      width: 150,
+                      fontSize: 14,
+                      border: 'none',
+                      marginLeft: 10,
+                      backgroundColor: 'white',
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                    value={referralCode}
+                    onChange={(e) => setReferralCode(e.target.value)}
+                    placeholder='Referral code'
+                  />
+                  <Button
+                    onClick={handleSubmitReferralCode}
+                    style={{
+                      zIndex: 10,
+                      backgroundColor: '#ff4a47',
+                      padding: 14,
+                      textTransform: 'none',
+                      marginLeft: 8,
+                      color: 'white',
+                      width: 150,
+                      height: 50,
+                    }}
+                  >
+                    Get free credits!
+                  </Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </>
+        )}
+
         {/* <div
           style={{
             display: 'flex',
