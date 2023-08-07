@@ -52,48 +52,48 @@ export default function Home() {
   const [ipAddress, setIpAddress] = useState(null)
   const [creditsToAdd, setCreditsToAdd] = useState(0)
   const [nullRef, setNullRef] = useState(null)
-  useEffect(() => {
-    const checkIfIpAddressExists = async (ip) => {
-      const snapshot = await db
-        .collection('profiles')
-        .where('ipAddress', '==', ip)
-        .get()
-      return !snapshot.empty
-    }
-    async function fetchIpAddress() {
-      try {
-        const response = fetch('/api/ip')
-        const data = await response.json()
-        setIpAddress(data.ip)
-      } catch (error) {
-        console.error('Error fetching IP: ', error)
-      }
-    }
-    //  fetch('/api/ip')
-    // .then((response) => response.json())
-    // .then((data) => {
-    //   setIpAddress(data.ip)
-    //   return checkIfIpAddressExists(data.ip)
-    // })
-    // .then((ipExists) => {
-    //   if (ipExists) {
-    //     setCreditsToAdd(0)
-    //     setNullRef(null)
-    //   } else {
-    //     setCreditsToAdd(20)
-    //     setNullRef(refCode)
-    //   }
-    fetchIpAddress()
-    return checkIfIpAddressExists(ipAddress).then((ipExists) => {
-      if (ipExists) {
-        setCreditsToAdd(0)
-        setNullRef(null)
-      } else {
-        setCreditsToAdd(20)
-        setNullRef(refCode)
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   const checkIfIpAddressExists = async (ip) => {
+  //     const snapshot = await db
+  //       .collection('profiles')
+  //       .where('ipAddress', '==', ip)
+  //       .get()
+  //     return !snapshot.empty
+  //   }
+  //   async function fetchIpAddress() {
+  //     try {
+  //       const response = fetch('/api/ip')
+  //       const data = await response.json()
+  //       setIpAddress(data.ip)
+  //     } catch (error) {
+  //       console.error('Error fetching IP: ', error)
+  //     }
+  //   }
+  //   //  fetch('/api/ip')
+  //   // .then((response) => response.json())
+  //   // .then((data) => {
+  //   //   setIpAddress(data.ip)
+  //   //   return checkIfIpAddressExists(data.ip)
+  //   // })
+  //   // .then((ipExists) => {
+  //   //   if (ipExists) {
+  //   //     setCreditsToAdd(0)
+  //   //     setNullRef(null)
+  //   //   } else {
+  //   //     setCreditsToAdd(20)
+  //   //     setNullRef(refCode)
+  //   //   }
+  //   fetchIpAddress()
+  //   return checkIfIpAddressExists(ipAddress).then((ipExists) => {
+  //     if (ipExists) {
+  //       setCreditsToAdd(0)
+  //       setNullRef(null)
+  //     } else {
+  //       setCreditsToAdd(20)
+  //       setNullRef(refCode)
+  //     }
+  //   })
+  // }, [])
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -126,7 +126,7 @@ export default function Home() {
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
             sessionStorage.setItem('profileStatus1', user?.sid)
-            console.log('IP Address:', ipAddress)
+            // console.log('IP Address:', ipAddress)
           }
         })
     }
