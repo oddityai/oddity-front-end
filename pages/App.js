@@ -118,7 +118,7 @@ export default function Home() {
               id: user?.sub.split('|')[1],
               name: user?.name,
               credits: creditsToAdd,
-              referralCode: nullRef,
+              referralCode: refCode,
               usedCodes: [refCode],
               chatHistory: [],
               ipAddress: ipAddress,
