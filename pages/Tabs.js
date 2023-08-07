@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
-import Buttons2 from './Buttons2'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -129,7 +128,6 @@ export default function BasicTabs({
               credits: updatedCredits,
               usedCodes: usedCodesarray,
             })
-            setReferralCode('')
           } else {
             throw new Error('User not found')
           }
@@ -222,14 +220,25 @@ export default function BasicTabs({
   }
 
   return (
-    <Box className={nunito.className} sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box
+      className={nunito.className}
+      sx={{
+        width: '100vw',
+        marginLeft: [3, null, 0],
+      }}
+    >
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           className={nunito.className}
           aria-label='basic tabs example'
-          variant='scrollable'
+          variant='fullWidth'
           scrollButtons
           allowScrollButtonsMobile
         >
@@ -240,14 +249,14 @@ export default function BasicTabs({
           /> */}
           <Tab
             className={nunito.className}
-            label='HOMEWORK BOTS'
+            label='Specialized Bots'
             {...a11yProps(0)}
           />
-          <Tab
+          {/* <Tab
             className={nunito.className}
             label='fun BOTS'
             {...a11yProps(1)}
-          />
+          /> */}
           <Tab className={nunito.className} label='Credits' {...a11yProps(2)} />
 
           <Tab
@@ -301,7 +310,7 @@ export default function BasicTabs({
         </>
       </TabPanel>
 
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose a fun/experimental AI bot to play with. Want a new AI bot?
@@ -309,80 +318,15 @@ export default function BasicTabs({
           </h3>
           <Buttons2 handleFeedback={handleFeedback} />
         </>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
+      </TabPanel> */}
+
+      <TabPanel value={value} index={1}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
           You currently have{' '}
           <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
-          credits remaining.
+          credits{profileData?.credits != 0 ? ' remaining.' : '.'}
         </h3>
-        <div style={{ backgroundColor: '#f5f5f5', borderRadius: 8 }}>
-          <div style={{ padding: 8 }}>
-            <h2
-              className={nunito.className}
-              style={{ fontSize: 22, color: '#ff6f00' }}
-            >
-              Get 50 free credits for inviting your friends!
-            </h2>
-            <h3 className={nunito.className}>
-              If someone signs up using your referral code, you both get 50
-              extra credits for free.
-            </h3>
-            <h3 className={nunito.className}>
-              Your referral code is: <br />
-              <span style={{ color: '#24b557' }}>
-                {profileData?.referralCode}
-              </span>
-            </h3>
-          </div>
-        </div>
-        <div
-          style={{ backgroundColor: '#f5f5f5', borderRadius: 8, marginTop: 16 }}
-        >
-          <div style={{ padding: 8 }}>
-            <h3 className={nunito.className}>
-              Have a referral code? <br /> Enter it below to get 50 credits
-              instantly!
-            </h3>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <TextField
-                style={{
-                  width: 150,
-                  fontSize: 14,
-                  border: 'none',
-                  marginLeft: 10,
-                  backgroundColor: 'white',
-                  marginTop: 10,
-                  marginBottom: 10,
-                }}
-                value={referralCode}
-                onChange={(e) => setReferralCode(e.target.value)}
-                placeholder='Referral code'
-              />
-              <Button
-                onClick={handleSubmitReferralCode}
-                style={{
-                  zIndex: 10,
-                  backgroundColor: '#ff4a47',
-                  padding: 14,
-                  textTransform: 'none',
-                  marginLeft: 8,
-                  color: 'white',
-                  width: 150,
-                  height: 50,
-                }}
-              >
-                Get free credits!
-              </Button>
-            </div>
-          </div>
-        </div>
+
         {/* <div
           style={{
             display: 'flex',
@@ -503,6 +447,89 @@ export default function BasicTabs({
             </form>
           </div>
         </div>
+        {profileData?.referralCode != null && (
+          <div
+            style={{ width: '75%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            {' '}
+            <div
+              style={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: 8,
+              }}
+            >
+              <div style={{ padding: 8 }}>
+                <h2
+                  className={nunito.className}
+                  style={{ fontSize: 22, color: '#ff6f00' }}
+                >
+                  Get 50 free credits for inviting your friends!
+                </h2>
+                <h3 className={nunito.className}>
+                  If someone signs up using your referral code, you both get 50
+                  extra credits for free.
+                </h3>
+                <h3 className={nunito.className}>
+                  Your referral code is: <br />
+                  <span style={{ color: '#24b557' }}>
+                    {profileData?.referralCode}
+                  </span>
+                </h3>
+              </div>
+            </div>
+            <div
+              style={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: 8,
+                marginTop: 16,
+              }}
+            >
+              <div style={{ padding: 8 }}>
+                <h3 className={nunito.className}>
+                  Have a referral code? <br /> Enter it below to get 50 credits
+                  instantly!
+                </h3>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TextField
+                    style={{
+                      width: 150,
+                      fontSize: 14,
+                      border: 'none',
+                      marginLeft: 10,
+                      backgroundColor: 'white',
+                      marginTop: 10,
+                      marginBottom: 10,
+                    }}
+                    value={referralCode}
+                    onChange={(e) => setReferralCode(e.target.value)}
+                    placeholder='Referral code'
+                  />
+                  <Button
+                    onClick={handleSubmitReferralCode}
+                    style={{
+                      zIndex: 10,
+                      backgroundColor: '#ff4a47',
+                      padding: 14,
+                      textTransform: 'none',
+                      marginLeft: 8,
+                      color: 'white',
+                      width: 150,
+                      height: 50,
+                    }}
+                  >
+                    Get free credits!
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
         {/* <div
               style={{
                 margin: '16px auto',
@@ -570,7 +597,7 @@ export default function BasicTabs({
             </div> */}
         {/* </div> */}
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <div>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Here you can see a history of all your chats with our AI Bots.

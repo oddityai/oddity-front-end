@@ -49,6 +49,51 @@ export default function Home() {
   const { user, isLoading } = useUser()
   const router = useRouter()
 
+  const [ipAddress, setIpAddress] = useState(null)
+  const [creditsToAdd, setCreditsToAdd] = useState(0)
+  const [nullRef, setNullRef] = useState(null)
+  // useEffect(() => {
+  //   const checkIfIpAddressExists = async (ip) => {
+  //     const snapshot = await db
+  //       .collection('profiles')
+  //       .where('ipAddress', '==', ip)
+  //       .get()
+  //     return !snapshot.empty
+  //   }
+  //   async function fetchIpAddress() {
+  //     try {
+  //       const response = fetch('/api/ip')
+  //       const data = await response.json()
+  //       setIpAddress(data.ip)
+  //     } catch (error) {
+  //       console.error('Error fetching IP: ', error)
+  //     }
+  //   }
+  //   //  fetch('/api/ip')
+  //   // .then((response) => response.json())
+  //   // .then((data) => {
+  //   //   setIpAddress(data.ip)
+  //   //   return checkIfIpAddressExists(data.ip)
+  //   // })
+  //   // .then((ipExists) => {
+  //   //   if (ipExists) {
+  //   //     setCreditsToAdd(0)
+  //   //     setNullRef(null)
+  //   //   } else {
+  //   //     setCreditsToAdd(20)
+  //   //     setNullRef(refCode)
+  //   //   }
+  //   fetchIpAddress()
+  //   return checkIfIpAddressExists(ipAddress).then((ipExists) => {
+  //     if (ipExists) {
+  //       setCreditsToAdd(0)
+  //       setNullRef(null)
+  //     } else {
+  //       setCreditsToAdd(20)
+  //       setNullRef(refCode)
+  //     }
+  //   })
+  // }, [])
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -66,23 +111,42 @@ export default function Home() {
             const firstRef = user?.nickname.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
+
             const newUser = {
               username: user?.nickname,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: 20,
+              credits: creditsToAdd,
               referralCode: refCode,
-              usedCodes: [],
+              usedCodes: [refCode],
               chatHistory: [],
+              ipAddress: ipAddress,
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
             sessionStorage.setItem('profileStatus1', user?.sid)
+            // console.log('IP Address:', ipAddress)
           }
         })
     }
   }, [user])
+  // console.log('IP address used before')
+  // const newUser = {
+  //   username: user?.nickname,
+  //   email: user?.email,
+  //   id: user?.sub.split('|')[1],
+  //   name: user?.name,
+  //   credits: 0,
+  //   referralCode: null,
+  //   usedCodes: [],
+  //   chatHistory: [],
+  //   ipAddress: ipAddress,
+  // }
+  // db.collection('profiles').add(newUser)
+  // setProfileData(newUser)
+  // sessionStorage.setItem('profileStatus1', user?.sid)
+
   // const generateReferralCode = (nickname) => {
   //   const firstRef = nickname?.slice(0, 3).toUpperCase()
   //   const secondRef = Math.floor(1000 + Math.random() * 9000)
@@ -342,6 +406,7 @@ export default function Home() {
     setOpen(false)
     setValue(2)
   }
+
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
   //   // var dd = { content: html };
@@ -402,7 +467,7 @@ export default function Home() {
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <AppBar />
+      <AppBar profileData={profileData} setValue={setValue} value={value} />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta
@@ -498,7 +563,6 @@ homework helper'
               />
             </div>
           </Dialog>
-
           <Tabs
             profileData={profileData}
             answers={answers}
