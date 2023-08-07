@@ -8,7 +8,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
-import Buttons2 from './Buttons2'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -221,14 +220,22 @@ export default function BasicTabs({
   }
 
   return (
-    <Box className={nunito.className} sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+    <Box
+      className={nunito.className}
+      sx={{ width: '100vw', marginLeft: [5, null, 0] }}
+    >
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           className={nunito.className}
           aria-label='basic tabs example'
-          variant='scrollable'
+          variant='fullWidth'
           scrollButtons
           allowScrollButtonsMobile
         >
@@ -239,14 +246,14 @@ export default function BasicTabs({
           /> */}
           <Tab
             className={nunito.className}
-            label='HOMEWORK BOTS'
+            label='Specialized Bots'
             {...a11yProps(0)}
           />
-          <Tab
+          {/* <Tab
             className={nunito.className}
             label='fun BOTS'
             {...a11yProps(1)}
-          />
+          /> */}
           <Tab className={nunito.className} label='Credits' {...a11yProps(2)} />
 
           <Tab
@@ -300,7 +307,7 @@ export default function BasicTabs({
         </>
       </TabPanel>
 
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
         <>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose a fun/experimental AI bot to play with. Want a new AI bot?
@@ -308,9 +315,9 @@ export default function BasicTabs({
           </h3>
           <Buttons2 handleFeedback={handleFeedback} />
         </>
-      </TabPanel>
+      </TabPanel> */}
 
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
           You currently have{' '}
           <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
@@ -587,7 +594,7 @@ export default function BasicTabs({
             </div> */}
         {/* </div> */}
       </TabPanel>
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <div>
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Here you can see a history of all your chats with our AI Bots.

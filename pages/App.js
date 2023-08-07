@@ -406,6 +406,7 @@ export default function Home() {
     setOpen(false)
     setValue(2)
   }
+
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
   //   // var dd = { content: html };
@@ -466,7 +467,7 @@ export default function Home() {
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <AppBar />
+      <AppBar profileData={profileData} setValue={setValue} value={value} />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta

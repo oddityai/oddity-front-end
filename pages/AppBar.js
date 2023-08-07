@@ -1,98 +1,98 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import { Nunito } from "@next/font/google";
-import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import Image from "next/image";
+import { useUser } from '@auth0/nextjs-auth0/client'
+import { Nunito } from '@next/font/google'
+import Image from 'next/image'
+import Link from 'next/link'
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ['latin'] })
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ profileData, value, setValue }) {
   const getWindowSize = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       // Client-side-only code
-      const { innerWidth, innerHeight } = window;
-      return { innerWidth, innerHeight };
+      const { innerWidth, innerHeight } = window
+      return { innerWidth, innerHeight }
     }
-  };
-  const { user, error, isLoading } = useUser();
+  }
+  const { user, error, isLoading } = useUser()
 
-  const [windowSize, setWindowSize] = useState(getWindowSize());
+  const [windowSize, setWindowSize] = useState(getWindowSize())
   useEffect(() => {
     function handleWindowResize() {
-      setWindowSize(getWindowSize());
+      setWindowSize(getWindowSize())
     }
 
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener('resize', handleWindowResize)
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
-  const [pathState, setPath] = useState("");
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  }, [])
+  const [pathState, setPath] = useState('')
   useEffect(() => {
     function handleWindowResize() {
-      setWindowSize(getWindowSize());
+      setWindowSize(getWindowSize())
     }
 
-    window.addEventListener("resize", handleWindowResize);
+    window.addEventListener('resize', handleWindowResize)
 
     return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleWindowResize)
+    }
+  }, [])
 
   const path = () => {
     if (window) {
-      return window.location.pathname;
+      return window.location.pathname
     } else {
-      return "";
+      return ''
     }
-  };
+  }
 
   useEffect(() => {
-    setPath(path());
-  }, [path]);
+    setPath(path())
+  }, [path])
   return (
     <div
       className={nunito.className}
       style={{
-        backgroundColor: "white",
-        borderBottom: "1px solid rgb(242, 247, 255)",
-        width: "100%",
+        backgroundColor: 'white',
+        borderBottom: '1px solid rgb(242, 247, 255)',
+        width: '100%',
       }}
     >
       {true && (
         <div
           style={{
             padding: 8,
-            justifyContent: "space-between",
-            display: "flex",
-            justifyItems: "center",
-            alignContent: "center",
-            alignItems: "center",
+            justifyContent: 'space-between',
+            display: 'flex',
+            justifyItems: 'center',
+            alignContent: 'center',
+            alignItems: 'center',
           }}
         >
           <Link
             className={nunito.className}
             style={{
-              textDecoration: "none",
+              textDecoration: 'none',
               padding: 8,
-              cursor: "pointer",
-              display: "flex",
-              justifyItems: "center",
-              alignItems: "center",
+              cursor: 'pointer',
+              display: 'flex',
+              justifyItems: 'center',
+              alignItems: 'center',
               borderRadius: 4,
-              color: "#0057be",
+              color: '#0057be',
             }}
-            href="/"
+            href='/'
           >
-            <Image alt="oddity-logo" height={30} width={30} src="/logo.png" />
+            <Image alt='oddity-logo' height={30} width={30} src='/logo.png' />
             <div
               className={nunito.className}
-              style={{ fontSize: 18, color: "#0057be", marginLeft: 8 }}
+              style={{ fontSize: 18, color: '#0057be', marginLeft: 8 }}
             >
-              {" "}
+              {' '}
               OddityAI
             </div>
           </Link>
@@ -100,9 +100,9 @@ export default function ButtonAppBar() {
             <div
               style={{
                 padding: 16,
-                display: "flex",
-                justifyItems: "center",
-                justifyContent: "space-between",
+                display: 'flex',
+                justifyItems: 'center',
+                justifyContent: 'space-between',
               }}
             >
               {/* <div style={{ marginRight: 8, textDecoration: 'none' }}>
@@ -122,38 +122,54 @@ export default function ButtonAppBar() {
                 </div>
               </Link>
             </div> */}
-              <div style={{ marginRight: 8, textDecoration: "none" }}>
+              <div
+                style={{ textDecoration: 'none' }}
+                onClick={() => setValue(1)}
+              >
+                <p
+                  style={{
+                    marginRight: 50,
+                    marginTop: 0,
+                    marginBottom: 0,
+                    width: '100%',
+                    color: '#0057be',
+                  }}
+                >
+                  {profileData?.credits && `Credits: ${profileData?.credits}`}
+                </p>
+              </div>
+              <div style={{ marginRight: 8, textDecoration: 'none' }}>
                 <Link
                   className={nunito.className}
                   style={{
-                    textDecoration: "none",
+                    textDecoration: 'none',
                     padding: 8,
                     borderRadius: 4,
                     // backgroundColor: pathState === "/home" ? "#f2f2f2" : "",
 
-                    color: "#0057be",
+                    color: '#0057be',
                   }}
-                  href="/"
+                  href='/'
                 >
-                  {" "}
+                  {' '}
                   Home
                 </Link>
               </div>
               {user?.nickname && (
-                <div style={{ marginRight: 8, textDecoration: "none" }}>
+                <div style={{ marginRight: 8, textDecoration: 'none' }}>
                   <Link
                     className={nunito.className}
                     style={{
-                      textDecoration: "none",
+                      textDecoration: 'none',
                       padding: 8,
                       borderRadius: 4,
                       // backgroundColor: pathState === "/app" ? "#f2f2f2" : "",
 
-                      color: "#0057be",
+                      color: '#0057be',
                     }}
-                    href="/App"
+                    href='/App'
                   >
-                    {" "}
+                    {' '}
                     App
                   </Link>
                 </div>
@@ -175,76 +191,76 @@ export default function ButtonAppBar() {
                 </div>
               </Link>
             </div> */}
-              <div style={{ marginRight: 8, textDecoration: "none" }}>
+              <div style={{ marginRight: 8, textDecoration: 'none' }}>
                 <Link
                   className={nunito.className}
                   style={{
-                    textDecoration: "none",
+                    textDecoration: 'none',
                     padding: 8,
                     borderRadius: 4,
                     // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                    color: "#0057be",
+                    color: '#0057be',
                   }}
-                  href="/contact"
+                  href='/contact'
                 >
-                  {" "}
+                  {' '}
                   Contact
                 </Link>
               </div>
               {!user?.nickname && (
                 <>
-                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                  <div style={{ marginRight: 8, textDecoration: 'none' }}>
                     <Link
                       className={nunito.className}
                       style={{
-                        textDecoration: "none",
+                        textDecoration: 'none',
                         padding: 8,
                         borderRadius: 4,
                         // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                        color: "#0057be",
+                        color: '#0057be',
                       }}
-                      href="/api/auth/login"
+                      href='/api/auth/login'
                     >
-                      {" "}
+                      {' '}
                       Login
                     </Link>
                   </div>
-                  <div style={{ marginRight: 8, textDecoration: "none" }}>
+                  <div style={{ marginRight: 8, textDecoration: 'none' }}>
                     <Link
                       className={nunito.className}
                       style={{
-                        textDecoration: "none",
+                        textDecoration: 'none',
                         padding: 8,
                         borderRadius: 4,
                         // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                        color: "#0057be",
+                        color: '#0057be',
                       }}
-                      href="/api/auth/signup"
+                      href='/api/auth/signup'
                     >
-                      {" "}
+                      {' '}
                       Signup
                     </Link>
                   </div>
                 </>
               )}
               {user?.nickname && (
-                <div style={{ marginRight: 8, textDecoration: "none" }}>
+                <div style={{ marginRight: 8, textDecoration: 'none' }}>
                   <Link
                     className={nunito.className}
                     style={{
-                      textDecoration: "none",
+                      textDecoration: 'none',
                       padding: 8,
                       borderRadius: 4,
                       // backgroundColor: pathState === "/contact" ? "#f2f2f2" : "",
 
-                      color: "#0057be",
+                      color: '#0057be',
                     }}
-                    href="/api/auth/logout"
+                    href='/api/auth/logout'
                   >
-                    {" "}
+                    {' '}
                     Logout
                   </Link>
                 </div>
@@ -282,5 +298,5 @@ export default function ButtonAppBar() {
         </div>
       )}
     </div>
-  );
+  )
 }
