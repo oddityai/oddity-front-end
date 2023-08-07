@@ -222,7 +222,10 @@ export default function BasicTabs({
   return (
     <Box
       className={nunito.className}
-      sx={{ width: '100vw', marginLeft: [5, null, 0] }}
+      sx={{
+        width: '100vw',
+        marginLeft: [3, null, 0],
+      }}
     >
       <Box
         sx={{

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import CreateIcon from '@mui/icons-material/Create'
 import EmailIcon from '@mui/icons-material/Email'
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
@@ -51,6 +52,38 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 {children || <MenuBookIcon style={{ color: 'white' }} />}{' '}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   English/Language Answers
+                </span>
+              </Button>
+            </div>
+
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+            >
+              <p
+                className={nunito.className}
+                style={{ fontSize: 16, fontWeight: 600 }}
+              >
+                Prompt AI
+              </p>
+              <p style={{ fontSize: 12, color: 'gray' }}>COMING SOON!</p>
+              <p style={{ fontSize: 12, color: 'gray' }}>
+                Enter a prompt for a story or any kind of writing and have our
+                Prompt AI write it for you!
+              </p>
+              <Button
+                // onClick={() => handleClick('prompt')}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: '#00c3ff',
+                  padding: 14,
+                  marginBottom: 16,
+                  color: 'white',
+                  width: '100%',
+                }}
+              >
+                {children || <CreateIcon style={{ color: 'white' }} />}{' '}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Prompt Writer
                 </span>
               </Button>
             </div>

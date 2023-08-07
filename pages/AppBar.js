@@ -123,16 +123,19 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
               </Link>
             </div> */}
               <div
-                style={{ textDecoration: 'none' }}
+                style={{ textDecoration: 'none', marginRight: 8 }}
                 onClick={() => setValue(1)}
               >
                 <p
                   style={{
-                    marginRight: 50,
-                    marginTop: 0,
-                    marginBottom: 0,
-                    width: '100%',
+                    margin: 0,
+                    width: '90px',
                     color: '#0057be',
+                    borderRadius: '5px',
+                    border: 'solid 1px #0057be',
+                    textAlign: 'center',
+                    backgroundColor: '#f2f2f2',
+                    boxShadow: '2px 2px 5px gray',
                   }}
                 >
                   {profileData?.credits && `Credits: ${profileData?.credits}`}
