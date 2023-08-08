@@ -91,7 +91,7 @@ const ChatBot = ({
         setInput(input)
         setStep(2)
         try {
-          const response = await fetch('/api/page', {
+          const response = await fetch('/api/generate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const ChatBot = ({
             body: JSON.stringify({
               //   animal: `Extract the questions from this text and return them as an array of strings: ${input}  {}. Return the data in an array of strings as a string so i can json.parse it`,
               animal: `
-              Extract the complete/logical questions from the following text as they are. Don't rephrase the questions. Return them as an array of strings: 
+              Extract the queries from the following text as they are, they may not be complete but use problem solving skills to figure out what it is trying to ask: 
 
               ${input}
               `,
@@ -114,7 +114,6 @@ const ChatBot = ({
           //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
           //   }),
           // });
-          console.log(`RESPONSE: ${response.result}`)
           let data = await response.json()
 
           // let data2 = await response2.json();
@@ -126,11 +125,14 @@ const ChatBot = ({
           //     );
           //   }
           console.log(`DATA: ${data.result}`)
-          console.log(`FULL DATA: ${data}`)
-          const result = data.result.match(/"([^"]*)"/g)
-          // JSON.parse(
-          //   `[${data.result.split('[')[0].split(']')[0]}]`
-          // )
+          const result =
+            // JSON.stringify(
+            //   `[${data.result.split('[')[0].split(']')[0]}]`
+            // )
+
+            // data.result.match(/"([^"]*)"/g)
+            data.result.split('\n')
+
           setStep(3)
           setRawText(data.result)
           console.log(3)
@@ -143,7 +145,7 @@ const ChatBot = ({
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  animal: `Q: ${endpoint}`,
+                  animal: `Question: ${endpoint}`,
                 }),
               })
                 .then((response) => response.json())
