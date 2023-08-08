@@ -538,6 +538,7 @@ export default function BasicTabs({
                         width: 150,
                         height: 50,
                       }}
+                      disabled
                     >
                       Try again!
                     </Button>

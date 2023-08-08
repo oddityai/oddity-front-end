@@ -94,6 +94,18 @@ const Contact = () => {
             >
               here
             </span>{' '}
+            , or by emailing us{' '}
+            <a
+              href='mailto:oddityaico@gmail.com'
+              style={{
+                color: '#0a99f2',
+                cursor: 'pointer',
+                textDecoration: 'none',
+              }}
+            >
+              here
+            </a>{' '}
+            (oddityaico@gmail.com)
           </div>
           <div
             style={{

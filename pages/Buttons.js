@@ -15,7 +15,11 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
   return (
     <div
       className={nunito.className}
-      style={{ textAlign: 'left', margin: 'auto', maxWidth: 500 }}
+      style={{
+        textAlign: 'left',
+        margin: 'auto',
+        maxWidth: 600,
+      }}
     >
       <div
         style={{
@@ -25,7 +29,12 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
         }}
       >
         <div style={{ padding: 16 }}>
-          <form>
+          <form
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <div style={{ padding: 16, backgroundColor: '#f5f5f5' }}>
               <p
                 className={nunito.className}
