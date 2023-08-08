@@ -107,7 +107,8 @@ export default function Home() {
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: creditsToAdd,
+              // credits: creditsToAdd,
+              credits: 20,
               referralCode: refCode,
               usedCodes: [refCode],
               // When using IP to determine deservingness
