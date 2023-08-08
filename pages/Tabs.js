@@ -403,10 +403,10 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Starter Pack</h3>
             <hr s />
-            <h3 className={nunito.className}>$5 / 100 credits</h3>
+            <h3 className={nunito.className}>$4.99</h3>
             <hr s />
-            <h4>100 credits</h4>
-            <p className={nunito.className}>Enough for a few months</p>
+            <h4>150 credits</h4>
+            {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
             </p>
@@ -510,21 +510,39 @@ export default function BasicTabs({
                     onChange={(e) => setReferralCode(e.target.value)}
                     placeholder='Referral code'
                   />
-                  <Button
-                    onClick={handleSubmitReferralCode}
-                    style={{
-                      zIndex: 10,
-                      backgroundColor: '#ff4a47',
-                      padding: 14,
-                      textTransform: 'none',
-                      marginLeft: 8,
-                      color: 'white',
-                      width: 150,
-                      height: 50,
-                    }}
-                  >
-                    Get free credits!
-                  </Button>
+                  {referralCode != profileData?.referralCode ? (
+                    <Button
+                      onClick={handleSubmitReferralCode}
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                    >
+                      Get free credits!
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                      disabled
+                    >
+                      Try again!
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

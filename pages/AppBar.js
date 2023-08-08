@@ -137,9 +137,10 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                       textAlign: 'center',
                       backgroundColor: '#f2f2f2',
                       boxShadow: '2px 2px 5px gray',
+                      cursor: 'pointer',
                     }}
                   >
-                    {profileData?.credits && `Credits: ${profileData?.credits}`}
+                    Credits: {profileData?.credits}{' '}
                   </p>
                 </div>
               )}

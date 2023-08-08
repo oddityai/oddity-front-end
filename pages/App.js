@@ -186,9 +186,9 @@ export default function Home() {
 
       try {
         userRef.update({
-          credits: (profileData.credits || 0) + 100,
+          credits: (profileData.credits || 0) + 150,
         })
-        console.log('Credits successfully added (100)')
+        console.log('Credits successfully added (150)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
