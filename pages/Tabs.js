@@ -510,21 +510,38 @@ export default function BasicTabs({
                     onChange={(e) => setReferralCode(e.target.value)}
                     placeholder='Referral code'
                   />
-                  <Button
-                    onClick={handleSubmitReferralCode}
-                    style={{
-                      zIndex: 10,
-                      backgroundColor: '#ff4a47',
-                      padding: 14,
-                      textTransform: 'none',
-                      marginLeft: 8,
-                      color: 'white',
-                      width: 150,
-                      height: 50,
-                    }}
-                  >
-                    Get free credits!
-                  </Button>
+                  {referralCode != profileData?.referralCode ? (
+                    <Button
+                      onClick={handleSubmitReferralCode}
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                    >
+                      Get free credits!
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                    >
+                      Try again!
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>
