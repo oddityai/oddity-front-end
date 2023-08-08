@@ -49,51 +49,25 @@ export default function Home() {
   const { user, isLoading } = useUser()
   const router = useRouter()
 
-  const [ipAddress, setIpAddress] = useState(null)
+  const [ipAddress, setIpAddress] = useState('')
   const [creditsToAdd, setCreditsToAdd] = useState(0)
   const [nullRef, setNullRef] = useState(null)
-  // useEffect(() => {
-  //   const checkIfIpAddressExists = async (ip) => {
-  //     const snapshot = await db
-  //       .collection('profiles')
-  //       .where('ipAddress', '==', ip)
-  //       .get()
-  //     return !snapshot.empty
-  //   }
-  //   async function fetchIpAddress() {
-  //     try {
-  //       const response = fetch('/api/ip')
-  //       const data = await response.json()
-  //       setIpAddress(data.ip)
-  //     } catch (error) {
-  //       console.error('Error fetching IP: ', error)
-  //     }
-  //   }
-  //   //  fetch('/api/ip')
-  //   // .then((response) => response.json())
-  //   // .then((data) => {
-  //   //   setIpAddress(data.ip)
-  //   //   return checkIfIpAddressExists(data.ip)
-  //   // })
-  //   // .then((ipExists) => {
-  //   //   if (ipExists) {
-  //   //     setCreditsToAdd(0)
-  //   //     setNullRef(null)
-  //   //   } else {
-  //   //     setCreditsToAdd(20)
-  //   //     setNullRef(refCode)
-  //   //   }
-  //   fetchIpAddress()
-  //   return checkIfIpAddressExists(ipAddress).then((ipExists) => {
-  //     if (ipExists) {
-  //       setCreditsToAdd(0)
-  //       setNullRef(null)
-  //     } else {
-  //       setCreditsToAdd(20)
-  //       setNullRef(refCode)
-  //     }
-  //   })
-  // }, [])
+  const [referralCodeState, setReferralCodeState] = useState()
+  useEffect(() => {
+    async function fetchIpAddress() {
+      try {
+        const response = await fetch('/api/ip') // Await the fetch Promise
+        const data = await response.json() // Await the .json() Promise
+        setIpAddress(data.ip)
+        console.log(`IP Address: ${data.ip}`)
+      } catch (error) {
+        console.error('Error fetching IP: ', error)
+      }
+    }
+
+    fetchIpAddress()
+  }, [])
+
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -111,17 +85,37 @@ export default function Home() {
             const firstRef = user?.nickname.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
-
+            setReferralCodeState(refCode)
+            // const checkIfIpAddressExists = async (ip) => {
+            //   const snapshot = await db
+            //     .collection('profiles')
+            //     .where('IP', '==', ip)
+            //     .get()
+            //   return !snapshot.empty
+            // }
+            // checkIfIpAddressExists(ipAddress).then((ipExists) => {
+            //   if (ipExists) {
+            //     setCreditsToAdd(0)
+            //     setNullRef(null)
+            //   } else {
+            //     setCreditsToAdd(20)
+            //     setNullRef(referralCodeState)
+            //   }
+            // })
             const newUser = {
               username: user?.nickname,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: creditsToAdd,
+              // credits: creditsToAdd,
+              credits: 20,
               referralCode: refCode,
               usedCodes: [refCode],
+              // When using IP to determine deservingness
+              // referralCode: nullRef,
+              // usedCodes: [nullRef],
               chatHistory: [],
-              ipAddress: ipAddress,
+              IP: ipAddress,
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)

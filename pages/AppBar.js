@@ -122,25 +122,28 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                 </div>
               </Link>
             </div> */}
-              <div
-                style={{ textDecoration: 'none', marginRight: 8 }}
-                onClick={() => setValue(1)}
-              >
-                <p
-                  style={{
-                    margin: 0,
-                    width: '90px',
-                    color: '#0057be',
-                    borderRadius: '5px',
-                    border: 'solid 1px #0057be',
-                    textAlign: 'center',
-                    backgroundColor: '#f2f2f2',
-                    boxShadow: '2px 2px 5px gray',
-                  }}
+              {profileData && (
+                <div
+                  style={{ textDecoration: 'none', marginRight: 8 }}
+                  onClick={() => setValue(1)}
                 >
-                  {profileData?.credits && `Credits: ${profileData?.credits}`}
-                </p>
-              </div>
+                  <p
+                    style={{
+                      margin: 0,
+                      width: '90px',
+                      color: '#0057be',
+                      borderRadius: '5px',
+                      border: 'solid 1px #0057be',
+                      textAlign: 'center',
+                      backgroundColor: '#f2f2f2',
+                      boxShadow: '2px 2px 5px gray',
+                    }}
+                  >
+                    {profileData?.credits && `Credits: ${profileData?.credits}`}
+                  </p>
+                </div>
+              )}
+
               <div style={{ marginRight: 8, textDecoration: 'none' }}>
                 <Link
                   className={nunito.className}
