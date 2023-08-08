@@ -114,8 +114,9 @@ const ChatBot = ({
           //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
           //   }),
           // });
-
+          console.log(`RESPONSE: ${response.result}`)
           let data = await response.json()
+
           // let data2 = await response2.json();
           // console.log(data2.result.explanation);
           //   if (response.status !== 200) {
@@ -125,6 +126,7 @@ const ChatBot = ({
           //     );
           //   }
           console.log(`DATA: ${data.result}`)
+          console.log(`FULL DATA: ${data}`)
           const result = data.result.match(/"([^"]*)"/g)
           // JSON.parse(
           //   `[${data.result.split('[')[0].split(']')[0]}]`
@@ -135,13 +137,13 @@ const ChatBot = ({
           console.log(result)
           const apiCalls = result?.map((endpoint) => {
             return new Promise((resolve, reject) => {
-              fetch('/api/page', {
+              fetch('/api/generate', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  animal: `${endpoint}`,
+                  animal: `Q: ${endpoint}`,
                 }),
               })
                 .then((response) => response.json())
