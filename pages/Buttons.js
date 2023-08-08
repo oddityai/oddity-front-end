@@ -82,7 +82,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 Prompt AI write it for you!
               </p>
               <Button
-                // onClick={() => handleClick('prompt')}
+                onClick={() => handleClick('prompt')}
                 style={{
                   zIndex: 10,
                   backgroundColor: '#00c3ff',

@@ -212,6 +212,9 @@ const ChatBot = ({
     english: `Hi ${
       user?.given_name ? user?.given_name : ''
     }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
+    prompt: `Hi ${
+      user?.given_name ? user?.given_name : ''
+    }! I am designed to take your specific prompt and output some fantastic writing.`,
     chat: `Hi ${
       user?.given_name ? user?.given_name : ''
     }! I'm a conversational AI. What do you want to talk about?`,
@@ -615,6 +618,8 @@ const ChatBot = ({
                 subject !== 'joke' &&
                 subject !== 'reply'
                   ? 'Ask your question for 1 credit.'
+                  : subject == 'prompt'
+                  ? 'Enter your writing prompt for 1 credit'
                   : 'Ask your free question!'
               }
               style={{
