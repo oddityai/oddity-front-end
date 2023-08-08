@@ -77,7 +77,8 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
 
               <p style={{ fontSize: 12, color: 'gray' }}>
                 Enter a prompt for a story or any kind of writing and have our
-                Prompt AI write it for you!
+                Prompt AI write it for you! Be patient, this can take time to
+                complete.
               </p>
               <Button
                 onClick={() => handleClick('prompt')}
