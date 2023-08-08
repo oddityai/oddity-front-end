@@ -25,6 +25,8 @@ const TYPES = {
   history: 'Answer this history question for me: ',
   english: 'Answer this English question for me: ',
   science: 'Answer this science question for me: ',
+  prompt:
+    'Write a fully descriptive, captivating, well written section about the following prompt: ',
   chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked:',
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
@@ -86,34 +88,34 @@ export default function Home() {
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
             setReferralCodeState(refCode)
-            // const checkIfIpAddressExists = async (ip) => {
-            //   const snapshot = await db
-            //     .collection('profiles')
-            //     .where('IP', '==', ip)
-            //     .get()
-            //   return !snapshot.empty
-            // }
-            // checkIfIpAddressExists(ipAddress).then((ipExists) => {
-            //   if (ipExists) {
-            //     setCreditsToAdd(0)
-            //     setNullRef(null)
-            //   } else {
-            //     setCreditsToAdd(20)
-            //     setNullRef(referralCodeState)
-            //   }
-            // })
+            const checkIfIpAddressExists = async (ip) => {
+              const snapshot = await db
+                .collection('profiles')
+                .where('IP', '==', ip)
+                .get()
+              return !snapshot.empty
+            }
+            checkIfIpAddressExists(ipAddress).then((ipExists) => {
+              if (ipExists) {
+                setCreditsToAdd(0)
+                setNullRef(null)
+              } else {
+                setCreditsToAdd(20)
+                setNullRef(referralCodeState)
+              }
+            })
             const newUser = {
               username: user?.nickname,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              // credits: creditsToAdd,
-              credits: 20,
-              referralCode: refCode,
-              usedCodes: [refCode],
+              credits: creditsToAdd,
+              // credits: 20,
+              // referralCode: refCode,
+              // usedCodes: [refCode],
               // When using IP to determine deservingness
-              // referralCode: nullRef,
-              // usedCodes: [nullRef],
+              referralCode: nullRef,
+              usedCodes: [nullRef],
               chatHistory: [],
               IP: ipAddress,
             }

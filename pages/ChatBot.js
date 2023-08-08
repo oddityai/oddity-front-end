@@ -91,7 +91,7 @@ const ChatBot = ({
         setInput(input)
         setStep(2)
         try {
-          const response = await fetch('/api/page', {
+          const response = await fetch('/api/generate', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ const ChatBot = ({
             body: JSON.stringify({
               //   animal: `Extract the questions from this text and return them as an array of strings: ${input}  {}. Return the data in an array of strings as a string so i can json.parse it`,
               animal: `
-              Extract the complete/logical questions from the following text as they are. Don't rephrase the questions. Return them as an array of strings: 
+              Extract the queries from the following text as they are, they may not be complete but use problem solving skills to figure out what it is trying to ask: 
 
               ${input}
               `,
@@ -114,8 +114,8 @@ const ChatBot = ({
           //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
           //   }),
           // });
-
           let data = await response.json()
+
           // let data2 = await response2.json();
           // console.log(data2.result.explanation);
           //   if (response.status !== 200) {
@@ -125,23 +125,27 @@ const ChatBot = ({
           //     );
           //   }
           console.log(`DATA: ${data.result}`)
-          const result = data.result.match(/"([^"]*)"/g)
-          // JSON.parse(
-          //   `[${data.result.split('[')[0].split(']')[0]}]`
-          // )
+          const result =
+            // JSON.stringify(
+            //   `[${data.result.split('[')[0].split(']')[0]}]`
+            // )
+
+            // data.result.match(/"([^"]*)"/g)
+            data.result.split('\n')
+
           setStep(3)
           setRawText(data.result)
           console.log(3)
           console.log(result)
           const apiCalls = result?.map((endpoint) => {
             return new Promise((resolve, reject) => {
-              fetch('/api/page', {
+              fetch('/api/generate', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  animal: `${endpoint}`,
+                  animal: `Question: ${endpoint}`,
                 }),
               })
                 .then((response) => response.json())
@@ -203,29 +207,32 @@ const ChatBot = ({
   }
 
   const TYPES = {
-    math: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    math: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
-    history: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    history: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
-    english: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    english: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
-    chat: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    prompt: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
+    }! I am designed to take your specific prompt and output some fantastic writing. Include how long you'd like the output to be if necessary!`,
+    chat: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I'm a conversational AI. What do you want to talk about?`,
-    science: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    science: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
-    feedback: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    feedback: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
-    reply: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    reply: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! Type or paste a message in the chat and I will give you a way to reply to it.`,
-    joke: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    joke: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! Tell me what you want me to make a joke about.`,
   }
 
@@ -615,6 +622,8 @@ const ChatBot = ({
                 subject !== 'joke' &&
                 subject !== 'reply'
                   ? 'Ask your question for 1 credit.'
+                  : subject == 'prompt'
+                  ? 'Enter your writing prompt for 1 credit'
                   : 'Ask your free question!'
               }
               style={{
