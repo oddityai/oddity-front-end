@@ -203,32 +203,32 @@ const ChatBot = ({
   }
 
   const TYPES = {
-    math: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    math: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
-    history: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    history: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
-    english: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    english: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
-    prompt: `Hi ${
-      user?.given_name ? user?.given_name : ''
-    }! I am designed to take your specific prompt and output some fantastic writing.`,
-    chat: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    prompt: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
+    }! I am designed to take your specific prompt and output some fantastic writing. Include how long you'd like the output to be if necessary!`,
+    chat: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I'm a conversational AI. What do you want to talk about?`,
-    science: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    science: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
-    feedback: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    feedback: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
-    reply: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    reply: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! Type or paste a message in the chat and I will give you a way to reply to it.`,
-    joke: `Hi ${
-      user?.given_name ? user?.given_name : ''
+    joke: `Hi${
+      user?.given_name ? ` ${user?.given_name}` : ''
     }! Tell me what you want me to make a joke about.`,
   }
 
