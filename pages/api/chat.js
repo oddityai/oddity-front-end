@@ -5,7 +5,7 @@ const configuration = new Configuration({
 })
 const openai = new OpenAIApi(configuration)
 
-export default async function (req, res) {
+export default async function handler(req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -16,26 +16,17 @@ export default async function (req, res) {
     return
   }
 
-  const animal = req.body.animal || ''
-  const history = req.body.history || []
-  const chatHistory = history.map((item) => {
-    if (item.type === 'chat') {
-      return { role: 'user', content: item.input }
-    }
-    // You can add logic here to handle other message types like 'system'
-  })
+  const { messages } = req.body
+
   try {
-    const prompt = `${animal} {}`
-    const messages = [
-      { role: 'user', content: prompt },
-      // , ...chatHistory
-    ]
     const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      // messages: chatHistory,
-      messages: messages,
+      messages,
     })
-    res.status(200).json({ result: completion.data.choices[0].message.content })
+
+    const assistantMessage = completion.data.choices[0].message.content
+
+    res.status(200).json({ message: assistantMessage })
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
