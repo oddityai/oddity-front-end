@@ -28,6 +28,14 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
           borderRadius: 8,
         }}
       >
+        <button
+          type='button'
+          onClick={() => {
+            throw new Error('Sentry Frontend Error')
+          }}
+        >
+          Throw error
+        </button>
         <div style={{ padding: 16 }}>
           <form
             style={{

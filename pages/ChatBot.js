@@ -149,7 +149,10 @@ const ChatBot = ({
                 }),
               })
                 .then((response) => response.json())
-                .then((data) => resolve(data))
+                .then((data) => {
+                  resolve(data)
+                  useCredit()
+                })
                 .catch((error) => reject(error))
             })
           })
@@ -188,7 +191,7 @@ const ChatBot = ({
   function uploadFile(e, type) {
     if (e.target.files[0]) {
       setFile({ file: e.target.files[0], type: type })
-      useCredit()
+      // useCredit()
     }
   }
 

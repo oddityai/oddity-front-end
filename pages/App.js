@@ -26,10 +26,10 @@ const TYPES = {
   english: 'Answer this English question for me: ',
   science: 'Answer this science question for me: ',
   prompt:
-    'Write a fully descriptive, captivating, well written section about the following prompt: ',
+    'Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ',
   chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked:',
   feedback:
-    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
+    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
 
   reply:
     'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
@@ -104,6 +104,7 @@ export default function Home() {
                 setNullRef(referralCodeState)
               }
             })
+
             const newUser = {
               username: user?.nickname,
               email: user?.email,
@@ -180,7 +181,11 @@ export default function Home() {
   // const handleAddReferralCodes = async () => {
   //   await updateProfilesWithReferralCodes()
   // }
-
+  // useEffect(() => {
+  //   if (profileData?.chatHistory && profileData.chatHistory.length > 10) {
+  //     profileData.chatHistory = profileData.chatHistory.slice(-10)
+  //   }
+  // }, [])
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
@@ -259,14 +264,6 @@ export default function Home() {
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
     if (profileData.credits > 0) {
-      if (
-        subject !== 'feedback' &&
-        subject !== 'chat' &&
-        subject !== 'joke' &&
-        subject !== 'reply'
-      ) {
-        useCredit()
-      }
       if (event) {
         event.preventDefault()
       }
@@ -279,6 +276,7 @@ export default function Home() {
           },
           body: JSON.stringify({
             animal: `${TYPES[subject]}: "${input}"`,
+            // history: profileData.chatHistory,
           }),
         })
         // const response2 = await fetch("/api/generate", {
@@ -299,6 +297,15 @@ export default function Home() {
             data.error ||
             new Error(`Request failed with status ${response.status}`)
           )
+        } else {
+          if (
+            subject !== 'feedback' &&
+            subject !== 'chat' &&
+            subject !== 'joke' &&
+            subject !== 'reply'
+          ) {
+            useCredit()
+          }
         }
         // if (response2.status !== 200) {
         //   throw (
@@ -357,6 +364,81 @@ export default function Home() {
     }
   }
 
+  // async function onSubmit(event, value, url, tries) {
+  //   const input = value ? value : animalInput;
+  //   if (profileData.credits > 0) {
+  //     if (
+  //       subject !== 'feedback' &&
+  //       subject !== 'chat' &&
+  //       subject !== 'joke' &&
+  //       subject !== 'reply'
+  //     ) {
+  //       useCredit();
+  //     }
+  //     if (event) {
+  //       event.preventDefault();
+  //     }
+  //     setIsLoadingScreen(true);
+  //     try {
+  //       const response = await fetch('/api/generate', {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           animal: `${TYPES[subject]}: "${input}"`,
+  //         }),
+  //       });
+
+  //       if (response.status !== 200) {
+  //         throw new Error(`Request failed with status ${response.status}`);
+  //       }
+
+  //       const reader = response.body.getReader();
+  //       let content = '';
+
+  //       while (true) {
+  //         const { done, value } = await reader.read();
+  //         if (done) {
+  //           break;
+  //         }
+  //         content += new TextDecoder().decode(value);
+  //         // Display the content in your UI, e.g., append it to a chat window
+  //         console.log(content);
+  //       }
+
+  //       const res = {
+  //         result: content,
+  //         input: input,
+  //         type: subject,
+  //       };
+  //       const answersCopy = answers.slice();
+  //       answersCopy.push(res);
+  //       setAnswers(answersCopy);
+  //       setAnimalInput('');
+  //       setResult('');
+  //       setError('');
+  //       setIsLoadingScreen(false);
+
+  //       // Update the chat history in your Firebase database
+  //       const userCopy = profileData.chatHistory.slice();
+  //       userCopy.unshift(res);
+  //       db.collection('profiles').doc(profileData?.id).update({
+  //         chatHistory: userCopy,
+  //       });
+  //     } catch (error) {
+  //       // Handle errors
+  //       setIsLoadingScreen(false);
+  //       setResult('');
+  //       setError('An error occurred while processing your request: ' + error.message);
+  //       console.error(error);
+  //     }
+  //   } else {
+  //     // Handle the case where user doesn't have enough credits
+  //     handleOpen();
+  //   }
+  // }
+
   const shareOnTwitter = () => {
     const url = encodeURIComponent('www.oddityai.com')
     const text = encodeURIComponent(
@@ -400,7 +482,7 @@ export default function Home() {
   const [value, setValue] = useState(0)
   const handleClose = () => {
     setOpen(false)
-    setValue(2)
+    setValue(1)
   }
 
   // useEffect(() => {
