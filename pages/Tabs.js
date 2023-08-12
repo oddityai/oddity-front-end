@@ -192,7 +192,7 @@ export default function BasicTabs({
           // Adding credits to the user found by referral code
           if (!codesArray.includes(referralCode)) {
             try {
-              const creditsToAdd = 50
+              const creditsToAdd = 300
 
               await addCreditsToUser(userWithReferralCode.id, creditsToAdd)
               console.log(

@@ -55,20 +55,6 @@ export default function Home() {
   const [creditsToAdd, setCreditsToAdd] = useState(0)
   const [nullRef, setNullRef] = useState(null)
   const [referralCodeState, setReferralCodeState] = useState()
-  useEffect(() => {
-    async function fetchIpAddress() {
-      try {
-        const response = await fetch('/api/ip') // Await the fetch Promise
-        const data = await response.json() // Await the .json() Promise
-        setIpAddress(data.ip)
-        console.log(`IP Address: ${data.ip}`)
-      } catch (error) {
-        console.error('Error fetching IP: ', error)
-      }
-    }
-
-    fetchIpAddress()
-  }, [])
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
@@ -88,6 +74,18 @@ export default function Home() {
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
             setReferralCodeState(refCode)
+            async function fetchIpAddress() {
+              try {
+                const response = await fetch('/api/ip') // Await the fetch Promise
+                const data = await response.json() // Await the .json() Promise
+                setIpAddress(data.ip)
+                console.log(`IP Address: ${data.ip}`)
+              } catch (error) {
+                console.error('Error fetching IP: ', error)
+              }
+            }
+
+            fetchIpAddress()
             const checkIfIpAddressExists = async (ip) => {
               const snapshot = await db
                 .collection('profiles')
@@ -116,10 +114,11 @@ export default function Home() {
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: creditsToAdd,
+              // Without IP check
               credits: 20,
               referralCode: refCode,
               usedCodes: [refCode],
+              // credits: creditsToAdd,
               // When using IP to determine deservingness
               // referralCode: nullRef,
               // usedCodes: [nullRef],
