@@ -166,7 +166,7 @@ export default function BasicTabs({
 
       // Assuming you have access to the currently logged-in user's userId
       const loggedInUserId = profileData.id
-      const creditsToAdd = 50
+      const creditsToAdd = 300
 
       // Check if referralCode is already used
       if (codesArray.includes(referralCode)) {
@@ -326,6 +326,9 @@ export default function BasicTabs({
           <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
           credits{profileData?.credits != 0 ? ' remaining.' : '.'}
         </h3>
+        {/* <h4>
+          <a href='#refcode'>Have a referral code?</a>
+        </h4> */}
 
         {/* <div
           style={{
@@ -405,7 +408,7 @@ export default function BasicTabs({
             <hr s />
             <h3 className={nunito.className}>$4.99</h3>
             <hr s />
-            <h4>150 credits</h4>
+            <h4>300 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
@@ -447,9 +450,132 @@ export default function BasicTabs({
             </form>
           </div>
         </div>
+        <div
+          style={{
+            margin: '16px auto',
+            width: '30%',
+            backgroundColor: '#f5f5f5',
+            borderRadius: 8,
+            minWidth: 200,
+            boxShadow: '5px 5px 10px gray',
+          }}
+        >
+          <div style={{ padding: 8 }}>
+            <h3 className={nunito.className}>Standard Pack</h3>
+            <hr s />
+            <h3 className={nunito.className}>$9.99</h3>
+            <hr s />
+            <h4>700 credits</h4>
+            {/* <p className={nunito.className}>Enough for a few months</p> */}
+            <p className={nunito.className}>
+              Questions and image uploads cost 1 credit
+            </p>
+            <p className={nunito.className}>
+              Usable on any current/future AI bots
+            </p>
+            <form action={`/api/checkout_sessions2?user_id=123`} method='POST'>
+              <section>
+                <button type='submit' role='link'>
+                  Buy Now
+                </button>
+              </section>
+              <style jsx>
+                {`
+                  section {
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 6px;
+                    justify-content: space-between;
+                  }
+                  button {
+                    margin-top: 8px;
+                    height: 36px;
+                    background: #556cd6;
+                    border-radius: 4px;
+                    color: white;
+                    border: 0;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.5s ease;
+                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                  }
+                  button:hover {
+                    opacity: 0.8;
+                  }
+                `}
+              </style>
+            </form>
+          </div>
+        </div>
+        <div
+          style={{
+            margin: '16px auto',
+            width: '30%',
+            backgroundColor: '#f5f5f5',
+            borderRadius: 8,
+            minWidth: 200,
+            boxShadow: '5px 5px 10px gray',
+          }}
+        >
+          <div style={{ padding: 8 }}>
+            <h3 className={nunito.className}>Mega Pack</h3>
+            <sup style={{ color: 'red', fontSize: '0.8rem' }}>Best Value!</sup>
+
+            <hr s />
+            <h3 className={nunito.className}>$19.99</h3>
+            <hr s />
+            <h4>1800 credits</h4>
+            {/* <p className={nunito.className}>Enough for a few months</p> */}
+            <p className={nunito.className}>
+              Questions and image uploads cost 1 credit
+            </p>
+            <p className={nunito.className}>
+              Usable on any current/future AI bots
+            </p>
+            <form action={`/api/checkout_sessions3?user_id=123`} method='POST'>
+              <section>
+                <button type='submit' role='link'>
+                  Buy Now
+                </button>
+              </section>
+              <style jsx>
+                {`
+                  section {
+                    display: flex;
+                    flex-direction: column;
+                    border-radius: 6px;
+                    justify-content: space-between;
+                  }
+                  button {
+                    margin-top: 8px;
+                    height: 36px;
+                    background: #556cd6;
+                    border-radius: 4px;
+                    color: white;
+                    border: 0;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.5s ease;
+                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                  }
+                  button:hover {
+                    opacity: 0.8;
+                  }
+                `}
+              </style>
+            </form>
+          </div>
+        </div>
         {profileData?.referralCode != null && (
           <div
-            style={{ width: '75%', marginLeft: 'auto', marginRight: 'auto' }}
+            style={{
+              width: '75%',
+              margin: '16px auto',
+              backgroundColor: '#f5f5f5',
+              borderRadius: 8,
+              minWidth: 200,
+              boxShadow: '5px 5px 10px gray',
+            }}
           >
             {' '}
             <div
@@ -463,10 +589,10 @@ export default function BasicTabs({
                   className={nunito.className}
                   style={{ fontSize: 22, color: '#ff6f00' }}
                 >
-                  Get 50 free credits for inviting your friends!
+                  Get 300 free credits for inviting your friends!
                 </h2>
                 <h3 className={nunito.className}>
-                  If someone signs up using your referral code, you both get 50
+                  If someone signs up using your referral code, you both get 300
                   extra credits for free.
                 </h3>
                 <h3 className={nunito.className}>
@@ -484,9 +610,9 @@ export default function BasicTabs({
                 marginTop: 16,
               }}
             >
-              <div style={{ padding: 8 }}>
+              <div style={{ padding: 8 }} id='refcode'>
                 <h3 className={nunito.className}>
-                  Have a referral code? <br /> Enter it below to get 50 credits
+                  Have a referral code? <br /> Enter it below to get 300 credits
                   instantly!
                 </h3>
                 <div

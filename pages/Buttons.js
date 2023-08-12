@@ -72,13 +72,13 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 className={nunito.className}
                 style={{ fontSize: 16, fontWeight: 600 }}
               >
-                Prompt AI
+                Essay/Book Report AI
               </p>
 
               <p style={{ fontSize: 12, color: 'gray' }}>
                 Enter a prompt for a story or any kind of writing and have our
-                Prompt AI write it for you! Be patient, this can take time to
-                complete.
+                Prompt AI write it for you!
+                <br /> Be patient, this can take time to complete.
               </p>
               <Button
                 onClick={() => handleClick('prompt')}
@@ -93,7 +93,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
               >
                 {children || <CreateIcon style={{ color: 'white' }} />}{' '}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Prompt Writer
+                  Essay Writer
                 </span>
               </Button>
             </div>

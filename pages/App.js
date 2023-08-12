@@ -181,21 +181,45 @@ export default function Home() {
   // const handleAddReferralCodes = async () => {
   //   await updateProfilesWithReferralCodes()
   // }
-  // useEffect(() => {
-  //   if (profileData?.chatHistory && profileData.chatHistory.length > 10) {
-  //     profileData.chatHistory = profileData.chatHistory.slice(-10)
-  //   }
-  // }, [])
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
+      const creditsToAdd = 300
 
       try {
         userRef.update({
-          credits: (profileData.credits || 0) + 150,
+          credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (150)')
+        console.log('Credits successfully added (300)')
+        router.push('/App')
+      } catch (error) {
+        console.error(`Error adding credits: ${error}`)
+      }
+    } else if (router.query.success === 'true2' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      const creditsToAdd = 700
+
+      try {
+        userRef.update({
+          credits: (profileData.credits || 0) + creditsToAdd,
+        })
+        console.log('Credits successfully added (700)')
+        router.push('/App')
+      } catch (error) {
+        console.error(`Error adding credits: ${error}`)
+      }
+    } else if (router.query.success === 'true3' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      const creditsToAdd = 1800
+
+      try {
+        userRef.update({
+          credits: (profileData.credits || 0) + creditsToAdd,
+        })
+        console.log('Credits successfully added (1800)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -224,11 +248,11 @@ export default function Home() {
   //                   })
   //                 }
   //               })
-  //               // histories.push({
-  //               //   username: ele?.username,
-  //               //   length: ele?.chatHistory?.length,
-  //               //   history: ele?.chatHistory,
-  //               // });
+  //               histories.push({
+  //                 username: ele?.username,
+  //                 length: ele?.chatHistory?.length,
+  //                 history: ele?.chatHistory,
+  //               })
   //             }
   //           })
   //           console.log({ histories })
@@ -252,12 +276,12 @@ export default function Home() {
     setSubject(subject)
   }
 
-  const useCredit = () => {
+  const useCredit = (amount) => {
     const usersRef = db.collection('profiles')
     const userRef = usersRef.doc(profileData.id)
     if (profileData.credits >= 0) {
       userRef.update({
-        credits: profileData.credits - 1,
+        credits: profileData.credits - amount || profileData.credits - 1,
       })
     }
   }
@@ -276,7 +300,7 @@ export default function Home() {
           },
           body: JSON.stringify({
             animal: `${TYPES[subject]}: "${input}"`,
-            // history: profileData.chatHistory,
+            history: profileData.chatHistory,
           }),
         })
         // const response2 = await fetch("/api/generate", {
