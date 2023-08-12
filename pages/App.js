@@ -115,13 +115,13 @@ export default function Home() {
               id: user?.sub.split('|')[1],
               name: user?.name,
               // Without IP check
-              // credits: 20,
-              // referralCode: refCode,
-              // usedCodes: [refCode],
-              credits: creditsToAdd,
+              credits: 20,
+              referralCode: refCode,
+              usedCodes: [refCode],
+              // credits: creditsToAdd,
               // When using IP to determine deservingness
-              referralCode: nullRef,
-              usedCodes: [nullRef],
+              // referralCode: nullRef,
+              // usedCodes: [nullRef],
               chatHistory: [],
               IP: ipAddress,
             }
