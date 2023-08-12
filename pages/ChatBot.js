@@ -151,7 +151,6 @@ const ChatBot = ({
                 .then((response) => response.json())
                 .then((data) => {
                   resolve(data)
-                  useCredit()
                 })
                 .catch((error) => reject(error))
             })
@@ -160,6 +159,8 @@ const ChatBot = ({
           Promise.all(apiCalls)
             .then((results) => {
               console.log({ results })
+              console.log(`Length of results: ${results.length}`)
+              useCredit(results.length)
               setStep(4)
               setResults(results)
             })
@@ -172,6 +173,9 @@ const ChatBot = ({
           console.log({ result })
         } catch (error) {
           setIsProcessing(false)
+          alert(
+            'Image either unlcear or too large. Please make sure you use a high quality image. Also note, our bots can not read graphs quite yet!'
+          )
           setError(
             'Image either unclear or too large. Please make sure you take a good quality picture.'
           )
@@ -625,7 +629,7 @@ const ChatBot = ({
                 subject !== 'joke' &&
                 subject !== 'reply'
                   ? 'Ask your question for 1 credit.'
-                  : subject == 'prompt'
+                  : subject === 'prompt'
                   ? 'Enter your writing prompt for 1 credit'
                   : 'Ask your free question!'
               }
@@ -663,7 +667,8 @@ const ChatBot = ({
             {subject !== 'feedback' &&
               subject !== 'chat' &&
               subject !== 'joke' &&
-              subject !== 'reply' && (
+              subject !== 'reply' &&
+              subject !== 'prompt' && (
                 <IconButton
                   onClick={() => handleInputClick('reply')}
                   color='gray'
