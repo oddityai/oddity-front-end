@@ -93,21 +93,21 @@ export default function Home() {
                 .get()
               return !snapshot.empty
             }
-            // if (ipAddress === '') {
-            //   console.log('No IP')
-            //   setCreditsToAdd(20)
-            //   setNullRef(referralCodeState)
-            // } else {
-            //   checkIfIpAddressExists(ipAddress).then((ipExists) => {
-            //     if (ipExists) {
-            //       setCreditsToAdd(0)
-            //       setNullRef(null)
-            //     } else {
-            //       setCreditsToAdd(20)
-            //       setNullRef(referralCodeState)
-            //     }
-            //   })
-            // }
+            if (ipAddress === '') {
+              console.log('No IP')
+              setCreditsToAdd(20)
+              setNullRef(referralCodeState)
+            } else {
+              checkIfIpAddressExists(ipAddress).then((ipExists) => {
+                if (ipExists) {
+                  setCreditsToAdd(0)
+                  setNullRef(null)
+                } else {
+                  setCreditsToAdd(20)
+                  setNullRef(referralCodeState)
+                }
+              })
+            }
 
             const newUser = {
               username: user?.nickname,
@@ -115,13 +115,13 @@ export default function Home() {
               id: user?.sub.split('|')[1],
               name: user?.name,
               // Without IP check
-              credits: 20,
-              referralCode: refCode,
-              usedCodes: [refCode],
-              // credits: creditsToAdd,
+              // credits: 20,
+              // referralCode: refCode,
+              // usedCodes: [refCode],
+              credits: creditsToAdd,
               // When using IP to determine deservingness
-              // referralCode: nullRef,
-              // usedCodes: [nullRef],
+              referralCode: nullRef,
+              usedCodes: [nullRef],
               chatHistory: [],
               IP: ipAddress,
             }
