@@ -86,28 +86,28 @@ export default function Home() {
             }
 
             fetchIpAddress()
-            const checkIfIpAddressExists = async (ip) => {
-              const snapshot = await db
-                .collection('profiles')
-                .where('IP', '==', ip)
-                .get()
-              return !snapshot.empty
-            }
-            if (ipAddress === '') {
-              console.log('No IP')
-              setCreditsToAdd(20)
-              setNullRef(referralCodeState)
-            } else {
-              checkIfIpAddressExists(ipAddress).then((ipExists) => {
-                if (ipExists) {
-                  setCreditsToAdd(0)
-                  setNullRef(null)
-                } else {
-                  setCreditsToAdd(20)
-                  setNullRef(referralCodeState)
-                }
-              })
-            }
+            // const checkIfIpAddressExists = async (ip) => {
+            //   const snapshot = await db
+            //     .collection('profiles')
+            //     .where('IP', '==', ip)
+            //     .get()
+            //   return !snapshot.empty
+            // }
+            // if (ipAddress === '') {
+            //   console.log('No IP')
+            //   setCreditsToAdd(20)
+            //   setNullRef(referralCodeState)
+            // } else {
+            //   checkIfIpAddressExists(ipAddress).then((ipExists) => {
+            //     if (ipExists) {
+            //       setCreditsToAdd(0)
+            //       setNullRef(null)
+            //     } else {
+            //       setCreditsToAdd(20)
+            //       setNullRef(referralCodeState)
+            //     }
+            //   })
+            // }
 
             const newUser = {
               username: user?.nickname,
