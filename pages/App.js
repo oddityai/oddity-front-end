@@ -57,6 +57,20 @@ export default function Home() {
   const [referralCodeState, setReferralCodeState] = useState()
 
   useEffect(() => {
+    async function fetchIpAddress() {
+      try {
+        const response = await fetch('http://localhost:5000/ip') // Await the fetch Promise
+        const data = await response.json() // Await the .json() Promise
+        setIpAddress(data.ip)
+        console.log(`IP Address: ${data.ip}`)
+      } catch (error) {
+        console.error('Error fetching IP: ', error)
+      }
+    }
+
+    fetchIpAddress()
+  }, [])
+  useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
         .where('username', '==', user?.nickname)
@@ -74,18 +88,7 @@ export default function Home() {
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
             setReferralCodeState(refCode)
-            async function fetchIpAddress() {
-              try {
-                const response = await fetch('/api/ip') // Await the fetch Promise
-                const data = await response.json() // Await the .json() Promise
-                setIpAddress(data.ip)
-                console.log(`IP Address: ${data.ip}`)
-              } catch (error) {
-                console.error('Error fetching IP: ', error)
-              }
-            }
 
-            fetchIpAddress()
             // const checkIfIpAddressExists = async (ip) => {
             //   const snapshot = await db
             //     .collection('profiles')
@@ -118,8 +121,8 @@ export default function Home() {
               credits: 20,
               referralCode: refCode,
               usedCodes: [refCode],
-              // credits: creditsToAdd,
               // When using IP to determine deservingness
+              // credits: creditsToAdd,
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
