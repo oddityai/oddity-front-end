@@ -59,7 +59,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchIpAddress() {
       try {
-        const response = await fetch('http://localhost:5000/ip') // Await the fetch Promise
+        const response = await fetch('http://oddity-api.herokuapp.com/ip') // Await the fetch Promise
         const data = await response.json() // Await the .json() Promise
         setIpAddress(data.ip)
         // console.log(`IP Address: ${data.ip}`)
