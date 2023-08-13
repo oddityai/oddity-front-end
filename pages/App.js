@@ -62,7 +62,7 @@ export default function Home() {
         const response = await fetch('http://localhost:5000/ip') // Await the fetch Promise
         const data = await response.json() // Await the .json() Promise
         setIpAddress(data.ip)
-        console.log(`IP Address: ${data.ip}`)
+        // console.log(`IP Address: ${data.ip}`)
       } catch (error) {
         console.error('Error fetching IP: ', error)
       }
