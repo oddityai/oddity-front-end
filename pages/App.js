@@ -115,7 +115,7 @@ export default function Home() {
               // usedCodes: [nullRef],
               chatHistory: [],
               IP:
-                user['https://oddityai.com/user_metadata']['last_ip'] ||
+                // user['https://oddityai.com/user_metadata']['last_ip'] ||
                 'failed',
             }
             db.collection('profiles').add(newUser)
