@@ -57,9 +57,6 @@ export default function Home() {
   const [referralCodeState, setReferralCodeState] = useState()
 
   useEffect(() => {
-    setIpAddress(user?.last_ip)
-  }, [])
-  useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
         .where('username', '==', user?.nickname)
@@ -100,6 +97,7 @@ export default function Home() {
             //     }
             //   })
             // }
+            setIpAddress(user?.last_ip)
 
             const newUser = {
               username: user?.nickname,
