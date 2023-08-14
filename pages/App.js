@@ -51,7 +51,6 @@ export default function Home() {
   const { user, isLoading } = useUser()
   const router = useRouter()
 
-  const [ipAddress, setIpAddress] = useState('')
   const [creditsToAdd, setCreditsToAdd] = useState(0)
   const [nullRef, setNullRef] = useState(null)
   const [referralCodeState, setReferralCodeState] = useState()
@@ -97,7 +96,6 @@ export default function Home() {
             //     }
             //   })
             // }
-            setIpAddress(user?.last_ip)
 
             const newUser = {
               username: user?.nickname,
@@ -113,7 +111,7 @@ export default function Home() {
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
-              IP: ipAddress || 'failed',
+              IP: user?.last_ip || 'failed',
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
