@@ -55,7 +55,47 @@ export default function Home() {
   const [nullRef, setNullRef] = useState(null)
   const [referralCodeState, setReferralCodeState] = useState()
   const [ipAddress, setIpAddress] = useState(null)
+  async function updateUserProfile() {
+    try {
+      const profilesRef = db.collection('profiles')
 
+      // Query for profiles with the same IP
+      const querySnapshot = await profilesRef
+        .where(
+          'IP',
+          '==',
+          user['https://oddityai.com/user_metadata']['last_ip']
+        )
+        .get()
+
+      console.log('Snapshot size:', querySnapshot.size)
+
+      if (querySnapshot.size > 1) {
+        // Update the user's profile if there are multiple profiles with the same IP
+
+        console.log('Updating user profile...')
+        const usersRef = db
+          .collection('profiles')
+          .where('email', '==', user.email)
+
+        usersRef.get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            doc.ref.update({
+              credits: 0,
+              refCode: null,
+              usedCodes: [null],
+            })
+          })
+        })
+
+        console.log('User profile updated successfully.')
+      } else {
+        console.log('No action taken: Single profile found with the IP.')
+      }
+    } catch (error) {
+      console.error('An error occurred:', error)
+    }
+  }
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -70,60 +110,33 @@ export default function Home() {
             if (sessionStorage.getItem('profileStatus1') === user?.sid) {
               return
             }
+
             const firstRef = user?.nickname.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
             setReferralCodeState(refCode)
 
-            // const checkIfIpAddressExists = async (ip) => {
-            //   const snapshot = await db
-            //     .collection('profiles')
-            //     .where('IP', '==', ip)
-            //     .get()
-            //   return !snapshot.empty
-            // }
-            // if (ipAddress === '') {
-            //   console.log('No IP')
-            //   setCreditsToAdd(20)
-            //   setNullRef(referralCodeState)
-            // } else {
-            //   checkIfIpAddressExists(ipAddress).then((ipExists) => {
-            //     if (ipExists) {
-            //       setCreditsToAdd(0)
-            //       setNullRef(null)
-            //     } else {
-            //       setCreditsToAdd(20)
-            //       setNullRef(referralCodeState)
-            //     }
-            //   })
-            // }
             const newUser = {
-              username: user?.nickname,
+              username: user?.nickname + '-' + secondRef,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              // Without IP check
               credits: 20,
               referralCode: refCode,
               usedCodes: [refCode],
-              // When using IP to determine deservingness
-              // credits: creditsToAdd,
-              // referralCode: nullRef,
-              // usedCodes: [nullRef],
               chatHistory: [],
-              IP:
-                user['https://oddityai.com/user_metadata']['last_ip'] ||
-                'failed',
+              IP: user['https://oddityai.com/user_metadata']['last_ip'],
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
+            console.log(profileData.id)
+            updateUserProfile()
             sessionStorage.setItem('profileStatus1', user?.sid)
-            // console.log('IP Address:', ipAddress)
-            // router.push('/api/auth/logout')
           }
         })
     }
-  }, [user])
+  }, [user, isLoading])
+
   // useEffect(() => {
   //   if (!isLoading) {
   //     const usersRef = db.collection('profiles')
