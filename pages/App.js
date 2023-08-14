@@ -27,7 +27,7 @@ const TYPES = {
   science: 'Answer this science question for me: ',
   prompt:
     'Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ',
-  chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked:',
+  chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab then by asking the special bots the questions, and the fact that we offer an image upload function to read the questions from your page, but only mention this if such a question is asked:',
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
 
@@ -51,10 +51,6 @@ export default function Home() {
   const { user, isLoading } = useUser()
   const router = useRouter()
 
-  const [creditsToAdd, setCreditsToAdd] = useState(0)
-  const [nullRef, setNullRef] = useState(null)
-  const [referralCodeState, setReferralCodeState] = useState()
-  const [ipAddress, setIpAddress] = useState(null)
   async function updateUserProfile() {
     try {
       const profilesRef = db.collection('profiles')
@@ -114,7 +110,6 @@ export default function Home() {
             const firstRef = user?.nickname.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
-            setReferralCodeState(refCode)
 
             const newUser = {
               username: user?.nickname + '-' + secondRef,
@@ -136,30 +131,6 @@ export default function Home() {
         })
     }
   }, [user, isLoading])
-
-  // useEffect(() => {
-  //   if (!isLoading) {
-  //     const usersRef = db.collection('profiles')
-  //     const userRef = usersRef.doc(profileData.id)
-  //     userRef.update({
-  //       IP: user['https://oddityai.com/user_metadata']['last_ip'],
-  //     })
-  //   }
-  // }, [user, isLoading])
-
-  useEffect(() => {
-    if (
-      profileData.IP === 'failed' ||
-      profileData.IP === '' ||
-      profileData.IP === null
-    ) {
-      const usersRefs = db.collection('profiles')
-      const userRef = usersRefs.doc(profileData.id)
-      userRef.update({
-        IP: user['https://oddityai.com/user_metadata']['last_ip'],
-      })
-    }
-  }, [])
 
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {
