@@ -138,7 +138,7 @@ export default function Home() {
   // }, [user, isLoading])
 
   useEffect(() => {
-    if (profileData.IP === 'failed') {
+    if (profileData && profileData.IP === 'failed') {
       const usersRefs = db.collection('profiles')
       const userRef = usersRefs.doc(profileData.id)
       userRef.update({
