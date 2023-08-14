@@ -58,9 +58,9 @@ export default function Home() {
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
-      console.log(user)
-      setIpAddress(user['https://oddityai.com/user_metadata']['last_ip'])
-      console.log(ipAddress)
+      // console.log(user)
+      // setIpAddress(user['https://oddityai.com/user_metadata']['last_ip'])
+      // console.log(ipAddress)
       db.collection('profiles')
         .where('username', '==', user?.nickname)
         .onSnapshot((snapshot) => {
@@ -115,7 +115,7 @@ export default function Home() {
               // usedCodes: [nullRef],
               chatHistory: [],
               IP:
-                // user['https://oddityai.com/user_metadata']['last_ip'] ||
+                user['https://oddityai.com/user_metadata']['last_ip'] ||
                 'failed',
             }
             db.collection('profiles').add(newUser)
