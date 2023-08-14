@@ -566,114 +566,114 @@ export default function BasicTabs({
             </form>
           </div>
         </div>
-        {/* {profileData?.referralCode != null && ( */}
-        <div
-          style={{
-            width: '75%',
-            margin: '16px auto',
-            backgroundColor: '#f5f5f5',
-            borderRadius: 8,
-            minWidth: 200,
-            boxShadow: '5px 5px 10px gray',
-          }}
-        >
-          {' '}
+        {profileData?.referralCode != null && (
           <div
             style={{
+              width: '75%',
+              margin: '16px auto',
               backgroundColor: '#f5f5f5',
               borderRadius: 8,
+              minWidth: 200,
+              boxShadow: '5px 5px 10px gray',
             }}
           >
-            <div style={{ padding: 8 }}>
-              <h2
-                className={nunito.className}
-                style={{ fontSize: 22, color: '#ff6f00' }}
-              >
-                Get 300 free credits for inviting your friends!
-              </h2>
-              <h3 className={nunito.className}>
-                If someone signs up using your referral code, you both get 300
-                extra credits for free.
-              </h3>
-              <h3 className={nunito.className}>
-                Your referral code is: <br />
-                <span style={{ color: '#24b557' }}>
-                  {profileData?.referralCode}
-                </span>
-              </h3>
+            {' '}
+            <div
+              style={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: 8,
+              }}
+            >
+              <div style={{ padding: 8 }}>
+                <h2
+                  className={nunito.className}
+                  style={{ fontSize: 22, color: '#ff6f00' }}
+                >
+                  Get 300 free credits for inviting your friends!
+                </h2>
+                <h3 className={nunito.className}>
+                  If someone signs up using your referral code, you both get 300
+                  extra credits for free.
+                </h3>
+                <h3 className={nunito.className}>
+                  Your referral code is: <br />
+                  <span style={{ color: '#24b557' }}>
+                    {profileData?.referralCode}
+                  </span>
+                </h3>
+              </div>
             </div>
-          </div>
-          <div
-            style={{
-              backgroundColor: '#f5f5f5',
-              borderRadius: 8,
-              marginTop: 16,
-            }}
-          >
-            <div style={{ padding: 8 }} id='refcode'>
-              <h3 className={nunito.className}>
-                Have a referral code? <br /> Enter it below to get 300 credits
-                instantly!
-              </h3>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <TextField
+            <div
+              style={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: 8,
+                marginTop: 16,
+              }}
+            >
+              <div style={{ padding: 8 }} id='refcode'>
+                <h3 className={nunito.className}>
+                  Have a referral code? <br /> Enter it below to get 300 credits
+                  instantly!
+                </h3>
+                <div
                   style={{
-                    width: 150,
-                    fontSize: 14,
-                    border: 'none',
-                    marginLeft: 10,
-                    backgroundColor: 'white',
-                    marginTop: 10,
-                    marginBottom: 10,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
-                  value={referralCode}
-                  onChange={(e) => setReferralCode(e.target.value)}
-                  placeholder='Referral code'
-                />
-                {referralCode != profileData?.referralCode ? (
-                  <Button
-                    onClick={handleSubmitReferralCode}
+                >
+                  <TextField
                     style={{
-                      zIndex: 10,
-                      backgroundColor: '#ff4a47',
-                      padding: 14,
-                      textTransform: 'none',
-                      marginLeft: 8,
-                      color: 'white',
                       width: 150,
-                      height: 50,
+                      fontSize: 14,
+                      border: 'none',
+                      marginLeft: 10,
+                      backgroundColor: 'white',
+                      marginTop: 10,
+                      marginBottom: 10,
                     }}
-                  >
-                    Get free credits!
-                  </Button>
-                ) : (
-                  <Button
-                    style={{
-                      zIndex: 10,
-                      backgroundColor: '#ff4a47',
-                      padding: 14,
-                      textTransform: 'none',
-                      marginLeft: 8,
-                      color: 'white',
-                      width: 150,
-                      height: 50,
-                    }}
-                    disabled
-                  >
-                    Try again!
-                  </Button>
-                )}
+                    value={referralCode}
+                    onChange={(e) => setReferralCode(e.target.value)}
+                    placeholder='Referral code'
+                  />
+                  {referralCode != profileData?.referralCode ? (
+                    <Button
+                      onClick={handleSubmitReferralCode}
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                    >
+                      Get free credits!
+                    </Button>
+                  ) : (
+                    <Button
+                      style={{
+                        zIndex: 10,
+                        backgroundColor: '#ff4a47',
+                        padding: 14,
+                        textTransform: 'none',
+                        marginLeft: 8,
+                        color: 'white',
+                        width: 150,
+                        height: 50,
+                      }}
+                      disabled
+                    >
+                      Try again!
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* )} */}
+        )}
         {/* <div
               style={{
                 margin: '16px auto',
