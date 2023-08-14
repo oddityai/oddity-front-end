@@ -57,18 +57,7 @@ export default function Home() {
   const [referralCodeState, setReferralCodeState] = useState()
 
   useEffect(() => {
-    async function fetchIpAddress() {
-      // try {
-      const response = await fetch('https://oddity-api.herokuapp.com/ip') // Await the fetch Promise
-      const data = await response.json() // Await the .json() Promise
-      setIpAddress(data.ip)
-      // console.log(`IP Address: ${data.ip}`)
-      // } catch (error) {
-      //   console.error('Error fetching IP: ', error)
-      // }
-    }
-
-    fetchIpAddress()
+    setIpAddress(user?.last_ip)
   }, [])
   useEffect(() => {
     if (user?.nickname && !isLoading) {
@@ -126,7 +115,7 @@ export default function Home() {
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
-              IP: ipAddress,
+              IP: ipAddress || 'failed',
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
