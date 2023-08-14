@@ -576,8 +576,8 @@ homework helper'
               You need credits to continue!
             </Typography>
             <Typography id='modal-modal-description' sx={{ mt: 2 }}>
-              Purchase credits to continue using OddityAI! Only $5 for 100
-              credits!
+              Purchase credits to continue using OddityAI! <br />
+              Starting at only $4.99 for 300 credits!
             </Typography>
           </Box>
         </Modal>
