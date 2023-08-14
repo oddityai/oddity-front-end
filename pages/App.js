@@ -87,7 +87,7 @@ export default function Home() {
             })
           })
         })
-
+        router.push('/')
         console.log('User profile updated successfully.')
       } else {
         console.log('No action taken: Single profile found with the IP.')
