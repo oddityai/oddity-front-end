@@ -58,6 +58,9 @@ export default function Home() {
 
   useEffect(() => {
     if (user?.nickname && !isLoading) {
+      console.log(user)
+      setIpAddress(user['https://oddityai.com/user_metadata']['last_ip'])
+      console.log(ipAddress)
       db.collection('profiles')
         .where('username', '==', user?.nickname)
         .onSnapshot((snapshot) => {
@@ -97,7 +100,6 @@ export default function Home() {
             //     }
             //   })
             // }
-
             const newUser = {
               username: user?.nickname,
               email: user?.email,
@@ -112,37 +114,36 @@ export default function Home() {
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
-              IP: user?.last_ip || 'failed',
+              IP:
+                user['https://oddityai.com/user_metadata']['last_ip'] ||
+                'failed',
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
             sessionStorage.setItem('profileStatus1', user?.sid)
             // console.log('IP Address:', ipAddress)
+            // router.push('/api/auth/logout')
           }
         })
     }
   }, [user])
+  // useEffect(() => {
+  //   if (!isLoading) {
+  //     const usersRef = db.collection('profiles')
+  //     const userRef = usersRef.doc(profileData.id)
+  //     userRef.update({
+  //       IP: user['https://oddityai.com/user_metadata']['last_ip'],
+  //     })
+  //   }
+  // }, [user, isLoading])
 
   useEffect(() => {
-    if (!isLoading && user?.last_ip) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      userRef.update({ IP: user?.last_ip })
-    }
-  }, [user, isLoading])
-
-  useEffect(() => {
-    if (profileData.IP === 'failed') {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      userRef.update({ IP: user?.last_ip })
-    }
-  }, [])
-
-  useEffect(() => {
-    if (profileData.IP === null) {
-      const userRef = db.collection('profiles').doc(profileData.id)
-      userRef.update({ IP: user.last_ip })
+    if (profileData.IP === 'failed' || profileData.IP === null) {
+      const usersRefs = db.collection('profiles')
+      const userRef = usersRefs.doc(profileData.id)
+      userRef.update({
+        IP: user['https://oddityai.com/user_metadata']['last_ip'],
+      })
     }
   }, [])
 
