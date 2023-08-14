@@ -54,7 +54,12 @@ export default function Home() {
   const [creditsToAdd, setCreditsToAdd] = useState(0)
   const [nullRef, setNullRef] = useState(null)
   const [referralCodeState, setReferralCodeState] = useState()
-
+  const [ipAddress, setIpAddress] = useState(null)
+  useEffect(() => {
+    if (!isLoading && user?.last_ip) {
+      setIpAddress(user.last_ip)
+    }
+  }, [user, isLoading])
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -111,7 +116,7 @@ export default function Home() {
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
-              IP: user?.last_ip || 'failed',
+              IP: ipAddress || 'failed',
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
