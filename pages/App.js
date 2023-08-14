@@ -55,11 +55,7 @@ export default function Home() {
   const [nullRef, setNullRef] = useState(null)
   const [referralCodeState, setReferralCodeState] = useState()
   const [ipAddress, setIpAddress] = useState(null)
-  useEffect(() => {
-    if (!isLoading && user?.last_ip) {
-      setIpAddress(user.last_ip)
-    }
-  }, [user, isLoading])
+
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -116,7 +112,7 @@ export default function Home() {
               // referralCode: nullRef,
               // usedCodes: [nullRef],
               chatHistory: [],
-              IP: ipAddress || 'failed',
+              IP: user?.last_ip || 'failed',
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
@@ -126,59 +122,30 @@ export default function Home() {
         })
     }
   }, [user])
-  // console.log('IP address used before')
-  // const newUser = {
-  //   username: user?.nickname,
-  //   email: user?.email,
-  //   id: user?.sub.split('|')[1],
-  //   name: user?.name,
-  //   credits: 0,
-  //   referralCode: null,
-  //   usedCodes: [],
-  //   chatHistory: [],
-  //   ipAddress: ipAddress,
-  // }
-  // db.collection('profiles').add(newUser)
-  // setProfileData(newUser)
-  // sessionStorage.setItem('profileStatus1', user?.sid)
 
-  // const generateReferralCode = (nickname) => {
-  //   const firstRef = nickname?.slice(0, 3).toUpperCase()
-  //   const secondRef = Math.floor(1000 + Math.random() * 9000)
-  //   return `${firstRef}-${secondRef}`
-  // }
+  useEffect(() => {
+    if (!isLoading && user?.last_ip) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      userRef.update({ IP: user?.last_ip })
+    }
+  }, [user, isLoading])
 
-  // const updateProfileWithReferralCode = async (profileDoc) => {
-  //   const nickname = profileDoc.data().username || 'ODT'
-  //   const referralCode = generateReferralCode(nickname)
-  //   await profileDoc.ref.set(
-  //     {
-  //       referralCode: referralCode,
-  //       usedCodes: [referralCode],
-  //     },
-  //     { merge: true }
-  //   )
-  // }
+  useEffect(() => {
+    if (profileData.IP === 'failed') {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      userRef.update({ IP: user?.last_ip })
+    }
+  }, [])
 
-  // const updateProfilesWithReferralCodes = async () => {
-  //   try {
-  //     // Get all profiles from the 'profiles' collection
-  //     const profilesSnapshot = await db.collection('profiles').get()
+  useEffect(() => {
+    if (profileData.IP === null) {
+      const userRef = db.collection('profiles').doc(profileData.id)
+      userRef.update({ IP: user.last_ip })
+    }
+  }, [])
 
-  //     // Process each profile with the generated referral code
-  //     for (const profileDoc of profilesSnapshot.docs) {
-  //       await updateProfileWithReferralCode(profileDoc)
-  //     }
-
-  //     console.log('Referral codes added successfully!')
-  //   } catch (error) {
-  //     console.error('Error adding referral codes:', error)
-  //   }
-  // }
-
-  // const handleAddReferralCodes = async () => {
-  //   await updateProfilesWithReferralCodes()
-  // }
   useEffect(() => {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
