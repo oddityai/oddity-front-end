@@ -112,7 +112,7 @@ export default function Home() {
             const refCode = `${firstRef}-${secondRef}`
 
             const newUser = {
-              username: user?.nickname + '-' + secondRef,
+              username: user?.nickname,
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
