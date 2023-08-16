@@ -78,13 +78,13 @@ export default function Home() {
           querySnapshot.forEach((doc) => {
             doc.ref.update({
               credits: 0,
-              refCode: null,
-              usedCodes: [null],
+              duplicate: true,
             })
           })
         })
-        router.push('/')
+
         console.log('User profile updated successfully.')
+        router.push('/')
       } else {
         console.log('No action taken: Single profile found with the IP.')
       }
@@ -136,13 +136,13 @@ export default function Home() {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 300
+      const creditsToAdd = 100
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (300)')
+        console.log('Credits successfully added (100)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -150,13 +150,13 @@ export default function Home() {
     } else if (router.query.success === 'true2' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 700
+      const creditsToAdd = 500
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (700)')
+        console.log('Credits successfully added (500)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)

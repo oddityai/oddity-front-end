@@ -166,7 +166,7 @@ export default function BasicTabs({
 
       // Assuming you have access to the currently logged-in user's userId
       const loggedInUserId = profileData.id
-      const creditsToAdd = 300
+      const creditsToAdd = 100
 
       // Check if referralCode is already used
       if (codesArray.includes(referralCode)) {
@@ -192,7 +192,7 @@ export default function BasicTabs({
           // Adding credits to the user found by referral code
           if (!codesArray.includes(referralCode)) {
             try {
-              const creditsToAdd = 300
+              const creditsToAdd = 100
 
               await addCreditsToUser(userWithReferralCode.id, creditsToAdd)
               console.log(
@@ -406,9 +406,9 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Starter Pack</h3>
             <hr s />
-            <h3 className={nunito.className}>$4.99</h3>
+            <h3 className={nunito.className}>$1.99</h3>
             <hr s />
-            <h4>300 credits</h4>
+            <h4>100 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
@@ -463,9 +463,9 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Standard Pack</h3>
             <hr s />
-            <h3 className={nunito.className}>$9.99</h3>
+            <h3 className={nunito.className}>$4.99</h3>
             <hr s />
-            <h4>700 credits</h4>
+            <h4>500 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
@@ -507,7 +507,7 @@ export default function BasicTabs({
             </form>
           </div>
         </div>
-        <div
+        {/* <div
           style={{
             margin: '16px auto',
             width: '30%',
@@ -525,7 +525,7 @@ export default function BasicTabs({
             <h3 className={nunito.className}>$19.99</h3>
             <hr s />
             <h4>1800 credits</h4>
-            {/* <p className={nunito.className}>Enough for a few months</p> */}
+            {/* <p className={nunito.className}>Enough for a few months</p> 
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
             </p>
@@ -564,9 +564,9 @@ export default function BasicTabs({
                 `}
               </style>
             </form>
-          </div>
-        </div>
-        {profileData?.referralCode != null && (
+          </div> 
+        </div> */}
+        {profileData && profileData.duplicate != true && (
           <div
             style={{
               width: '75%',
@@ -589,11 +589,11 @@ export default function BasicTabs({
                   className={nunito.className}
                   style={{ fontSize: 22, color: '#ff6f00' }}
                 >
-                  Get 300 free credits for inviting your friends!
+                  Get 100 free credits for inviting your friends!
                 </h2>
                 <h3 className={nunito.className}>
-                  If someone signs up using your referral code, you both get 300
-                  extra credits for free.
+                  If someone signs up and uses your referral code, you both get
+                  100 extra credits for free.
                 </h3>
                 <h3 className={nunito.className}>
                   Your referral code is: <br />
@@ -612,7 +612,7 @@ export default function BasicTabs({
             >
               <div style={{ padding: 8 }} id='refcode'>
                 <h3 className={nunito.className}>
-                  Have a referral code? <br /> Enter it below to get 300 credits
+                  Have a referral code? <br /> Enter it below to get 100 credits
                   instantly!
                 </h3>
                 <div
