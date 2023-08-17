@@ -51,47 +51,47 @@ export default function Home() {
   const { user, isLoading } = useUser()
   const router = useRouter()
 
-  async function updateUserProfile() {
-    try {
-      const profilesRef = db.collection('profiles')
+  // async function updateUserProfile() {
+  //   try {
+  //     const profilesRef = db.collection('profiles')
 
-      // Query for profiles with the same IP
-      const querySnapshot = await profilesRef
-        .where(
-          'IP',
-          '==',
-          user['https://oddityai.com/user_metadata']['last_ip']
-        )
-        .get()
+  //     // Query for profiles with the same IP
+  //     const querySnapshot = await profilesRef
+  //       .where(
+  //         'IP',
+  //         '==',
+  //         user['https://oddityai.com/user_metadata']['last_ip']
+  //       )
+  //       .get()
 
-      console.log('Snapshot size:', querySnapshot.size)
+  //     console.log('Snapshot size:', querySnapshot.size)
 
-      if (querySnapshot.size > 1) {
-        // Update the user's profile if there are multiple profiles with the same IP
+  //     if (querySnapshot.size > 1) {
+  //       // Update the user's profile if there are multiple profiles with the same IP
 
-        console.log('Updating user profile...')
-        const usersRef = db
-          .collection('profiles')
-          .where('email', '==', user.email)
+  //       console.log('Updating user profile...')
+  //       const usersRef = db
+  //         .collection('profiles')
+  //         .where('email', '==', user.email)
 
-        usersRef.get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            doc.ref.update({
-              credits: 0,
-              duplicate: true,
-            })
-          })
-        })
+  //       usersRef.get().then((querySnapshot) => {
+  //         querySnapshot.forEach((doc) => {
+  //           doc.ref.update({
+  //             credits: 0,
+  //             duplicate: true,
+  //           })
+  //         })
+  //       })
 
-        console.log('User profile updated successfully.')
-        router.push('/')
-      } else {
-        console.log('No action taken: Single profile found with the IP.')
-      }
-    } catch (error) {
-      console.error('An error occurred:', error)
-    }
-  }
+  //       console.log('User profile updated successfully.')
+  //       router.push('/')
+  //     } else {
+  //       console.log('No action taken: Single profile found with the IP.')
+  //     }
+  //   } catch (error) {
+  //     console.error('An error occurred:', error)
+  //   }
+  // }
   useEffect(() => {
     if (user?.nickname && !isLoading) {
       db.collection('profiles')
@@ -125,7 +125,7 @@ export default function Home() {
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
             console.log(profileData.id)
-            updateUserProfile()
+            // updateUserProfile()
             sessionStorage.setItem('profileStatus1', user?.sid)
           }
         })
