@@ -120,7 +120,7 @@ export default function Home() {
               referralCode: refCode,
               usedCodes: [refCode],
               chatHistory: [],
-              IP: user['https://oddityai.com/user_metadata']['last_ip'],
+              // IP: user['https://oddityai.com/user_metadata']['last_ip'],
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
