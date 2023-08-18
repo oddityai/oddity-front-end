@@ -491,7 +491,9 @@ const ChatBot = ({
                                 <br />
                                 <br />
                                 Don't forget to tell your friends about
-                                OddityAI!
+                                OddityAI, if they sign up and use your referral
+                                code found in the credits tab, you will both get
+                                100 credits!
                               </>
                             )}
                           </p>
