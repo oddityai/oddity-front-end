@@ -406,9 +406,9 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Starter Pack</h3>
             <hr s />
-            <h3 className={nunito.className}>$1.99</h3>
+            <h3 className={nunito.className}>$4.99</h3>
             <hr s />
-            <h4>100 credits</h4>
+            <h4>500 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
@@ -463,9 +463,9 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Standard Pack</h3>
             <hr s />
-            <h3 className={nunito.className}>$4.99</h3>
+            <h3 className={nunito.className}>$9.99</h3>
             <hr s />
-            <h4>500 credits</h4>
+            <h4>1200 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
