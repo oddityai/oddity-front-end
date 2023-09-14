@@ -136,20 +136,6 @@ export default function Home() {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 100
-
-      try {
-        userRef.update({
-          credits: (profileData.credits || 0) + creditsToAdd,
-        })
-        console.log('Credits successfully added (100)')
-        router.push('/App')
-      } catch (error) {
-        console.error(`Error adding credits: ${error}`)
-      }
-    } else if (router.query.success === 'true2' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
       const creditsToAdd = 500
 
       try {
@@ -161,21 +147,36 @@ export default function Home() {
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
       }
-    } else if (router.query.success === 'true3' && profileData.id) {
+    } else if (router.query.success === 'true2' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 1800
+      const creditsToAdd = 1200
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (1800)')
+        console.log('Credits successfully added (1200)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
       }
     }
+    // else if (router.query.success === 'true3' && profileData.id) {
+    //   const usersRef = db.collection('profiles')
+    //   const userRef = usersRef.doc(profileData.id)
+    //   const creditsToAdd = 1800
+
+    //   try {
+    //     userRef.update({
+    //       credits: (profileData.credits || 0) + creditsToAdd,
+    //     })
+    //     console.log('Credits successfully added (1800)')
+    //     router.push('/App')
+    //   } catch (error) {
+    //     console.error(`Error adding credits: ${error}`)
+    //   }
+    // }
   }, [router.query.success, profileData.id])
 
   // useEffect(() => {
