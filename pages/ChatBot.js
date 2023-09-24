@@ -492,8 +492,11 @@ const ChatBot = ({
                               <>
                                 <br />
                                 <br />
-                                Check out special back-to-school deals on Amazon:
-                                https://amzn.to/462Yi6V
+                                Check out special back-to-school deals on
+                                Amazon:
+                                <a href="https://amzn.to/462Yi6V">
+                                  Back to School Products
+                                </a>
                                 {/* {`Don't forget to tell your friends about
                                 OddityAI! If they sign up and use your referral code, you will both get
                                 free 100 credits!`}
