@@ -497,7 +497,9 @@ const ChatBot = ({
                                 <a
                                   href="https://amzn.to/462Yi6V"
                                   target="_blank"
-                                >{" "}
+                                  style={{ color: "#FF9900" }}
+                                >
+                                  {" "}
                                   Back to School Products
                                 </a>
                                 {/* {`Don't forget to tell your friends about
