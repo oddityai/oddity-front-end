@@ -514,38 +514,38 @@ export default function Home() {
     textAlign: 'center',
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar profileData={profileData} setValue={setValue} value={value} />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta
-          name='description'
-          content='Homework AI Is the AI That Does Homework. If You
+          name="description"
+          content="Homework AI Is the AI That Does Homework. If You
 Are a Student Who Needs Homework Solutions This AI Homework Helper
 Is for You. Give This AI Homework App a Try, It’ll Solve & Write Your
-Homework'
+Homework"
         />
-        <link rel='shortcut icon' href='/favicon.ico' />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta
-          name='keywords'
-          content='student homework app ai, ai that does homework, ai doing
+          name="keywords"
+          content="student homework app ai, ai that does homework, ai doing
 homework, ai homework writer, homework helper ai, homework ai, ai
 homework solver, ai for homework, ai  homework, ai homework solutions, ai
-homework helper'
-        />{' '}
-      </Head>{' '}
+homework helper"
+        />{" "}
+      </Head>{" "}
       <div>
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
               You need credits to continue!
             </Typography>
-            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Purchase credits to continue using OddityAI! <br />
               Starting at only $4.99 for 300 credits!
             </Typography>
@@ -553,34 +553,34 @@ homework helper'
         </Modal>
         <div
           style={{
-            textAlign: 'center',
-            padding: '20px 20px',
-            color: '#232A31',
+            textAlign: "center",
+            padding: "20px 20px",
+            color: "#232A31",
             fontFamily: "'ColfaxAI', sans-serif",
           }}
-          id='exportthis'
+          id="exportthis"
         >
           <Dialog
             onClose={() => {
-              setIsModalOpen(false)
-              setAnswers([])
+              setIsModalOpen(false);
+              setAnswers([]);
             }}
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: "100%", height: "100%" }}
             open={isModalOpen}
           >
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <CloseIcon
                 onClick={() => {
-                  setIsModalOpen(false)
-                  setAnswers([])
+                  setIsModalOpen(false);
+                  setAnswers([]);
                 }}
               />
             </div>
             <div
-              className='container'
+              className="container"
               style={{
-                textAlign: 'left',
-                margin: 'auto',
+                textAlign: "left",
+                margin: "auto",
                 maxWidth: 500,
                 padding: 8,
               }}
@@ -589,11 +589,11 @@ homework helper'
                 style={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: 'rgba(0, 0, 0, 0.87)',
+                  color: "rgba(0, 0, 0, 0.87)",
                   fontFamily: "'ColfaxAI', sans-serif",
                   marginTop: 15,
                 }}
-                id='form-title'
+                id="form-title"
               >
                 {`OddityAI ${subject} AI`}
               </p>
@@ -625,12 +625,35 @@ homework helper'
       </div>
       <div
         style={{
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         <br />
         <br />
       </div>
+      <div
+        style={{
+          position: "fixed",
+          bottom: "0",
+          left: "0",
+          width: "100%",
+          backgroundColor: "#232A31",
+          color: "white",
+          padding: "10px",
+          textAlign: "center",
+          zIndex: 1000,
+        }}
+      >
+        Check out special back-to-school deals on Amazon:
+        <a
+          href="https://amzn.to/462Yi6V"
+          target="_blank"
+          style={{ color: "#FF9900" }}
+        >
+          {" "}
+          Back to School Products
+        </a>{" "}
+      </div>
     </div>
-  )
+  );
 }
