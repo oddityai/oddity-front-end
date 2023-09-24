@@ -200,11 +200,11 @@ export default function Home() {
   //                   })
   //                 }
   //               })
-  //               histories.push({
-  //                 username: ele?.username,
-  //                 length: ele?.chatHistory?.length,
-  //                 history: ele?.chatHistory,
-  //               })
+  //               // histories.push({
+  //               //   username: ele?.username,
+  //               //   length: ele?.chatHistory?.length,
+  //               //   history: ele?.chatHistory,
+  //               // })
   //             }
   //           })
   //           console.log({ histories })
