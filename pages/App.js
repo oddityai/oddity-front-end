@@ -644,9 +644,9 @@ homework helper"
           zIndex: 1000,
         }}
       >
-        Check out special back-to-school deals on Amazon:
+        Up to 60% off Amazons back-to-school supplies:
         <a
-          href="https://amzn.to/462Yi6V"
+          href="https://amzn.to/3t7EzV2"
           target="_blank"
           style={{ color: "#FF9900" }}
         >
