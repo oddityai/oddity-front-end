@@ -484,11 +484,17 @@ const ChatBot = ({
                             }}
                           >
                             {answer.result}
-                            {true && (
+                            {(i === 2 ||
+                              i === 6 ||
+                              i === 12 ||
+                              i === 25 ||
+                              i === 50) && (
                               <>
                                 <br />
                                 <br />
-                                {`Don't forget to tell your friends about
+                                Check out special back-to-school deals on Amazon:
+                                https://amzn.to/462Yi6V
+                                {/* {`Don't forget to tell your friends about
                                 OddityAI! If they sign up and use your referral code, you will both get
                                 free 100 credits!`}
                                 <br />
@@ -501,7 +507,7 @@ const ChatBot = ({
                                 <br />
                                 You can put post your referral code on social
                                 media and get 100 free credits if anyone uses
-                                it.
+                                it. */}
                               </>
                             )}
                           </p>
