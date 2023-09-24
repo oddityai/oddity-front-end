@@ -86,6 +86,9 @@ const Contact = () => {
             <br />
             If you have any questions, concerns or feedback, we would love to
             hear from you. You can reach us through our 𝕏 page{' '}
+            <br />
+            <br />
+            We are an Amazon Affiliate and may from time to time recommend products from Amazon.
             <span
               style={{ color: '#0a99f2', cursor: 'pointer' }}
               onClick={() => {
