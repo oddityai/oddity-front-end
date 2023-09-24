@@ -494,7 +494,10 @@ const ChatBot = ({
                                 <br />
                                 Check out special back-to-school deals on
                                 Amazon:
-                                <a href="https://amzn.to/462Yi6V">
+                                <a
+                                  href="https://amzn.to/462Yi6V"
+                                  target="_blank"
+                                >{" "}
                                   Back to School Products
                                 </a>
                                 {/* {`Don't forget to tell your friends about
