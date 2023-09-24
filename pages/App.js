@@ -136,13 +136,13 @@ export default function Home() {
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 500
+      const creditsToAdd = 2000
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (500)')
+        console.log('Credits successfully added (2000)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -150,13 +150,13 @@ export default function Home() {
     } else if (router.query.success === 'true2' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 1200
+      const creditsToAdd = 5500
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
         })
-        console.log('Credits successfully added (1200)')
+        console.log('Credits successfully added (5500)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -178,7 +178,7 @@ export default function Home() {
     //   }
     // }
   }, [router.query.success, profileData.id])
-
+  console.log(profileData)
   // useEffect(() => {
   //   if (window.location.href.includes('localhost')) {
   //     if (user?.nickname && !isLoading) {
@@ -189,17 +189,11 @@ export default function Home() {
   //         if (userData) {
   //           const histories = []
   //           userData?.map((ele) => {
-  //             if (ele?.chatHistory?.length) {
-  //               ele?.chatHistory.map((chat) => {
-  //                 if (chat.type === 'feedback') {
-  //                   histories.push({
-  //                     username: ele?.username,
-  //                     chat: chat.input,
-  //                     reply: chat.response,
-  //                     full: chat,
-  //                   })
-  //                 }
-  //               })
+  //             if (ele?.usedCodes?.length) {
+  //                 histories.push({
+  //                   username: ele?.username,
+  //                   user: ele,
+  //                 });
   //               // histories.push({
   //               //   username: ele?.username,
   //               //   length: ele?.chatHistory?.length,

@@ -408,7 +408,7 @@ export default function BasicTabs({
             <hr s />
             <h3 className={nunito.className}>$4.99</h3>
             <hr s />
-            <h4>500 credits</h4>
+            <h4>2,000 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
@@ -465,7 +465,7 @@ export default function BasicTabs({
             <hr s />
             <h3 className={nunito.className}>$9.99</h3>
             <hr s />
-            <h4>1200 credits</h4>
+            <h4>5,500 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
