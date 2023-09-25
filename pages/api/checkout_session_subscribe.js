@@ -3,19 +3,21 @@ const stripe = require("stripe")(
 );
 
 export default async function handler(req, res) {
-  const userId = req.session.userId || req.tokenPayload.userId; 
+  // const userId = req.session.userId || req.tokenPayload.userId; // Replace with your actual logic
   if (req.method === "POST") {
     try {
+      // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
+            // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
             price: "price_1Nu7vjDeCpRNgE7AmTOtrpYK",
             quantity: 1,
           },
         ],
         mode: "subscription",
         metadata: {
-          user_id: userId,
+          user_id: `109917158928421903721`,
         },
         success_url: `${req.headers.origin}/App?success=true4`,
         cancel_url: `${req.headers.origin}/App?canceled=true`,
