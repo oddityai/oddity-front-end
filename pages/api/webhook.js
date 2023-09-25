@@ -29,18 +29,20 @@ async function handler(req, res) {
     const subscriptionId = session.subscription;
     const userId = session.metadata.user_id;
 
-    const usersRef = db.collection("profiles");
-    const userRef = usersRef.doc(userId);
+    if (subscriptionId) {
+        const usersRef = db.collection("profiles");
+        const userRef = usersRef.doc(userId);
 
-    try {
-      await userRef.update({
-        subscribed: true,
-        subscriptionId: subscriptionId,
-      });
+        try {
+        await userRef.update({
+            subscribed: true,
+            subscriptionId: subscriptionId,
+        });
 
-      console.log(`User subscribed. subscriptionId: ${subscriptionId}`);
-    } catch (error) {
-      console.log("Error updating user:", error);
+        console.log(`User subscribed. subscriptionId: ${subscriptionId}`);
+        } catch (error) {
+        console.log("Error updating user:", error);
+        }
     }
 
     return res
