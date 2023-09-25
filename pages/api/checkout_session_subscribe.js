@@ -3,7 +3,7 @@ const stripe = require("stripe")(
 );
 
 export default async function handler(req, res) {
-  const userId = req.session.user_id || req.tokenPayload.user_id; // Replace with your actual logic
+const userId = req.query.user_id;
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
