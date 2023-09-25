@@ -1,8 +1,6 @@
 // /pages/api/webhook.js
 import { buffer } from "micro";
-const stripe = require("stripe")(
-  "sk_test_51MLI86DeCpRNgE7AVsEbYP6fqgUZtDe8QBeGZuGYsEmuKaiUoG519yjOZvrkUH0z6yBuoYrFneeqBf5ln988VQIZ00Dv5R8bI0"
-);
+const stripe = require("stripe")("whsec_DZuHPHxwsCr85H4gFNbfpW7W9uapyGMN");
 
 export const config = {
   api: {

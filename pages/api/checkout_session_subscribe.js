@@ -3,6 +3,7 @@ const stripe = require("stripe")(
 );
 
 export default async function handler(req, res) {
+  console.log("REQ IS: ", {req})
   if (req.method === 'POST') {
     try {
       // Create Checkout Sessions from body params.
