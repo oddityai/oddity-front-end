@@ -168,11 +168,6 @@ export default function Home() {
       const userRef = usersRef.doc(profileData.id);
       console.log("HERE")
       try {
-        userRef.update({
-          subscribed: true,
-          subscriptionId:  "1"
-        });
-        console.log(`User subscribed. subscriptionId: ${router.query}`);
         router.push("/App");
       } catch (error) {
         console.error(`Error adding credits: ${error}`);
