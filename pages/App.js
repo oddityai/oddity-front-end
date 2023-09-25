@@ -133,33 +133,49 @@ export default function Home() {
   }, [user, isLoading])
 
   useEffect(() => {
-    if (router.query.success === 'true' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 2000
+    console.log("SUCCESS")
+    console.log({router})
+    if (router.query.success === "true" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
+      const creditsToAdd = 2000;
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
-        })
-        console.log('Credits successfully added (2000)')
-        router.push('/App')
+        });
+        console.log("Credits successfully added (2000)");
+        router.push("/App");
       } catch (error) {
-        console.error(`Error adding credits: ${error}`)
+        console.error(`Error adding credits: ${error}`);
       }
-    } else if (router.query.success === 'true2' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 5500
+    } else if (router.query.success === "true2" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
+      const creditsToAdd = 5500;
 
       try {
         userRef.update({
           credits: (profileData.credits || 0) + creditsToAdd,
-        })
-        console.log('Credits successfully added (5500)')
-        router.push('/App')
+        });
+        console.log("Credits successfully added (5500)");
+        router.push("/App");
       } catch (error) {
-        console.error(`Error adding credits: ${error}`)
+        console.error(`Error adding credits: ${error}`);
+      }
+    } else if (router.query.success === "true4" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
+      console.log("HERE")
+      try {
+        userRef.update({
+          subscribed: true,
+          subscriptionId:  "1"
+        });
+        console.log(`User subscribed. subscriptionId: ${router.query}`);
+        router.push("/App");
+      } catch (error) {
+        console.error(`Error adding credits: ${error}`);
       }
     }
     // else if (router.query.success === 'true3' && profileData.id) {

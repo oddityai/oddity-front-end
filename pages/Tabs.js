@@ -223,22 +223,22 @@ export default function BasicTabs({
     <Box
       className={nunito.className}
       sx={{
-        width: '100vw',
+        width: "100vw",
         marginLeft: [5, null, 0],
       }}
     >
       <Box
         sx={{
           borderBottom: 1,
-          borderColor: 'divider',
+          borderColor: "divider",
         }}
       >
         <Tabs
           value={value}
           onChange={handleChange}
           className={nunito.className}
-          aria-label='basic tabs example'
-          variant='fullWidth'
+          aria-label="basic tabs example"
+          variant="fullWidth"
           scrollButtons
           allowScrollButtonsMobile
         >
@@ -249,7 +249,7 @@ export default function BasicTabs({
           /> */}
           <Tab
             className={nunito.className}
-            label='Specialized Bots'
+            label="Specialized Bots"
             {...a11yProps(0)}
           />
           {/* <Tab
@@ -257,11 +257,11 @@ export default function BasicTabs({
             label='fun BOTS'
             {...a11yProps(1)}
           /> */}
-          <Tab className={nunito.className} label='Credits' {...a11yProps(2)} />
+          <Tab className={nunito.className} label="Credits" {...a11yProps(2)} />
 
           <Tab
             className={nunito.className}
-            label='Chat History'
+            label="Chat History"
             {...a11yProps(2)}
           />
 
@@ -322,14 +322,13 @@ export default function BasicTabs({
 
       <TabPanel value={value} index={1}>
         <h3 className={nunito.className} style={{ fontSize: 18 }}>
-          You currently have{' '}
-          <bold>({profileData?.credits ? profileData?.credits : '0'})</bold>{' '}
-          credits{profileData?.credits != 0 ? ' remaining.' : '.'}
+          You currently have{" "}
+          <bold>({profileData?.credits ? profileData?.credits : "0"})</bold>{" "}
+          credits{profileData?.credits != 0 ? " remaining." : "."}
         </h3>
         {/* <h4>
           <a href='#refcode'>Have a referral code?</a>
         </h4> */}
-
         {/* <div
           style={{
             display: 'flex',
@@ -340,12 +339,12 @@ export default function BasicTabs({
         > */}
         <div
           style={{
-            margin: '16px auto',
-            width: '30%',
-            backgroundColor: '#f5f5f5',
+            margin: "16px auto",
+            width: "30%",
+            backgroundColor: "#f5f5f5",
             borderRadius: 8,
             minWidth: 200,
-            boxShadow: '5px 5px 10px gray',
+            boxShadow: "5px 5px 10px gray",
           }}
         >
           {/* <div style={{ padding: 8 }}>
@@ -357,7 +356,7 @@ export default function BasicTabs({
               <p className={nunito.className}>
                 Get 25 free credits per referral + 25 just for signing up!
               </p>
-              <form action='/api/checkout_sessions?user_id=123' method='POST'>
+              <form action='/api/checkout_sessions?user_id=${profileData?.id}' method='POST'>
                 <section>
                   <button disabled type='submit' role='link'>
                     Free
@@ -395,12 +394,12 @@ export default function BasicTabs({
         </div>
         <div
           style={{
-            margin: '16px auto',
-            width: '30%',
-            backgroundColor: '#f5f5f5',
+            margin: "16px auto",
+            width: "30%",
+            backgroundColor: "#f5f5f5",
             borderRadius: 8,
             minWidth: 200,
-            boxShadow: '5px 5px 10px gray',
+            boxShadow: "5px 5px 10px gray",
           }}
         >
           <div style={{ padding: 8 }}>
@@ -416,9 +415,12 @@ export default function BasicTabs({
             <p className={nunito.className}>
               Usable on any current/future AI bots
             </p>
-            <form action={`/api/checkout_sessions?user_id=123`} method='POST'>
+            <form
+              action={`/api/checkout_sessions?user_id=${profileData?.id}`}
+              method="POST"
+            >
               <section>
-                <button type='submit' role='link'>
+                <button type="submit" role="link">
                   Buy Now
                 </button>
               </section>
@@ -452,12 +454,12 @@ export default function BasicTabs({
         </div>
         <div
           style={{
-            margin: '16px auto',
-            width: '30%',
-            backgroundColor: '#f5f5f5',
+            margin: "16px auto",
+            width: "30%",
+            backgroundColor: "#f5f5f5",
             borderRadius: 8,
             minWidth: 200,
-            boxShadow: '5px 5px 10px gray',
+            boxShadow: "5px 5px 10px gray",
           }}
         >
           <div style={{ padding: 8 }}>
@@ -473,9 +475,12 @@ export default function BasicTabs({
             <p className={nunito.className}>
               Usable on any current/future AI bots
             </p>
-            <form action={`/api/checkout_sessions2?user_id=123`} method='POST'>
+            <form
+              action={`/api/checkout_sessions2?user_id=${profileData?.id}`}
+              method="POST"
+            >
               <section>
-                <button type='submit' role='link'>
+                <button type="submit" role="link">
                   Buy Now
                 </button>
               </section>
@@ -506,6 +511,66 @@ export default function BasicTabs({
               </style>
             </form>
           </div>
+        </div>{" "}
+        <div
+          style={{
+            margin: "16px auto",
+            width: "30%",
+            backgroundColor: "#f5f5f5",
+            borderRadius: 8,
+            minWidth: 200,
+            boxShadow: "5px 5px 10px gray",
+          }}
+        >
+          <div style={{ padding: 8 }}>
+            <h3 className={nunito.className}>Unlimited Questions</h3>
+            <hr s />
+            <h3 className={nunito.className}>$4.99</h3>
+            <hr s />
+            <h4>1 Month Subscription</h4>
+            {/* <p className={nunito.className}>Enough for a few months</p> */}
+            <p className={nunito.className}>Questions are free</p>
+            <p className={nunito.className}>
+              Usable on any current/future AI bots
+            </p>
+            {profileData?.email === "tristyntech@gmail.com" && (
+              <form
+                action={`/api/checkout_session_subscribe?user_id=${profileData?.id}`}
+                method="POST"
+              >
+                <section>
+                  <button type="submit" role="link">
+                    Subscribe Now
+                  </button>
+                </section>
+                <style jsx>
+                  {`
+                    section {
+                      display: flex;
+                      flex-direction: column;
+                      border-radius: 6px;
+                      justify-content: space-between;
+                    }
+                    button {
+                      margin-top: 8px;
+                      height: 36px;
+                      background: #556cd6;
+                      border-radius: 4px;
+                      color: white;
+                      border: 0;
+                      font-weight: 600;
+                      cursor: pointer;
+                      transition: all 0.5s ease;
+                      box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                    }
+                    button:hover {
+                      opacity: 0.8;
+                    }
+                  `}
+                </style>
+              </form>
+            )}
+          </div>
         </div>
         {/* <div
           style={{
@@ -532,7 +597,7 @@ export default function BasicTabs({
             <p className={nunito.className}>
               Usable on any current/future AI bots
             </p>
-            <form action={`/api/checkout_sessions3?user_id=123`} method='POST'>
+            <form action={`/api/checkout_sessions3?user_id=${profileData?.id}`} method='POST'>
               <section>
                 <button type='submit' role='link'>
                   Buy Now
@@ -569,25 +634,25 @@ export default function BasicTabs({
         {profileData && profileData.duplicate != true && (
           <div
             style={{
-              width: '75%',
-              margin: '16px auto',
-              backgroundColor: '#f5f5f5',
+              width: "75%",
+              margin: "16px auto",
+              backgroundColor: "#f5f5f5",
               borderRadius: 8,
               minWidth: 200,
-              boxShadow: '5px 5px 10px gray',
+              boxShadow: "5px 5px 10px gray",
             }}
           >
-            {' '}
+            {" "}
             <div
               style={{
-                backgroundColor: '#f5f5f5',
+                backgroundColor: "#f5f5f5",
                 borderRadius: 8,
               }}
             >
               <div style={{ padding: 8 }}>
                 <h2
                   className={nunito.className}
-                  style={{ fontSize: 22, color: '#ff6f00' }}
+                  style={{ fontSize: 22, color: "#ff6f00" }}
                 >
                   Get 100 free credits for inviting your friends!
                 </h2>
@@ -597,7 +662,7 @@ export default function BasicTabs({
                 </h3>
                 <h3 className={nunito.className}>
                   Your referral code is: <br />
-                  <span style={{ color: '#24b557' }}>
+                  <span style={{ color: "#24b557" }}>
                     {profileData?.referralCode}
                   </span>
                 </h3>
@@ -605,47 +670,47 @@ export default function BasicTabs({
             </div>
             <div
               style={{
-                backgroundColor: '#f5f5f5',
+                backgroundColor: "#f5f5f5",
                 borderRadius: 8,
                 marginTop: 16,
               }}
             >
-              <div style={{ padding: 8 }} id='refcode'>
+              <div style={{ padding: 8 }} id="refcode">
                 <h3 className={nunito.className}>
                   Have a referral code? <br /> Enter it below to get 100 credits
                   instantly!
                 </h3>
                 <div
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                   }}
                 >
                   <TextField
                     style={{
                       width: 150,
                       fontSize: 14,
-                      border: 'none',
+                      border: "none",
                       marginLeft: 10,
-                      backgroundColor: 'white',
+                      backgroundColor: "white",
                       marginTop: 10,
                       marginBottom: 10,
                     }}
                     value={referralCode}
                     onChange={(e) => setReferralCode(e.target.value)}
-                    placeholder='Referral code'
+                    placeholder="Referral code"
                   />
                   {referralCode != profileData?.referralCode ? (
                     <Button
                       onClick={handleSubmitReferralCode}
                       style={{
                         zIndex: 10,
-                        backgroundColor: '#ff4a47',
+                        backgroundColor: "#ff4a47",
                         padding: 14,
-                        textTransform: 'none',
+                        textTransform: "none",
                         marginLeft: 8,
-                        color: 'white',
+                        color: "white",
                         width: 150,
                         height: 50,
                       }}
@@ -656,11 +721,11 @@ export default function BasicTabs({
                     <Button
                       style={{
                         zIndex: 10,
-                        backgroundColor: '#ff4a47',
+                        backgroundColor: "#ff4a47",
                         padding: 14,
-                        textTransform: 'none',
+                        textTransform: "none",
                         marginLeft: 8,
-                        color: 'white',
+                        color: "white",
                         width: 150,
                         height: 50,
                       }}
@@ -703,7 +768,7 @@ export default function BasicTabs({
                   Usable on any current/future AI bots
                 </p>
                 <form
-                  action='/api/checkout_sessions2?user_id=123'
+                  action='/api/checkout_sessions2?user_id=${profileData?.id}'
                   method='POST'
                 >
                   <section>
@@ -749,7 +814,7 @@ export default function BasicTabs({
           {profileData?.chatHistory?.map((answer) => {
             return (
               <>
-                <div style={{ border: '1px solid silver', margin: 8 }}>
+                <div style={{ border: "1px solid silver", margin: 8 }}>
                   <div style={{ padding: 8 }}>
                     <div>Question: {answer.input}</div>
                     <br />
@@ -759,7 +824,7 @@ export default function BasicTabs({
                 <br />
                 <br />
               </>
-            )
+            );
           })}
         </div>
       </TabPanel>
@@ -772,5 +837,5 @@ export default function BasicTabs({
         </>
       </TabPanel>
     </Box>
-  )
+  );
 }
