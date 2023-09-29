@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Button, TextField } from '@mui/material'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
@@ -59,6 +60,17 @@ export default function BasicTabs({
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
+
+  useEffect(() => {
+    fetch(
+      `http://localhost:3000/api/check_sub_status?sub_id=${profileData?.subscriptionId}`
+    ).then((res) => {
+      return res.json()
+    })
+    .then((res) => {
+      console.log({res})
+    })
+  })
 
   function checkReferralCodeExists(referralCode) {
     return db
@@ -512,28 +524,28 @@ export default function BasicTabs({
             </form>
           </div>
         </div>{" "}
-        <div
-          style={{
-            margin: "16px auto",
-            width: "30%",
-            backgroundColor: "#f5f5f5",
-            borderRadius: 8,
-            minWidth: 200,
-            boxShadow: "5px 5px 10px gray",
-          }}
-        >
-          <div style={{ padding: 8 }}>
-            <h3 className={nunito.className}>Unlimited Questions</h3>
-            <hr s />
-            <h3 className={nunito.className}>$4.99</h3>
-            <hr s />
-            <h4>1 Month Subscription</h4>
-            {/* <p className={nunito.className}>Enough for a few months</p> */}
-            <p className={nunito.className}>Questions are free</p>
-            <p className={nunito.className}>
-              Usable on any current/future AI bots
-            </p>
-            {profileData?.email === "tristyntech@gmail.com" && (
+        {profileData?.email === "tristyntech@gmail.com" && (
+          <div
+            style={{
+              margin: "16px auto",
+              width: "30%",
+              backgroundColor: "#f5f5f5",
+              borderRadius: 8,
+              minWidth: 200,
+              boxShadow: "5px 5px 10px gray",
+            }}
+          >
+            <div style={{ padding: 8 }}>
+              <h3 className={nunito.className}>Unlimited Questions</h3>
+              <hr s />
+              <h3 className={nunito.className}>$4.99</h3>
+              <hr s />
+              <h4>1 Month Subscription</h4>
+              {/* <p className={nunito.className}>Enough for a few months</p> */}
+              <p className={nunito.className}>Questions are free</p>
+              <p className={nunito.className}>
+                Usable on any current/future AI bots
+              </p>
               <form
                 action={`/api/checkout_session_subscribe?user_id=${profileData?.id}`}
                 method="POST"
@@ -569,9 +581,9 @@ export default function BasicTabs({
                   `}
                 </style>
               </form>
-            )}
+            </div>
           </div>
-        </div>
+        )}
         {/* <div
           style={{
             margin: '16px auto',
