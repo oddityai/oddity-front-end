@@ -361,9 +361,9 @@ export default function BasicTabs({
         >
           {/* <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Free</h3>
-              <hr s />
+              <hr />
               <h3 className={nunito.className}>Referral / 25 free credits</h3>
-              <hr s />
+              <hr />
               <h4>Try for free</h4>
               <p className={nunito.className}>
                 Get 25 free credits per referral + 25 just for signing up!
@@ -404,7 +404,7 @@ export default function BasicTabs({
               </form>
             </div> */}
         </div>
-        <div
+        {/* <div
           style={{
             margin: "16px auto",
             width: "30%",
@@ -415,12 +415,11 @@ export default function BasicTabs({
           }}
         >
           <div style={{ padding: 8 }}>
-            <h3 className={nunito.className}>Starter Pack</h3>
-            <hr s />
+            <h3 className={nunito.className}>Standard Pa</h3>
+            <hr />
             <h3 className={nunito.className}>$4.99</h3>
-            <hr s />
+            <hr />
             <h4>2,000 credits</h4>
-            {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
               Questions and image uploads cost 1 credit
             </p>
@@ -463,7 +462,7 @@ export default function BasicTabs({
               </style>
             </form>
           </div>
-        </div>
+        </div> */}
         <div
           style={{
             margin: "16px auto",
@@ -476,9 +475,9 @@ export default function BasicTabs({
         >
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Standard Pack</h3>
-            <hr s />
+            <hr />
             <h3 className={nunito.className}>$9.99</h3>
-            <hr s />
+            <hr />
             <h4>5,500 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> */}
             <p className={nunito.className}>
@@ -524,7 +523,7 @@ export default function BasicTabs({
             </form>
           </div>
         </div>{" "}
-        {profileData?.email === "tristyntech@gmail.com" && (
+        {profileData?.email === "tristyntech@gmail.com" && window.location.href.includes('localhost') && (
           <div
             style={{
               margin: "16px auto",
@@ -537,9 +536,9 @@ export default function BasicTabs({
           >
             <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Unlimited Questions</h3>
-              <hr s />
+              <hr />
               <h3 className={nunito.className}>$4.99</h3>
-              <hr s />
+              <hr />
               <h4>1 Month Subscription</h4>
               {/* <p className={nunito.className}>Enough for a few months</p> */}
               <p className={nunito.className}>Questions are free</p>
@@ -598,9 +597,9 @@ export default function BasicTabs({
             <h3 className={nunito.className}>Mega Pack</h3>
             <sup style={{ color: 'red', fontSize: '0.8rem' }}>Best Value!</sup>
 
-            <hr s />
+            <hr />
             <h3 className={nunito.className}>$19.99</h3>
-            <hr s />
+            <hr />
             <h4>1800 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> 
             <p className={nunito.className}>
