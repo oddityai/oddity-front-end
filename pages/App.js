@@ -229,7 +229,7 @@ export default function Home() {
   // }, [user])
 
   const handleClick = (subject) => {
-    if (profileData.credits > 0 || profileData.subscribed) {
+    if (profileData.credits > 0 || profileData?.subscribed) {
       setIsModalOpen(true)
       setSubject(subject)
     } else {
@@ -245,7 +245,7 @@ export default function Home() {
   const useCredit = (amount) => {
     const usersRef = db.collection('profiles')
     const userRef = usersRef.doc(profileData.id)
-    if (profileData.credits >= 0 && !profileData.subscribed) {
+    if (profileData.credits >= 0 && !profileData?.subscribed) {
       userRef.update(
         {
           credits: profileData.credits - amount || profileData.credits - 1,
@@ -256,7 +256,7 @@ export default function Home() {
   }
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
-    if (profileData.credits > 0 || profileData.subscribed) {
+    if (profileData.credits > 0 || profileData?.subscribed) {
       if (event) {
         event.preventDefault()
       }
@@ -297,7 +297,7 @@ export default function Home() {
             subject !== 'joke' &&
             subject !== 'reply'
           ) {
-            !profileData.subscribed && useCredit()
+            !profileData?.subscribed && useCredit()
           }
         }
         // if (response2.status !== 200) {

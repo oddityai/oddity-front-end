@@ -631,7 +631,7 @@ const ChatBot = ({
                 subject !== "chat" &&
                 subject !== "joke" &&
                 subject !== "reply"
-                  ? profileData.subscribed
+                  ? profileData?.subscribed
                     ? "Ask your question."
                     : "Ask your question for 1 credit."
                   : subject === "prompt"
