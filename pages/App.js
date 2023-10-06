@@ -76,10 +76,13 @@ export default function Home() {
 
         usersRef.get().then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            doc.ref.update({
-              credits: 0,
-              duplicate: true,
-            })
+            doc.ref.update(
+              {
+                credits: 0,
+                duplicate: true,
+              },
+              { merge: true }
+            );
           })
         })
 
@@ -141,9 +144,12 @@ export default function Home() {
       const creditsToAdd = 2000;
 
       try {
-        userRef.update({
-          credits: (profileData.credits || 0) + creditsToAdd,
-        });
+        userRef.update(
+          {
+            credits: (profileData.credits || 0) + creditsToAdd,
+          },
+          { merge: true }
+        );
         console.log("Credits successfully added (2000)");
         router.push("/App");
       } catch (error) {
@@ -155,9 +161,12 @@ export default function Home() {
       const creditsToAdd = 5500;
 
       try {
-        userRef.update({
-          credits: (profileData.credits || 0) + creditsToAdd,
-        });
+        userRef.update(
+          {
+            credits: (profileData.credits || 0) + creditsToAdd,
+          },
+          { merge: true }
+        );
         console.log("Credits successfully added (5500)");
         router.push("/App");
       } catch (error) {
@@ -220,7 +229,7 @@ export default function Home() {
   // }, [user])
 
   const handleClick = (subject) => {
-    if (profileData.credits > 0) {
+    if (profileData.credits > 0 || profileData.subscribed) {
       setIsModalOpen(true)
       setSubject(subject)
     } else {
@@ -236,15 +245,18 @@ export default function Home() {
   const useCredit = (amount) => {
     const usersRef = db.collection('profiles')
     const userRef = usersRef.doc(profileData.id)
-    if (profileData.credits >= 0) {
-      userRef.update({
-        credits: profileData.credits - amount || profileData.credits - 1,
-      })
+    if (profileData.credits >= 0 && !profileData.subscribed) {
+      userRef.update(
+        {
+          credits: profileData.credits - amount || profileData.credits - 1,
+        },
+        { merge: true }
+      );
     }
   }
   async function onSubmit(event, value, url, tries) {
     const input = value ? value : animalInput
-    if (profileData.credits > 0) {
+    if (profileData.credits > 0 || profileData.subscribed) {
       if (event) {
         event.preventDefault()
       }
@@ -285,7 +297,7 @@ export default function Home() {
             subject !== 'joke' &&
             subject !== 'reply'
           ) {
-            useCredit()
+            !profileData.subscribed && useCredit()
           }
         }
         // if (response2.status !== 200) {
@@ -313,9 +325,12 @@ export default function Home() {
         const userCopy = profileData.chatHistory.slice()
         userCopy.unshift(res)
         console.log('SAVING', userCopy)
-        db.collection('profiles').doc(profileData?.id).update({
-          chatHistory: userCopy,
-        })
+        db.collection("profiles").doc(profileData?.id).update(
+          {
+            chatHistory: userCopy,
+          },
+          { merge: true }
+        );
         console.log('end save', profileData?.id)
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
@@ -554,11 +569,11 @@ homework helper"
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              You need credits to continue!
+              You need a subscription to continue!
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Purchase credits to continue using OddityAI! <br />
-              Starting at only $4.99 for 300 credits!
+              Get a monthly subscription to OddityAI! <br />
+              at only $9.99/month!
             </Typography>
           </Box>
         </Modal>
@@ -642,29 +657,7 @@ homework helper"
         <br />
         <br />
       </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "0",
-          left: "0",
-          width: "100%",
-          backgroundColor: "#232A31",
-          color: "white",
-          padding: "10px",
-          textAlign: "center",
-          zIndex: 1000,
-        }}
-      >
-        Up to 60% off Amazons back-to-school supplies:
-        <a
-          href="https://amzn.to/3t7EzV2"
-          target="_blank"
-          style={{ color: "#FF9900" }}
-        >
-          {" "}
-          Back to School Products
-        </a>{" "}
-      </div>
+
     </div>
   );
 }

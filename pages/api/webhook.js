@@ -28,18 +28,24 @@ async function handler(req, res) {
     const session = event.data.object;
     const subscriptionId = session.subscription;
     const userId = session.metadata.user_id;
+    const todaysDate = Math.floor(Date.now() / 1000);
+    console.log({todaysDate})
 
     if (subscriptionId) {
         const usersRef = db.collection("profiles");
         const userRef = usersRef.doc(userId);
 
         try {
-        await userRef.update({
-            subscribed: true,
-            subscriptionId: subscriptionId,
-        });
+await userRef.set(
+  {
+    subscribed: true,
+    subscriptionId: subscriptionId,
+    dateOfSub: todaysDate,
+  },
+  { merge: true }
+);
 
-        console.log(`User subscribed. subscriptionId: ${subscriptionId}`);
+
         } catch (error) {
         console.log("Error updating user:", error);
         }

@@ -99,9 +99,12 @@ export default function BasicTabs({
           // if (codesArray.includes(referralCode)) {
           //   console.log('Code used already!')
           // } else {
-          return db.collection('profiles').doc(userId).update({
-            credits: updatedCredits,
-          })
+          return db.collection("profiles").doc(userId).update(
+            {
+              credits: updatedCredits,
+            },
+            { merge: true }
+          );
           // }
         } else {
           throw new Error('User not found')
@@ -135,11 +138,15 @@ export default function BasicTabs({
             setCodesArray(usedCodesarray)
             console.log('usedCodesarray:', usedCodesarray)
 
+            
             // Perform the update operation
-            return db.collection('profiles').doc(userId).update({
-              credits: updatedCredits,
-              usedCodes: usedCodesarray,
-            })
+            return db.collection("profiles").doc(userId).update(
+              {
+                credits: updatedCredits,
+                usedCodes: usedCodesarray,
+              },
+              { merge: true }
+            );
           } else {
             throw new Error('User not found')
           }
@@ -328,16 +335,13 @@ export default function BasicTabs({
             Choose a fun/experimental AI bot to play with. Want a new AI bot?
             Suggest one to us using the Feedback bot below.
           </h3>
-          <Buttons2 handleFeedback={handleFeedback} />
+          <Buttons2 handleFeedback={hand
+            leFeedback} />
         </>
       </TabPanel> */}
 
       <TabPanel value={value} index={1}>
-        <h3 className={nunito.className} style={{ fontSize: 18 }}>
-          You currently have{" "}
-          <bold>({profileData?.credits ? profileData?.credits : "0"})</bold>{" "}
-          credits{profileData?.credits != 0 ? " remaining." : "."}
-        </h3>
+
         {/* <h4>
           <a href='#refcode'>Have a referral code?</a>
         </h4> */}
@@ -463,67 +467,29 @@ export default function BasicTabs({
             </form>
           </div>
         </div> */}
-        <div
-          style={{
-            margin: "16px auto",
-            width: "30%",
-            backgroundColor: "#f5f5f5",
-            borderRadius: 8,
-            minWidth: 200,
-            boxShadow: "5px 5px 10px gray",
-          }}
-        >
-          <div style={{ padding: 8 }}>
-            <h3 className={nunito.className}>Standard Pack</h3>
-            <hr />
-            <h3 className={nunito.className}>$9.99</h3>
-            <hr />
-            <h4>5,500 credits</h4>
-            {/* <p className={nunito.className}>Enough for a few months</p> */}
-            <p className={nunito.className}>
-              Questions and image uploads cost 1 credit
-            </p>
-            <p className={nunito.className}>
-              Usable on any current/future AI bots
-            </p>
-            <form
-              action={`/api/checkout_sessions2?user_id=${profileData?.id}`}
-              method="POST"
-            >
-              <section>
-                <button type="submit" role="link">
-                  Buy Now
-                </button>
-              </section>
-              <style jsx>
-                {`
-                  section {
-                    display: flex;
-                    flex-direction: column;
-                    border-radius: 6px;
-                    justify-content: space-between;
-                  }
-                  button {
-                    margin-top: 8px;
-                    height: 36px;
-                    background: #556cd6;
-                    border-radius: 4px;
-                    color: white;
-                    border: 0;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.5s ease;
-                    box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                  }
-                  button:hover {
-                    opacity: 0.8;
-                  }
-                `}
-              </style>
-            </form>
+
+        {profileData?.subscribed ? (
+          <div
+            style={{
+              margin: "16px auto",
+              width: "30%",
+              backgroundColor: "#f5f5f5",
+              borderRadius: 8,
+              minWidth: 200,
+              boxShadow: "5px 5px 10px gray",
+            }}
+          >
+            <div style={{ padding: 8 }}>
+              <h3 className={nunito.className}>You are subscribed!</h3>
+              <hr />
+              <h3 className={nunito.className}>$9.99 / Month</h3>
+              <hr />
+              <h4>If you want to cancel your subscription - please email oddityaico@gmail.com and include your accounts email address.</h4>
+              {/* <p className={nunito.className}>Enough for a few months</p> */}
+              <p className={nunito.className}>We are working on a self-cancel, it will be available soon.</p>
+            </div>
           </div>
-        </div>{" "}
-        {profileData?.email === "tristyntech@gmail.com" && window.location.href.includes('localhost') && (
+        ) : (
           <div
             style={{
               margin: "16px auto",
@@ -537,11 +503,11 @@ export default function BasicTabs({
             <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Unlimited Questions</h3>
               <hr />
-              <h3 className={nunito.className}>$4.99</h3>
+              <h3 className={nunito.className}>$9.99</h3>
               <hr />
-              <h4>1 Month Subscription</h4>
+              <h4>30 Day Subscription</h4>
               {/* <p className={nunito.className}>Enough for a few months</p> */}
-              <p className={nunito.className}>Questions are free</p>
+              <p className={nunito.className}>Get unlimited questions every month until you cancel.</p>
               <p className={nunito.className}>
                 Usable on any current/future AI bots
               </p>
@@ -583,6 +549,7 @@ export default function BasicTabs({
             </div>
           </div>
         )}
+
         {/* <div
           style={{
             margin: '16px auto',

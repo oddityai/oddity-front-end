@@ -1,5 +1,5 @@
 const stripe = require("stripe")(
-  "sk_test_51MLI86DeCpRNgE7AVsEbYP6fqgUZtDe8QBeGZuGYsEmuKaiUoG519yjOZvrkUH0z6yBuoYrFneeqBf5ln988VQIZ00Dv5R8bI0"
+  "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"
 );
 
 export default async function handler(req, res) {
@@ -11,7 +11,7 @@ const userId = req.query.user_id;
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1Nu7vjDeCpRNgE7AmTOtrpYK",
+            price: "price_1Ny9dADeCpRNgE7ADQNEHPBZ",
             quantity: 1,
           },
         ],

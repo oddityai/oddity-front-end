@@ -122,7 +122,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                 </div>
               </Link>
             </div> */}
-              {profileData && (
+              {profileData && (profileData?.credits >= 0 && !profileData.subscribed) && (
                 <div
                   style={{ textDecoration: 'none', marginRight: 8 }}
                   onClick={() => setValue(1)}

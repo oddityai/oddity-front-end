@@ -341,28 +341,7 @@ const ChatBot = ({
               >
                 {TYPES[subject]}
               </p>
-              <p
-                className={nunito.className}
-                style={{
-                  color: "white",
-                  fontWeight: "none",
-                  padding: 5,
-                  margin: 8,
-                  fontSize: 15,
-                }}
-              >
-                P.S. You can follow our 𝕏 page{" "}
-                <a
-                  style={{
-                    color: "white",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => window.open("https://twitter.com/oddity_ai")}
-                >
-                  HERE
-                </a>
-              </p>
+
               {console.log(profileData?.referralCode)}
             </div>
           </div>
@@ -652,7 +631,9 @@ const ChatBot = ({
                 subject !== "chat" &&
                 subject !== "joke" &&
                 subject !== "reply"
-                  ? "Ask your question for 1 credit."
+                  ? profileData.subscribed
+                    ? "Ask your question."
+                    : "Ask your question for 1 credit."
                   : subject === "prompt"
                   ? "Enter your writing prompt for 1 credit"
                   : "Ask your free question!"
