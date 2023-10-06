@@ -3,7 +3,7 @@ import { buffer } from "micro";
 import { db } from "../../firebase";
 
 
-const stripe = require("stripe")("whsec_DZuHPHxwsCr85H4gFNbfpW7W9uapyGMN");
+const stripe = require("stripe")("whsec_iqVWJTnrpwk0meQfW78nvwlNU17J88t8");
 
 export const config = {
   api: {
@@ -14,7 +14,7 @@ export const config = {
 async function handler(req, res) {
   const buf = await buffer(req);
   const sig = req.headers["stripe-signature"];
-  const endpointSecret = "whsec_DZuHPHxwsCr85H4gFNbfpW7W9uapyGMN";
+  const endpointSecret = "whsec_iqVWJTnrpwk0meQfW78nvwlNU17J88t8";
 
   let event;
 
