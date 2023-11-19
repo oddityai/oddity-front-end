@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { auth } from '../firebase'
 import { useRouter } from 'next/navigation'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 const Login = () => {
   const router = useRouter()
@@ -22,7 +23,18 @@ const Login = () => {
       console.error(error)
     }
   }
-
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider()
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      console.log('User signed in successfully:', user)
+      router.push('/App')
+      // Update UI based on the signed-in user
+    } catch (error) {
+      console.error('Error signing in with Google:', error)
+    }
+  }
   return (
     <div>
       <h1>Login</h1>
@@ -49,6 +61,7 @@ const Login = () => {
 
         <button type='submit'>Login</button>
       </form>
+      <button onClick={handleGoogleSignIn}>Sign in with Google</button>
     </div>
   )
 }

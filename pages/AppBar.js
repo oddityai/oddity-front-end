@@ -293,7 +293,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                     textDecoration: 'none',
                   }}
                 >
-                  <p
+                  <Link
                     className={nunito.className}
                     style={{
                       textDecoration: 'none',
@@ -303,11 +303,12 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
 
                       color: '#0057be',
                     }}
+                    href='/'
                     onClick={handleLogout}
                   >
                     {' '}
                     Logout
-                  </p>
+                  </Link>
                 </div>
               )}
               {/* <div style={{ marginRight: 8, textDecoration: "none" }}>

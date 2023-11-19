@@ -120,7 +120,7 @@ export default function Home() {
   useEffect(() => {
     if (user && !isLoading) {
       db.collection('profiles')
-        .where('username', '==', user.displayName)
+        .where('email', '==', user.email)
         .onSnapshot((snapshot) => {
           const userData = snapshot.docs.map((doc) => {
             return { ...doc.data(), ...{ id: doc.id } }
