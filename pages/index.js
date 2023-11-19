@@ -3,10 +3,9 @@ import { Nunito } from '@next/font/google'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import AppBar from './AppBar'
-
-import { useUser } from '@auth0/nextjs-auth0/client'
 import Hotjar from '@hotjar/browser'
 import Image from 'next/image'
+import { auth } from '../firebase'
 import ReactGA from 'react-ga4'
 
 const nunito = Nunito({ subsets: ['latin'] })
@@ -18,7 +17,26 @@ const Contact = () => {
       return { innerWidth, innerHeight }
     }
   }
-  const { user, error, isLoading } = useUser()
+
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser)
+        setIsLoading(false)
+        setError(null)
+      } else {
+        setUser(null)
+        setIsLoading(false)
+        setError('User is not logged in')
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
 
   const [windowSize, setWindowSize] = useState(getWindowSize())
   useEffect(() => {

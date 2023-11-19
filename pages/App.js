@@ -1,4 +1,3 @@
-import { useUser } from '@auth0/nextjs-auth0/client'
 import Hotjar from '@hotjar/browser'
 import CloseIcon from '@mui/icons-material/Close'
 import { Modal, Typography } from '@mui/material'
@@ -13,6 +12,7 @@ import Tesseract from 'tesseract.js'
 import { db } from '../firebase'
 import AppBar from './AppBar'
 import ChatBot from './ChatBot'
+import { auth } from '../firebase'
 
 import Tabs from './Tabs'
 
@@ -48,7 +48,22 @@ export default function Home() {
 
   const [profileData, setProfileData] = useState({})
   const [subject, setSubject] = useState('math')
-  const { user, isLoading } = useUser()
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser)
+        setIsLoading(false)
+      } else {
+        setUser(null)
+        setIsLoading(false)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
   const router = useRouter()
 
   async function updateUserProfile() {
@@ -82,7 +97,7 @@ export default function Home() {
                 duplicate: true,
               },
               { merge: true }
-            );
+            )
           })
         })
 
@@ -95,10 +110,17 @@ export default function Home() {
       console.error('An error occurred:', error)
     }
   }
+  // function generateRandomID() {
+  //   let id = ''
+  //   for (let i = 0; i < 20; i++) {
+  //     id += Math.floor(Math.random() * 10)
+  //   }
+  //   return id
+  // }
   useEffect(() => {
-    if (user?.nickname && !isLoading) {
+    if (user && !isLoading) {
       db.collection('profiles')
-        .where('username', '==', user?.nickname)
+        .where('username', '==', user.displayName)
         .onSnapshot((snapshot) => {
           const userData = snapshot.docs.map((doc) => {
             return { ...doc.data(), ...{ id: doc.id } }
@@ -110,15 +132,15 @@ export default function Home() {
               return
             }
 
-            const firstRef = user?.nickname.slice(0, 3).toUpperCase()
+            const firstRef = user.displayName.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
 
             const newUser = {
-              username: user?.nickname,
+              username: user.displayName,
               email: user?.email,
-              id: user?.sub.split('|')[1],
-              name: user?.name,
+              // id: generateRandomID(),
+              // name: user?.name,
               credits: 20,
               subscribed: false,
               subscriptionId: '',
@@ -126,7 +148,7 @@ export default function Home() {
               referralCode: refCode,
               usedCodes: [refCode],
               chatHistory: [],
-              IP: user['https://oddityai.com/user_metadata']['last_ip'],
+              // IP: user['https://oddityai.com/user_metadata']['last_ip'],
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
@@ -139,12 +161,12 @@ export default function Home() {
   }, [user, isLoading])
 
   useEffect(() => {
-    console.log("SUCCESS")
-    console.log({router})
-    if (router.query.success === "true" && profileData.id) {
-      const usersRef = db.collection("profiles");
-      const userRef = usersRef.doc(profileData.id);
-      const creditsToAdd = 2000;
+    console.log('SUCCESS')
+    console.log({ router })
+    if (router.query.success === 'true' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      const creditsToAdd = 2000
 
       try {
         userRef.update(
@@ -152,16 +174,16 @@ export default function Home() {
             credits: (profileData.credits || 0) + creditsToAdd,
           },
           { merge: true }
-        );
-        console.log("Credits successfully added (2000)");
-        router.push("/App");
+        )
+        console.log('Credits successfully added (2000)')
+        router.push('/App')
       } catch (error) {
-        console.error(`Error adding credits: ${error}`);
+        console.error(`Error adding credits: ${error}`)
       }
-    } else if (router.query.success === "true2" && profileData.id) {
-      const usersRef = db.collection("profiles");
-      const userRef = usersRef.doc(profileData.id);
-      const creditsToAdd = 5500;
+    } else if (router.query.success === 'true2' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      const creditsToAdd = 5500
 
       try {
         userRef.update(
@@ -169,20 +191,20 @@ export default function Home() {
             credits: (profileData.credits || 0) + creditsToAdd,
           },
           { merge: true }
-        );
-        console.log("Credits successfully added (5500)");
-        router.push("/App");
+        )
+        console.log('Credits successfully added (5500)')
+        router.push('/App')
       } catch (error) {
-        console.error(`Error adding credits: ${error}`);
+        console.error(`Error adding credits: ${error}`)
       }
-    } else if (router.query.success === "true4" && profileData.id) {
-      const usersRef = db.collection("profiles");
-      const userRef = usersRef.doc(profileData.id);
-      console.log("HERE")
+    } else if (router.query.success === 'true4' && profileData.id) {
+      const usersRef = db.collection('profiles')
+      const userRef = usersRef.doc(profileData.id)
+      console.log('HERE')
       try {
-        router.push("/App");
+        router.push('/App')
       } catch (error) {
-        console.error(`Error adding credits: ${error}`);
+        console.error(`Error adding credits: ${error}`)
       }
     }
     // else if (router.query.success === 'true3' && profileData.id) {
@@ -254,7 +276,7 @@ export default function Home() {
           credits: profileData.credits - amount || profileData.credits - 1,
         },
         { merge: true }
-      );
+      )
     }
   }
   async function onSubmit(event, value, url, tries) {
@@ -328,12 +350,12 @@ export default function Home() {
         const userCopy = profileData.chatHistory.slice()
         userCopy.unshift(res)
         console.log('SAVING', userCopy)
-        db.collection("profiles").doc(profileData?.id).update(
+        db.collection('profiles').doc(profileData?.id).update(
           {
             chatHistory: userCopy,
           },
           { merge: true }
-        );
+        )
         console.log('end save', profileData?.id)
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
@@ -517,7 +539,7 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
-    if (!isLoading && !user?.nickname) {
+    if (!isLoading && !user) {
       window.location.href = '/'
     }
   }, [isLoading, user])
@@ -543,38 +565,38 @@ export default function Home() {
     textAlign: 'center',
   }
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <AppBar profileData={profileData} setValue={setValue} value={value} />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta
-          name="description"
-          content="Homework AI Is the AI That Does Homework. If You
+          name='description'
+          content='Homework AI Is the AI That Does Homework. If You
 Are a Student Who Needs Homework Solutions This AI Homework Helper
 Is for You. Give This AI Homework App a Try, It’ll Solve & Write Your
-Homework"
+Homework'
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel='shortcut icon' href='/favicon.ico' />
         <meta
-          name="keywords"
-          content="student homework app ai, ai that does homework, ai doing
+          name='keywords'
+          content='student homework app ai, ai that does homework, ai doing
 homework, ai homework writer, homework helper ai, homework ai, ai
 homework solver, ai for homework, ai  homework, ai homework solutions, ai
-homework helper"
-        />{" "}
-      </Head>{" "}
+homework helper'
+        />{' '}
+      </Head>{' '}
       <div>
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography id='modal-modal-title' variant='h6' component='h2'>
               You need a subscription to continue!
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
               Get a monthly subscription to OddityAI! <br />
               at only $9.99/month!
             </Typography>
@@ -582,34 +604,34 @@ homework helper"
         </Modal>
         <div
           style={{
-            textAlign: "center",
-            padding: "20px 20px",
-            color: "#232A31",
+            textAlign: 'center',
+            padding: '20px 20px',
+            color: '#232A31',
             fontFamily: "'ColfaxAI', sans-serif",
           }}
-          id="exportthis"
+          id='exportthis'
         >
           <Dialog
             onClose={() => {
-              setIsModalOpen(false);
-              setAnswers([]);
+              setIsModalOpen(false)
+              setAnswers([])
             }}
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: '100%', height: '100%' }}
             open={isModalOpen}
           >
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <CloseIcon
                 onClick={() => {
-                  setIsModalOpen(false);
-                  setAnswers([]);
+                  setIsModalOpen(false)
+                  setAnswers([])
                 }}
               />
             </div>
             <div
-              className="container"
+              className='container'
               style={{
-                textAlign: "left",
-                margin: "auto",
+                textAlign: 'left',
+                margin: 'auto',
                 maxWidth: 500,
                 padding: 8,
               }}
@@ -618,11 +640,11 @@ homework helper"
                 style={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: "rgba(0, 0, 0, 0.87)",
+                  color: 'rgba(0, 0, 0, 0.87)',
                   fontFamily: "'ColfaxAI', sans-serif",
                   marginTop: 15,
                 }}
-                id="form-title"
+                id='form-title'
               >
                 {`OddityAI ${subject} AI`}
               </p>
@@ -654,13 +676,12 @@ homework helper"
       </div>
       <div
         style={{
-          textAlign: "center",
+          textAlign: 'center',
         }}
       >
         <br />
         <br />
       </div>
-
     </div>
-  );
+  )
 }

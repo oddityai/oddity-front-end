@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { Nunito } from '@next/font/google'
 import Image from 'next/image'
 import Link from 'next/link'
+import { signOut } from 'firebase/auth'
+
+import { auth } from '../firebase'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -15,8 +16,38 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
       return { innerWidth, innerHeight }
     }
   }
-  const { user, error, isLoading } = useUser()
+  const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const handleLogout = async () => {
+    setIsLoading(true)
+    try {
+      await signOut(auth)
+      // User logged out successfully
+      console.log('User logged out')
+      // Redirect to login page
+    } catch (error) {
+      // Handle errors
+      console.error(error)
+      setIsLoading(false)
+    }
+  }
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setUser(authUser)
+        setIsLoading(false)
+        setError(null)
+      } else {
+        setUser(null)
+        setIsLoading(false)
+        setError('User is not logged in')
+      }
+    })
+
+    return () => unsubscribe()
+  }, [])
   const [windowSize, setWindowSize] = useState(getWindowSize())
   useEffect(() => {
     function handleWindowResize() {
@@ -122,28 +153,30 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                 </div>
               </Link>
             </div> */}
-              {profileData && (profileData?.credits >= 0 && !profileData.subscribed) && (
-                <div
-                  style={{ textDecoration: 'none', marginRight: 8 }}
-                  onClick={() => setValue(1)}
-                >
-                  <p
-                    style={{
-                      margin: 0,
-                      width: '90px',
-                      color: '#0057be',
-                      borderRadius: '5px',
-                      border: 'solid 1px #0057be',
-                      textAlign: 'center',
-                      backgroundColor: '#f2f2f2',
-                      boxShadow: '2px 2px 5px gray',
-                      cursor: 'pointer',
-                    }}
+              {profileData &&
+                profileData?.credits >= 0 &&
+                !profileData.subscribed && (
+                  <div
+                    style={{ textDecoration: 'none', marginRight: 8 }}
+                    onClick={() => setValue(1)}
                   >
-                    Credits: {profileData?.credits}{' '}
-                  </p>
-                </div>
-              )}
+                    <p
+                      style={{
+                        margin: 0,
+                        width: '90px',
+                        color: '#0057be',
+                        borderRadius: '5px',
+                        border: 'solid 1px #0057be',
+                        textAlign: 'center',
+                        backgroundColor: '#f2f2f2',
+                        boxShadow: '2px 2px 5px gray',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Credits: {profileData?.credits}{' '}
+                    </p>
+                  </div>
+                )}
 
               <div style={{ marginRight: 8, textDecoration: 'none' }}>
                 <Link
@@ -162,7 +195,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                   Home
                 </Link>
               </div>
-              {user?.nickname && (
+              {user && (
                 <div style={{ marginRight: 8, textDecoration: 'none' }}>
                   <Link
                     className={nunito.className}
@@ -215,7 +248,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                   Contact
                 </Link>
               </div>
-              {!user?.nickname && (
+              {!user && (
                 <>
                   <div style={{ marginRight: 8, textDecoration: 'none' }}>
                     <Link
@@ -228,7 +261,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
 
                         color: '#0057be',
                       }}
-                      href='/api/auth/login'
+                      href='/login'
                     >
                       {' '}
                       Login
@@ -245,7 +278,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
 
                         color: '#0057be',
                       }}
-                      href='/api/auth/signup'
+                      href='/signup'
                     >
                       {' '}
                       Signup
@@ -253,9 +286,14 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                   </div>
                 </>
               )}
-              {user?.nickname && (
-                <div style={{ marginRight: 8, textDecoration: 'none' }}>
-                  <Link
+              {user && (
+                <div
+                  style={{
+                    marginRight: 8,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <p
                     className={nunito.className}
                     style={{
                       textDecoration: 'none',
@@ -265,11 +303,11 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
 
                       color: '#0057be',
                     }}
-                    href='/api/auth/logout'
+                    onClick={handleLogout}
                   >
                     {' '}
                     Logout
-                  </Link>
+                  </p>
                 </div>
               )}
               {/* <div style={{ marginRight: 8, textDecoration: "none" }}>
