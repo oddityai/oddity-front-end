@@ -62,9 +62,7 @@ export default function BasicTabs({
   }
 
   useEffect(() => {
-    fetch(
-      `http://localhost:3000/api/check_sub_status?sub_id=${profileData?.subscriptionId}`
-    )
+    fetch(`/api/check_sub_status?sub_id=${profileData?.subscriptionId}`)
       .then((res) => {
         return res.json()
       })
