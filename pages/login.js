@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { auth } from '../firebase'
 import { useRouter } from 'next/navigation'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import {
+  GoogleAuthProvider,
+  sendPasswordResetEmail,
+  signInWithPopup,
+} from 'firebase/auth'
 import Image from 'next/image'
 import AppBar from './AppBar'
 import GoogleIcon from '@mui/icons-material/Google'
@@ -12,6 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [regError, setRegError] = useState('')
   const [googleError, setGoogleError] = useState('')
+  const [hideReset, setHideReset] = useState(true)
+  const [passReset, setPassReset] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -40,6 +46,16 @@ const Login = () => {
     } catch (error) {
       console.error('Error signing in with Google:', error)
       setGoogleError(error)
+    }
+  }
+  const handleResetPassword = async (e) => {
+    e.preventDefault()
+    try {
+      await sendPasswordResetEmail(auth, email)
+      console.log('Password reset email sent')
+      setPassReset(true)
+    } catch (error) {
+      console.error('Error sending password reset email:', error)
     }
   }
   return (
@@ -139,6 +155,35 @@ const Login = () => {
           )}
           {googleError && (
             <p style={{ color: 'red' }}>Error logging in with Google.</p>
+          )}
+          {!passReset ? (
+            <>
+              {' '}
+              <p
+                style={{ color: 'red', cursor: 'pointer' }}
+                onClick={() => setHideReset(false)}
+              >
+                Reset Password
+              </p>
+              <form
+                onSubmit={handleResetPassword}
+                hidden={hideReset}
+                style={{ display: 'flex', flexDirection: 'column' }}
+              >
+                <label>Email Address:</label>
+                <input
+                  type='email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <button type='submit'>Reset Password</button>
+              </form>
+            </>
+          ) : (
+            <p style={{ color: 'red', margin: 25 }}>
+              Password reset email sent successfully!
+            </p>
           )}
         </div>
       </div>
