@@ -40,20 +40,6 @@ const Login = () => {
     }
   }
 
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider()
-    try {
-      const result = await signInWithRedirect(auth, provider)
-      const user = result.user
-      console.log('User signed in successfully:', user)
-      setUser(user)
-      router.push('/App')
-      // Update UI based on the signed-in user
-    } catch (error) {
-      console.error('Error signing in with Google:', error)
-      setGoogleError(error)
-    }
-  }
   const handleResetPassword = async (e) => {
     e.preventDefault()
     try {
@@ -64,47 +50,36 @@ const Login = () => {
       console.error('Error sending password reset email:', error)
     }
   }
-  const handleAppleSignIn = async () => {
-    const provider = new OAuthProvider('apple.com')
+  const handleGoogleSignIn = async () => {
+    const provider = new GoogleAuthProvider()
     try {
-      const result = await signInWithPopup(auth, provider)
-      const user = result.user
-      const credential = OAuthProvider.credentialFromResult(result)
-      const accessToken = credential.accessToken
-      const idToken = credential.idToken
-      console.log('User signed in successfully:', user)
-      // Update UI based on the signed-in user
+      await signInWithRedirect(auth, provider)
+      // No need to push to '/App' here
+
+      // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
-      console.error('Error signing in with Apple:', error)
-      console.log('Error code:', error.code)
-      console.log('Error message:', error.message)
-      console.log('Error email:', error.email)
-      console.log('Error credential:', OAuthProvider.credentialFromError(error))
+      console.error('Error signing in with Google:', error)
+      setGoogleError(error)
     }
   }
 
   useEffect(() => {
-    getRedirectResult(auth)
-      .then((result) => {
-        const credential = OAuthProvider.credentialFromResult(result)
-        if (credential) {
-          const accessToken = credential.accessToken
-          const idToken = credential.idToken
-        }
+    const handleRedirectResult = async () => {
+      try {
+        const result = await getRedirectResult(auth)
         const user = result.user
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        // The email of the user's account used.
-        const email = error.email
-        // The credential that was used.
-        const credential = OAuthProvider.credentialFromError(error)
-      })
-  }, [])
+        console.log('User signed in successfully:', user)
+        setUser(user)
+        if (user) {
+          router.push('/App')
+        }
+      } catch (error) {
+        console.error('Error handling redirect result:', error)
+        setGoogleError(error)
+      }
+    }
 
-  useEffect(() => {
-    user && router.push('/App')
+    handleRedirectResult()
   }, [])
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
@@ -116,6 +91,8 @@ const Login = () => {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '80vh',
+          backgroundColor: '#f2f2f2',
+          minHeight: '100vh',
         }}
       >
         <div
@@ -130,6 +107,7 @@ const Login = () => {
             borderRadius: '.25rem',
             boxShadow: '1px 1px 4px gray',
             fontFamily: 'Arial',
+            backgroundColor: 'white',
           }}
         >
           <Image src='/logo.png' height={50} width={50} alt='Oddity AI' />
@@ -185,7 +163,17 @@ const Login = () => {
             <GoogleIcon color='blue' style={{ marginRight: 10 }} />
             Login with Google
           </button>
-          <button onClick={handleAppleSignIn}>Sign in with Apple</button>
+          {/* <button
+            onClick={handleAppleSignIn}
+            style={{
+              color: 'white',
+              backgroundColor: 'black',
+              fontSize: '1.0rem',
+              borderRadius: '2.5rem',
+            }}
+          >
+            Sign in with Apple
+          </button> */}
 
           {regError && (
             <p style={{ color: 'red', margin: 25 }}>
@@ -203,9 +191,9 @@ const Login = () => {
               with your account information.
             </p>
           )}
-          {googleError && (
+          {/* {googleError && (
             <p style={{ color: 'red' }}>Error logging in with Google.</p>
-          )}
+          )} */}
           {!passReset ? (
             <>
               {' '}
@@ -213,7 +201,7 @@ const Login = () => {
                 style={{ color: 'red', cursor: 'pointer' }}
                 onClick={() => setHideReset(false)}
               >
-                Reset Password
+                Forgot Password?
               </p>
               <form
                 onSubmit={handleResetPassword}

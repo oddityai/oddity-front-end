@@ -55,6 +55,9 @@ const Signup = () => {
           justifyContent: 'center',
           alignItems: 'center',
           minHeight: '80vh',
+          backgroundColor: '#f2f2f2',
+          minHeight: '100vh',
+          minWidth: '100vw',
         }}
       >
         <div
@@ -69,6 +72,7 @@ const Signup = () => {
             borderRadius: '.25rem',
             boxShadow: '1px 1px 4px gray',
             fontFamily: 'Arial',
+            backgroundColor: 'white',
           }}
         >
           <Image src='/logo.png' height={50} width={50} />

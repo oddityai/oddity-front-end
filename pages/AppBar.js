@@ -90,7 +90,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
       style={{
         backgroundColor: 'white',
         borderBottom: '1px solid rgb(242, 247, 255)',
-        width: '100%',
+        width: '100vw',
       }}
     >
       {true && (
