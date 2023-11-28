@@ -139,9 +139,9 @@ export default function Home() {
             const newUser = {
               username: user.displayName,
               email: user?.email,
-              // id: generateRandomID(),
-              // name: user?.name,
-              credits: 20,
+              id: user?.sub.split('|')[1],
+              name: user?.name,
+              credits: 5,
               subscribed: false,
               subscriptionId: '',
               dateOfSub: '',
