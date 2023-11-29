@@ -63,6 +63,25 @@ const Login = () => {
     }
   }
 
+  const handleAppleSignIn = async () => {
+    const provider = new OAuthProvider('apple.com')
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      const credential = OAuthProvider.credentialFromResult(result)
+      const accessToken = credential.accessToken
+      const idToken = credential.idToken
+      console.log('User signed in successfully:', user)
+      // Update UI based on the signed-in user
+    } catch (error) {
+      console.error('Error signing in with Apple:', error)
+      console.log('Error code:', error.code)
+      console.log('Error message:', error.message)
+      console.log('Error email:', error.email)
+      console.log('Error credential:', OAuthProvider.credentialFromError(error))
+    }
+  }
+
   useEffect(() => {
     const handleRedirectResult = async () => {
       try {
@@ -163,17 +182,20 @@ const Login = () => {
             <GoogleIcon color='blue' style={{ marginRight: 10 }} />
             Login with Google
           </button>
-          {/* <button
+          <button
             onClick={handleAppleSignIn}
             style={{
               color: 'white',
               backgroundColor: 'black',
               fontSize: '1.0rem',
               borderRadius: '2.5rem',
+              marginTop: 15,
+              border: 'none',
+              padding: 10,
             }}
           >
             Sign in with Apple
-          </button> */}
+          </button>
 
           {regError && (
             <p style={{ color: 'red', margin: 25 }}>

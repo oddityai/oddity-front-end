@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import { auth } from '../firebase'
 import { useRouter } from 'next/navigation'
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import {
+  OAuthProvider,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth'
 import Image from 'next/image'
 import AppBar from './AppBar'
 import GoogleIcon from '@mui/icons-material/Google'
@@ -42,6 +46,24 @@ const Signup = () => {
       // Update UI based on the signed-in user
     } catch (error) {
       console.error('Error signing in with Google:', error)
+    }
+  }
+  const handleAppleSignIn = async () => {
+    const provider = new OAuthProvider('apple.com')
+    try {
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+      const credential = OAuthProvider.credentialFromResult(result)
+      const accessToken = credential.accessToken
+      const idToken = credential.idToken
+      console.log('User signed in successfully:', user)
+      // Update UI based on the signed-in user
+    } catch (error) {
+      console.error('Error signing in with Apple:', error)
+      console.log('Error code:', error.code)
+      console.log('Error message:', error.message)
+      console.log('Error email:', error.email)
+      console.log('Error credential:', OAuthProvider.credentialFromError(error))
     }
   }
 
@@ -139,6 +161,20 @@ const Signup = () => {
           >
             <GoogleIcon color='blue' style={{ marginRight: 10 }} />
             Sign up with Google
+          </button>
+          <button
+            onClick={handleAppleSignIn}
+            style={{
+              color: 'white',
+              backgroundColor: 'black',
+              fontSize: '1.0rem',
+              borderRadius: '2.5rem',
+              marginTop: 15,
+              border: 'none',
+              padding: 5,
+            }}
+          >
+            Sign up with Apple
           </button>
         </div>
       </div>
