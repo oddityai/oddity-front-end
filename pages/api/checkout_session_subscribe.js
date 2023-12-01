@@ -1,9 +1,11 @@
+import ReactGA from "react-ga4";
+
 const stripe = require("stripe")(
   "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"
 );
 
 export default async function handler(req, res) {
-const userId = req.query.user_id;
+  const userId = req.query.user_id;
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
@@ -23,8 +25,16 @@ const userId = req.query.user_id;
         cancel_url: `${req.headers.origin}/App?canceled=true`,
         automatic_tax: { enabled: true },
       });
+      ReactGA.event({
+        category: "User",
+        action: "User subscribed for $9.99",
+      });
       res.redirect(303, session.url);
     } catch (err) {
+      ReactGA.event({
+        category: "User",
+        action: "FAILED - user subscription",
+      });
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
