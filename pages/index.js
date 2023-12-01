@@ -166,7 +166,7 @@ const Contact = () => {
               We have a number of AI homework solvers that are specially
               designed to help you with all your homework subjects.
             </h3>{' '}
-            <Link style={{ textDecoration: 'none' }} href='/api/auth/signup'>
+            <Link style={{ textDecoration: 'none' }} href='/signup'>
               <Button
                 style={{
                   zIndex: 10,
@@ -494,7 +494,7 @@ const Contact = () => {
           </div>
           <Link
             style={{ textDecoration: 'none', width: '50%' }}
-            href='/api/auth/signup'
+            href='/signup'
           >
             <Button
               style={{
@@ -572,7 +572,7 @@ const Contact = () => {
           </div>
           <Link
             style={{ textDecoration: 'none', width: '50%' }}
-            href='/api/auth/signup'
+            href='/signup'
           >
             <Button
               style={{
