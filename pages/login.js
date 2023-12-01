@@ -13,6 +13,7 @@ import Image from 'next/image'
 import AppBar from './AppBar'
 import GoogleIcon from '@mui/icons-material/Google'
 import { Nunito } from "@next/font/google";
+import ReactGA from "react-ga4";
 
 const nunito = Nunito({ subsets: ["latin"] });
 const Login = () => {
