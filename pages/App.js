@@ -75,46 +75,40 @@ export default function Home() {
   }, [])
   const router = useRouter()
 
-  async function updateUserProfile() {
-    try {
-      const profilesRef = db.collection('profiles')
+async function updateUserProfile() {
+  try {
+    const fingerprint = await getFingerprint();
+    const profilesRef = db.collection("profiles");
 
-      // Query for profiles with the same IP
-      const querySnapshot = await profilesRef
-        .where(
-          'IP',
-          '==',
-          user['https://oddityai.com/user_metadata']['last_ip']
-        )
-        .get()
+    // Query for profiles with the same IP
+    const querySnapshot = await profilesRef
+      .where("IP", "==", fingerprint)
+      .get();
 
-      if (querySnapshot.size > 1) {
-        // Update the user's profile if there are multiple profiles with the same IP
+    if (querySnapshot.size > 1) {
+      // Update the user's profile if there are multiple profiles with the same IP
+      const usersRef = db
+        .collection("profiles")
+        .where("email", "==", user.email);
 
-        const usersRef = db
-          .collection('profiles')
-          .where('email', '==', user.email)
-
-        usersRef.get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            doc.ref.update(
-              {
-                credits: 0,
-                duplicate: true,
-              },
-              { merge: true }
-            )
-          })
-        })
-
-        router.push('/')
-      } else {
-        console.log('No action taken: Single profile found with the IP.')
-      }
-    } catch (error) {
-      console.error('An error occurred:', error)
+      const usersSnapshot = await usersRef.get();
+      usersSnapshot.forEach((doc) => {
+        doc.ref.update(
+          {
+            credits: 0,
+            duplicate: true,
+          },
+          { merge: true }
+        );
+      });
+    } else {
+      console.log("No action taken: Single profile found with the IP.");
     }
+  } catch (error) {
+    console.error("Error updating user profile:", error);
   }
+}
+
   // function generateRandomID() {
   //   let id = ''
   //   for (let i = 0; i < 20; i++) {
@@ -165,7 +159,8 @@ export default function Home() {
               db.collection("profiles").add(newUser);
               setProfileData(newUser);
               updateUserProfile();
-              sessionStorage.setItem("profileStatus1", user?.sid);            });
+              sessionStorage.setItem("profileStatus1", user?.sid);            
+            });
           }
         })
     }
