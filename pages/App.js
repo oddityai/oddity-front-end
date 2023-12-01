@@ -40,6 +40,7 @@ export default function Home() {
   const [animalInput, setAnimalInput] = useState('')
   const [result, setResult] = useState()
   const [answers, setAnswers] = useState([])
+  const [messageHistory, setMessageHistory] = useState([])
   const [isLoadingScreen, setIsLoadingScreen] = useState(false)
   const [error, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -94,7 +95,6 @@ export default function Home() {
   }
   useEffect(() => {
     if (user?.nickname && !isLoading) {
-      console.log("REGISTER")
       db.collection('profiles')
         .where('username', '==', user?.nickname)
         .onSnapshot((snapshot) => {
@@ -269,16 +269,16 @@ export default function Home() {
       }
       setIsLoadingScreen(true)
       try {
-        const response = await fetch('/api/generate', {
-          method: 'POST',
+        const response = await fetch("/api/generate", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             animal: `${TYPES[subject]}: "${input}"`,
-            history: profileData.chatHistory,
+            history: messageHistory,
           }),
-        })
+        });
         // const response2 = await fetch("/api/generate", {
         //   method: "POST",
         //   headers: {
@@ -325,8 +325,23 @@ export default function Home() {
           type: subject,
           // explanation: JSON.parse(data2.result).explanation,
         }
+        const question = {
+          content: data.result,
+          role: 'assistant'
+        }
+        const resp = {
+          content: animalInput,
+          role: "user",
+        };
         const answersCopy = answers.slice()
         answersCopy.push(res)
+
+        const messageHistoryUpdate = messageHistory.slice();
+
+        messageHistoryUpdate.push(resp);
+        messageHistoryUpdate.push(question);
+        setMessageHistory(messageHistoryUpdate)
+
         setAnswers(answersCopy)
         setAnimalInput('')
         setResult('')

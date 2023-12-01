@@ -68,9 +68,6 @@ export default function BasicTabs({
     ).then((res) => {
       return res.json()
     })
-    .then((res) => {
-      console.log({res})
-    })
   })
 
   function checkReferralCodeExists(referralCode) {
