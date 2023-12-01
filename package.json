@@ -11,6 +11,7 @@
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fingerprintjs/fingerprintjs": "^4.2.1",
     "@hotjar/browser": "^1.0.6",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.2",

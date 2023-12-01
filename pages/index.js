@@ -70,7 +70,7 @@ const Contact = () => {
     if (user?.nickname) {
       console.log('Identifying', user?.nickname)
       Hotjar.identify(user?.sid, {
-        userId: user?.sub,
+        userId: user?.id,
         username: user?.nickname,
         email: user?.email,
         picture: user?.picture,

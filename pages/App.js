@@ -15,10 +15,18 @@ import ChatBot from './ChatBot'
 import { auth } from '../firebase'
 
 import Tabs from './Tabs'
+import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const nunito = Nunito({ subsets: ['latin'] })
 
 const test = []
+
+const getFingerprint = async () => {
+  const fp = await FingerprintJS.load();
+  const result = await fp.get();
+  return result.visitorId; // This is the unique fingerprint
+};
+
 
 const TYPES = {
   math: 'Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :',
@@ -54,7 +62,7 @@ export default function Home() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        setUser(authUser)
+        setUser(authUser._delegate);
         setIsLoading(false)
       } else {
         setUser(null)
@@ -79,12 +87,9 @@ export default function Home() {
         )
         .get()
 
-      console.log('Snapshot size:', querySnapshot.size)
-
       if (querySnapshot.size > 1) {
         // Update the user's profile if there are multiple profiles with the same IP
 
-        console.log('Updating user profile...')
         const usersRef = db
           .collection('profiles')
           .where('email', '==', user.email)
@@ -101,7 +106,6 @@ export default function Home() {
           })
         })
 
-        console.log('User profile updated successfully.')
         router.push('/')
       } else {
         console.log('No action taken: Single profile found with the IP.')
@@ -132,37 +136,36 @@ export default function Home() {
               return
             }
 
-            const firstRef = user.displayName.slice(0, 3).toUpperCase()
+            const firstRef = user.email.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
 
-            const newUser = {
-              username: user.displayName,
-              email: user?.email,
-              id: user?.sub.split('|')[1],
-              name: user?.name,
-              credits: 5,
-              subscribed: false,
-              subscriptionId: '',
-              dateOfSub: '',
-              referralCode: refCode,
-              usedCodes: [refCode],
-              chatHistory: [],
-              // IP: user['https://oddityai.com/user_metadata']['last_ip'],
-            }
-            db.collection('profiles').add(newUser)
-            setProfileData(newUser)
-            console.log(profileData.id)
-            updateUserProfile()
-            sessionStorage.setItem('profileStatus1', user?.sid)
+            getFingerprint().then((fingerprint) => {
+              const newUser = {
+                username: user.email,
+                email: user?.email,
+                id: user?.uid,
+                name: user?.email,
+                credits: 20,
+                acceptedTerms: true,
+                subscribed: false,
+                subscriptionId: "",
+                dateOfSub: "",
+                referralCode: refCode,
+                usedCodes: [refCode],
+                chatHistory: [],
+                IP: fingerprint,
+              };
+              db.collection("profiles").add(newUser);
+              setProfileData(newUser);
+              updateUserProfile();
+              sessionStorage.setItem("profileStatus1", user?.sid);            });
           }
         })
     }
   }, [user, isLoading])
 
   useEffect(() => {
-    console.log('SUCCESS')
-    console.log({ router })
     if (router.query.success === 'true' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
@@ -175,7 +178,6 @@ export default function Home() {
           },
           { merge: true }
         )
-        console.log('Credits successfully added (2000)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -192,7 +194,6 @@ export default function Home() {
           },
           { merge: true }
         )
-        console.log('Credits successfully added (5500)')
         router.push('/App')
       } catch (error) {
         console.error(`Error adding credits: ${error}`)
@@ -200,7 +201,6 @@ export default function Home() {
     } else if (router.query.success === 'true4' && profileData.id) {
       const usersRef = db.collection('profiles')
       const userRef = usersRef.doc(profileData.id)
-      console.log('HERE')
       try {
         router.push('/App')
       } catch (error) {
@@ -223,7 +223,6 @@ export default function Home() {
     //   }
     // }
   }, [router.query.success, profileData.id])
-  console.log(profileData)
   // useEffect(() => {
   //   if (window.location.href.includes('localhost')) {
   //     if (user?.nickname && !isLoading) {

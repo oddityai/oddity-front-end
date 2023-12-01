@@ -9,12 +9,18 @@ import {
 import Image from 'next/image'
 import AppBar from './AppBar'
 import GoogleIcon from '@mui/icons-material/Google'
+import { Nunito } from "@next/font/google";
+
+const nunito = Nunito({ subsets: ["latin"] });
+
 
 const Signup = () => {
   const router = useRouter()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isChecked, setIsChecked] = useState(false);
+  const [showAccountExistsError, setShowAccountExistsError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -33,6 +39,13 @@ const Signup = () => {
       // Redirect to protected page
     } catch (error) {
       // Handle errors
+      if (
+        error.message ===
+        "Firebase: The email address is already in use by another account. (auth/email-already-in-use)."
+      ) {
+        setShowAccountExistsError(true);
+      }
+      console.log({error})
       console.error(error)
     }
   }
@@ -42,13 +55,15 @@ const Signup = () => {
       const result = await signInWithPopup(auth, provider)
       const user = result.user
       console.log('User signed in successfully:', user)
-      router.push('/App')
+      if (user) {
+        router.push('/App')
+      }
       // Update UI based on the signed-in user
     } catch (error) {
       console.error('Error signing in with Google:', error)
     }
   }
-  const handleAppleSignIn = async () => {
+  const handleAppleSignup = async () => {
     const provider = new OAuthProvider('apple.com')
     try {
       const result = await signInWithPopup(auth, provider)
@@ -57,6 +72,8 @@ const Signup = () => {
       const accessToken = credential.accessToken
       const idToken = credential.idToken
       console.log('User signed in successfully:', user)
+      router.push("/App");
+
       // Update UI based on the signed-in user
     } catch (error) {
       console.error('Error signing in with Apple:', error)
@@ -68,110 +85,148 @@ const Signup = () => {
   }
 
   return (
-    <div>
+    <div className={nunito.className}>
       <AppBar />
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '80vh',
-          backgroundColor: '#f2f2f2',
-          minHeight: '100vh',
-          minWidth: '100vw',
+          display: "flex",
+          flexDirection: "column",
+          paddingTop: 20,
+          alignItems: "center",
+          minHeight: "100vh",
+          minWidth: "100vw",
+          backgroundColor: "#f2f2f2",
         }}
       >
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: 250,
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '15px 0',
-            border: '1px solid gray',
-            borderRadius: '.25rem',
-            boxShadow: '1px 1px 4px gray',
-            fontFamily: 'Arial',
-            backgroundColor: 'white',
+            display: "flex",
+            flexDirection: "column",
+            width: "350px",
+            padding: "15px",
+            border: "1px solid gray",
+            borderRadius: ".25rem",
+            boxShadow: "1px 1px 4px gray",
+            backgroundColor: "white",
           }}
         >
-          <Image src='/logo.png' height={50} width={50} />
+          <Image src="/logo.png" height={50} width={50} alt="Logo" />
 
           <h1>Sign Up</h1>
           <form
             onSubmit={handleSubmit}
-            style={{ display: 'flex', flexDirection: 'column' }}
+            style={{ display: "flex", flexDirection: "column" }}
           >
-            <label htmlFor='name'>Name:</label>
+            <label htmlFor="email" style={{ marginBottom: "5px" }}>
+              Email:
+            </label>
             <input
-              type='text'
-              id='name'
-              name='name'
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-              style={{ marginBottom: 15 }}
-            />
-
-            <label htmlFor='email'>Email:</label>
-            <input
-              type='email'
-              id='email'
-              name='email'
+              type="email"
+              id="email"
+              name="email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              style={{ marginBottom: 15 }}
+              style={{
+                marginBottom: "15px",
+                padding: "10px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+              }}
             />
 
-            <label htmlFor='password'>Password:</label>
+            <label htmlFor="password" style={{ marginBottom: "5px" }}>
+              Password:
+            </label>
             <input
-              type='password'
-              id='password'
-              name='password'
+              type="password"
+              id="password"
+              name="password"
               value={password}
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               required
-              style={{ marginBottom: 15 }}
+              style={{
+                marginBottom: "15px",
+                padding: "10px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+              }}
             />
+
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={() => setIsChecked(!isChecked)}
+                style={{ marginRight: "8px" }}
+              />
+              <span>
+                By signing up, you agree to our{" "}
+                <a
+                  style={{
+                    color: "blue",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => window.open("/terms")}
+                >
+                  Terms of Service
+                </a>
+              </span>
+            </div>
+            {showAccountExistsError &&
+            <p style={{ color: "red" }}>
+              This email already exists. Try logging in or resetting your password.
+            </p>
+            }
 
             <button
-              type='submit'
-              style={{ marginBottom: 15, fontSize: '1.2rem' }}
+              type="submit"
+              disabled={!isChecked}
+              style={{
+                marginBottom: "15px",
+                padding: "10px",
+                borderRadius: "4px",
+                border: "1px solid #ccc",
+                cursor: "pointer",
+                marginTop: 8,
+              }}
             >
               Sign Up
             </button>
           </form>
+
           <button
             onClick={handleGoogleSignIn}
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#4285f4',
-              color: 'white',
-              padding: '0.25rem 1rem',
-              lineHeight: 1.75,
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "#4285f4",
+              color: "white",
+              padding: "10px",
+              lineHeight: "1.5",
+              border: "none",
+              borderRadius: "4px",
+              height: 35,
+              marginBottom: "15px",
+              cursor: "pointer",
             }}
           >
-            <GoogleIcon color='blue' style={{ marginRight: 10 }} />
+            <GoogleIcon style={{ marginRight: "10px" }} />
             Sign up with Google
           </button>
+
           <button
-            onClick={handleAppleSignIn}
+            onClick={handleAppleSignup}
             style={{
-              color: 'white',
-              backgroundColor: 'black',
-              fontSize: '1.0rem',
-              borderRadius: '2.5rem',
-              marginTop: 15,
-              border: 'none',
-              padding: 5,
+              color: "white",
+              backgroundColor: "black",
+              padding: "10px",
+              borderRadius: "4px",
+              height: 35,
+              border: "none",
+              cursor: "pointer",
             }}
           >
             Sign up with Apple
@@ -179,7 +234,7 @@ const Signup = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Signup
