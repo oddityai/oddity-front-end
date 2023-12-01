@@ -101,7 +101,7 @@ const Contact = () => {
             </span>{' '}
             , or by emailing us{' '}
             <a
-              href='mailto:oddityaico@gmail.com'
+              href='mailto:support@oddityai.com'
               style={{
                 color: '#0a99f2',
                 cursor: 'pointer',
@@ -110,7 +110,7 @@ const Contact = () => {
             >
               here
             </a>{' '}
-            (oddityaico@gmail.com)
+            (support@oddityai.com)
           </div>
           <div
             style={{

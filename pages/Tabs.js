@@ -481,7 +481,7 @@ export default function BasicTabs({
               <hr />
               <h4>
                 If you want to cancel your subscription - please email
-                oddityaico@gmail.com and include your accounts email address.
+                support@oddityai.com and include your accounts email address.
               </h4>
               {/* <p className={nunito.className}>Enough for a few months</p> */}
               <p className={nunito.className}>
