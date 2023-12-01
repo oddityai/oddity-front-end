@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
+import ReactGA from "react-ga4";
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -114,11 +115,7 @@ export default function BasicTabs({
       })
   }
   function addCreditsAndCodesToUser(userId, creditsToAdd) {
-    console.log('userId:', userId)
-    console.log('creditsToAdd:', creditsToAdd)
-    console.log('referralCode:', referralCode)
     if (codesArray.includes(referralCode)) {
-      console.log('Code used already!')
     } else {
       return db
         .collection('profiles')
@@ -135,7 +132,6 @@ export default function BasicTabs({
             // Add the new referralCode to the usedCodes array
             usedCodesarray.push(referralCode)
             setCodesArray(usedCodesarray)
-            console.log('usedCodesarray:', usedCodesarray)
 
             // Perform the update operation
             return db.collection('profiles').doc(userId).update(
@@ -176,10 +172,8 @@ export default function BasicTabs({
       })
   }
   async function handleSubmitReferralCode() {
-    console.log(referralCode)
     const exists = await checkReferralCodeExists(referralCode)
     if (exists) {
-      console.log(`Referral code ${referralCode} exists in the database.`)
 
       // Assuming you have access to the currently logged-in user's userId
       const loggedInUserId = profileData.id
@@ -187,12 +181,18 @@ export default function BasicTabs({
 
       // Check if referralCode is already used
       if (codesArray.includes(referralCode)) {
-        console.log('Code used already!')
+        ReactGA.event({
+          category: "User",
+          action: "Used existing referral code",
+        });
       } else {
         try {
           // Adding credits to the logged-in user and updating usedCodesarray
           await addCreditsAndCodesToUser(loggedInUserId, creditsToAdd)
-          console.log(`Added ${creditsToAdd} credits to user ${loggedInUserId}`)
+          ReactGA.event({
+            category: "User",
+            action: "Successfully used referral code",
+          });
         } catch (error) {
           console.error('Error adding credits to logged-in user:', error)
         }
@@ -212,9 +212,7 @@ export default function BasicTabs({
               const creditsToAdd = 100
 
               await addCreditsToUser(userWithReferralCode.id, creditsToAdd)
-              console.log(
-                `Added ${creditsToAdd} credits to user ${userWithReferralCode.id}`
-              )
+
             } catch (error) {
               console.error(
                 'Error adding credits to user with referral code:',

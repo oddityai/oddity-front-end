@@ -9,7 +9,6 @@ export default async function handler(req, res) {
     try {
       const sub_id = req.query.sub_id; // Get this from the client or your database
       const userId = req.query.userId; // Get this from the client or your database
-      console.log({ sub_id });
       const canceledSubscription = await stripe.subscriptions.del(sub_id);
 
       res.redirect(303, "https://oddityai.com/App");

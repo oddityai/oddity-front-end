@@ -29,7 +29,6 @@ async function handler(req, res) {
     const subscriptionId = session.subscription;
     const userId = session.metadata.user_id;
     const todaysDate = Math.floor(Date.now() / 1000);
-    console.log({todaysDate})
 
     if (subscriptionId) {
         const usersRef = db.collection("profiles");

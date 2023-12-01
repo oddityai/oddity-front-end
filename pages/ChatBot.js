@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { firebaseApp } from '../firebase'
 import ChatBubble from './ChatBubble'
 import { auth } from '../firebase'
+import ReactGA from "react-ga4";
 
 import Alert from '@mui/material/Alert'
 import { Nunito } from '@next/font/google'
@@ -174,7 +175,15 @@ const ChatBot = ({
             })
 
           setIsProcessing(false)
+          ReactGA.event({
+            category: "User",
+            action: "Uploaded image",
+          });
         } catch (error) {
+          ReactGA.event({
+            category: "User",
+            action: "Image upload failed",
+          });
           setIsProcessing(false)
           alert(
             'Image either unlcear or too large. Please make sure you use a high quality image. Also note, our bots can not read graphs quite yet!'
@@ -255,7 +264,6 @@ const ChatBot = ({
     try {
       var successful = document.execCommand('copy')
       var msg = successful ? 'successful' : 'unsuccessful'
-      console.log('Fallback: Copying text command was ' + msg)
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err)
     }
@@ -344,7 +352,6 @@ const ChatBot = ({
                 {TYPES[subject]}
               </p>
 
-              {console.log(profileData?.referralCode)}
             </div>
           </div>
           {Boolean(answers?.length) && (
@@ -473,15 +480,12 @@ const ChatBot = ({
                               <>
                                 <br />
                                 <br />
-                                Check out special back-to-school deals on
-                                Amazon:
+                                By the way, you can get free credits for referring your friends! Your referral code is
                                 <a
-                                  href='https://amzn.to/462Yi6V'
-                                  target='_blank'
                                   style={{ color: '#FF9900' }}
                                 >
                                   {' '}
-                                  Back to School Products
+                                  {profileData?.referralCode}
                                 </a>
                                 {/* {`Don't forget to tell your friends about
                                 OddityAI! If they sign up and use your referral code, you will both get

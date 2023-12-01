@@ -48,6 +48,7 @@ export default function Home() {
   const [animalInput, setAnimalInput] = useState('')
   const [result, setResult] = useState()
   const [answers, setAnswers] = useState([])
+  const [messageHistory, setMessageHistory] = useState([])
   const [isLoadingScreen, setIsLoadingScreen] = useState(false)
   const [error, setError] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -130,7 +131,12 @@ export default function Home() {
             return { ...doc.data(), ...{ id: doc.id } }
           })[0]
           if (userData) {
-            setProfileData(userData)
+            setProfileData(userData);
+            ReactGA.set({ userId: userData?.nickname }); 
+            ReactGA.event({
+              category: "User",
+              action: "Logged in",
+            });
           } else {
             if (sessionStorage.getItem('profileStatus1') === user?.sid) {
               return
@@ -253,6 +259,10 @@ export default function Home() {
   // }, [user])
 
   const handleClick = (subject) => {
+    ReactGA.event({
+      category: "User",
+      action: `Opened ${subject} bot`,
+    });
     if (profileData.credits > 0 || profileData?.subscribed) {
       setIsModalOpen(true)
       setSubject(subject)
@@ -286,16 +296,16 @@ export default function Home() {
       }
       setIsLoadingScreen(true)
       try {
-        const response = await fetch('/api/generate', {
-          method: 'POST',
+        const response = await fetch("/api/generate", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             animal: `${TYPES[subject]}: "${input}"`,
-            history: profileData.chatHistory,
+            history: messageHistory,
           }),
-        })
+        });
         // const response2 = await fetch("/api/generate", {
         //   method: "POST",
         //   headers: {
@@ -308,7 +318,6 @@ export default function Home() {
 
         let data = await response.json()
         // let data2 = await response2.json();
-        // console.log(data2.result.explanation);
         if (response.status !== 200) {
           throw (
             data.error ||
@@ -332,6 +341,10 @@ export default function Home() {
         // }
 
         setResult(data.result)
+        ReactGA.event({
+          category: "User",
+          action: "Asked a question",
+        });
         const res = {
           result: data.result,
           input: input,
@@ -339,8 +352,23 @@ export default function Home() {
           type: subject,
           // explanation: JSON.parse(data2.result).explanation,
         }
+        const question = {
+          content: data.result,
+          role: 'assistant'
+        }
+        const resp = {
+          content: animalInput,
+          role: "user",
+        };
         const answersCopy = answers.slice()
         answersCopy.push(res)
+
+        const messageHistoryUpdate = messageHistory.slice();
+
+        messageHistoryUpdate.push(resp);
+        messageHistoryUpdate.push(question);
+        setMessageHistory(messageHistoryUpdate)
+
         setAnswers(answersCopy)
         setAnimalInput('')
         setResult('')
@@ -348,7 +376,6 @@ export default function Home() {
         setIsLoadingScreen(false)
         const userCopy = profileData.chatHistory.slice()
         userCopy.unshift(res)
-        console.log('SAVING', userCopy)
         db.collection('profiles').doc(profileData?.id).update(
           {
             chatHistory: userCopy,
@@ -359,6 +386,10 @@ export default function Home() {
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
       } catch (error) {
+        ReactGA.event({
+          category: "User",
+          action: "Question failed",
+        });
         if (!tries && tries < 1) {
           onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
           return
@@ -366,6 +397,7 @@ export default function Home() {
         // Consider implementing your own error handling logic here
         if (tries > 1) {
           setIsLoadingScreen(false)
+          
           setResult('')
           setError(
             'The response is too large to send. Can you try asking a slightly more specific question?' +
@@ -525,7 +557,9 @@ export default function Home() {
     if (window.location.href.includes('oddityai')) {
       Hotjar.init(3307089, 6)
 
-      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY)
+      if (!window.location.href.includes("local")) {
+        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
+      }
       window.sessionStorage.setItem('hotjar', 'true')
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {

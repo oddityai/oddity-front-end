@@ -55,7 +55,9 @@ const Contact = () => {
     if (window.location.href.includes('oddityai')) {
       Hotjar.init(3307089, 6)
 
-      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY)
+      if (!window.location.href.includes("local")) {
+        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
+      }
       window.sessionStorage.setItem('hotjar', 'true')
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
@@ -68,7 +70,6 @@ const Contact = () => {
   }, [])
   useEffect(() => {
     if (user?.nickname) {
-      console.log('Identifying', user?.nickname)
       Hotjar.identify(user?.sid, {
         userId: user?.id,
         username: user?.nickname,
