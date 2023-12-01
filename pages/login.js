@@ -34,7 +34,7 @@ const Login = () => {
       // User logged in successfully
       ReactGA.event({
         category: "User",
-        action: "Logged in",
+        action: "Logged in email",
       });
       router.push('/App')
 
@@ -43,6 +43,10 @@ const Login = () => {
       // Handle errors
       console.log({error})
       console.error(error)
+      ReactGA.event({
+        category: "User",
+        action: "Log in fail",
+      });
       setRegError(true)
     }
   }
@@ -62,7 +66,10 @@ const Login = () => {
     try {
       await signInWithRedirect(auth, provider)
       // No need to push to '/App' here
-
+      ReactGA.event({
+        category: "User",
+        action: "Logged in google",
+      });
       // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
       console.error('Error signing in with Google:', error)
@@ -85,7 +92,7 @@ const Login = () => {
       if (user) {
           ReactGA.event({
             category: "User",
-            action: "Logged in",
+            action: "Logged in apple",
           });
         router.push("/App");
       }
@@ -105,17 +112,9 @@ const Login = () => {
         const user = result?.user
         setUser(user)
         if (user) {
-          ReactGA.event({
-            category: "User",
-            action: "Logged in",
-          });
           router.push('/App')
         }
       } catch (error) {
-        ReactGA.event({
-          category: "User",
-          action: "Login fail google",
-        });
         setGoogleError(error)
       }
     }
