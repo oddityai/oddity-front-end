@@ -127,10 +127,6 @@ async function updateUserProfile() {
           if (userData) {
             setProfileData(userData);
             ReactGA.set({ userId: userData?.nickname }); 
-            ReactGA.event({
-              category: "User",
-              action: "Logged in",
-            });
           } else {
             if (sessionStorage.getItem('profileStatus1') === user?.sid) {
               return

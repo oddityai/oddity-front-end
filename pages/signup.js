@@ -34,7 +34,10 @@ const Signup = () => {
         displayName: name,
       })
       // User signed up successfully
-      console.log('User signed up')
+      ReactGA.event({
+        category: "User",
+        action: "Signed up",
+      });  
       router.push('/App')
       // Redirect to protected page
     } catch (error) {
@@ -56,6 +59,10 @@ const Signup = () => {
       const user = result.user
       console.log('User signed in successfully:', user)
       if (user) {
+        ReactGA.event({
+          category: "User",
+          action: "Signed up",
+        }); 
         router.push('/App')
       }
       // Update UI based on the signed-in user
@@ -71,8 +78,11 @@ const Signup = () => {
       const credential = OAuthProvider.credentialFromResult(result)
       const accessToken = credential.accessToken
       const idToken = credential.idToken
-      console.log('User signed in successfully:', user)
-      router.push("/App");
+    ReactGA.event({
+      category: "User",
+      action: "Signed up",
+    }); 
+     router.push("/App");
 
       // Update UI based on the signed-in user
     } catch (error) {

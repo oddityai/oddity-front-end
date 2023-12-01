@@ -31,7 +31,10 @@ const Login = () => {
     try {
       await auth.signInWithEmailAndPassword(email, password)
       // User logged in successfully
-      console.log('User logged in')
+      ReactGA.event({
+        category: "User",
+        action: "Logged in",
+      });
       router.push('/App')
 
       // Redirect to protected page
@@ -75,6 +78,10 @@ const Login = () => {
       const accessToken = credential.accessToken
       const idToken = credential.idToken
       if (user) {
+          ReactGA.event({
+            category: "User",
+            action: "Logged in",
+          });
         router.push("/App");
       }
       // Update UI based on the signed-in user
@@ -89,6 +96,10 @@ const Login = () => {
         const user = result?.user
         setUser(user)
         if (user) {
+          ReactGA.event({
+            category: "User",
+            action: "Logged in",
+          });
           router.push('/App')
         }
       } catch (error) {
