@@ -43,6 +43,10 @@ const Signup = () => {
       // Redirect to protected page
     } catch (error) {
       // Handle errors
+      ReactGA.event({
+        category: "User",
+        action: "Signup failed email",
+      });
       if (
         error.message ===
         "Firebase: The email address is already in use by another account. (auth/email-already-in-use)."
@@ -58,7 +62,6 @@ const Signup = () => {
     try {
       const result = await signInWithPopup(auth, provider)
       const user = result.user
-      console.log('User signed in successfully:', user)
       if (user) {
         ReactGA.event({
           category: "User",
@@ -68,6 +71,10 @@ const Signup = () => {
       }
       // Update UI based on the signed-in user
     } catch (error) {
+      ReactGA.event({
+        category: "User",
+        action: "Signup failed google",
+      });
       console.error('Error signing in with Google:', error)
     }
   }
@@ -87,11 +94,10 @@ const Signup = () => {
 
       // Update UI based on the signed-in user
     } catch (error) {
-      console.error('Error signing in with Apple:', error)
-      console.log('Error code:', error.code)
-      console.log('Error message:', error.message)
-      console.log('Error email:', error.email)
-      console.log('Error credential:', OAuthProvider.credentialFromError(error))
+      ReactGA.event({
+        category: "User",
+        action: "Signup failed apple",
+      });
     }
   }
 

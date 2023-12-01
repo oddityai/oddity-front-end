@@ -65,6 +65,10 @@ const Login = () => {
       // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
       console.error('Error signing in with Google:', error)
+      ReactGA.event({
+        category: "User",
+        action: "Login fail email",
+      });
       setGoogleError(error)
     }
   }
@@ -86,6 +90,10 @@ const Login = () => {
       }
       // Update UI based on the signed-in user
     } catch (error) {
+      ReactGA.event({
+        category: "User",
+        action: "Login fail apple",
+      });
     }
   }
 
@@ -103,7 +111,10 @@ const Login = () => {
           router.push('/App')
         }
       } catch (error) {
-        console.error('Error handling redirect result:', error)
+        ReactGA.event({
+          category: "User",
+          action: "Login fail google",
+        });
         setGoogleError(error)
       }
     }
