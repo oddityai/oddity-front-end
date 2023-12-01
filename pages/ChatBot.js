@@ -65,10 +65,8 @@ const ChatBot = ({
   const generateFirebaseUrl = async () => {
     setStep(0)
     setError('')
-    console.log(1)
     const path = `/images/${file.file.name}`
     const ref = storage.ref(path)
-    console.log(2)
     setIsModalOpen(true)
     setIsProcessing(true)
     await ref.put(file.file)
@@ -86,9 +84,7 @@ const ChatBot = ({
         return res.json()
       })
       .then(async (res) => {
-        console.log({ res })
         const input = res.description
-        console.log(input)
         setInput(input)
         setStep(2)
         try {
@@ -125,7 +121,6 @@ const ChatBot = ({
           //       new Error(`Request failed with status ${response.status}`)
           //     );
           //   }
-          console.log(`DATA: ${data.result}`)
           const result =
             // JSON.stringify(
             //   `[${data.result.split('[')[0].split(']')[0]}]`
@@ -136,8 +131,6 @@ const ChatBot = ({
 
           setStep(3)
           setRawText(data.result)
-          console.log(3)
-          console.log(result)
           const apiCalls = result?.map((endpoint) => {
             return new Promise((resolve, reject) => {
               fetch('/api/generate', {
@@ -159,8 +152,6 @@ const ChatBot = ({
 
           Promise.all(apiCalls)
             .then((results) => {
-              console.log({ results })
-              console.log(`Length of results: ${results.length}`)
               useCredit(results.length)
               setStep(4)
               setResults(results)
@@ -175,7 +166,6 @@ const ChatBot = ({
             category: "User",
             action: "Uploaded image",
           });
-          console.log({ result })
         } catch (error) {
           ReactGA.event({
             category: "User",
@@ -262,7 +252,6 @@ const ChatBot = ({
     try {
       var successful = document.execCommand('copy')
       var msg = successful ? 'successful' : 'unsuccessful'
-      console.log('Fallback: Copying text command was ' + msg)
     } catch (err) {
       console.error('Fallback: Oops, unable to copy', err)
     }
@@ -351,7 +340,6 @@ const ChatBot = ({
                 {TYPES[subject]}
               </p>
 
-              {console.log(profileData?.referralCode)}
             </div>
           </div>
           {Boolean(answers?.length) && (

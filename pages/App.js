@@ -64,12 +64,10 @@ export default function Home() {
         )
         .get()
 
-      console.log('Snapshot size:', querySnapshot.size)
 
       if (querySnapshot.size > 1) {
         // Update the user's profile if there are multiple profiles with the same IP
 
-        console.log('Updating user profile...')
         const usersRef = db
           .collection('profiles')
           .where('email', '==', user.email)
@@ -86,7 +84,6 @@ export default function Home() {
           })
         })
 
-        console.log('User profile updated successfully.')
         router.push('/')
       } else {
         console.log('No action taken: Single profile found with the IP.')
@@ -97,6 +94,7 @@ export default function Home() {
   }
   useEffect(() => {
     if (user?.nickname && !isLoading) {
+      console.log("REGISTER")
       db.collection('profiles')
         .where('username', '==', user?.nickname)
         .onSnapshot((snapshot) => {
@@ -139,7 +137,6 @@ export default function Home() {
             }
             db.collection('profiles').add(newUser)
             setProfileData(newUser)
-            console.log(profileData.id)
             updateUserProfile()
             sessionStorage.setItem('profileStatus1', user?.sid)
           }
@@ -148,8 +145,6 @@ export default function Home() {
   }, [user, isLoading])
 
   useEffect(() => {
-    console.log("SUCCESS")
-    console.log({router})
     if (router.query.success === "true" && profileData.id) {
       const usersRef = db.collection("profiles");
       const userRef = usersRef.doc(profileData.id);
@@ -162,7 +157,6 @@ export default function Home() {
           },
           { merge: true }
         );
-        console.log("Credits successfully added (2000)");
         router.push("/App");
       } catch (error) {
         console.error(`Error adding credits: ${error}`);
@@ -179,7 +173,6 @@ export default function Home() {
           },
           { merge: true }
         );
-        console.log("Credits successfully added (5500)");
         router.push("/App");
       } catch (error) {
         console.error(`Error adding credits: ${error}`);
@@ -187,7 +180,6 @@ export default function Home() {
     } else if (router.query.success === "true4" && profileData.id) {
       const usersRef = db.collection("profiles");
       const userRef = usersRef.doc(profileData.id);
-      console.log("HERE")
       try {
         router.push("/App");
       } catch (error) {
@@ -210,7 +202,6 @@ export default function Home() {
     //   }
     // }
   }, [router.query.success, profileData.id])
-  console.log(profileData)
   // useEffect(() => {
   //   if (window.location.href.includes('localhost')) {
   //     if (user?.nickname && !isLoading) {
@@ -300,7 +291,6 @@ export default function Home() {
 
         let data = await response.json()
         // let data2 = await response2.json();
-        // console.log(data2.result.explanation);
         if (response.status !== 200) {
           throw (
             data.error ||
@@ -344,14 +334,12 @@ export default function Home() {
         setIsLoadingScreen(false)
         const userCopy = profileData.chatHistory.slice()
         userCopy.unshift(res)
-        console.log('SAVING', userCopy)
         db.collection("profiles").doc(profileData?.id).update(
           {
             chatHistory: userCopy,
           },
           { merge: true }
         );
-        console.log('end save', profileData?.id)
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
       } catch (error) {
@@ -526,7 +514,9 @@ export default function Home() {
     if (window.location.href.includes('oddityai')) {
       Hotjar.init(3307089, 6)
 
-      ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY)
+      if (!window.location.href.includes("local")) {
+        ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
+      }
       window.sessionStorage.setItem('hotjar', 'true')
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
