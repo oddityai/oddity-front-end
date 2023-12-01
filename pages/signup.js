@@ -45,7 +45,7 @@ const Signup = () => {
       // Handle errors
       ReactGA.event({
         category: "User",
-        action: "Signup failed email",
+        action: `Signup failed email ${error}`
       });
       if (
         error.message ===
@@ -73,7 +73,7 @@ const Signup = () => {
     } catch (error) {
       ReactGA.event({
         category: "User",
-        action: "Signup failed google",
+        action: `Signup failed google ${error}`,
       });
       console.error('Error signing in with Google:', error)
     }
@@ -96,7 +96,7 @@ const Signup = () => {
     } catch (error) {
       ReactGA.event({
         category: "User",
-        action: "Signup failed apple",
+        action: `Signup failed apple ${error}`,
       });
     }
   }
