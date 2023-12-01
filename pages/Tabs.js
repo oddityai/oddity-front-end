@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
+import ReactGA from "react-ga4";
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -190,11 +191,19 @@ export default function BasicTabs({
       // Check if referralCode is already used
       if (codesArray.includes(referralCode)) {
         console.log('Code used already!')
+        ReactGA.event({
+          category: "User",
+          action: "Used existing referral code",
+        });
       } else {
         try {
           // Adding credits to the logged-in user and updating usedCodesarray
           await addCreditsAndCodesToUser(loggedInUserId, creditsToAdd)
           console.log(`Added ${creditsToAdd} credits to user ${loggedInUserId}`)
+          ReactGA.event({
+            category: "User",
+            action: "Successfully used referral code",
+          });
         } catch (error) {
           console.error('Error adding credits to logged-in user:', error)
         }

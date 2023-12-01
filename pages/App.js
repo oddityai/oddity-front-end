@@ -104,12 +104,21 @@ export default function Home() {
             return { ...doc.data(), ...{ id: doc.id } }
           })[0]
           if (userData) {
-            setProfileData(userData)
+            setProfileData(userData);
+            ReactGA.set({ userId: userData?.nickname }); 
+            ReactGA.event({
+              category: "User",
+              action: "Logged in",
+            });
           } else {
             if (sessionStorage.getItem('profileStatus1') === user?.sid) {
               return
             }
-
+            ReactGA.set({ userId: userData?.nickname }); 
+            ReactGA.event({
+              category: "User",
+              action: "Created account",
+            });
             const firstRef = user?.nickname.slice(0, 3).toUpperCase()
             const secondRef = Math.floor(1000 + Math.random() * 9000)
             const refCode = `${firstRef}-${secondRef}`
@@ -119,7 +128,7 @@ export default function Home() {
               email: user?.email,
               id: user?.sub.split('|')[1],
               name: user?.name,
-              credits: 5,
+              credits: 20,
               subscribed: false,
               subscriptionId: '',
               dateOfSub: '',
@@ -232,6 +241,10 @@ export default function Home() {
   // }, [user])
 
   const handleClick = (subject) => {
+    ReactGA.event({
+      category: "User",
+      action: `Opened ${subject} bot`,
+    });
     if (profileData.credits > 0 || profileData?.subscribed) {
       setIsModalOpen(true)
       setSubject(subject)
@@ -311,6 +324,10 @@ export default function Home() {
         // }
 
         setResult(data.result)
+        ReactGA.event({
+          category: "User",
+          action: "Asked a question",
+        });
         const res = {
           result: data.result,
           input: input,
@@ -338,6 +355,10 @@ export default function Home() {
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
       } catch (error) {
+        ReactGA.event({
+          category: "User",
+          action: "Question failed",
+        });
         if (!tries && tries < 1) {
           onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
           return
@@ -345,6 +366,7 @@ export default function Home() {
         // Consider implementing your own error handling logic here
         if (tries > 1) {
           setIsLoadingScreen(false)
+          
           setResult('')
           setError(
             'The response is too large to send. Can you try asking a slightly more specific question?' +

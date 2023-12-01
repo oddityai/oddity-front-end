@@ -7,6 +7,7 @@ import 'firebase/compat/storage'
 import React, { useEffect, useRef, useState } from 'react'
 import { firebaseApp } from '../firebase'
 import ChatBubble from './ChatBubble'
+import ReactGA from "react-ga4";
 
 import Alert from '@mui/material/Alert'
 import { Nunito } from '@next/font/google'
@@ -170,8 +171,16 @@ const ChatBot = ({
             })
 
           setIsProcessing(false)
+          ReactGA.event({
+            category: "User",
+            action: "Uploaded image",
+          });
           console.log({ result })
         } catch (error) {
+          ReactGA.event({
+            category: "User",
+            action: "Image upload failed",
+          });
           setIsProcessing(false)
           alert(
             'Image either unlcear or too large. Please make sure you use a high quality image. Also note, our bots can not read graphs quite yet!'
