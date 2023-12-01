@@ -12,6 +12,7 @@ export default async function (req, res) {
   try {
     const prompt = `${animal}`;
     history.push({role: 'user', content: prompt})
+    history.push({role: 'system', content: 'You are a helpful homework bot meant to help with homework. Your name is OddityAI and you were made by the OddityAI team if anyone asks.'})
   const completion = await openai.chat.completions.create({
     messages: history,
     model: "gpt-3.5-turbo-1106",
