@@ -12,10 +12,11 @@ import {
 import Image from 'next/image'
 import AppBar from './AppBar'
 import GoogleIcon from '@mui/icons-material/Google'
-import { Nunito } from "@next/font/google";
-import ReactGA from "react-ga4";
+import AppleIcon from '@mui/icons-material/Apple'
+import { Nunito } from '@next/font/google'
+import ReactGA from 'react-ga4'
 
-const nunito = Nunito({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ['latin'] })
 const Login = () => {
   const router = useRouter()
   const [user, setUser] = useState(null)
@@ -25,6 +26,7 @@ const Login = () => {
   const [googleError, setGoogleError] = useState('')
   const [hideReset, setHideReset] = useState(true)
   const [passReset, setPassReset] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -33,20 +35,20 @@ const Login = () => {
       await auth.signInWithEmailAndPassword(email, password)
       // User logged in successfully
       ReactGA.event({
-        category: "User",
-        action: "Logged in email",
-      });
+        category: 'User',
+        action: 'Logged in email',
+      })
       router.push('/App')
 
       // Redirect to protected page
     } catch (error) {
       // Handle errors
-      console.log({error})
+      console.log({ error })
       console.error(error)
       ReactGA.event({
-        category: "User",
-        action: "Log in fail",
-      });
+        category: 'User',
+        action: 'Log in fail',
+      })
       setRegError(true)
     }
   }
@@ -66,17 +68,21 @@ const Login = () => {
     try {
       await signInWithRedirect(auth, provider)
       // No need to push to '/App' here
-      ReactGA.event({
-        category: "User",
-        action: "Logged in google",
-      });
+      if (user) {
+        setIsLoading(true)
+        ReactGA.event({
+          category: 'User',
+          action: 'Logged in google',
+        })
+      }
+
       // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
       console.error('Error signing in with Google:', error)
       ReactGA.event({
-        category: "User",
-        action: "Login fail email",
-      });
+        category: 'User',
+        action: 'Login fail email',
+      })
       setGoogleError(error)
     }
   }
@@ -90,18 +96,18 @@ const Login = () => {
       const accessToken = credential.accessToken
       const idToken = credential.idToken
       if (user) {
-          ReactGA.event({
-            category: "User",
-            action: "Logged in apple",
-          });
-        router.push("/App");
+        ReactGA.event({
+          category: 'User',
+          action: 'Logged in apple',
+        })
+        router.push('/App')
       }
       // Update UI based on the signed-in user
     } catch (error) {
       ReactGA.event({
-        category: "User",
-        action: "Login fail apple",
-      });
+        category: 'User',
+        action: 'Login fail apple',
+      })
     }
   }
 
@@ -124,178 +130,185 @@ const Login = () => {
   return (
     <div
       className={nunito.className}
-      style={{ width: "100vw", height: "100vh" }}
+      style={{ width: '100vw', height: '100vh' }}
     >
       <AppBar />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          paddingTop: 20,
-          alignItems: "center",
-          minHeight: "100vh",
-          backgroundColor: "#f2f2f2",
-        }}
-      >
+      {!isLoading && (
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            width: "350px",
-            padding: "15px",
-            border: "1px solid gray",
-            borderRadius: ".25rem",
-            boxShadow: "1px 1px 4px gray",
-            backgroundColor: "white",
+            display: 'flex',
+            flexDirection: 'column',
+            paddingTop: 20,
+            alignItems: 'center',
+            minHeight: '100vh',
+            backgroundColor: '#f2f2f2',
           }}
         >
-          <Image src="/logo.png" height={50} width={50} alt="Logo" />
-          <h1>Login</h1>
-          <form
-            onSubmit={handleSubmit}
-            style={{ display: "flex", flexDirection: "column" }}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '350px',
+              padding: '15px',
+              border: '1px solid gray',
+              borderRadius: '.25rem',
+              boxShadow: '1px 1px 4px gray',
+              backgroundColor: 'white',
+            }}
           >
-            <label htmlFor="email" style={{ marginBottom: "5px" }}>
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{
-                marginBottom: "15px",
-                padding: "10px",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
-            />
-
-            <label htmlFor="password" style={{ marginBottom: "5px" }}>
-              Password:
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={{
-                marginBottom: "15px",
-                padding: "10px",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-              }}
-            />
-
-            <button
-              type="submit"
-              style={{
-                padding: "10px",
-                borderRadius: "4px",
-                border: "1px solid #ccc",
-                cursor: "pointer",
-                marginTop: "15px",
-              }}
+            <Image src='/logo.png' height={50} width={50} alt='Logo' />
+            <h1>Login</h1>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: 'flex', flexDirection: 'column' }}
             >
-              Login
-            </button>
-          </form>
-
-          <button
-            onClick={handleGoogleSignIn}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#4285f4",
-              color: "white",
-              padding: "10px",
-              lineHeight: "1.5",
-              border: "none",
-              borderRadius: "4px",
-              height: 35,
-              marginTop: "15px",
-              cursor: "pointer",
-            }}
-          >
-            <GoogleIcon style={{ marginRight: "10px" }} />
-            Login with Google
-          </button>
-
-          <button
-            onClick={handleAppleSignIn}
-            style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
-              borderRadius: "4px",
-              border: "none",
-              height: 35,
-              marginTop: "15px",
-              cursor: "pointer",
-            }}
-          >
-            Login with Apple
-          </button>
-
-          {regError && (
-            <p style={{ color: "red", margin: "25px" }}>Wrong email or password.</p>
-          )}
-
-          {!passReset ? (
-            <div>
-              <p
-                style={{ color: "red", cursor: "pointer" }}
-                onClick={() => setHideReset(false)}
-              >
-                Forgot Password?
-              </p>
-              <form
-                onSubmit={handleResetPassword}
+              <label htmlFor='email' style={{ marginBottom: '5px' }}>
+                Email:
+              </label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 style={{
-                  display: hideReset ? "none" : "flex",
-                  flexDirection: "column",
+                  marginBottom: '15px',
+                  padding: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                }}
+              />
+
+              <label htmlFor='password' style={{ marginBottom: '5px' }}>
+                Password:
+              </label>
+              <input
+                type='password'
+                id='password'
+                name='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={{
+                  marginBottom: '15px',
+                  padding: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                }}
+              />
+
+              <button
+                type='submit'
+                style={{
+                  padding: '10px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                  cursor: 'pointer',
+                  marginTop: '15px',
                 }}
               >
-                <label>Email Address:</label>
-                <input
-                  type="email"
-                  style={{
-                    marginBottom: "15px",
-                    padding: "10px",
-                    borderRadius: "4px",
-                    border: "1px solid #ccc",
-                  }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-                <button
-                  style={{
-                    padding: "10px",
-                    borderRadius: "4px",
-                    border: "1px solid #ccc",
-                    cursor: "pointer",
-                  }}
-                  type="submit"
+                Login
+              </button>
+            </form>
+
+            <button
+              onClick={handleGoogleSignIn}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#4285f4',
+                color: 'white',
+                padding: '10px',
+                lineHeight: '1.5',
+                border: 'none',
+                borderRadius: '4px',
+                height: 35,
+                marginTop: '15px',
+                cursor: 'pointer',
+              }}
+            >
+              <GoogleIcon style={{ marginRight: '10px' }} />
+              Login with Google
+            </button>
+
+            <button
+              onClick={handleAppleSignIn}
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: 'white',
+                backgroundColor: 'black',
+                borderRadius: '4px',
+                border: 'none',
+                height: 35,
+                marginTop: '15px',
+                cursor: 'pointer',
+              }}
+            >
+              <AppleIcon style={{ marginRight: '10px' }} />
+              Login with Apple
+            </button>
+
+            {regError && (
+              <p style={{ color: 'red', margin: '25px' }}>
+                Wrong email or password.
+              </p>
+            )}
+
+            {!passReset ? (
+              <div>
+                <p
+                  style={{ color: 'red', cursor: 'pointer' }}
+                  onClick={() => setHideReset(false)}
                 >
-                  Reset Password
-                </button>
-              </form>
-            </div>
-          ) : (
-            <p style={{ color: "red", margin: "25px" }}>
-              Password reset email sent successfully!
-            </p>
-          )}
+                  Forgot Password?
+                </p>
+                <form
+                  onSubmit={handleResetPassword}
+                  style={{
+                    display: hideReset ? 'none' : 'flex',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <label>Email Address:</label>
+                  <input
+                    type='email'
+                    style={{
+                      marginBottom: '15px',
+                      padding: '10px',
+                      borderRadius: '4px',
+                      border: '1px solid #ccc',
+                    }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <button
+                    style={{
+                      padding: '10px',
+                      borderRadius: '4px',
+                      border: '1px solid #ccc',
+                      cursor: 'pointer',
+                    }}
+                    type='submit'
+                  >
+                    Reset Password
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <p style={{ color: 'red', margin: '25px' }}>
+                Password reset email sent successfully!
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
-  );
+  )
 }
 
 export default Login
