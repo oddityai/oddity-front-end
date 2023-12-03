@@ -9,12 +9,16 @@ export default async function handler(req, res) {
   const userId = req.query.user_id;
   if (req.method === "POST") {
     try {
+      ReactGA.event({
+        category: "User",
+        action: "User subscribed for $4.99",
+      });
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1Ny9dADeCpRNgE7ADQNEHPBZ",
+            price: "price_1OJKDpDeCpRNgE7AHGxN9Av9",
             quantity: 1,
           },
         ],
@@ -26,10 +30,7 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/App?canceled=true`,
         automatic_tax: { enabled: true },
       });
-      ReactGA.event({
-        category: "User",
-        action: "User subscribed for $9.99",
-      });
+
       res.redirect(303, session.url);
     } catch (err) {
       ReactGA.event({
