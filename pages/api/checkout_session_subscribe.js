@@ -5,6 +5,7 @@ const stripe = require("stripe")(
 );
 
 export default async function handler(req, res) {
+  ReactGA.initialize("G-EYH3FLZ9FN");
   const userId = req.query.user_id;
   if (req.method === "POST") {
     try {
