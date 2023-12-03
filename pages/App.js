@@ -46,11 +46,12 @@ const TYPES = {
 
 export default function Home() {
   const [animalInput, setAnimalInput] = useState('')
-  const [result, setResult] = useState()
+  const [result, setResult] = useState('')
   const [answers, setAnswers] = useState([])
   const [messageHistory, setMessageHistory] = useState([])
   const [isLoadingScreen, setIsLoadingScreen] = useState(false)
   const [error, setError] = useState('')
+  const [ws, setWs] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -267,6 +268,53 @@ async function updateUserProfile() {
     setSubject(subject)
   }
 
+    useEffect(() => {
+      const socket = new WebSocket(
+        "wss://oddityai-api-04782150cdc6.herokuapp.com/"
+      );
+      setWs(socket);
+
+      socket.onopen = () => console.log("WebSocket Connected");
+socket.onmessage = (event) => {
+  setResult((prev) => {
+
+    // Retrieve the latest profile data from Firestore
+    db.collection("profiles")
+      .doc(profileData?.id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const latestProfileData = doc.data();
+          const updatedChatHistory = latestProfileData.chatHistory
+            ? [...latestProfileData.chatHistory]
+            : [];
+
+          // Update the first element's result with new data
+          if (updatedChatHistory.length > 0) {
+            updatedChatHistory[0].result = prev + event.data;
+          }
+
+          // Update Firestore with the new chat history
+          db.collection("profiles").doc(profileData?.id).update({
+            chatHistory: updatedChatHistory,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching latest data: ", error);
+      });
+
+    // Return the updated result
+    return prev + event.data;
+  });
+};
+
+      socket.onerror = (error) => console.error("WebSocket Error:", error);
+      socket.onclose = () => console.log("WebSocket Disconnected");
+
+      return () => socket.close();
+    }, []);
+
   const useCredit = (amount) => {
     const usersRef = db.collection('profiles')
     const userRef = usersRef.doc(profileData.id)
@@ -287,66 +335,31 @@ async function updateUserProfile() {
       }
       setIsLoadingScreen(true)
       try {
-        const response = await fetch("/api/generate", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            animal: `${TYPES[subject]}: "${input}"`,
-            history: messageHistory,
-          }),
-        });
-        // const response2 = await fetch("/api/generate", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify({
-        //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
-        //   }),
-        // });
-
-        let data = await response.json()
-        // let data2 = await response2.json();
-        if (response.status !== 200) {
-          throw (
-            data.error ||
-            new Error(`Request failed with status ${response.status}`)
-          )
-        } else {
           if (
-            subject !== 'feedback' &&
-            subject !== 'chat' &&
-            subject !== 'joke' &&
-            subject !== 'reply'
+            subject !== "feedback" &&
+            subject !== "chat" &&
+            subject !== "joke" &&
+            subject !== "reply"
           ) {
-            !profileData?.subscribed && useCredit()
+            !profileData?.subscribed && useCredit();
           }
-        }
-        // if (response2.status !== 200) {
-        //   throw (
-        //     data.error ||
-        //     new Error(`Request failed with status ${response.status}`)
-        //   );
-        // }
 
-        setResult(data.result)
         ReactGA.event({
           category: "User",
           action: "Asked a question",
         });
         const res = {
-          result: data.result,
+          result:  "",
           input: input,
           // url: url,
           type: subject,
           // explanation: JSON.parse(data2.result).explanation,
         }
+
         const question = {
-          content: data.result,
-          role: 'assistant'
-        }
+          content:  "",
+          role: "assistant",
+        };
         const resp = {
           content: animalInput,
           role: "user",
@@ -354,26 +367,37 @@ async function updateUserProfile() {
         const answersCopy = answers.slice()
         answersCopy.push(res)
 
+        if (answersCopy.length > 1) {
+         answersCopy[answers.length - 1].result = result;
+        }
+
         const messageHistoryUpdate = messageHistory.slice();
 
         messageHistoryUpdate.push(resp);
         messageHistoryUpdate.push(question);
+
         setMessageHistory(messageHistoryUpdate)
 
+        const userCopy = profileData.chatHistory.slice();
+        userCopy.unshift(res);
+        const docRef = db.collection("profiles").doc(profileData?.id);
+
+        docRef
+          .update({ chatHistory: userCopy }, { merge: true })
+          .then(() => {
+            console.log("Document successfully updated!");
+          })
+          .catch((error) => {
+            console.error("Error updating document: ", error);
+          });
+
+        ws.send(JSON.stringify({ animal: animalInput, history: messageHistoryUpdate }));
         setAnswers(answersCopy)
         setAnimalInput('')
         setResult('')
         setError('')
         setIsLoadingScreen(false)
-        const userCopy = profileData.chatHistory.slice()
-        userCopy.unshift(res)
-        db.collection('profiles').doc(profileData?.id).update(
-          {
-            chatHistory: userCopy,
-          },
-          { merge: true }
-        )
-        console.log('end save', profileData?.id)
+
         Hotjar.event('SUCCESS - User succeeded to submit request.')
         // setAnimalInput("");
       } catch (error) {
@@ -589,38 +613,38 @@ async function updateUserProfile() {
     textAlign: 'center',
   }
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar profileData={profileData} setValue={setValue} value={value} />
       <Head>
         <title>AI Homework Helper | Homework AI</title>
         <meta
-          name='description'
-          content='Homework AI Is the AI That Does Homework. If You
+          name="description"
+          content="Homework AI Is the AI That Does Homework. If You
 Are a Student Who Needs Homework Solutions This AI Homework Helper
 Is for You. Give This AI Homework App a Try, It’ll Solve & Write Your
-Homework'
+Homework"
         />
-        <link rel='shortcut icon' href='/favicon.ico' />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta
-          name='keywords'
-          content='student homework app ai, ai that does homework, ai doing
+          name="keywords"
+          content="student homework app ai, ai that does homework, ai doing
 homework, ai homework writer, homework helper ai, homework ai, ai
 homework solver, ai for homework, ai  homework, ai homework solutions, ai
-homework helper'
-        />{' '}
-      </Head>{' '}
+homework helper"
+        />{" "}
+      </Head>{" "}
       <div>
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography id='modal-modal-title' variant='h6' component='h2'>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
               You need a subscription to continue!
             </Typography>
-            <Typography id='modal-modal-description' sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Get a monthly subscription to OddityAI! <br />
               at only $9.99/month!
             </Typography>
@@ -628,34 +652,34 @@ homework helper'
         </Modal>
         <div
           style={{
-            textAlign: 'center',
-            padding: '20px 20px',
-            color: '#232A31',
+            textAlign: "center",
+            padding: "20px 20px",
+            color: "#232A31",
             fontFamily: "'ColfaxAI', sans-serif",
           }}
-          id='exportthis'
+          id="exportthis"
         >
           <Dialog
             onClose={() => {
-              setIsModalOpen(false)
-              setAnswers([])
+              setIsModalOpen(false);
+              setAnswers([]);
             }}
-            style={{ width: '100%', height: '100%' }}
+            style={{ width: "100%", height: "100%" }}
             open={isModalOpen}
           >
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <CloseIcon
                 onClick={() => {
-                  setIsModalOpen(false)
-                  setAnswers([])
+                  setIsModalOpen(false);
+                  setAnswers([]);
                 }}
               />
             </div>
             <div
-              className='container'
+              className="container"
               style={{
-                textAlign: 'left',
-                margin: 'auto',
+                textAlign: "left",
+                margin: "auto",
                 maxWidth: 500,
                 padding: 8,
               }}
@@ -664,17 +688,18 @@ homework helper'
                 style={{
                   fontSize: 20,
                   fontWeight: 600,
-                  color: 'rgba(0, 0, 0, 0.87)',
+                  color: "rgba(0, 0, 0, 0.87)",
                   fontFamily: "'ColfaxAI', sans-serif",
                   marginTop: 15,
                 }}
-                id='form-title'
+                id="form-title"
               >
                 {`OddityAI ${subject} AI`}
               </p>
               <ChatBot
                 setAnimalInput={setAnimalInput}
                 onSubmit={onSubmit}
+                streamedResult={result}
                 handleChange={handleChange}
                 isLoading={isLoadingScreen}
                 animalInput={animalInput}
@@ -700,12 +725,12 @@ homework helper'
       </div>
       <div
         style={{
-          textAlign: 'center',
+          textAlign: "center",
         }}
       >
         <br />
         <br />
       </div>
     </div>
-  )
+  );
 }
