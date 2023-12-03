@@ -227,7 +227,7 @@ const ChatBot = ({
   const TYPES = {
     math: `Hi${
       user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am specially designed to answer math questions. I'm in beta but I will try my best. My other AIs work better.`,
+    }! I am specially designed to answer math questions.`,
     history: `Hi${
       user?.given_name ? ` ${user?.given_name}` : ""
     }! I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,

@@ -154,10 +154,9 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI (beta)</p>
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI</p>
               <p style={{ fontSize: 12, color: 'gray' }}>
-                This AI will try its best to answer math questions. Sometimes a
-                calculator is better.
+                This AI is capable of simple and advanced mathematics.
               </p>
               <Button
                 onClick={() => handleClick('math')}
