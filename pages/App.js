@@ -349,12 +349,13 @@ socket.onmessage = (event) => {
           action: "Asked a question",
         });
         const res = {
-          result:  "",
+          result: "",
           input: input,
+          time: new Date().toLocaleString(),
           // url: url,
           type: subject,
           // explanation: JSON.parse(data2.result).explanation,
-        }
+        };
 
         const question = {
           content:  "",
