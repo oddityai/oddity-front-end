@@ -268,8 +268,8 @@ export default function Home() {
 
   useEffect(() => {
     const socket = new WebSocket(
-      "ws://localhost:3001/"
-      // "wss://oddityai-api-04782150cdc6.herokuapp.com/"
+      // "ws://localhost:3001/"
+      "wss://oddityai-api-04782150cdc6.herokuapp.com/"
     );
     setWs(socket);
     let pingInterval;
