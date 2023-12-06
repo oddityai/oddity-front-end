@@ -11,14 +11,14 @@ export default async function handler(req, res) {
     try {
       ReactGA.event({
         category: "User",
-        action: "User subscribed for $4.99",
+        action: "User subscribed for $9.99",
       });
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1OJKDpDeCpRNgE7AHGxN9Av9",
+            price: "price_1Ny9dADeCpRNgE7ADQNEHPBZ",
             quantity: 1,
           },
         ],

@@ -647,7 +647,7 @@ homework helper"
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Get a monthly subscription to OddityAI! <br />
-              at only $4.99/month!
+              at only $9.99/month!
             </Typography>
           </Box>
         </Modal>
