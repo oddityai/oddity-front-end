@@ -8,7 +8,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import ReactGA from 'react-ga4'
-import Tesseract from 'tesseract.js'
 import { db } from '../firebase'
 import AppBar from './AppBar'
 import ChatBot from './ChatBot'
@@ -521,9 +520,7 @@ socket.onmessage = (event) => {
   const handleChange = async (url, type) => {
     setIsModalOpen(true)
     setIsLoadingScreen(true)
-    const { createWorker } = Tesseract
-
-    const worker = await createWorker()
+    
     await worker.loadLanguage('eng')
     await worker.initialize('eng')
 

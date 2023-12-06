@@ -1,64 +1,64 @@
-import Button from '@mui/material/Button'
-import { Nunito } from '@next/font/google'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import AppBar from './AppBar'
-import Hotjar from '@hotjar/browser'
-import Image from 'next/image'
-import { auth } from '../firebase'
-import ReactGA from 'react-ga4'
+import Button from "@mui/material/Button";
+import { Nunito } from "@next/font/google";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import AppBar from "./AppBar";
+import Hotjar from "@hotjar/browser";
+import Image from "next/image";
+import { auth } from "../firebase";
+import ReactGA from "react-ga4";
 
-const nunito = Nunito({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
   const getWindowSize = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Client-side-only code
-      const { innerWidth, innerHeight } = window
-      return { innerWidth, innerHeight }
+      const { innerWidth, innerHeight } = window;
+      return { innerWidth, innerHeight };
     }
-  }
+  };
 
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        setUser(authUser)
-        setIsLoading(false)
-        setError(null)
+        setUser(authUser);
+        setIsLoading(false);
+        setError(null);
       } else {
-        setUser(null)
-        setIsLoading(false)
-        setError('User is not logged in')
+        setUser(null);
+        setIsLoading(false);
+        setError("User is not logged in");
       }
-    })
+    });
 
-    return () => unsubscribe()
-  }, [])
+    return () => unsubscribe();
+  }, []);
 
-  const [windowSize, setWindowSize] = useState(getWindowSize())
+  const [windowSize, setWindowSize] = useState(getWindowSize());
   useEffect(() => {
     function handleWindowResize() {
-      setWindowSize(getWindowSize())
+      setWindowSize(getWindowSize());
     }
 
-    window.addEventListener('resize', handleWindowResize)
+    window.addEventListener("resize", handleWindowResize);
 
     return () => {
-      window.removeEventListener('resize', handleWindowResize)
-    }
-  }, [])
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
 
   useEffect(() => {
-    if (window.location.href.includes('oddityai')) {
-      Hotjar.init(3307089, 6)
+    if (window.location.href.includes("oddityai")) {
+      Hotjar.init(3307089, 6);
 
       if (!window.location.href.includes("local")) {
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       }
-      window.sessionStorage.setItem('hotjar', 'true')
+      window.sessionStorage.setItem("hotjar", "true");
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
       //   name: "James Morrison",
@@ -67,7 +67,7 @@ const Contact = () => {
       //   subscriptionType: "pro",
       // });
     }
-  }, [])
+  }, []);
   useEffect(() => {
     if (user?.nickname) {
       Hotjar.identify(user?.sid, {
@@ -75,9 +75,9 @@ const Contact = () => {
         username: user?.nickname,
         email: user?.email,
         picture: user?.picture,
-      })
+      });
     }
-  }, [isLoading, user])
+  }, [isLoading, user]);
 
   return (
     <div className={nunito.className}>
@@ -116,6 +116,7 @@ const Contact = () => {
             }}
           >
             <Image
+              loading="eager"
               alt="Homework solver bot with students"
               title="Homework solver bot with students"
               name="ai-homework-helper"
@@ -215,6 +216,7 @@ const Contact = () => {
               }}
             >
               <Image
+                loading="lazy"
                 alt="Homework AI bot solving homework"
                 title="Homework AI bot solving homework"
                 name="ai-for-homework"
@@ -404,6 +406,7 @@ const Contact = () => {
             }}
           >
             <Image
+              loading="lazy"
               alt="homework solver English example"
               title="homework solver English example"
               name="ai-homework-writer"
@@ -586,5 +589,5 @@ const Contact = () => {
       </div>
     </div>
   );
-}
-export default Contact
+};
+export default Contact;
