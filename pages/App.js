@@ -1,24 +1,24 @@
-import Hotjar from '@hotjar/browser'
-import CloseIcon from '@mui/icons-material/Close'
-import { Modal, Typography } from '@mui/material'
-import Dialog from '@mui/material/Dialog'
-import { Box } from '@mui/system'
-import { Nunito } from '@next/font/google'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import ReactGA from 'react-ga4'
-import { db } from '../firebase'
-import AppBar from './AppBar'
-import ChatBot from './ChatBot'
-import { auth } from '../firebase'
+import Hotjar from "@hotjar/browser";
+import CloseIcon from "@mui/icons-material/Close";
+import { Modal, Typography } from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import { Box } from "@mui/system";
+import { Nunito } from "@next/font/google";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import ReactGA from "react-ga4";
+import { db } from "../firebase";
+import AppBar from "./AppBar";
+import ChatBot from "./ChatBot";
+import { auth } from "../firebase";
 
-import Tabs from './Tabs'
+import Tabs from "./Tabs";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
-const nunito = Nunito({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ["latin"] });
 
-const test = []
+const test = [];
 
 const getFingerprint = async () => {
   const fp = await FingerprintJS.load();
@@ -26,14 +26,13 @@ const getFingerprint = async () => {
   return result.visitorId; // This is the unique fingerprint
 };
 
-
 const TYPES = {
-  math: 'Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :',
-  history: 'Answer this history question for me: ',
-  english: 'Answer this English question for me: ',
-  science: 'Answer this science question for me: ',
+  math: "Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :",
+  history: "Answer this history question for me: ",
+  english: "Answer this English question for me: ",
+  science: "Answer this science question for me: ",
   prompt:
-    'Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ',
+    "Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ",
   chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab then by asking the special bots the questions, and the fact that we offer an image upload function to read the questions from your page, but only mention this if such a question is asked:',
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
@@ -41,73 +40,73 @@ const TYPES = {
   reply:
     'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
   joke: 'Write a funny joke about the following prompt. It has to be very funny, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked related to english math science or history. : ',
-}
+};
 
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState('')
-  const [result, setResult] = useState('')
-  const [answers, setAnswers] = useState([])
-  const [messageHistory, setMessageHistory] = useState([])
-  const [isLoadingScreen, setIsLoadingScreen] = useState(false)
-  const [error, setError] = useState('')
-  const [ws, setWs] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+  const [animalInput, setAnimalInput] = useState("");
+  const [result, setResult] = useState("");
+  const [answers, setAnswers] = useState([]);
+  const [messageHistory, setMessageHistory] = useState([]);
+  const [isLoadingScreen, setIsLoadingScreen] = useState(false);
+  const [error, setError] = useState("");
+  const [ws, setWs] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
 
-  const [profileData, setProfileData] = useState({})
-  const [subject, setSubject] = useState('math')
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [profileData, setProfileData] = useState({});
+  const [subject, setSubject] = useState("math");
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         setUser(authUser._delegate);
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
-        setUser(null)
-        setIsLoading(false)
+        setUser(null);
+        setIsLoading(false);
       }
-    })
+    });
 
-    return () => unsubscribe()
-  }, [])
-  const router = useRouter()
+    return () => unsubscribe();
+  }, []);
+  const router = useRouter();
 
-async function updateUserProfile() {
-  try {
-    const fingerprint = await getFingerprint();
-    const profilesRef = db.collection("profiles");
+  async function updateUserProfile() {
+    try {
+      const fingerprint = await getFingerprint();
+      const profilesRef = db.collection("profiles");
 
-    // Query for profiles with the same IP
-    const querySnapshot = await profilesRef
-      .where("IP", "==", fingerprint)
-      .get();
+      // Query for profiles with the same IP
+      const querySnapshot = await profilesRef
+        .where("IP", "==", fingerprint)
+        .get();
 
-    if (querySnapshot.size > 1) {
-      // Update the user's profile if there are multiple profiles with the same IP
-      const usersRef = db
-        .collection("profiles")
-        .where("email", "==", user.email);
+      if (querySnapshot.size > 1) {
+        // Update the user's profile if there are multiple profiles with the same IP
+        const usersRef = db
+          .collection("profiles")
+          .where("email", "==", user.email);
 
-      const usersSnapshot = await usersRef.get();
-      usersSnapshot.forEach((doc) => {
-        doc.ref.update(
-          {
-            credits: 0,
-            duplicate: true,
-          },
-          { merge: true }
-        );
-      });
-    } else {
-      console.log("No action taken: Single profile found with the IP.");
+        const usersSnapshot = await usersRef.get();
+        usersSnapshot.forEach((doc) => {
+          doc.ref.update(
+            {
+              credits: 0,
+              duplicate: true,
+            },
+            { merge: true }
+          );
+        });
+      } else {
+        console.log("No action taken: Single profile found with the IP.");
+      }
+    } catch (error) {
+      console.error("Error updating user profile:", error);
     }
-  } catch (error) {
-    console.error("Error updating user profile:", error);
   }
-}
 
   // function generateRandomID() {
   //   let id = ''
@@ -118,23 +117,23 @@ async function updateUserProfile() {
   // }
   useEffect(() => {
     if (user && !isLoading) {
-      db.collection('profiles')
-        .where('email', '==', user.email)
+      db.collection("profiles")
+        .where("email", "==", user.email)
         .onSnapshot((snapshot) => {
           const userData = snapshot.docs.map((doc) => {
-            return { ...doc.data(), ...{ id: doc.id } }
-          })[0]
+            return { ...doc.data(), ...{ id: doc.id } };
+          })[0];
           if (userData) {
             setProfileData(userData);
-            ReactGA.set({ userId: userData?.nickname }); 
+            ReactGA.set({ userId: userData?.nickname });
           } else {
-            if (sessionStorage.getItem('profileStatus1') === user?.sid) {
-              return
+            if (sessionStorage.getItem("profileStatus1") === user?.sid) {
+              return;
             }
 
-            const firstRef = user.email.slice(0, 3).toUpperCase()
-            const secondRef = Math.floor(1000 + Math.random() * 9000)
-            const refCode = `${firstRef}-${secondRef}`
+            const firstRef = user.email.slice(0, 3).toUpperCase();
+            const secondRef = Math.floor(1000 + Math.random() * 9000);
+            const refCode = `${firstRef}-${secondRef}`;
 
             getFingerprint().then((fingerprint) => {
               const newUser = {
@@ -155,18 +154,18 @@ async function updateUserProfile() {
               db.collection("profiles").add(newUser);
               setProfileData(newUser);
               updateUserProfile();
-              sessionStorage.setItem("profileStatus1", user?.sid);            
+              sessionStorage.setItem("profileStatus1", user?.sid);
             });
           }
-        })
+        });
     }
-  }, [user, isLoading])
+  }, [user, isLoading]);
 
   useEffect(() => {
-    if (router.query.success === 'true' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 2000
+    if (router.query.success === "true" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
+      const creditsToAdd = 2000;
 
       try {
         userRef.update(
@@ -174,15 +173,15 @@ async function updateUserProfile() {
             credits: (profileData.credits || 0) + creditsToAdd,
           },
           { merge: true }
-        )
-        router.push('/App')
+        );
+        router.push("/App");
       } catch (error) {
-        console.error(`Error adding credits: ${error}`)
+        console.error(`Error adding credits: ${error}`);
       }
-    } else if (router.query.success === 'true2' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
-      const creditsToAdd = 5500
+    } else if (router.query.success === "true2" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
+      const creditsToAdd = 5500;
 
       try {
         userRef.update(
@@ -190,18 +189,18 @@ async function updateUserProfile() {
             credits: (profileData.credits || 0) + creditsToAdd,
           },
           { merge: true }
-        )
-        router.push('/App')
+        );
+        router.push("/App");
       } catch (error) {
-        console.error(`Error adding credits: ${error}`)
+        console.error(`Error adding credits: ${error}`);
       }
-    } else if (router.query.success === 'true4' && profileData.id) {
-      const usersRef = db.collection('profiles')
-      const userRef = usersRef.doc(profileData.id)
+    } else if (router.query.success === "true4" && profileData.id) {
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(profileData.id);
       try {
-        router.push('/App')
+        router.push("/App");
       } catch (error) {
-        console.error(`Error adding credits: ${error}`)
+        console.error(`Error adding credits: ${error}`);
       }
     }
     // else if (router.query.success === 'true3' && profileData.id) {
@@ -219,7 +218,7 @@ async function updateUserProfile() {
     //     console.error(`Error adding credits: ${error}`)
     //   }
     // }
-  }, [router.query.success, profileData.id])
+  }, [router.query.success, profileData.id]);
   // useEffect(() => {
   //   if (window.location.href.includes('localhost')) {
   //     if (user?.nickname && !isLoading) {
@@ -255,93 +254,105 @@ async function updateUserProfile() {
       action: `Opened ${subject} bot`,
     });
     if (profileData.credits > 0 || profileData?.subscribed) {
-      setIsModalOpen(true)
-      setSubject(subject)
+      setIsModalOpen(true);
+      setSubject(subject);
     } else {
       // alert('You must have credits to continue! Visit the "Credits" tab!')
-      handleOpen()
+      handleOpen();
     }
-  }
+  };
   const handleFeedback = (subject) => {
-    setIsModalOpen(true)
-    setSubject(subject)
-  }
+    setIsModalOpen(true);
+    setSubject(subject);
+  };
 
-    useEffect(() => {
-      const socket = new WebSocket(
-        "wss://oddityai-api-04782150cdc6.herokuapp.com/"
-      );
-      setWs(socket);
-
-      socket.onopen = () => console.log("WebSocket Connected");
-socket.onmessage = (event) => {
-  setResult((prev) => {
-
-    // Retrieve the latest profile data from Firestore
-    db.collection("profiles")
-      .doc(profileData?.id)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const latestProfileData = doc.data();
-          const updatedChatHistory = latestProfileData.chatHistory
-            ? [...latestProfileData.chatHistory]
-            : [];
-
-          // Update the first element's result with new data
-          if (updatedChatHistory.length > 0) {
-            updatedChatHistory[0].result = prev + event.data;
-          }
-
-          // Update Firestore with the new chat history
-          db.collection("profiles").doc(profileData?.id).update({
-            chatHistory: updatedChatHistory,
-          });
+  useEffect(() => {
+    const socket = new WebSocket(
+      "wss://oddityai-api-04782150cdc6.herokuapp.com/"
+    );
+    setWs(socket);
+    let pingInterval;
+    socket.onopen = () => {
+      console.log("WebSocket Connected");
+      pingInterval = setInterval(() => {
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.send(JSON.stringify({ type: "ping" }));
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching latest data: ", error);
+      }, 30000); // send ping every 30 seconds
+    };
+    socket.onmessage = (event) => {
+      setResult((prev) => {
+        // Retrieve the latest profile data from Firestore
+        db.collection("profiles")
+          .doc(profileData?.id)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              const latestProfileData = doc.data();
+              const updatedChatHistory = latestProfileData.chatHistory
+                ? [...latestProfileData.chatHistory]
+                : [];
+
+              // Update the first element's result with new data
+              if (updatedChatHistory.length > 0) {
+                updatedChatHistory[0].result = prev + event.data;
+              }
+
+              // Update Firestore with the new chat history
+              db.collection("profiles").doc(profileData?.id).update({
+                chatHistory: updatedChatHistory,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching latest data: ", error);
+          });
+
+        // Return the updated result
+        return prev + event.data;
       });
+    };
 
-    // Return the updated result
-    return prev + event.data;
-  });
-};
+    socket.onclose = () => {
+      console.log("WebSocket Disconnected");
+      clearInterval(pingInterval);
+    };
 
-      socket.onerror = (error) => console.error("WebSocket Error:", error);
-      socket.onclose = () => console.log("WebSocket Disconnected");
-
-      return () => socket.close();
-    }, []);
+    return () => {
+      socket.close();
+      clearInterval(pingInterval);
+    };
+    return () => socket.close();
+  }, []);
 
   const useCredit = (amount) => {
-    const usersRef = db.collection('profiles')
-    const userRef = usersRef.doc(profileData.id)
+    const usersRef = db.collection("profiles");
+    const userRef = usersRef.doc(profileData.id);
     if (profileData.credits >= 0 && !profileData?.subscribed) {
       userRef.update(
         {
           credits: profileData.credits - amount || profileData.credits - 1,
         },
         { merge: true }
-      )
+      );
     }
-  }
+  };
   async function onSubmit(event, value, url, tries) {
-    const input = value ? value : animalInput
+    const input = value ? value : animalInput;
     if (profileData.credits > 0 || profileData?.subscribed) {
       if (event) {
-        event.preventDefault()
+        event.preventDefault();
       }
-      setIsLoadingScreen(true)
+      setIsLoadingScreen(true);
       try {
-          if (
-            subject !== "feedback" &&
-            subject !== "chat" &&
-            subject !== "joke" &&
-            subject !== "reply"
-          ) {
-            !profileData?.subscribed && useCredit();
-          }
+        if (
+          subject !== "feedback" &&
+          subject !== "chat" &&
+          subject !== "joke" &&
+          subject !== "reply"
+        ) {
+          !profileData?.subscribed && useCredit();
+        }
 
         ReactGA.event({
           category: "User",
@@ -357,18 +368,18 @@ socket.onmessage = (event) => {
         };
 
         const question = {
-          content:  "",
+          content: "",
           role: "assistant",
         };
         const resp = {
           content: animalInput,
           role: "user",
         };
-        const answersCopy = answers.slice()
-        answersCopy.push(res)
+        const answersCopy = answers.slice();
+        answersCopy.push(res);
 
         if (answersCopy.length > 1) {
-         answersCopy[answers.length - 1].result = result;
+          answersCopy[answers.length - 1].result = result;
         }
 
         const messageHistoryUpdate = messageHistory.slice();
@@ -376,7 +387,7 @@ socket.onmessage = (event) => {
         messageHistoryUpdate.push(resp);
         messageHistoryUpdate.push(question);
 
-        setMessageHistory(messageHistoryUpdate)
+        setMessageHistory(messageHistoryUpdate);
 
         const userCopy = profileData.chatHistory.slice();
         userCopy.unshift(res);
@@ -391,14 +402,19 @@ socket.onmessage = (event) => {
             console.error("Error updating document: ", error);
           });
 
-        ws.send(JSON.stringify({ animal: animalInput, history: messageHistoryUpdate }));
-        setAnswers(answersCopy)
-        setAnimalInput('')
-        setResult('')
-        setError('')
-        setIsLoadingScreen(false)
+        ws.send(
+          JSON.stringify({
+            animal: animalInput,
+            history: messageHistoryUpdate,
+          })
+        );
+        setAnswers(answersCopy);
+        setAnimalInput("");
+        setResult("");
+        setError("");
+        setIsLoadingScreen(false);
 
-        Hotjar.event('SUCCESS - User succeeded to submit request.')
+        Hotjar.event("SUCCESS - User succeeded to submit request.");
         // setAnimalInput("");
       } catch (error) {
         ReactGA.event({
@@ -406,28 +422,28 @@ socket.onmessage = (event) => {
           action: "Question failed",
         });
         if (!tries && tries < 1) {
-          onSubmit(event, value + ' (limit 1606 chars)', url, type, 1)
-          return
+          onSubmit(event, value + " (limit 1606 chars)", url, type, 1);
+          return;
         }
         // Consider implementing your own error handling logic here
         if (tries > 1) {
-          setIsLoadingScreen(false)
-          
-          setResult('')
+          setIsLoadingScreen(false);
+
+          setResult("");
           setError(
-            'The response is too large to send. Can you try asking a slightly more specific question?' +
-              ' ' +
+            "The response is too large to send. Can you try asking a slightly more specific question?" +
+              " " +
               error.message
-          )
-          Hotjar.event('FAILURE - User failed to submit request.')
-          console.error(error)
+          );
+          Hotjar.event("FAILURE - User failed to submit request.");
+          console.error(error);
         }
 
         // alert(error.message);
       }
     } else {
       // alert('You must have credits to continue! Visit the "Credits" tab!')
-      handleOpen()
+      handleOpen();
     }
   }
 
@@ -507,26 +523,48 @@ socket.onmessage = (event) => {
   // }
 
   const shareOnTwitter = () => {
-    const url = encodeURIComponent('www.oddityai.com')
+    const url = encodeURIComponent("www.oddityai.com");
     const text = encodeURIComponent(
-      'Check out this new AI powered homework bot!'
-    )
-    const via = 'myusername'
+      "Check out this new AI powered homework bot!"
+    );
+    const via = "myusername";
     window.open(
       `https://twitter.com/intent/tweet?url=${url}&text=${text}&via=Oddity_AI`
-    )
-  }
+    );
+  };
 
   const handleChange = async (url, type) => {
-    setIsModalOpen(true)
-    setIsLoadingScreen(true)
-    onSubmit(null, text, url, type)
-  }
-  const [value, setValue] = useState(0)
+    setIsModalOpen(true);
+    setIsLoadingScreen(true);
+
+    await worker.loadLanguage("eng");
+    await worker.initialize("eng");
+
+    await worker.setParameters({
+      tessedit_ocr_engine_mode: 0,
+      tessedit_pageseg_mode: "1",
+      tessedit_create_txt: "1",
+      tosp_ignore_big_gaps: "1",
+      tessedit_pageseg_mode: "6",
+      preserve_interword_spaces: "1",
+    });
+
+    const options = {
+      tessedit_ocr_engine_mode: 0,
+      tessedit_pageseg_mode: "1",
+      preserve_interword_spaces: "1",
+    };
+
+    const {
+      data: { text },
+    } = await worker.recognize(url, "eng", options);
+    onSubmit(null, text, url, type);
+  };
+  const [value, setValue] = useState(0);
   const handleClose = () => {
-    setOpen(false)
-    setValue(1)
-  }
+    setOpen(false);
+    setValue(1);
+  };
 
   // useEffect(() => {
   //   // var html = htmlToPdfmake(result);
@@ -545,13 +583,13 @@ socket.onmessage = (event) => {
   // }, [result]);
 
   useEffect(() => {
-    if (window.location.href.includes('oddityai')) {
-      Hotjar.init(3307089, 6)
+    if (window.location.href.includes("oddityai")) {
+      Hotjar.init(3307089, 6);
 
       if (!window.location.href.includes("local")) {
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       }
-      window.sessionStorage.setItem('hotjar', 'true')
+      window.sessionStorage.setItem("hotjar", "true");
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
       //   name: "James Morrison",
@@ -560,34 +598,34 @@ socket.onmessage = (event) => {
       //   subscriptionType: "pro",
       // });
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (!isLoading && !user) {
-      window.location.href = '/'
+      window.location.href = "/";
     }
-  }, [isLoading, user])
+  }, [isLoading, user]);
 
   if (isLoading) {
-    return <>Logging in</>
+    return <>Logging in</>;
   }
   if (!profileData) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'rgb(188, 37, 52, 0.95)',
-    border: '2px solid #871420',
-    borderRadius: '10px',
+    bgcolor: "rgb(188, 37, 52, 0.95)",
+    border: "2px solid #871420",
+    borderRadius: "10px",
     boxShadow: 24,
     p: 4,
-    color: 'white',
-    textAlign: 'center',
-  }
+    color: "white",
+    textAlign: "center",
+  };
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <AppBar profileData={profileData} setValue={setValue} value={value} />
