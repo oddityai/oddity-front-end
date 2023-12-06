@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">  <url>
     <loc>https://www.oddityai.com</loc>
-    <lastmod>2023-02-08</lastmod>
+    <lastmod>2023-12-06</lastmod>
     <image:image>
       <image:loc>https://www.oddityai.com/landing-robot.png</image:loc>
     </image:image>
@@ -17,19 +17,28 @@
     <image:image>
       <image:loc>https://www.oddityai.com/science-page-1.png</image:loc>
     </image:image>
-    <image:image>
-      <image:loc>https://www.oddityai.com/landing-robot.png</image:loc>
-    </image:image>
   </url>
   <url>
     <loc>https://www.oddityai.com/contact</loc>
-    <lastmod>2023-01-01</lastmod>
+    <lastmod>2023-12-02</lastmod>
     <image:image>
       <image:loc>https://www.oddityai.com/contact.png</image:loc>
     </image:image>
   </url>
   <url>
-    <loc>https://www.oddityai.com/app</loc>
-    <lastmod>2023-01-01</lastmod>
+    <loc>https://www.oddityai.com/App</loc>
+    <lastmod>2023-12-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.oddityai.com/faq</loc>
+    <lastmod>2023-12-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.oddityai.com/login</loc>
+    <lastmod>2023-12-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.oddityai.com/signup</loc>
+    <lastmod>2023-12-01</lastmod>
   </url>
 </urlset>
