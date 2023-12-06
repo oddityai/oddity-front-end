@@ -282,6 +282,9 @@ export default function Home() {
       }, 30000); // send ping every 30 seconds
     };
     socket.onmessage = (event) => {
+      if (event.data === '{"type":"pong"}') {
+        return;
+      }
       setResult((prev) => {
         // Retrieve the latest profile data from Firestore
         db.collection("profiles")
