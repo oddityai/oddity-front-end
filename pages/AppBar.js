@@ -154,20 +154,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
               Home
             </Link>
           </div>
-          <div style={{ marginRight: 8, textDecoration: "none" }}>
-            <Link
-              className={nunito.className}
-              style={{
-                textDecoration: "none",
-                padding: 8,
-                borderRadius: 4,
-                color: "#0057be",
-              }}
-              href="/faq"
-            >
-              FAQ
-            </Link>
-          </div>
+
           {user && (
             <div style={{ marginRight: 8, textDecoration: "none" }}>
               <Link
@@ -184,6 +171,20 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
               </Link>
             </div>
           )}
+          <div style={{ marginRight: 8, textDecoration: "none" }}>
+            <Link
+              className={nunito.className}
+              style={{
+                textDecoration: "none",
+                padding: 8,
+                borderRadius: 4,
+                color: "#0057be",
+              }}
+              href="/faq"
+            >
+              FAQ
+            </Link>
+          </div>
           <div style={{ marginRight: 8, textDecoration: "none" }}>
             <Link
               className={nunito.className}
