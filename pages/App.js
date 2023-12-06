@@ -520,28 +520,6 @@ socket.onmessage = (event) => {
   const handleChange = async (url, type) => {
     setIsModalOpen(true)
     setIsLoadingScreen(true)
-    
-    await worker.loadLanguage('eng')
-    await worker.initialize('eng')
-
-    await worker.setParameters({
-      tessedit_ocr_engine_mode: 0,
-      tessedit_pageseg_mode: '1',
-      tessedit_create_txt: '1',
-      tosp_ignore_big_gaps: '1',
-      tessedit_pageseg_mode: '6',
-      preserve_interword_spaces: '1',
-    })
-
-    const options = {
-      tessedit_ocr_engine_mode: 0,
-      tessedit_pageseg_mode: '1',
-      preserve_interword_spaces: '1',
-    }
-
-    const {
-      data: { text },
-    } = await worker.recognize(url, 'eng', options)
     onSubmit(null, text, url, type)
   }
   const [value, setValue] = useState(0)
