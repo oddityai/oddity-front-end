@@ -39,6 +39,8 @@ const Login = () => {
         category: 'User',
         action: 'Logged in email',
       })
+            amplitude.track("User logged in");
+
       router.push('/App')
 
       // Redirect to protected page
@@ -51,6 +53,7 @@ const Login = () => {
         action: 'Log in fail',
       })
       amplitude.track("User logged in");
+
       setRegError(true)
     }
   }

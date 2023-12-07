@@ -178,10 +178,9 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Friendly AI</p>
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Genius AI</p>
               <p style={{ fontSize: 12, color: 'gray' }}>
-                This is a fun chatbot so you can talk directly to our AI
-                him/her-self about anything.
+                This is an expert on everything not covered above - including software classes, and law school. 
               </p>
               <Button
                 onClick={() => handleFeedback('chat')}
