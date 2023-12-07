@@ -29,9 +29,12 @@ const getFingerprint = async () => {
 
 const TYPES = {
   math: "Answer this math question for me. You have to be exactly precise. Use chain of thought reasoning and show your work. :",
-  history: "Answer this history question for me: ",
-  english: "Answer this English question for me: ",
-  science: "Answer this science question for me: ",
+  history:
+    "Answer this history question for me. Just give me the answer without too much explanation unless the question asks to show your work.: ",
+  english:
+    "Answer this English question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
+  science:
+    "Answer this science question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
   prompt:
     "Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ",
   chat: 'Keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab then by asking the special bots the questions, and the fact that we offer an image upload function to read the questions from your page, but only mention this if such a question is asked:',
@@ -42,6 +45,7 @@ const TYPES = {
     'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
   joke: 'Write a funny joke about the following prompt. It has to be very funny, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked related to english math science or history. : ',
 };
+
 
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
@@ -432,7 +436,7 @@ export default function Home() {
           };
           ws.send(
             JSON.stringify({
-              animal: animalInput,
+              animal: `${TYPES[subject]} ${animalInput}`,
               history: messageHistoryUpdate,
               model: getModel(),
             })
