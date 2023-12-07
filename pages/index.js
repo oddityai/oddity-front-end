@@ -55,13 +55,14 @@ const Contact = () => {
   }, []);
 
   useEffect(() => {
-            amplitude.init("b3d0a9d3ff4cf96d125f2c71db48ee06");
 
     if (window.location.href.includes("oddityai")) {
       Hotjar.init(3307089, 6);
 
       if (!window.location.href.includes("local")) {
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
+                    amplitude.init("b3d0a9d3ff4cf96d125f2c71db48ee06");
+
       }
       window.sessionStorage.setItem("hotjar", "true");
       // the below i to identify users when i add auth0

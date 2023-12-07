@@ -253,7 +253,7 @@ export default function Home() {
       category: "User",
       action: `Opened ${subject} bot`,
     });
-    amplitude.track("Opened chat bot", {
+    amplitude.track("Opened chat bot", undefined, {
       user_id: profileData?.id,
     });
 
@@ -364,7 +364,7 @@ export default function Home() {
           category: "User",
           action: "Asked a question",
         });
-        amplitude.track("Asked a question", {
+        amplitude.track("Asked a question", undefined, {
           user_id: profileData?.id,
         });
 
@@ -441,7 +441,7 @@ export default function Home() {
           category: "User",
           action: "Question failed",
         });
-amplitude.track("Question failed", {
+amplitude.track("Question failed", undefined, {
   user_id: profileData?.id,
 });
 

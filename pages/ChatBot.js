@@ -180,7 +180,7 @@ const ChatBot = ({
             category: "User",
             action: "Uploaded image",
           });
-          amplitude.track("Uploaded an image", {
+          amplitude.track("Uploaded an image", undefined, {
             user_id: profileData?.id,
           });
 
@@ -189,7 +189,7 @@ const ChatBot = ({
             category: "User",
             action: "Image upload failed",
           });
-          amplitude.track("Image upload failed", {
+          amplitude.track("Image upload failed", undefined, {
             user_id: profileData?.id,
           });
 

@@ -13,8 +13,9 @@ export default async function handler(req, res) {
       ReactGA.event({
         category: "User",
         action: "User subscribed for $4.99",
+        undefined,
       });
-      amplitude.track("User subscribed ($4.99)", {
+      amplitude.track("User subscribed ($4.99)", undefined, {
         user_id: userId,
       });
 
@@ -42,7 +43,9 @@ export default async function handler(req, res) {
         category: "User",
         action: "FAILED - user subscription",
       });
-      amplitude.track("Subscription failed ($4.99)");
+      amplitude.track("Subscription failed ($4.99)", undefined, {
+        user_id: userId
+      });
 
       res.status(err.statusCode || 500).json(err.message);
     }
