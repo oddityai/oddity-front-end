@@ -15,7 +15,6 @@ import GoogleIcon from '@mui/icons-material/Google'
 import AppleIcon from '@mui/icons-material/Apple'
 import { Nunito } from '@next/font/google'
 import ReactGA from 'react-ga4'
-import * as amplitude from "@amplitude/analytics-browser";
 
 const nunito = Nunito({ subsets: ['latin'] })
 const Login = () => {
@@ -50,8 +49,6 @@ const Login = () => {
         category: 'User',
         action: 'Log in fail',
       })
-      amplitude.track("User logged in");
-
       setRegError(true)
     }
   }
@@ -68,18 +65,19 @@ const Login = () => {
   }
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider()
+
     try {
-      await signInWithRedirect(auth, provider)
-      // No need to push to '/App' here
+      const result = await signInWithPopup(auth, provider)
+      const user = result.user
+
       if (user) {
         setIsLoading(true)
         ReactGA.event({
           category: 'User',
           action: 'Logged in google',
         })
+        router.push('/App')
       }
-      amplitude.track("User logged in");
-      // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
       console.error('Error signing in with Google:', error)
       ReactGA.event({
@@ -103,7 +101,6 @@ const Login = () => {
           category: 'User',
           action: 'Logged in apple',
         })
-        amplitude.track("User logged in");
         router.push('/App')
       }
       // Update UI based on the signed-in user
@@ -119,9 +116,9 @@ const Login = () => {
     const handleRedirectResult = async () => {
       try {
         const result = await getRedirectResult(auth)
-        const user = result?.user
-        setUser(user)
-        if (user) {
+        if (result.credential) {
+          // This means it's a Google sign-in
+          const user = result.user
           router.push('/App')
         }
       } catch (error) {
@@ -131,6 +128,7 @@ const Login = () => {
 
     handleRedirectResult()
   }, [])
+
   return (
     <div
       className={nunito.className}
