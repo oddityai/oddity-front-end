@@ -1,4 +1,3 @@
-import Hotjar from "@hotjar/browser";
 import CloseIcon from "@mui/icons-material/Close";
 import { Modal, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
@@ -417,7 +416,6 @@ export default function Home() {
         setError("");
         setIsLoadingScreen(false);
 
-        Hotjar.event("SUCCESS - User succeeded to submit request.");
         // setAnimalInput("");
       } catch (error) {
         ReactGA.event({
@@ -438,7 +436,6 @@ export default function Home() {
               " " +
               error.message
           );
-          Hotjar.event("FAILURE - User failed to submit request.");
           console.error(error);
         }
 
@@ -587,12 +584,10 @@ export default function Home() {
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-      Hotjar.init(3307089, 6);
 
       if (!window.location.href.includes("local")) {
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       }
-      window.sessionStorage.setItem("hotjar", "true");
       // the below i to identify users when i add auth0
       // LogRocket.identify("THE_USER_ID_IN_YOUR_APP", {
       //   name: "James Morrison",
