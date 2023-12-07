@@ -8,6 +8,9 @@ import Image from "next/image";
 import { auth } from "../firebase";
 import ReactGA from "react-ga4";
 
+import * as amplitude from "@amplitude/analytics-browser";
+
+
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
   const getWindowSize = () => {
@@ -52,6 +55,8 @@ const Contact = () => {
   }, []);
 
   useEffect(() => {
+            amplitude.init("b3d0a9d3ff4cf96d125f2c71db48ee06");
+
     if (window.location.href.includes("oddityai")) {
       Hotjar.init(3307089, 6);
 

@@ -11,6 +11,8 @@ const Contact = () => {
   useEffect(() => {
     if (window.location.href.includes('oddityai')) {
       if (!window.location.href.includes('local')) {
+        amplitude.track("Viewed FAQ");
+
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
         ReactGA.event({
           category: 'User',
