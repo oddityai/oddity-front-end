@@ -15,6 +15,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 import AppleIcon from '@mui/icons-material/Apple'
 import { Nunito } from '@next/font/google'
 import ReactGA from 'react-ga4'
+import * as amplitude from "@amplitude/analytics-browser";
 
 const nunito = Nunito({ subsets: ['latin'] })
 const Login = () => {
@@ -49,6 +50,8 @@ const Login = () => {
         category: 'User',
         action: 'Log in fail',
       })
+      amplitude.track("User logged in");
+
       setRegError(true)
     }
   }
@@ -75,7 +78,7 @@ const Login = () => {
           action: 'Logged in google',
         })
       }
-
+      amplitude.track("User logged in");
       // The redirection will happen, and you need to handle the result in the useEffect
     } catch (error) {
       console.error('Error signing in with Google:', error)
@@ -100,6 +103,7 @@ const Login = () => {
           category: 'User',
           action: 'Logged in apple',
         })
+        amplitude.track("User logged in");
         router.push('/App')
       }
       // Update UI based on the signed-in user

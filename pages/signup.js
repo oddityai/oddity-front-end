@@ -12,6 +12,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 import AppleIcon from '@mui/icons-material/Apple'
 import { Nunito } from '@next/font/google'
 import ReactGA from 'react-ga4'
+import * as amplitude from "@amplitude/analytics-browser";
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -39,6 +40,7 @@ const Signup = () => {
         category: 'User',
         action: 'Signed up',
       })
+            amplitude.track("User signed up");
       router.push('/App')
       // Redirect to protected page
     } catch (error) {
@@ -67,6 +69,7 @@ const Signup = () => {
           category: 'User',
           action: 'Signed up',
         })
+                    amplitude.track("User signed up");
         router.push('/App')
       }
       // Update UI based on the signed-in user
@@ -90,6 +93,8 @@ const Signup = () => {
         category: 'User',
         action: 'Signed up',
       })
+                  amplitude.track("User signed up");
+
       router.push('/App')
 
       // Update UI based on the signed-in user

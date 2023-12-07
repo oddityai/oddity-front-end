@@ -14,6 +14,7 @@ import { auth } from "../firebase";
 
 import Tabs from "./Tabs";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -252,6 +253,10 @@ export default function Home() {
       category: "User",
       action: `Opened ${subject} bot`,
     });
+    amplitude.track("Opened chat bot", {
+      user_id: profileData?.id,
+    });
+
     if (profileData.credits > 0 || profileData?.subscribed) {
       setIsModalOpen(true);
       setSubject(subject);
@@ -359,6 +364,10 @@ export default function Home() {
           category: "User",
           action: "Asked a question",
         });
+        amplitude.track("Asked a question", {
+          user_id: profileData?.id,
+        });
+
         const res = {
           result: "",
           input: input,
@@ -432,6 +441,10 @@ export default function Home() {
           category: "User",
           action: "Question failed",
         });
+amplitude.track("Question failed", {
+  user_id: profileData?.id,
+});
+
         if (!tries && tries < 1) {
           onSubmit(event, value + " (limit 1606 chars)", url, type, 1);
           return;

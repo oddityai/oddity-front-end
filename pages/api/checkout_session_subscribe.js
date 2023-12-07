@@ -1,4 +1,5 @@
 import ReactGA from "react-ga4";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const stripe = require("stripe")(
   "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"
@@ -13,6 +14,10 @@ export default async function handler(req, res) {
         category: "User",
         action: "User subscribed for $4.99",
       });
+      amplitude.track("User subscribed ($4.99)", {
+        user_id: userId,
+      });
+
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create({
         line_items: [
@@ -37,6 +42,8 @@ export default async function handler(req, res) {
         category: "User",
         action: "FAILED - user subscription",
       });
+      amplitude.track("Subscription failed ($4.99)");
+
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {

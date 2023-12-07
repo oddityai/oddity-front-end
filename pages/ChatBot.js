@@ -9,6 +9,7 @@ import { firebaseApp } from "../firebase";
 import ChatBubble from "./ChatBubble";
 import { auth } from "../firebase";
 import ReactGA from "react-ga4";
+import * as amplitude from "@amplitude/analytics-browser";
 
 import Alert from "@mui/material/Alert";
 import { Nunito } from "@next/font/google";
@@ -179,11 +180,19 @@ const ChatBot = ({
             category: "User",
             action: "Uploaded image",
           });
+          amplitude.track("Uploaded an image", {
+            user_id: profileData?.id,
+          });
+
         } catch (error) {
           ReactGA.event({
             category: "User",
             action: "Image upload failed",
           });
+          amplitude.track("Image upload failed", {
+            user_id: profileData?.id,
+          });
+
           setIsProcessing(false);
           alert(
             "Image either unlcear or too large. Please make sure you use a high quality image. Also note, our bots can not read graphs quite yet!"

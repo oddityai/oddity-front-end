@@ -10,6 +10,7 @@ import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
 import ReactGA from "react-ga4";
+import * as amplitude from "@amplitude/analytics-browser";
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -185,6 +186,7 @@ export default function BasicTabs({
           category: "User",
           action: "Used existing referral code",
         });
+
       } else {
         try {
           // Adding credits to the logged-in user and updating usedCodesarray
@@ -193,6 +195,8 @@ export default function BasicTabs({
             category: "User",
             action: "Successfully used referral code",
           });
+                              amplitude.track("Used referral code");
+
         } catch (error) {
           console.error('Error adding credits to logged-in user:', error)
         }
