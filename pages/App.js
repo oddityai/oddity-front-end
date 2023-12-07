@@ -267,7 +267,6 @@ export default function Home() {
 
   useEffect(() => {
     const socket = new WebSocket(
-      // "ws://localhost:3001/"
       "wss://oddityai-api-04782150cdc6.herokuapp.com/"
     );
     setWs(socket);
@@ -669,7 +668,7 @@ homework helper"
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Get a monthly subscription to OddityAI! <br />
-              at only $9.99/month!
+              at only $4.99/month!
             </Typography>
           </Box>
         </Modal>
