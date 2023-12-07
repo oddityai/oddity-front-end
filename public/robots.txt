@@ -1,7 +1,7 @@
 # Block all crawlers for /accounts
 User-agent: *
 Disallow: /accounts
-
+Sitemap: https://oddityai.com/sitemap.xml
 # Allow all crawlers
 User-agent: *
 Allow: /
