@@ -15,6 +15,7 @@ import { auth } from "../firebase";
 import Tabs from "./Tabs";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 import * as amplitude from "@amplitude/analytics-browser";
+import { identify, Identify } from "@amplitude/analytics-node";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -126,11 +127,18 @@ export default function Home() {
           if (userData) {
             setProfileData(userData);
             ReactGA.set({ userId: userData?.nickname });
+            const identifyObj = new Identify();
+            identify(identifyObj, {
+              user_id: userData?.email,
+            });
           } else {
             if (sessionStorage.getItem("profileStatus1") === user?.sid) {
               return;
             }
-
+            const identifyObj = new Identify();
+            identify(identifyObj, {
+              user_id: user.email,
+            });
             const firstRef = user.email.slice(0, 3).toUpperCase();
             const secondRef = Math.floor(1000 + Math.random() * 9000);
             const refCode = `${firstRef}-${secondRef}`;
@@ -254,7 +262,7 @@ export default function Home() {
       action: `Opened ${subject} bot`,
     });
     amplitude.track("Opened chat bot", undefined, {
-      user_id: profileData?.id,
+      user_id: profileData?.email,
     });
 
     if (profileData.credits > 0 || profileData?.subscribed) {
@@ -365,7 +373,7 @@ export default function Home() {
           action: "Asked a question",
         });
         amplitude.track("Asked a question", undefined, {
-          user_id: profileData?.id,
+          user_id: profileData?.email,
         });
 
         const res = {
@@ -442,7 +450,7 @@ export default function Home() {
           action: "Question failed",
         });
 amplitude.track("Question failed", undefined, {
-  user_id: profileData?.id,
+  user_id: profileData?.email,
 });
 
         if (!tries && tries < 1) {

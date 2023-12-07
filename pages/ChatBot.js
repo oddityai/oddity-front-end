@@ -190,7 +190,7 @@ const ChatBot = ({
             action: "Image upload failed",
           });
           amplitude.track("Image upload failed", undefined, {
-            user_id: profileData?.id,
+            user_id: profileData?.email,
           });
 
           setIsProcessing(false);
@@ -248,7 +248,7 @@ const ChatBot = ({
     }! I am designed to take your specific prompt and output some fantastic writing. Include how long you'd like the output to be if necessary!`,
     chat: `Hi${
       user?.given_name ? ` ${user?.given_name}` : ""
-    }! I'm a conversational AI. What do you want to talk about?`,
+    }! I'm The Genius AI. What do you want questions do you have?`,
     science: `Hi${
       user?.given_name ? ` ${user?.given_name}` : ""
     }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,

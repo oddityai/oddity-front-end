@@ -10,7 +10,6 @@ import ReactGA from "react-ga4";
 
 import * as amplitude from "@amplitude/analytics-browser";
 
-
 const nunito = Nunito({ subsets: ["latin"] });
 const Contact = () => {
   const getWindowSize = () => {
