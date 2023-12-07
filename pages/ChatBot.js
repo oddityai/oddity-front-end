@@ -490,8 +490,7 @@ const ChatBot = ({
                               <>
                                 <br />
                                 <br />
-                                By the way, you can get free credits for
-                                referring your friends! Your referral code is
+                                Give your referral code to a friend and you will both get 100 free credits. Your code is:
                                 <a style={{ color: "#FF9900" }}>
                                   {" "}
                                   {profileData?.referralCode}
