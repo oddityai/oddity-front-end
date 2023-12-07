@@ -404,12 +404,23 @@ export default function Home() {
             console.error("Error updating document: ", error);
           });
 
-        ws.send(
-          JSON.stringify({
-            animal: animalInput,
-            history: messageHistoryUpdate,
-          })
-        );
+          const getModel = () => {
+            if (
+              profileData?.subscribed ||
+              (profileData?.credits > 15 && profileData?.credits < 21)
+            ) {
+              return "gpt-4";
+            } else {
+              return "gpt-3.5-turbo";
+            }
+          };
+          ws.send(
+            JSON.stringify({
+              animal: animalInput,
+              history: messageHistoryUpdate,
+              model: getModel(),
+            })
+          );
         setAnswers(answersCopy);
         setAnimalInput("");
         setResult("");
