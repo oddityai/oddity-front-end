@@ -420,7 +420,7 @@ export default function BasicTabs({
           <div style={{ padding: 8 }}>
             <h3 className={nunito.className}>Standard Pa</h3>
             <hr />
-            <h3 className={nunito.className}>$9.99</h3>
+            <h3 className={nunito.className}>$4.99</h3>
             <hr />
             <h4>2,000 credits</h4>
             <p className={nunito.className}>
@@ -481,7 +481,7 @@ export default function BasicTabs({
             <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>You are subscribed!</h3>
               <hr />
-              <h3 className={nunito.className}>$9.99 / Month</h3>
+              <h3 className={nunito.className}>$4.99 / Month</h3>
               <hr />
               <h4>
                 If you want to cancel your subscription - please email
@@ -507,7 +507,7 @@ export default function BasicTabs({
             <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Unlimited Questions</h3>
               <hr />
-              <h3 className={nunito.className}>$9.99</h3>
+              <h3 className={nunito.className}>$4.99</h3>
               <hr />
               <h4>30 Day Subscription</h4>
               {/* <p className={nunito.className}>Enough for a few months</p> */}
@@ -571,7 +571,7 @@ export default function BasicTabs({
             <sup style={{ color: 'red', fontSize: '0.8rem' }}>Best Value!</sup>
 
             <hr />
-            <h3 className={nunito.className}>$19.99</h3>
+            <h3 className={nunito.className}>$14.99</h3>
             <hr />
             <h4>1800 credits</h4>
             {/* <p className={nunito.className}>Enough for a few months</p> 
