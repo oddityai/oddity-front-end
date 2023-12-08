@@ -85,7 +85,12 @@ const ChatBot = ({
     await ref.put(file.file);
     const url = await ref.getDownloadURL();
     setUrl(url);
-    onSubmit({ preventDefault: () => console.log("hi") }, "whats this", url, 0);
+    onSubmit(
+      { preventDefault: () => console.log("hi") },
+      "*Uploaded Image*",
+      url,
+      0
+    );
     setFile(null);
   };
 
