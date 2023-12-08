@@ -448,7 +448,7 @@ export default function Home() {
         };
         ws.send(
           JSON.stringify({
-            animal: url ? 'Think about this step by step. First, read all the questions in this image. Second, answer each one. First state the question followed by the answer. Add 10 spaces between each q/a pair. Dont explain too much just give answers. If the image is too blurry or there are no questions explain why you cant help.' : `${TYPES[subject]} ${animalInput}`,
+            animal: url ? 'Think about this step by step. First, read all the questions in this image. Second, answer each one in an ordered list in this format (state the question then the answer) "1. {QUESTION}: {ANSWER}". Dont explain too much just give answers. Dont explain anything else just give answers.' : `${TYPES[subject]} ${animalInput}`,
             history: messageHistoryUpdate,
             url: url,
             model: getModel(),
