@@ -441,7 +441,7 @@ export default function Home() {
             profileData?.subscribed ||
             (profileData?.credits > 15 && profileData?.credits < 21)
           ) {
-            return "gpt-4";
+            return "gpt-4-1106-preview";
           } else {
             return "gpt-3.5-turbo";
           }
