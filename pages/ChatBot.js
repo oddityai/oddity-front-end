@@ -365,7 +365,7 @@ const ChatBot = ({
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 1 || i === 12 || i === 25 || i === 50) && (
+                            {(i === 6 || i === 12 || i === 25 || i === 50) && (
                               <>
                                 <br />
                                 <br />
