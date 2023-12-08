@@ -37,7 +37,7 @@ const TYPES = {
     "Answer this science question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
   prompt:
     "Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ",
-  chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work".,
+  chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work",
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
 
