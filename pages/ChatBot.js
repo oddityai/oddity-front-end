@@ -85,12 +85,7 @@ const ChatBot = ({
     await ref.put(file.file);
     const url = await ref.getDownloadURL();
     setUrl(url);
-    onSubmit(
-      { preventDefault: () => console.log("hi") },
-      "*Uploaded Image*",
-      url,
-      0
-    );
+    onSubmit({ preventDefault: () => console.log("hi") }, "*Uploaded Image*", url, 0);
     setFile(null);
   };
 
@@ -370,34 +365,38 @@ const ChatBot = ({
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 2 ||
-                              i === 6 ||
-                              i === 12 ||
-                              i === 25 ||
-                              i === 50) && (
+                            {(i === 6 || i === 12 || i === 25 || i === 50) && (
                               <>
                                 <br />
                                 <br />
-                                Give your referral code to a friend and you will both get 100 free credits. Your code is:
-
+                                {/* Give your referral code to a friend and you will
+                                both get 100 free credits. Your code is:
                                 <a style={{ color: "#FF9900" }}>
                                   {" "}
                                   {profileData?.referralCode}
-                                </a>
-                                {/* {`Don't forget to tell your friends about
-                                OddityAI! If they sign up and use your referral code, you will both get
-                                free 100 credits!`}
-                                <br />
-                                <br />
-                                Your personal referral code is
-                                {profileData?.referralCode
-                                  ? `"${profileData?.referralCode}"`
-                                  : " located on the bottom of the 'credits' tab"}
-                                <br />
-                                <br />
-                                You can put post your referral code on social
-                                media and get 100 free credits if anyone uses
-                                it. */}
+                                </a> */}
+                                  <p>
+                                    P.S. We'd love to hear your thoughts
+                                    about our homework help service. As a thank
+                                    you, we're offering{" "}
+                                    <strong>50 free credits</strong> for
+                                    completing our quick survey. Just click on
+                                    the link below!
+                                  </p>
+                                  <a
+                                    href="https://forms.gle/AoAGqQQk8mHfFcnu7"
+                                    onClick={() =>
+                                      window.open(
+                                        "https://forms.gle/AoAGqQQk8mHfFcnu7"
+                                      )
+                                    }
+                                    style={{
+                                      color: "#FF9900",
+                                      textDecoration: "underline",
+                                    }}
+                                  >
+                                    Take the Survey
+                                  </a>
                               </>
                             )}
                           </p>
