@@ -17,6 +17,7 @@ import * as amplitude from "@amplitude/analytics-browser";
 const nunito = Nunito({ subsets: ["latin"] });
 
 const Signup = () => {
+
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -250,12 +251,12 @@ const Signup = () => {
               alignItems: "center",
               color: "white",
               backgroundColor: !isChecked ? "#A0AEC0" : "black",
-              borderRadius: "4px",
+               borderRadius: "4px",
               border: "none",
               height: 35,
               marginTop: "15px",
               cursor: !isChecked ? "default" : "pointer",
-              opacity: !isChecked ? 0.6 : 1,
+              opacity: !isChecked ? 0.6 : 1, 
             }}
           >
             <AppleIcon style={{ marginRight: "10px" }} />
@@ -266,5 +267,6 @@ const Signup = () => {
     </div>
   );
 };
+
 
 export default Signup;
