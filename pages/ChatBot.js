@@ -28,6 +28,7 @@ const ChatBot = ({
   onSubmit,
   answers,
   streamedResult,
+  ws,
   subject,
   isLoading,
   profileData,
@@ -78,131 +79,13 @@ const ChatBot = ({
   }, [answers]);
 
   const generateFirebaseUrl = async () => {
-    setStep(0);
     setError("");
     const path = `/images/${file.file.name}`;
     const ref = storage.ref(path);
-    setIsModalOpen(true);
-    setIsProcessing(true);
     await ref.put(file.file);
     const url = await ref.getDownloadURL();
     setUrl(url);
-    setStep(1);
-    fetch(`https://oddity-api.herokuapp.com/test`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url }),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(async (res) => {
-        const input = res.description;
-        setInput(input);
-        setStep(2);
-        try {
-          const response = await fetch("/api/generate", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              //   animal: `Extract the questions from this text and return them as an array of strings: ${input}  {}. Return the data in an array of strings as a string so i can json.parse it`,
-              animal: `
-              Extract the queries from the following text as they are, they may not be complete but use problem solving skills to figure out what it is trying to ask: 
-
-              ${input}
-              `,
-            }),
-          });
-          // const response2 = await fetch("/api/generate", {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify({
-          //     animal: `Return the data in JSON format. The key of the json should be an array of one string called 'explanation'.  the value of 'explanation'  should be more 1 detailed reason why the following is true to help me understand like im a 10 year old: ${input}.`,
-          //   }),
-          // });
-          let data = await response.json();
-
-          // let data2 = await response2.json();
-          // console.log(data2.result.explanation);
-          //   if (response.status !== 200) {
-          //     throw (
-          //       data.error ||
-          //       new Error(`Request failed with status ${response.status}`)
-          //     );
-          //   }
-          const result =
-            // JSON.stringify(
-            //   `[${data.result.split('[')[0].split(']')[0]}]`
-            // )
-
-            // data.result.match(/"([^"]*)"/g)
-            data.result.split("\n");
-
-          setStep(3);
-          setRawText(data.result);
-          const apiCalls = result?.map((endpoint) => {
-            return new Promise((resolve, reject) => {
-              fetch("/api/generate", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  animal: `Question: ${endpoint}`,
-                }),
-              })
-                .then((response) => response.json())
-                .then((data) => {
-                  resolve(data);
-                })
-                .catch((error) => reject(error));
-            });
-          });
-
-          Promise.all(apiCalls)
-            .then((results) => {
-              useCredit(results.length);
-              setStep(4);
-              setResults(results);
-            })
-            .catch((error) => {
-              // handle the error
-            });
-
-          setIsProcessing(false);
-          ReactGA.event({
-            category: "User",
-            action: "Uploaded image",
-          });
-          amplitude.track("Uploaded an image", undefined, {
-            user_id: profileData?.id,
-          });
-
-        } catch (error) {
-          ReactGA.event({
-            category: "User",
-            action: "Image upload failed",
-          });
-          amplitude.track("Image upload failed", undefined, {
-            user_id: profileData?.email,
-          });
-
-          setIsProcessing(false);
-          alert(
-            "Image either unlcear or too large. Please make sure you use a high quality image. Also note, our bots can not read graphs quite yet!"
-          );
-          setError(
-            "Image either unclear or too large. Please make sure you take a good quality picture."
-          );
-          setStep(1);
-        }
-      });
+    onSubmit({ preventDefault: () => console.log("hi") }, "whats this", url, 0);
     setFile(null);
   };
 
