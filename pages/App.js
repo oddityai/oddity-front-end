@@ -443,7 +443,7 @@ export default function Home() {
           ) {
             return "gpt-4-1106-preview";
           } else {
-            return "gpt-3.5-turbo";
+            return "gpt-4-1106-preview";
           }
         };
         ws.send(
