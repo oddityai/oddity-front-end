@@ -12,10 +12,10 @@ export default async function handler(req, res) {
     try {
       ReactGA.event({
         category: "User",
-        action: "User subscribed for $9.99",
+        action: "User subscribed for $4.99",
         undefined,
       });
-      amplitude.track("User subscribed ($9.99)", undefined, {
+      amplitude.track("User subscribed ($4.99)", undefined, {
         user_id: userId,
       });
 
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1Ny9dADeCpRNgE7ADQNEHPBZ",
+            price: "price_1OJKDpDeCpRNgE7AHGxN9Av9",
             quantity: 1,
           },
         ],
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
         category: "User",
         action: "FAILED - user subscription",
       });
-      amplitude.track("Subscription failed ($9.99)", undefined, {
+      amplitude.track("Subscription failed ($4.99)", undefined, {
         user_id: userId
       });
 

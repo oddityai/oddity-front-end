@@ -37,7 +37,7 @@ const TYPES = {
     "Answer this science question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
   prompt:
     "Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ",
-  chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work".,
+  chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work",
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
 
@@ -285,6 +285,7 @@ export default function Home() {
   useEffect(() => {
     const socket = new WebSocket(
       "wss://oddityai-api-04782150cdc6.herokuapp.com/"
+      // "ws://localhost:3001/"
     );
     setWs(socket);
     let pingInterval;
@@ -296,41 +297,7 @@ export default function Home() {
         }
       }, 30000); // send ping every 30 seconds
     };
-    socket.onmessage = (event) => {
-      if (event.data === '{"type":"pong"}') {
-        return;
-      }
-      setResult((prev) => {
-        // Retrieve the latest profile data from Firestore
-        db.collection("profiles")
-          .doc(profileData?.id)
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              const latestProfileData = doc.data();
-              const updatedChatHistory = latestProfileData.chatHistory
-                ? [...latestProfileData.chatHistory]
-                : [];
-
-              // Update the first element's result with new data
-              if (updatedChatHistory.length > 0) {
-                updatedChatHistory[0].result = prev + event.data;
-              }
-
-              // Update Firestore with the new chat history
-              db.collection("profiles").doc(profileData?.id).update({
-                chatHistory: updatedChatHistory,
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching latest data: ", error);
-          });
-
-        // Return the updated result
-        return prev + event.data;
-      });
-    };
+    socket.onmessage = (event) => {handleSendMessage(event)};
 
     socket.onclose = () => {
       console.log("WebSocket Disconnected");
@@ -342,6 +309,43 @@ export default function Home() {
       clearInterval(pingInterval);
     };
   }, []);
+
+  const handleSendMessage = (event) => {
+    if (event.data === '{"type":"pong"}') {
+      return;
+    }
+    setIsLoadingScreen(false);
+    setResult((prev) => {
+      // Retrieve the latest profile data from Firestore
+      db.collection("profiles")
+        .doc(profileData?.id)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            console.log("HERE", profileData, doc);
+            const latestProfileData = doc.data();
+            const updatedChatHistory = latestProfileData.chatHistory
+              ? [...latestProfileData.chatHistory]
+              : [];
+            // Update the first element's result with new data
+            if (updatedChatHistory.length > 0) {
+              updatedChatHistory[0].result = prev + event.data;
+            }
+
+            // Update Firestore with the new chat history
+            db.collection("profiles").doc(profileData?.id).update({
+              chatHistory: updatedChatHistory,
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching latest data: ", error);
+        });
+
+      // Return the updated result
+      return prev + event.data;
+    });
+  }
 
   const useCredit = (amount) => {
     const usersRef = db.collection("profiles");
@@ -361,7 +365,7 @@ export default function Home() {
       if (event) {
         event.preventDefault();
       }
-      setIsLoadingScreen(true);
+    setIsLoadingScreen(true);
       try {
         if (
           subject !== "feedback" &&
@@ -372,19 +376,28 @@ export default function Home() {
           !profileData?.subscribed && useCredit();
         }
 
+        if (url) {
         ReactGA.event({
           category: "User",
-          action: "Asked a question",
+          action: "Uploaded an image",
         });
-        amplitude.track("Asked a question", undefined, {
+        amplitude.track("Uploaded an image", undefined, {
           user_id: profileData?.email,
         });
 
+        } else {
+                  ReactGA.event({
+                    category: "User",
+                    action: "Asked a question",
+                  });
+                  amplitude.track("Asked a question", undefined, {
+                    user_id: profileData?.email,
+                  });
+        }
         const res = {
           result: "",
           input: input,
           time: new Date().toLocaleString(),
-          // url: url,
           type: subject,
           // explanation: JSON.parse(data2.result).explanation,
         };
@@ -423,29 +436,29 @@ export default function Home() {
           .catch((error) => {
             console.error("Error updating document: ", error);
           });
-
-          const getModel = () => {
-            if (
-              profileData?.subscribed ||
-              (profileData?.credits > 15 && profileData?.credits < 21)
-            ) {
-              return "gpt-4";
-            } else {
-              return "gpt-3.5-turbo";
-            }
-          };
-          ws.send(
-            JSON.stringify({
-              animal: `${TYPES[subject]} ${animalInput}`,
-              history: messageHistoryUpdate,
-              model: getModel(),
-            })
-          );
+       const getModel = () => {
+          if (
+            profileData?.subscribed ||
+            (profileData?.credits > 15 && profileData?.credits < 21)
+          ) {
+            return "gpt-4";
+          } else {
+            return "gpt-3.5-turbo";
+          }
+        };
+        ws.send(
+          JSON.stringify({
+            animal: url ? 'Think about this step by step. First, read all the questions in this image. Second, answer each one. First state the question followed by the answer. Add 10 spaces between each q/a pair. Dont explain too much just give answers. If the image is too blurry or there are no questions explain why you cant help but make a joke about the image.' : `${TYPES[subject]} ${animalInput}`,
+            history: messageHistoryUpdate,
+            url: url,
+            model: getModel(),
+          })
+        );
         setAnswers(answersCopy);
         setAnimalInput("");
         setResult("");
         setError("");
-        setIsLoadingScreen(false);
+          setIsLoadingScreen(false);
 
         // setAnimalInput("");
       } catch (error) {
@@ -453,9 +466,9 @@ export default function Home() {
           category: "User",
           action: "Question failed",
         });
-amplitude.track("Question failed", undefined, {
-  user_id: profileData?.email,
-});
+        amplitude.track("Question failed", undefined, {
+          user_id: profileData?.email,
+        });
 
         if (!tries && tries < 1) {
           onSubmit(event, value + " (limit 1606 chars)", url, type, 1);
@@ -463,7 +476,6 @@ amplitude.track("Question failed", undefined, {
         }
         // Consider implementing your own error handling logic here
         if (tries > 1) {
-          setIsLoadingScreen(false);
 
           setResult("");
           setError(
@@ -619,7 +631,6 @@ amplitude.track("Question failed", undefined, {
 
   useEffect(() => {
     if (window.location.href.includes("oddityai")) {
-
       if (!window.location.href.includes("local")) {
         ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS_API_KEY);
       }
@@ -693,7 +704,7 @@ homework helper"
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
               Get a monthly subscription to OddityAI! <br />
-              at only $9.99/month!
+              at only $4.99/month!
             </Typography>
           </Box>
         </Modal>
@@ -747,6 +758,7 @@ homework helper"
                 setAnimalInput={setAnimalInput}
                 onSubmit={onSubmit}
                 streamedResult={result}
+                ws={ws}
                 handleChange={handleChange}
                 isLoading={isLoadingScreen}
                 animalInput={animalInput}

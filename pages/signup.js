@@ -1,110 +1,111 @@
-import React, { useState } from 'react'
-import { auth } from '../firebase'
-import { useRouter } from 'next/navigation'
+import React, { useState } from "react";
+import { auth } from "../firebase";
+import { useRouter } from "next/navigation";
 import {
   OAuthProvider,
   GoogleAuthProvider,
   signInWithPopup,
-} from 'firebase/auth'
-import Image from 'next/image'
-import AppBar from './AppBar'
-import GoogleIcon from '@mui/icons-material/Google'
-import AppleIcon from '@mui/icons-material/Apple'
-import { Nunito } from '@next/font/google'
-import ReactGA from 'react-ga4'
+} from "firebase/auth";
+import Image from "next/image";
+import AppBar from "./AppBar";
+import GoogleIcon from "@mui/icons-material/Google";
+import AppleIcon from "@mui/icons-material/Apple";
+import { Nunito } from "@next/font/google";
+import ReactGA from "react-ga4";
 import * as amplitude from "@amplitude/analytics-browser";
 
-const nunito = Nunito({ subsets: ['latin'] })
+const nunito = Nunito({ subsets: ["latin"] });
 
 const Signup = () => {
-  const router = useRouter()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isChecked, setIsChecked] = useState(true)
-  const [showAccountExistsError, setShowAccountExistsError] = useState(false)
+
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isChecked, setIsChecked] = useState(true);
+  const [showAccountExistsError, setShowAccountExistsError] = useState(false);
 
   const handleSubmit = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
-      )
+      );
       await user.updateProfile({
         displayName: name,
-      })
+      });
       // User signed up successfully
       ReactGA.event({
-        category: 'User',
-        action: 'Signed up',
-      })
-            amplitude.track("User signed up");
-      router.push('/App')
+        category: "User",
+        action: "Signed up",
+      });
+      amplitude.track("User signed up");
+      router.push("/App");
       // Redirect to protected page
     } catch (error) {
       // Handle errors
       ReactGA.event({
-        category: 'User',
+        category: "User",
         action: `Signup failed email ${error}`,
-      })
+      });
       if (
         error.message ===
-        'Firebase: The email address is already in use by another account. (auth/email-already-in-use).'
+        "Firebase: The email address is already in use by another account. (auth/email-already-in-use)."
       ) {
-        setShowAccountExistsError(true)
+        setShowAccountExistsError(true);
       }
-      console.log({ error })
-      console.error(error)
+      console.log({ error });
+      console.error(error);
     }
-  }
+  };
   const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider()
+    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider)
-      const user = result.user
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
       if (user) {
         ReactGA.event({
-          category: 'User',
-          action: 'Signed up',
-        })
-                    amplitude.track("User signed up");
-        router.push('/App')
+          category: "User",
+          action: "Signed up",
+        });
+        amplitude.track("User signed up");
+        router.push("/App");
       }
       // Update UI based on the signed-in user
     } catch (error) {
       ReactGA.event({
-        category: 'User',
+        category: "User",
         action: `Signup failed google ${error}`,
-      })
-      console.error('Error signing in with Google:', error)
+      });
+      console.error("Error signing in with Google:", error);
     }
-  }
+  };
   const handleAppleSignup = async () => {
-    const provider = new OAuthProvider('apple.com')
+    const provider = new OAuthProvider("apple.com");
     try {
-      const result = await signInWithPopup(auth, provider)
-      const user = result.user
-      const credential = OAuthProvider.credentialFromResult(result)
-      const accessToken = credential.accessToken
-      const idToken = credential.idToken
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const credential = OAuthProvider.credentialFromResult(result);
+      const accessToken = credential.accessToken;
+      const idToken = credential.idToken;
       ReactGA.event({
-        category: 'User',
-        action: 'Signed up',
-      })
-                  amplitude.track("User signed up");
+        category: "User",
+        action: "Signed up",
+      });
+      amplitude.track("User signed up");
 
-      router.push('/App')
+      router.push("/App");
 
       // Update UI based on the signed-in user
     } catch (error) {
       ReactGA.event({
-        category: 'User',
+        category: "User",
         action: `Signup failed apple ${error}`,
-      })
+      });
     }
-  }
+  };
 
   return (
     <div className={nunito.className}>
@@ -249,8 +250,8 @@ const Signup = () => {
               justifyContent: "center",
               alignItems: "center",
               color: "white",
-              backgroundColor: !isChecked ? "#A0AEC0" : "black", 
-              borderRadius: "4px",
+              backgroundColor: !isChecked ? "#A0AEC0" : "black",
+               borderRadius: "4px",
               border: "none",
               height: 35,
               marginTop: "15px",
@@ -265,6 +266,7 @@ const Signup = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Signup
+
+export default Signup;
