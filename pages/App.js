@@ -28,23 +28,27 @@ const getFingerprint = async () => {
 };
 
 const TYPES = {
-  math: "Answer this math question for me. Just give me the answer without too much explanation unless the question asks to show your work. :",
-  history:
-    "Answer this history question for me. Just give me the answer without too much explanation unless the question asks to show your work.: ",
-  english:
-    "Answer this English question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
-  science:
-    "Answer this science question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
-  prompt:
-    "I would like an essay that explores the topic. The essay should begin with an engaging introduction that outlines the key questions or themes related to the topic. In the body, please provide a detailed analysis, including various perspectives or relevant theories. Use concrete examples or case studies to illustrate the points made. Ensure that each paragraph transitions smoothly to the next, maintaining a logical flow. The conclusion should summarize the key points and reflect on the broader implications or future directions of the topic. Please include citations from credible sources to support the arguments. Keep it around 300 words unless otherwise asked in the topic. The topic is: ",
-  chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work",
+  math: "Quickly solve this math problem. Keep your response meaningful but as short as possible.: ",
+  history: "In a few sentences, explain this history topic. Keep your response meaningful but as short as possible.: ",
+  english: "Summarize this English topic in a short paragraph. Keep your response meaningful but as short as possible.: ",
+  science: "Briefly explain this science concept or question. Keep your response meaningful but as short as possible.: ",
+  prompt: "Write a concise essay (about 300 words) on this topic. Cite sources at the very bottom.: ",
+  chat: "Quickly provide expert insight on this query. Keep your response meaningful but as short as possible.: ",
   feedback:
-    'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
-
+    "Give a brief reply to this feedback. Use our specialized bots for academic questions. Keep your response meaningful but as short as possible.: ",
   reply:
-    'Generate a reply to the following message, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked: ',
-  joke: 'Write a funny joke about the following prompt. It has to be very funny, also keep in mind that this is not the area to ask questions about homework, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab, but only mention this if such a question is asked related to english math science or history. : ',
+    "Write a short response to this message. Direct academic queries to our specialized bots. Keep your response meaningful but as short as possible.: ",
+  joke: "Tell a quick joke about this topic. For academic queries, use our bots. Keep your response meaningful but as short as possible.: ",
+  art: "In a few sentences, discuss this art-related topic. Keep your response meaningful but as short as possible.: ",
+  law: "Explain this legal query in a concise manner. Keep your response meaningful but as short as possible.: ",
+  psychology: "Briefly describe this psychology topic. Keep your response meaningful but as short as possible.: ",
+  business: "Quickly summarize this business or economics concept. Keep your response meaningful but as short as possible.: ",
+  health: "In a short explanation, answer this health science question. Keep your response meaningful but as short as possible.: ",
+  engineering:
+    "Provide a quick explanation or solution for this engineering problem. Keep your response meaningful but as short as possible.: ",
 };
+
+
 
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");

@@ -116,35 +116,55 @@ const ChatBot = ({
     }
   };
 
-  const TYPES = {
-    math: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am specially designed to answer math questions.`,
-    history: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am specially designed to help you with your history homework. Ask me about anything that ever happened!`,
-    english: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am specially designed to help you with English homework. Ask me to summarize a book or write a song/poem. I can tell you about anything from any book, movie or show!`,
-    prompt: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am designed to take your specific prompt and output some fantastic writing. Include how long you'd like the output to be if necessary!`,
-    chat: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I'm The Genius AI. What do you want questions do you have?`,
-    science: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! I am specially designed to help with science work. Ask me about anything from atoms and cells to the moon and the stars! `,
-    feedback: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! We would love to hear your feedback so we can improve! What kinds of AI bot should we make next?`,
-    reply: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! Type or paste a message in the chat and I will give you a way to reply to it.`,
-    joke: `Hi${
-      user?.given_name ? ` ${user?.given_name}` : ""
-    }! Tell me what you want me to make a joke about.`,
-  };
+const TYPES = {
+  math: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready for some math magic? Throw me any math challenge!`,
+  history: `Greetings${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Time travel through history with your questions and I'll be your guide.`,
+  english: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Let's unravel the mysteries of English together. From Shakespeare to song lyrics, I've got you covered!`,
+  prompt: `What's up${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }? I'm your personal scribe. Share a topic and watch me spin words into essays or stories.`,
+  chat: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Got questions? I've got answers. Test my knowledge on any topic.`,
+  science: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready to explore the universe of science? From atoms to galaxies, ask away!`,
+  feedback: `Hey there${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Got suggestions or ideas? Share your thoughts and help us grow together!`,
+  reply: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Need help crafting the perfect reply? Paste the message and let's craft a response together.`,
+  joke: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready to laugh? Give me a topic and I'll whip up a joke that'll tickle your funny bone.`,
+  art: `Salutations${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Let's dive into the colorful world of art. Questions about brushstrokes, styles, or art history? Ask away!`,
+  law: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Seeking legal enlightenment? I'm here to demystify laws and legal concepts for you.`,
+  psychology: `Greetings${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Let's delve into the fascinating world of psychology and social sciences. What's on your mind?`,
+  business: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready to conquer the business world? Ask me about markets, strategies, or economic theories.`,
+  health: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Your health science ally here. From anatomy to wellness, I'm ready to answer your queries.`,
+  engineering: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Engineering puzzles to solve? Let's crack them together. Ask me anything from circuits to skyscrapers.`,
+};
+
+
 
   const fallbackCopyTextToClipboard = (text) => {
     var textArea = document.createElement("textarea");

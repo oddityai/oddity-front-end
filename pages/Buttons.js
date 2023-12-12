@@ -9,6 +9,12 @@ import PsychologyIcon from '@mui/icons-material/Psychology'
 import ScienceIcon from '@mui/icons-material/Science'
 import Button from '@mui/material/Button'
 import { Nunito } from '@next/font/google'
+import EngineeringIcon from "@mui/icons-material/Engineering";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import PsychologyAltIcon from "@mui/icons-material/PsychologyAlt";
+import GavelIcon from "@mui/icons-material/Gavel";
+import BrushIcon from "@mui/icons-material/Brush";
 
 const nunito = Nunito({ subsets: ['latin'] })
 const Buttons = ({ children, handleClick, handleFeedback }) => {
@@ -16,14 +22,14 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
     <div
       className={nunito.className}
       style={{
-        textAlign: 'left',
-        margin: 'auto',
+        textAlign: "left",
+        margin: "auto",
         maxWidth: 600,
       }}
     >
       <div
         style={{
-          border: '1px solid white',
+          border: "1px solid white",
           maxWidth: 800,
           borderRadius: 8,
         }}
@@ -31,42 +37,70 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
         <div style={{ padding: 16 }}>
           <form
             style={{
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <div style={{ padding: 16, backgroundColor: '#f5f5f5' }}>
+            <div
+              style={{
+                marginBottom: 16,
+                padding: 16,
+                backgroundColor: "#f5f5f5",
+              }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Genius AI</p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                For questions that don't fit into the above categories,
+                including software, law, and more, this is your expert resource.
+              </p>
+              <Button
+                onClick={() => handleFeedback("chat")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#b58024",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  General Answers
+                </span>
+              </Button>
+            </div>
+            <div style={{ padding: 16, backgroundColor: "#f5f5f5" }}>
               <p
                 className={nunito.className}
                 style={{ fontSize: 16, fontWeight: 600 }}
               >
                 English AI
               </p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                Here we can summarize books, write poems/songs or answer
-                questions about characters. Each answer is unique so nobody will
-                have the same answers as you.
+              <p style={{ fontSize: 12, color: "black" }}>
+                Get help with English homework, including book summaries, poem
+                and song writing, and character analysis. Unique and
+                personalized answers for every student.
               </p>
               <Button
-                onClick={() => handleClick('english')}
+                onClick={() => handleClick("english")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#304FFD',
+                  backgroundColor: "#304FFD",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <MenuBookIcon style={{ color: 'white' }} />}{' '}
+                {children || <MenuBookIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   English/Language Answers
                 </span>
               </Button>
             </div>
-
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p
                 className={nunito.className}
@@ -75,152 +109,267 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 Essay/Book Report AI
               </p>
 
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                Enter a prompt for a story or any kind of writing and have our
-                Prompt AI write it for you!
-                <br /> Be patient, this can take time to complete.
+              <p style={{ fontSize: 12, color: "black" }}>
+                Need help writing an essay or a creative story? Just give a
+                prompt and this assistant will craft a unique piece for you.
               </p>
               <Button
-                onClick={() => handleClick('prompt')}
+                onClick={() => handleClick("prompt")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#00c3ff',
+                  backgroundColor: "#00c3ff",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <CreateIcon style={{ color: 'white' }} />}{' '}
+                {children || <CreateIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   Essay Writer
                 </span>
               </Button>
             </div>
-
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>
-                History / Social Studies AI
+                History & Social Studies AI
               </p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                This AI can answer any questions about anything that ever
-                happened in history. Each answer is unique.
+              <p style={{ fontSize: 12, color: "black" }}>
+                This AI provides answers to any history or social studies
+                question, offering unique perspectives on past events.
               </p>
               <Button
-                onClick={() => handleClick('history')}
+                onClick={() => handleClick("history")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#e833bb',
+                  backgroundColor: "#e833bb",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <HistoryEduIcon style={{ color: 'white' }} />}{' '}
+                {children || <HistoryEduIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   History Answers
                 </span>
               </Button>
             </div>
-
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>Science AI</p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                This Science AI is programmed to answer anything you could ever
-                want to know about science.
+              <p style={{ fontSize: 12, color: "black" }}>
+                Your go-to resource for all science-related queries, from basic
+                concepts to complex theories.
               </p>
               <Button
-                onClick={() => handleClick('science')}
+                onClick={() => handleClick("science")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#24b557',
+                  backgroundColor: "#24b557",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <ScienceIcon style={{ color: 'white' }} />}{' '}
+                {children || <ScienceIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   Science Answers
                 </span>
               </Button>
             </div>
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>Math AI</p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                This AI is capable of simple and advanced mathematics.
+              <p style={{ fontSize: 12, color: "black" }}>
+                Tackles all kinds of math problems, from simple calculations to
+                advanced mathematics.{" "}
               </p>
               <Button
-                onClick={() => handleClick('math')}
+                onClick={() => handleClick("math")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#a334e3',
+                  backgroundColor: "#a334e3",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <PercentIcon style={{ color: 'white' }} />}{' '}
+                {children || <PercentIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
                   Math Answers
                 </span>
               </Button>
             </div>
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Genius AI</p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                This is an expert on everything not covered above - including software classes, and law school. 
+              <p style={{ fontSize: 16, fontWeight: 600 }}>
+                Engineering & Computer Science
+              </p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Offers help with computer science and programming concepts.
+                Whether you're learning to code or tackling complex algorithms,
+                this AI is your personal coding coach.
               </p>
               <Button
-                onClick={() => handleFeedback('chat')}
+                onClick={() => handleClick("engineering")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#b58024',
+                  backgroundColor: "#00bcd4",
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <PsychologyIcon style={{ color: 'white' }} />}{' '}
+                {children || <EngineeringIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Chat with an AI
+                  Engineering Answers
+                </span>
+              </Button>
+            </div>{" "}
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>Health Science AI</p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Your resource for understanding the complexities of health
+                sciences. From anatomy to medical research, get reliable and
+                informative answers.
+              </p>
+              <Button
+                onClick={() => handleClick("health")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#cddc39",
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {children || <LocalHospitalIcon style={{ color: "white" }} />}{" "}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Health Science Answers
+                </span>
+              </Button>
+            </div>{" "}
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>
+                Business & Economics Analyst
+              </p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Expert insights into business strategies and economic theories,
+                aiding students and entrepreneurs.
+              </p>
+              <Button
+                onClick={() => handleClick("business")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#ff9800", // Orange color
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {/* Icon can be changed */}
+                {children || <AttachMoneyIcon style={{ color: "white" }} />}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Business & Economics Answers
                 </span>
               </Button>
             </div>
             <div
-              style={{ marginTop: 16, padding: 16, backgroundColor: '#f5f5f5' }}
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Give Feedback</p>
-              <p style={{ fontSize: 12, color: 'gray' }}>
-                Give this AI feedback so we can improve the app. Want a new
-                feature? Find a bug? Tell us about it!
+              <p style={{ fontSize: 16, fontWeight: 600 }}>
+                Psychology & Social Science Guide
+              </p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Dive into psychological theories and social science concepts
+                with detailed explanations.
               </p>
               <Button
-                onClick={() => handleFeedback('feedback')}
+                onClick={() => handleClick("psychology")}
                 style={{
                   zIndex: 10,
-                  backgroundColor: '#ff4a47',
+                  backgroundColor: "#673ab7", // Deep purple color
                   padding: 14,
                   marginBottom: 16,
-                  color: 'white',
-                  width: '100%',
+                  color: "white",
+                  width: "100%",
                 }}
               >
-                {children || <EmailIcon style={{ color: 'white' }} />}{' '}
+                {/* Icon can be changed */}
+                {children || <PsychologyAltIcon style={{ color: "white" }} />}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  Talk to the OddityAI Team!
+                  Psychology & Social Answers
+                </span>
+              </Button>
+            </div>
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>
+                Law & Political Science Consultant
+              </p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Guidance on legal theories and political science, ideal for law
+                students and enthusiasts.
+              </p>
+              <Button
+                onClick={() => handleClick("law")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#3f51b5", // Indigo color
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {/* Icon can be changed */}
+                {children || <GavelIcon style={{ color: "white" }} />}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Law & Political Answers
+                </span>
+              </Button>
+            </div>
+            <div
+              style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
+            >
+              <p style={{ fontSize: 16, fontWeight: 600 }}>
+                Arts & Design Mentor
+              </p>
+              <p style={{ fontSize: 12, color: "black" }}>
+                Creative inspiration and practical advice for aspiring artists
+                and designers in various fields.
+              </p>
+              <Button
+                onClick={() => handleClick("art")}
+                style={{
+                  zIndex: 10,
+                  backgroundColor: "#9c27b0", // Purple color
+                  padding: 14,
+                  marginBottom: 16,
+                  color: "white",
+                  width: "100%",
+                }}
+              >
+                {/* Icon can be changed */}
+                {children || <BrushIcon style={{ color: "white" }} />}
+                <span style={{ fontSize: 14, marginLeft: 8 }}>
+                  Art & Design Answers
                 </span>
               </Button>
             </div>
@@ -228,7 +377,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Buttons

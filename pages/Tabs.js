@@ -615,7 +615,7 @@ export default function BasicTabs({
             </form>
           </div> 
         </div> */}
-        {profileData && profileData.duplicate != true && (
+        {/* {profileData && profileData.duplicate != true && (
           <div
             style={{
               width: '75%',
@@ -722,7 +722,7 @@ export default function BasicTabs({
               </div>
             </div>
           </div>
-        )}
+        )} */}
         {/* <div
               style={{
                 margin: '16px auto',
