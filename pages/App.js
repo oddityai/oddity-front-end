@@ -153,7 +153,7 @@ export default function Home() {
                 email: user?.email,
                 id: user?.uid,
                 name: user?.email,
-                credits: 20,
+                credits: 10,
                 acceptedTerms: true,
                 subscribed: false,
                 subscriptionId: "",
