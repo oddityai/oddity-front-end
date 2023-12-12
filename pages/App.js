@@ -36,7 +36,7 @@ const TYPES = {
   science:
     "Answer this science question for me.  Just give me the answer without too much explanation unless the question asks to show your work: ",
   prompt:
-    "Write a fully descriptive, captivating, well written section about the following prompt, keep it around 300 words unless instructed otherwise in the following: ",
+    "I would like an essay that explores the topic. The essay should begin with an engaging introduction that outlines the key questions or themes related to the topic. In the body, please provide a detailed analysis, including various perspectives or relevant theories. Use concrete examples or case studies to illustrate the points made. Ensure that each paragraph transitions smoothly to the next, maintaining a logical flow. The conclusion should summarize the key points and reflect on the broader implications or future directions of the topic. Please include citations from credible sources to support the arguments. Keep it around 300 words unless otherwise asked in the topic. The topic is: ",
   chat: "Answer the following question to me as if you are an expert on the subject. Just give me the answer without too much explanation unless the question asks to show your work",
   feedback:
     'Give me a good reply for this piece of feedback as if you are a team and we are a group replying, also keep in mind that this is not the area to ask questions about homework, only to provide feedback to the team, and do not answer any questions about english, math, science, geography, or math, and explain that to have the question answered if asked, they can buy credits at the "Credits" tab and use one of the specially designed bots, but only mention this if such a question is asked, also if ever referring to yourself, we are "OddityAI": ',
@@ -152,7 +152,7 @@ export default function Home() {
                 email: user?.email,
                 id: user?.uid,
                 name: user?.email,
-                credits: 20,
+                credits: 10,
                 acceptedTerms: true,
                 subscribed: false,
                 subscriptionId: "",
