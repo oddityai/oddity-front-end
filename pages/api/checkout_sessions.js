@@ -10,18 +10,18 @@ export default async function handler(req, res) {
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: 'price_1Ncgo6DeCpRNgE7AvbA5zfw8',
+            price: "price_1NtvjYDeCpRNgE7AjKWtQ6A7",
             quantity: 1,
           },
         ],
-        mode: 'payment',
+        mode: "payment",
         metadata: {
           user_id: `123`,
         },
         success_url: `${req.headers.origin}/App?success=true`,
         cancel_url: `${req.headers.origin}/App?canceled=true`,
         automatic_tax: { enabled: true },
-      })
+      });
       res.redirect(303, session.url)
     } catch (err) {
       res.status(err.statusCode || 500).json(err.message)

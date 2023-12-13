@@ -186,7 +186,7 @@ export default function Home() {
     if (router.query.success === "true" && profileData.id) {
       const usersRef = db.collection("profiles");
       const userRef = usersRef.doc(profileData.id);
-      const creditsToAdd = 2000;
+      const creditsToAdd = 50;
 
       try {
         userRef.update(

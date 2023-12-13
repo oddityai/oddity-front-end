@@ -2,7 +2,6 @@
 import { buffer } from "micro";
 import { db } from "../../firebase";
 
-
 const stripe = require("stripe")("whsec_iqVWJTnrpwk0meQfW78nvwlNU17J88t8");
 
 export const config = {
@@ -31,32 +30,58 @@ async function handler(req, res) {
     const todaysDate = Math.floor(Date.now() / 1000);
 
     if (subscriptionId) {
-        const usersRef = db.collection("profiles");
-        const userRef = usersRef.doc(userId);
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(userId);
 
-        try {
-await userRef.set(
-  {
-    subscribed: true,
-    subscriptionId: subscriptionId,
-    dateOfSub: todaysDate,
-  },
-  { merge: true }
-);
-
-
-        } catch (error) {
+      try {
+        await userRef.set(
+          {
+            subscribed: true,
+            subscriptionId: subscriptionId,
+            dateOfSub: todaysDate,
+          },
+          { merge: true }
+        );
+      } catch (error) {
         console.log("Error updating user:", error);
-        }
-    }
-
-    return res
-      .status(200)
-      .json({
+      }
+      return res.status(200).json({
         received: true,
         subscriptionId: subscriptionId,
         session: session,
       });
+    } else {
+      // Assuming you are within an async function
+      const usersRef = db.collection("profiles");
+      const userRef = usersRef.doc(userId);
+
+      try {
+        // Retrieve the current document
+        const doc = await userRef.get();
+        if (!doc.exists) {
+          console.log("No such document!");
+        } else {
+          // Get the current credits value and add 20
+          const currentCredits = doc.data().credits || 0; // Fallback to 0 if undefined
+          const newCredits = +currentCredits + 20;
+
+          // Update the subscribed status and credits
+          await userRef.set(
+            {
+              credits: newCredits, // Update the credits
+            },
+            { merge: true }
+          );
+
+          // Send response
+          return res.status(200).json({
+            updatedCredits: newCredits,
+          });
+        }
+      } catch (error) {
+        console.log("Error updating user:", error);
+      }
+    }
   }
 
   return res.status(200).json({ received: true });
