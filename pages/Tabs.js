@@ -276,7 +276,7 @@ export default function BasicTabs({
             label='fun BOTS'
             {...a11yProps(1)}
           /> */}
-          <Tab className={nunito.className} label='Credits' {...a11yProps(2)} />
+          <Tab className={nunito.className} label='Subscribe' {...a11yProps(2)} />
 
           <Tab
             className={nunito.className}
@@ -507,12 +507,18 @@ export default function BasicTabs({
             <div style={{ padding: 8 }}>
               <h3 className={nunito.className}>Unlimited Questions</h3>
               <hr />
-              <h3 className={nunito.className}>$9.99</h3>
+              <h3 className={nunito.className}>$9.99/mo</h3>
               <hr />
               <h4>30 Day Subscription</h4>
               {/* <p className={nunito.className}>Enough for a few months</p> */}
               <p className={nunito.className}>
-                Get unlimited questions every month until you cancel.
+                GPT4
+              </p>
+              <p className={nunito.className}>
+                Unlimited questions.
+              </p>
+              <p className={nunito.className}>
+                Unlimited picture uploads
               </p>
               <p className={nunito.className}>
                 Usable on any current/future AI bots
