@@ -389,7 +389,7 @@ const TYPES = {
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 3 || i === 6 || i === 9 || i === 50) &&
+                            {(i === 3 || i === 5 || i === 9 || i === 30) &&
                               !profileData.subscribed && (
                                 <p
                                   style={{

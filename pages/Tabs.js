@@ -350,7 +350,7 @@ export default function BasicTabs({
                 <h3 className={nunito.className}>50 GPT-4 Credits</h3>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Our GPT-4 powered bots are specially designed to get the
-                  correct answers at only 50% the cost.
+                  correct answers at only 50% the cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$0.99</h3>
@@ -415,12 +415,12 @@ export default function BasicTabs({
                 <h3 className={nunito.className}>Unlimited GPT-4 Answers</h3>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Our GPT-4 powered bots are specially designed to get the
-                  correct answers at only 50% the cost.
+                  correct answers at only 50% the cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$9.99/mo</h3>
                 <hr />
-                <h4>30 Day Subscription</h4>
+                <h4>Unlimited Credits</h4>
                 {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Unlimited questions.</p>
