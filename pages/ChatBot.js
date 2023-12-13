@@ -119,49 +119,49 @@ const ChatBot = ({
 const TYPES = {
   math: `Hey${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Ready for some math magic? Throw me any math challenge!`,
+  }! Ready for some math magic? Throw me any math challenge! I am powered by GPT4, the most powerful AI in the world.`,
   history: `Greetings${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Time travel through history with your questions and I'll be your guide.`,
+  }! Time travel through history with your questions and I'll be your guide. I am powered by GPT4, the most powerful AI in the world.`,
   english: `Hello${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Let's unravel the mysteries of English together. From Shakespeare to song lyrics, I've got you covered!`,
+  }! Let's unravel the mysteries of English together. From Shakespeare to song lyrics, I've got you covered! I am powered by GPT4, the most powerful AI in the world.`,
   prompt: `What's up${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }? I'm your personal scribe. Share a topic and watch me spin words into essays or stories.`,
+  }? I'm your personal scribe. Share a topic and watch me spin words into essays or stories. I am powered by GPT4, the most powerful AI in the world.`,
   chat: `Hi${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Got questions? I've got answers. Test my knowledge on any topic.`,
+  }! Got questions? I've got answers. Test my knowledge on any topic. I am powered by GPT4, the most powerful AI in the world.`,
   science: `Hello${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Ready to explore the universe of science? From atoms to galaxies, ask away!`,
+  }! Ready to explore the universe of science? From atoms to galaxies, ask away! I am powered by GPT4, the most powerful AI in the world.`,
   feedback: `Hey there${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Got suggestions or ideas? Share your thoughts and help us grow together!`,
+  }! Got suggestions or ideas? Share your thoughts and help us grow together! I am powered by GPT4, the most powerful AI in the world.`,
   reply: `Hi${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Need help crafting the perfect reply? Paste the message and let's craft a response together.`,
+  }! Need help crafting the perfect reply? Paste the message and let's craft a response together. I am powered by GPT4, the most powerful AI in the world.`,
   joke: `Hey${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Ready to laugh? Give me a topic and I'll whip up a joke that'll tickle your funny bone.`,
+  }! Ready to laugh? Give me a topic and I'll whip up a joke that'll tickle your funny bone. I am powered by GPT4, the most powerful AI in the world.`,
   art: `Salutations${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Let's dive into the colorful world of art. Questions about brushstrokes, styles, or art history? Ask away!`,
+  }! Let's dive into the colorful world of art. Questions about brushstrokes, styles, or art history? Ask away! I am powered by GPT4, the most powerful AI in the world.`,
   law: `Hello${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Seeking legal enlightenment? I'm here to demystify laws and legal concepts for you.`,
+  }! Seeking legal enlightenment? I'm here to demystify laws and legal concepts for you. I am powered by GPT4, the most powerful AI in the world.`,
   psychology: `Greetings${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Let's delve into the fascinating world of psychology and social sciences. What's on your mind?`,
+  }! Let's delve into the fascinating world of psychology and social sciences. What's on your mind? I am powered by GPT4, the most powerful AI in the world.`,
   business: `Hello${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Ready to conquer the business world? Ask me about markets, strategies, or economic theories.`,
+  }! Ready to conquer the business world? Ask me about markets, strategies, or economic theories. I am powered by GPT4, the most powerful AI in the world.`,
   health: `Hi${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Your health science ally here. From anatomy to wellness, I'm ready to answer your queries.`,
+  }! Your health science ally here. From anatomy to wellness, I'm ready to answer your queries. I am powered by GPT4, the most powerful AI in the world.`,
   engineering: `Hey${
     user?.given_name ? ` ${user?.given_name}` : ""
-  }! Engineering puzzles to solve? Let's crack them together. Ask me anything from circuits to skyscrapers.`,
+  }! Engineering puzzles to solve? Let's crack them together. Ask me anything from circuits to skyscrapers. I am powered by GPT4, the most powerful AI in the world.`,
 };
 
 

@@ -156,7 +156,7 @@ export default function Home() {
                 email: user?.email,
                 id: user?.uid,
                 name: user?.email,
-                credits: 5,
+                credits: 10,
                 acceptedTerms: true,
                 subscribed: false,
                 subscriptionId: "",
