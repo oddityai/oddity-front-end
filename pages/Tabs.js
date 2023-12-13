@@ -50,6 +50,7 @@ function a11yProps(index) {
 export default function BasicTabs({
   handleClick,
   handleFeedback,
+  handleChange,
   answers,
   profileData,
   handleClose,
@@ -59,9 +60,7 @@ export default function BasicTabs({
   const [referralCode, setReferralCode] = React.useState('')
   const [codesArray, setCodesArray] = React.useState([])
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+
 
   useEffect(() => {
     fetch(`/api/check_sub_status?sub_id=${profileData?.subscriptionId}`)
@@ -505,7 +504,8 @@ export default function BasicTabs({
             }}
           >
             <div style={{ padding: 8 }}>
-              <h3 className={nunito.className}>Unlimited Questions</h3>
+              <h2 className={nunito.className}>Unlimited GPT4 Answers</h2>
+              <p className={nunito.className}>Our GPT4 powered bots are specially designed to get the correct answers at only 50% the cost.</p>
               <hr />
               <h3 className={nunito.className}>$9.99/mo</h3>
               <hr />

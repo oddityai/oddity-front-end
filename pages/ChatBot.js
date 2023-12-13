@@ -25,6 +25,7 @@ const ChatBot = ({
   error,
   animalInput,
   setAnimalInput,
+  handleTabChange,
   onSubmit,
   answers,
   streamedResult,
@@ -36,6 +37,7 @@ const ChatBot = ({
   useCredit,
 }) => {
   const [user, setUser] = useState(null);
+  console.log({isLoading})
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
@@ -98,7 +100,7 @@ const ChatBot = ({
   function uploadFile(e, type) {
     if (e.target.files[0]) {
       setFile({ file: e.target.files[0], type: type });
-      // useCredit()
+      useCredit()
     }
   }
 
@@ -385,11 +387,26 @@ const TYPES = {
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 6 || i === 12 || i === 25 || i === 50) && (
-                              <>
-                        
-                              </>
-                            )}
+                            {(i === 0 || i === 6 || i === 9 || i === 50) &&
+                              !profileData.subscribed && (
+                                <p style={{ color: "orange" }}>
+                                  Experience cutting-edge AI with our GPT-4
+                                  powered bots. As a premium user, you get
+                                  exclusive access to ChatGPT-4 at half the
+                                  price. Don't miss out – subscribe today and
+                                  unlock advanced conversations.{" "}
+                                  <span
+                                    style={{
+                                      fontWeight: "bold",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={(event) => handleTabChange(event, 1)}
+                                  >
+                                    {" "}
+                                    Click Here to get started.
+                                  </span>
+                                </p>
+                              )}
                           </p>
                           <div
                             style={{
@@ -563,7 +580,6 @@ const TYPES = {
               </IconButton>
             )} */}
             {subject !== "feedback" &&
-              subject !== "chat" &&
               subject !== "joke" &&
               subject !== "reply" &&
               subject !== "prompt" && (

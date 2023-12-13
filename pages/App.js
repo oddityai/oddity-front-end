@@ -82,6 +82,12 @@ export default function Home() {
   }, []);
   const router = useRouter();
 
+    const handleTabChange = (event, newValue) => {
+             setIsModalOpen(false);
+             setAnswers([]);
+                   setValue(newValue);
+    };
+
   async function updateUserProfile() {
     try {
       const fingerprint = await getFingerprint();
@@ -368,6 +374,7 @@ export default function Home() {
       if (event) {
         event.preventDefault();
       }
+      useCredit()
     setIsLoadingScreen(true);
       try {
         if (
@@ -765,6 +772,7 @@ homework helper"
                 onSubmit={onSubmit}
                 streamedResult={result}
                 ws={ws}
+                handleTabChange={handleTabChange}
                 handleChange={handleChange}
                 isLoading={isLoadingScreen}
                 animalInput={animalInput}
@@ -779,6 +787,7 @@ homework helper"
           <Tabs
             profileData={profileData}
             answers={answers}
+            handleChange={handleTabChange}
             handleClick={handleClick}
             handleFeedback={handleFeedback}
             handleClose={handleClose}
