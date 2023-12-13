@@ -377,14 +377,6 @@ export default function Home() {
       useCredit()
     setIsLoadingScreen(true);
       try {
-        if (
-          subject !== "feedback" &&
-          subject !== "chat" &&
-          subject !== "joke" &&
-          subject !== "reply"
-        ) {
-          !profileData?.subscribed && useCredit();
-        }
 
         if (url) {
         ReactGA.event({
