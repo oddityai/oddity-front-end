@@ -394,17 +394,23 @@ const TYPES = {
                                 <p
                                   style={{
                                     color: "orange",
-                                    fontWeight: "bold",
                                     cursor: "pointer",
+                                    textShadow: "2px 2px 4px #000000", // Adds a black shadow
                                   }}
                                   onClick={(event) => handleTabChange(event, 1)}
                                 >
                                   Experience cutting-edge AI with our GPT-4
-                                  powered bots. As a premium user, you get
+                                  powered bots. As a premium user, you'll get
                                   exclusive access to ChatGPT-4 at half the
                                   price. Don't miss out – subscribe today and
-                                  unlock advanced conversations. Click Here to
-                                  get started.{" "}
+                                  unlock the worlds most advanced AI for as
+                                  little as 99 cents.{" "}
+                                  <span
+                                    style={{ textDecoration: "underline" }}
+                                  >
+                                    Click Here
+                                  </span>{" "}
+                                  to get started.{" "}
                                 </p>
                               )}
                           </p>

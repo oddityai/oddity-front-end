@@ -747,18 +747,40 @@ homework helper"
                 padding: 8,
               }}
             >
-              <p
-                style={{
-                  fontSize: 20,
-                  fontWeight: 600,
-                  color: "rgba(0, 0, 0, 0.87)",
-                  fontFamily: "'ColfaxAI', sans-serif",
-                  marginTop: 15,
-                }}
-                id="form-title"
-              >
-                {`OddityAI ${subject} AI`}
-              </p>
+              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                <p
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 600,
+                    color: "rgba(0, 0, 0, 0.87)",
+                    fontFamily: "'ColfaxAI', sans-serif",
+                    marginTop: 15,
+                  }}
+                  id="form-title"
+                >
+                  {`OddityAI ${subject} AI`}
+                </p>
+                <div
+                  style={{ textDecoration: "none", marginLeft: 8 }}
+                  onClick={() => setValue(1)}
+                >
+                  <p
+                    style={{
+                      margin: 0,
+                      width: "90px",
+                      color: "#0057be",
+                      borderRadius: "5px",
+                      border: "solid 1px #0057be",
+                      textAlign: "center",
+                      backgroundColor: "#f2f2f2",
+                      boxShadow: "2px 2px 5px gray",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Credits: {profileData?.credits}
+                  </p>
+                </div>
+              </div>
               <ChatBot
                 setAnimalInput={setAnimalInput}
                 setIsLoadingScreen={setIsLoadingScreen}
