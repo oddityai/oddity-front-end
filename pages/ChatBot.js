@@ -397,7 +397,14 @@ const TYPES = {
                                     cursor: "pointer",
                                     textShadow: "2px 2px 4px #000000", // Adds a black shadow
                                   }}
-                                  onClick={(event) => handleTabChange(event, 1)}
+                                  onClick={(event) => {
+                                            ReactGA.event({
+                                              category: "User",
+                                              action:
+                                                "Used clicked chat CTA",
+                                            });
+
+                                    handleTabChange(event, 1)}}
                                 >
                                   Experience cutting-edge AI with our GPT-4
                                   powered bots. As a premium user, you'll get
