@@ -3,6 +3,7 @@ const stripe = require('stripe')(
 )
 
 export default async function handler(req, res) {
+  const userId = req.query.user_id;
   if (req.method === 'POST') {
     try {
       // Create Checkout Sessions from body params.
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
         ],
         mode: "payment",
         metadata: {
-          user_id: `123`,
+          user_id: userId,
         },
         success_url: `${req.headers.origin}/App?success=true`,
         cancel_url: `${req.headers.origin}/App?canceled=true`,

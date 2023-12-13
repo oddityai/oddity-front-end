@@ -63,7 +63,7 @@ async function handler(req, res) {
         } else {
           // Get the current credits value and add 20
           const currentCredits = doc.data().credits || 0; // Fallback to 0 if undefined
-          const newCredits = +currentCredits + 20;
+          const newCredits = +currentCredits + 50;
 
           // Update the subscribed status and credits
           await userRef.set(
