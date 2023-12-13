@@ -320,8 +320,8 @@ export default function BasicTabs({
                 If you want to cancel your subscription - please email
                 support@oddityai.com and include your accounts email address.
               </h4>
-              {/* <p className={nunito.className}>Enough for a few months</p> */}
-              <p className={nunito.className}>
+              {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
+              <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                 We are working on a self-cancel, it will be available soon.
               </p>
             </div>
@@ -338,7 +338,7 @@ export default function BasicTabs({
           >
             <Box
               sx={{
-                width: ["100%", "30%"], // Full width on mobile, 30% on desktop
+                width: ["80%", "30%"], // Full width on mobile, 30% on desktop
                 backgroundColor: "#f5f5f5",
                 borderRadius: 8,
                 boxShadow: "5px 5px 10px gray",
@@ -347,8 +347,8 @@ export default function BasicTabs({
               }}
             >
               <div style={{ padding: 8 }}>
-                <h2 className={nunito.className}>50 GPT-4 Credits</h2>
-                <p className={nunito.className}>
+                <h3 className={nunito.className}>50 GPT-4 Credits</h3>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Our GPT-4 powered bots are specially designed to get the
                   correct answers at only 50% the cost.
                 </p>
@@ -356,12 +356,12 @@ export default function BasicTabs({
                 <h3 className={nunito.className}>$0.99</h3>
                 <hr />
                 <h4>50 credits</h4>
-                <p className={nunito.className}>GPT-4</p>
-                <p className={nunito.className}>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   50 Questions or image uploads
                 </p>
-                <p className={nunito.className}>Never expire</p>
-                <p className={nunito.className}>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Never expire</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Usable on any current/future AI bots
                 </p>
                 <form
@@ -384,7 +384,7 @@ export default function BasicTabs({
                       button {
                         margin-top: 8px;
                         height: 36px;
-                        background: #556cd6;
+                        background: #007bff;
                         border-radius: 4px;
                         color: white;
                         border: 0;
@@ -403,7 +403,7 @@ export default function BasicTabs({
             </Box>
             <Box
               sx={{
-                width: ["100%", "30%"], // Full width on mobile, 30% on desktop
+                width: ["80%", "30%"], // Full width on mobile, 30% on desktop
                 backgroundColor: "#f5f5f5",
                 borderRadius: 8,
                 boxShadow: "5px 5px 10px gray",
@@ -412,8 +412,8 @@ export default function BasicTabs({
               }}
             >
               <div style={{ padding: 8 }}>
-                <h2 className={nunito.className}>Unlimited GPT-4 Answers</h2>
-                <p className={nunito.className}>
+                <h3 className={nunito.className}>Unlimited GPT-4 Answers</h3>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Our GPT-4 powered bots are specially designed to get the
                   correct answers at only 50% the cost.
                 </p>
@@ -421,11 +421,11 @@ export default function BasicTabs({
                 <h3 className={nunito.className}>$9.99/mo</h3>
                 <hr />
                 <h4>30 Day Subscription</h4>
-                {/* <p className={nunito.className}>Enough for a few months</p> */}
-                <p className={nunito.className}>GPT-4</p>
-                <p className={nunito.className}>Unlimited questions.</p>
-                <p className={nunito.className}>Unlimited picture uploads</p>
-                <p className={nunito.className}>
+                {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Unlimited questions.</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Unlimited picture uploads</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
                   Usable on any current/future AI bots
                 </p>
                 <form
@@ -448,7 +448,7 @@ export default function BasicTabs({
                       button {
                         margin-top: 8px;
                         height: 36px;
-                        background: #556cd6;
+                        background: #007bff;
                         border-radius: 4px;
                         color: white;
                         border: 0;
