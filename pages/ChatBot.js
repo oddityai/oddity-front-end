@@ -389,22 +389,20 @@ const TYPES = {
 
                             {(i === 0 || i === 6 || i === 9 || i === 50) &&
                               !profileData.subscribed && (
-                                <p style={{ color: "orange" }}>
+                                <p
+                                  style={{
+                                    color: "orange",
+                                    fontWeight: "bold",
+                                    cursor: "pointer",
+                                  }}
+                                  onClick={(event) => handleTabChange(event, 1)}
+                                >
                                   Experience cutting-edge AI with our GPT-4
                                   powered bots. As a premium user, you get
                                   exclusive access to ChatGPT-4 at half the
                                   price. Don't miss out – subscribe today and
-                                  unlock advanced conversations.{" "}
-                                  <span
-                                    style={{
-                                      fontWeight: "bold",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={(event) => handleTabChange(event, 1)}
-                                  >
-                                    {" "}
-                                    Click Here to get started.
-                                  </span>
+                                  unlock advanced conversations. Click Here to
+                                  get started.{" "}
                                 </p>
                               )}
                           </p>
