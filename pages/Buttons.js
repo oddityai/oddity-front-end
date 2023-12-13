@@ -50,8 +50,8 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>Genius AI</p>
               <p style={{ fontSize: 12, color: "black" }}>
-                For questions that don't fit into the above categories,
-                including software, law, and more, this is your expert resource.
+                For questions that don't fit into the categories below,
+                this is your expert resource.
               </p>
               <Button
                 onClick={() => handleFeedback("chat")}
