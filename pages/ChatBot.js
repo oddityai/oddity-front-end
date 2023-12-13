@@ -25,6 +25,7 @@ const ChatBot = ({
   error,
   animalInput,
   setAnimalInput,
+  setIsLoadingScreen,
   handleTabChange,
   onSubmit,
   answers,
@@ -82,6 +83,7 @@ const ChatBot = ({
 
   const generateFirebaseUrl = async () => {
     setError("");
+    setIsLoadingScreen(true)
     const path = `/images/${file.file.name}`;
     const ref = storage.ref(path);
     await ref.put(file.file);
@@ -387,7 +389,7 @@ const TYPES = {
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 0 || i === 6 || i === 9 || i === 50) &&
+                            {(i === 3 || i === 6 || i === 9 || i === 50) &&
                               !profileData.subscribed && (
                                 <p
                                   style={{

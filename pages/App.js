@@ -186,7 +186,7 @@ export default function Home() {
     if (router.query.success === "true" && profileData.id) {
       const usersRef = db.collection("profiles");
       const userRef = usersRef.doc(profileData.id);
-      const creditsToAdd = 0;
+      const creditsToAdd = 50;
 
       try {
         userRef.update(
@@ -323,7 +323,7 @@ export default function Home() {
     if (event.data === '{"type":"pong"}') {
       return;
     }
-    setIsLoadingScreen(false);
+    setIsLoadingScreen(true);
     setResult((prev) => {
       // Retrieve the latest profile data from Firestore
       db.collection("profiles")
@@ -350,7 +350,7 @@ export default function Home() {
         .catch((error) => {
           console.error("Error fetching latest data: ", error);
         });
-
+setIsLoadingScreen(false)
       // Return the updated result
       return prev + event.data;
     });
@@ -761,6 +761,7 @@ homework helper"
               </p>
               <ChatBot
                 setAnimalInput={setAnimalInput}
+                setIsLoadingScreen={setIsLoadingScreen}
                 onSubmit={onSubmit}
                 streamedResult={result}
                 ws={ws}
