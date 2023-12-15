@@ -48,10 +48,9 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 backgroundColor: "#f5f5f5",
               }}
             >
-              <p style={{ fontSize: 16, fontWeight: 600 }}>Genius AI</p>
+              <p style={{ fontSize: 16, fontWeight: 600 }}>General Genius</p>
               <p style={{ fontSize: 12, color: "black" }}>
-                For questions that don't fit into the categories below,
-                this is your expert resource.
+                A GPT 4 enabled broad bot that is education focused but without a target domain.
               </p>
               <Button
                 onClick={() => handleFeedback("chat")}
@@ -66,7 +65,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
               >
                 {children || <PsychologyIcon style={{ color: "white" }} />}{" "}
                 <span style={{ fontSize: 14, marginLeft: 8 }}>
-                  General Answers
+                  General Genius
                 </span>
               </Button>
             </div>
