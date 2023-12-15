@@ -3,6 +3,7 @@ import { Nunito } from "@next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { signOut } from "firebase/auth";
+import Button from "@mui/material/Button";
 
 import { auth } from "../firebase";
 
@@ -140,6 +141,21 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                 </p>
               </div>
             )}
+          <Link
+            className={nunito.className}
+            style={{
+              textDecoration: "none",
+              padding: 8,
+              borderRadius: 4,
+              color: "#0057be",
+            }}
+            href="/pricing"
+          >
+            {" "}
+            <Button style={{ color: "white", backgroundColor: "blue" }}>
+              Buy Now
+            </Button>
+          </Link>
           <div style={{ marginRight: 8, textDecoration: "none" }}>
             <Link
               className={nunito.className}
