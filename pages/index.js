@@ -213,11 +213,16 @@ const Contact = () => {
             }}
           >
             <span style={{ fontWeight: 600, fontSize: 24 }}>
-              CHAT GPT4 Enabled bots 
+              CHAT GPT4 Enabled bots
             </span>
             <br />
             <br />
-            At Oddityai, we believe every child deserves a personal tutor. That's why we've harnessed the cutting-edge technology of ChatGPT, blended with ingenious prompt engineering, to create an interactive learning experience that's both fun and educational. Our platform is designed to assist kids with their homework, making learning an exciting adventure! 
+            At Oddityai, we believe every child deserves a personal tutor.
+            That's why we've harnessed the cutting-edge technology of ChatGPT,
+            blended with ingenious prompt engineering, to create an interactive
+            learning experience that's both fun and educational. Our platform is
+            designed to assist kids with their homework, making learning an
+            exciting adventure!
             <br />
             <br />
           </div>
@@ -236,74 +241,18 @@ const Contact = () => {
             Maximize your learning with our AI Homework Helper!
             <br />
             <br />
-            Enjoy 10 free uses on our Free Trial, or choose unlimited access with our $9.99 Subscription Plan. Or for tailored flexibility, get 20 uses for just $0.99 on buy as you go.
-            <br/> 
-            <br/> 
-            Each Plan is designed to fit differing learning needs and budgets, ensuring you get the most value out of your study tool. 
+            Enjoy 10 free uses on our Free Trial, or choose unlimited access
+            with our $9.99 Subscription Plan. Or for tailored flexibility, get
+            20 uses for just $0.99 on buy as you go.
+            <br />
+            <br />
+            Each Plan is designed to fit differing learning needs and budgets,
+            ensuring you get the most value out of your study tool.
             <br />
             <br />
           </div>
         </div>
-        <div
-          style={{
-            padding: 16,
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            backgroundColor: "white",
 
-            fontSize: 18,
-          }}
-        >
-          <Link href="/App">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                justifyItems: "center",
-                alignItems: "center",
-                position: "relative",
-                border: "1px solid silver",
-                backgroundColor: "white",
-                borderRadius: 12,
-                width: windowSize > 500 ? "50%" : "90%",
-                maxWidth: 400,
-              }}
-            >
-              <Image
-                loading="lazy"
-                alt="Homework AI bot solving homework"
-                title="Homework AI bot solving homework"
-                name="ai-for-homework"
-                src="/final-step.png"
-                width="0"
-                sizes="100vw"
-                height="0"
-                style={{ width: "100%", height: "auto" }}
-              />
-            </div>
-          </Link>
-          <div
-            style={{
-              padding: 16,
-              width: windowSize > 500 ? "50%" : "90%",
-              maxWidth: 400,
-            }}
-          >
-            <span style={{ fontWeight: 600, fontSize: 24 }}>
-              Upload a picture and get answers in seconds!
-            </span>
-            <br />
-            <br />
-            Just take a clear picture of your homework paper and our high
-            powered AI will read your homework and provide you with all the
-            answers.
-            <br />
-            <br />
-          </div>
-        </div>
         <div
           style={{
             padding: 16,
@@ -331,6 +280,24 @@ const Contact = () => {
             <br />
             We have a number of AI bots that are specially designed to help you
             with all your homework subjects.
+            <br />
+            <br />
+          </div>
+          <div
+            style={{
+              padding: 16,
+              width: windowSize > 500 ? "50%" : "90%",
+              maxWidth: 400,
+            }}
+          >
+            <span style={{ fontWeight: 600, fontSize: 24 }}>
+              Upload a picture and get answers in seconds!
+            </span>
+            <br />
+            <br />
+            Just take a clear picture of your homework paper and our high
+            powered AI will read your homework and provide you with all the
+            answers.
             <br />
             <br />
           </div>
