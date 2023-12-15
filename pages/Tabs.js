@@ -336,7 +336,7 @@ export default function BasicTabs({
               gap: 2, // Spacing between boxes
             }}
           >
-            <Box
+            {/* <Box
               sx={{
                 width: ["80%", "30%"], // Full width on mobile, 30% on desktop
                 backgroundColor: "#f5f5f5",
@@ -400,7 +400,7 @@ export default function BasicTabs({
                   </style>
                 </form>
               </div>
-            </Box>
+            </Box> */}
             <Box
               sx={{
                 width: ["80%", "30%"], // Full width on mobile, 30% on desktop

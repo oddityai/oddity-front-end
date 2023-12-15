@@ -389,7 +389,7 @@ const TYPES = {
                               ? streamedResult
                               : answer.result}
 
-                            {(i === 3 || i === 5 || i === 9 || i === 30) &&
+                            {(i === 3 || i === 8 || i === 20 || i === 30) &&
                               !profileData.subscribed && (
                                 <p
                                   style={{
@@ -406,12 +406,10 @@ const TYPES = {
 
                                     handleTabChange(event, 1)}}
                                 >
-                                  Experience cutting-edge AI with our GPT-4
-                                  powered bots. As a premium user, you'll get
+                                  As a premium user, you'll get
                                   exclusive access to ChatGPT-4 at half the
-                                  price. Don't miss out – subscribe today and
-                                  unlock the worlds most advanced AI for as
-                                  little as 99 cents.{" "}
+                                  price of OpenAI. Don't miss out – subscribe today and
+                                  unlock the worlds most advanced AI .{" "}
                                   <span
                                     style={{ textDecoration: "underline" }}
                                   >
