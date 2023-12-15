@@ -205,6 +205,58 @@ const Contact = () => {
             fontSize: 18,
           }}
         >
+          <div
+            style={{
+              padding: 16,
+              width: windowSize > 500 ? "50%" : "90%",
+              maxWidth: 400,
+            }}
+          >
+            <span style={{ fontWeight: 600, fontSize: 24 }}>
+              CHAT GPT4 Enabled bots 
+            </span>
+            <br />
+            <br />
+            At Oddityai, we believe every child deserves a personal tutor. That's why we've harnessed the cutting-edge technology of ChatGPT, blended with ingenious prompt engineering, to create an interactive learning experience that's both fun and educational. Our platform is designed to assist kids with their homework, making learning an exciting adventure! 
+            <br />
+            <br />
+          </div>
+          <div
+            style={{
+              padding: 16,
+              width: windowSize > 500 ? "50%" : "90%",
+              maxWidth: 400,
+            }}
+          >
+            <span style={{ fontWeight: 600, fontSize: 24 }}>
+              Free, Subscribe or Buy Credits
+            </span>
+            <br />
+            <br />
+            Maximize your learning with our AI Homework Helper!
+            <br />
+            <br />
+            Enjoy 10 free uses on our Free Trial, or choose unlimited access with our $9.99 Subscription Plan. Or for tailored flexibility, get 20 uses for just $0.99 on buy as you go.
+            <br/> 
+            <br/> 
+            Each Plan is designed to fit differing learning needs and budgets, ensuring you get the most value out of your study tool. 
+            <br />
+            <br />
+          </div>
+        </div>
+        <div
+          style={{
+            padding: 16,
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: "center",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            backgroundColor: "white",
+
+            fontSize: 18,
+          }}
+        >
           <Link href="/App">
             <div
               style={{

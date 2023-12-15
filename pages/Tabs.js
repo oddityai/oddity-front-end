@@ -336,7 +336,72 @@ export default function BasicTabs({
               gap: 2, // Spacing between boxes
             }}
           >
-            {/* <Box
+            <Box
+              sx={{
+                width: ["80%", "30%"], // Full width on mobile, 30% on desktop
+                backgroundColor: "#f5f5f5",
+                borderRadius: 8,
+                boxShadow: "5px 5px 10px gray",
+                padding: 2,
+                margin: "auto",
+              }}
+            >
+              <div style={{ padding: 8 }}>
+                <h3 className={nunito.className}>Free Trial</h3>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                  Our GPT-4 powered bots are specially designed to get the
+                  correct answers at only 50% the cost of ChatGPT.
+                </p>
+                <hr />
+                <h3 className={nunito.className}>Free</h3>
+                <hr />
+                <h4>10 credits</h4>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                  Image Uploading
+                </p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Never expire</p>
+                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                  5 Questions
+                </p>
+                <form
+                  action={`/api/checkout_sessions?user_id=${profileData?.id}`}
+                  method="POST"
+                >
+                  <section>
+                    <button type="submit" role="link">
+                      Buy Now
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #007bff;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.5s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form>
+              </div>
+            </Box>
+            <Box
               sx={{
                 width: ["80%", "30%"], // Full width on mobile, 30% on desktop
                 backgroundColor: "#f5f5f5",
@@ -400,7 +465,7 @@ export default function BasicTabs({
                   </style>
                 </form>
               </div>
-            </Box> */}
+            </Box>
             <Box
               sx={{
                 width: ["80%", "30%"], // Full width on mobile, 30% on desktop
