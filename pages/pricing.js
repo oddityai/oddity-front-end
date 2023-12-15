@@ -223,41 +223,87 @@ const PricingPage = () => {
               >
                 Usable on any current/future AI bots
               </p>
-              <form
-                action={`/api/checkout_sessions?user_id=${profileData?.id}`}
-                method="POST"
-              >
-                <section>
-                  <button type="submit" role="link">
-                    Buy Now
-                  </button>
-                </section>
-                <style jsx>
-                  {`
-                    section {
-                      display: flex;
-                      flex-direction: column;
-                      border-radius: 6px;
-                      justify-content: space-between;
-                    }
-                    button {
-                      margin-top: 8px;
-                      height: 36px;
-                      background: #007bff;
-                      border-radius: 4px;
-                      color: white;
-                      border: 0;
-                      font-weight: 600;
-                      cursor: pointer;
-                      transition: all 0.5s ease;
-                      box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                    }
-                    button:hover {
-                      opacity: 0.8;
-                    }
-                  `}
-                </style>
-              </form>
+              {profileData?.id ? (
+                <form
+                  action={`/api/checkout_sessions?user_id=${profileData?.id}`}
+                  method="POST"
+                >
+                  <section>
+                    <button type="submit" role="link">
+                      Buy Now
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #007bff;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.5s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form>
+              ) : (
+                <>
+                  <Link
+                    className={nunito.className}
+                    style={{
+                      textDecoration: "none",
+                      padding: 8,
+                      borderRadius: 4,
+                      color: "#0057be",
+                    }}
+                    href="/signup"
+                  >
+                    <section>
+                      <button type="submit" role="link">
+                        Sign up
+                      </button>
+                    </section>
+                    <style jsx>
+                      {`
+                        section {
+                          display: flex;
+                          flex-direction: column;
+                          border-radius: 6px;
+                          justify-content: space-between;
+                        }
+                        button {
+                          margin-top: 8px;
+                          height: 36px;
+                          background: #007bff;
+                          border-radius: 4px;
+                          color: white;
+                          border: 0;
+                          font-weight: 600;
+                          cursor: pointer;
+                          transition: all 0.5s ease;
+                          box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                        }
+                        button:hover {
+                          opacity: 0.8;
+                        }
+                      `}
+                    </style>
+                  </Link>
+                </>
+              )}
             </div>
           </Box>
           <Box
@@ -308,41 +354,85 @@ const PricingPage = () => {
               >
                 Usable on any current/future AI bots
               </p>
-              <form
-                action={`/api/checkout_session_subscribe?user_id=${profileData?.id}`}
-                method="POST"
-              >
-                <section>
-                  <button type="submit" role="link">
-                    Subscribe Now
-                  </button>
-                </section>
-                <style jsx>
-                  {`
-                    section {
-                      display: flex;
-                      flex-direction: column;
-                      border-radius: 6px;
-                      justify-content: space-between;
-                    }
-                    button {
-                      margin-top: 8px;
-                      height: 36px;
-                      background: #007bff;
-                      border-radius: 4px;
-                      color: white;
-                      border: 0;
-                      font-weight: 600;
-                      cursor: pointer;
-                      transition: all 0.5s ease;
-                      box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
-                    }
-                    button:hover {
-                      opacity: 0.8;
-                    }
-                  `}
-                </style>
-              </form>
+              {profileData?.id ? (
+                <form
+                  action={`/api/checkout_session_subscribe?user_id=${profileData?.id}`}
+                  method="POST"
+                >
+                  <section>
+                    <button type="submit" role="link">
+                      Subscribe Now
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #007bff;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.5s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </form>
+              ) : (
+                <Link
+                  className={nunito.className}
+                  style={{
+                    textDecoration: "none",
+                    padding: 8,
+                    borderRadius: 4,
+                    color: "#0057be",
+                  }}
+                  href="/signup"
+                >
+                  <section>
+                    <button type="submit" role="link">
+                      Sign up
+                    </button>
+                  </section>
+                  <style jsx>
+                    {`
+                      section {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 6px;
+                        justify-content: space-between;
+                      }
+                      button {
+                        margin-top: 8px;
+                        height: 36px;
+                        background: #007bff;
+                        border-radius: 4px;
+                        color: white;
+                        border: 0;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.5s ease;
+                        box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+                      }
+                      button:hover {
+                        opacity: 0.8;
+                      }
+                    `}
+                  </style>
+                </Link>
+              )}
             </div>
           </Box>
         </Box>
