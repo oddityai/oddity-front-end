@@ -349,8 +349,7 @@ export default function BasicTabs({
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>Free Trial</h3>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots are specially designed to get the
-                  correct answers at only 50% the cost of ChatGPT.
+                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>Free</h3>
@@ -412,8 +411,7 @@ export default function BasicTabs({
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>50 GPT-4 Credits</h3>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots are specially designed to get the
-                  correct answers at only 50% the cost of ChatGPT.
+                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$0.99</h3>
@@ -477,8 +475,7 @@ export default function BasicTabs({
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>Unlimited GPT-4 Answers</h3>
                 <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots are specially designed to get the
-                  correct answers at only 50% the cost of ChatGPT.
+                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$9.99/mo</h3>
