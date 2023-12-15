@@ -365,12 +365,10 @@ export default function BasicTabs({
                   5 Questions
                 </p>
                 <form
-                  action={`/api/checkout_sessions?user_id=${profileData?.id}`}
-                  method="POST"
                 >
                   <section>
-                    <button type="submit" role="link">
-                      Buy Now
+                    <button disabled style={{backgroundColor: 'silver'}} type="submit" role="link">
+                      Your current plan
                     </button>
                   </section>
                   <style jsx>
