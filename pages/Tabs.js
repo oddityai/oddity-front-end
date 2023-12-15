@@ -277,7 +277,7 @@ export default function BasicTabs({
           /> */}
           <Tab
             className={nunito.className}
-            label="Subscribe / Credits"
+            label="Subscription / Credits"
             {...a11yProps(2)}
           />
 
