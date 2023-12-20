@@ -442,11 +442,11 @@ setIsLoadingScreen(false)
         const getModel = () => {
           if (
             profileData?.subscribed ||
-            (profileData?.credits > 15 && profileData?.credits < 21)
+            (profileData?.credits > 4 && profileData?.credits < 100)
           ) {
             return "gpt-4-1106-preview";
           } else {
-            return "gpt-4-1106-preview";
+            return "gpt-3.5-turbo";
           }
         };
         ws.send(
