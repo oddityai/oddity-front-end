@@ -703,7 +703,13 @@ homework helper"
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box sx={{ ...style, position: "relative" }}>
+            <Button
+              onClick={handleClose}
+              sx={{ position: "absolute", top: 10, right: 10 }}
+            >
+              X
+            </Button>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               You need a subscription to continue!
             </Typography>
@@ -747,7 +753,14 @@ homework helper"
                 padding: 8,
               }}
             >
-              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <p
                   style={{
                     fontSize: 20,
