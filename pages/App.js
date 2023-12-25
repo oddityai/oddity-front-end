@@ -707,16 +707,15 @@ homework helper"
           <Box sx={{ ...style, position: "relative" }}>
             <Button
               onClick={handleClose}
-              sx={{ position: "absolute", top: 10, right: 10 }}
+              sx={{ position: "absolute", top: 0, right: 0, fontWeight: 'bold', color: 'white' }}
             >
               X
             </Button>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              You need a subscription to continue!
+              You are out of credits!
             </Typography>
             <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Get a monthly subscription to OddityAI! <br />
-              at only $9.99/month!
+              Get more for as little as $0.99 now.
             </Typography>
           </Box>
         </Modal>
