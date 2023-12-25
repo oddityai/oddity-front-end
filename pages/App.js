@@ -1,6 +1,7 @@
 import CloseIcon from "@mui/icons-material/Close";
 import { Modal, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
+import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import { Nunito } from "@next/font/google";
 import Head from "next/head";
