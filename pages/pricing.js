@@ -43,6 +43,7 @@ const PricingPage = () => {
   return (
     <div className={nunito.className}>
       <AppBar />
+      <h2 style={{textAlign: 'center', margin: '50px 0'}}>Never worry about homework again!</h2>
       <div
         style={{
           margin: "16px auto",
