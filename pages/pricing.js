@@ -43,7 +43,7 @@ const PricingPage = () => {
   return (
     <div className={nunito.className}>
       <AppBar />
-      <h2 style={{textAlign: 'center', margin: '50px 0'}}>Never worry about homework again!</h2>
+      <h2 style={{textAlign: 'center', margin: '50px 0'}}>Subscribe now and never worry about homework again!</h2>
       <div
         style={{
           margin: "16px auto",
@@ -93,7 +93,7 @@ const PricingPage = () => {
         >
           <Box
             sx={{
-              width: ["80%", "30%"], // Full width on mobile, 30% on desktop
+              width: ["80%", "25%"], // Full width on mobile, 30% on desktop
               backgroundColor: "#f5f5f5",
               borderRadius: 8,
               boxShadow: "5px 5px 10px gray",
@@ -179,7 +179,7 @@ const PricingPage = () => {
           </Box>
           <Box
             sx={{
-              width: ["80%", "30%"], // Full width on mobile, 30% on desktop
+              width: ["80%", "25%"], // Full width on mobile, 30% on desktop
               backgroundColor: "#f5f5f5",
               borderRadius: 8,
               boxShadow: "5px 5px 10px gray",
@@ -309,7 +309,7 @@ const PricingPage = () => {
           </Box>
           <Box
             sx={{
-              width: ["80%", "30%"], // Full width on mobile, 30% on desktop
+              width: ["80%", "25%"], // Full width on mobile, 30% on desktop
               backgroundColor: "#f5f5f5",
               borderRadius: 8,
               boxShadow: "5px 5px 10px gray",
