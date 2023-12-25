@@ -615,7 +615,7 @@ setIsLoadingScreen(false)
   const [value, setValue] = useState(0);
   const handleClose = () => {
     setOpen(false);
-    setValue(1);
+    router.push("/pricing");
   };
 
   // useEffect(() => {
