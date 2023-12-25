@@ -187,7 +187,7 @@ const PricingPage = () => {
             }}
           >
             <div style={{ padding: 8 }}>
-              <h3 className={nunito.className}>50 GPT-4 Credits</h3>
+              <h3 className={nunito.className}>50 Credits</h3>
               <p
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
@@ -317,7 +317,7 @@ const PricingPage = () => {
             }}
           >
             <div style={{ padding: 8 }}>
-              <h3 className={nunito.className}>Unlimited GPT-4 Answers</h3>
+              <h3 className={nunito.className}>Unlimited Answers</h3>
               <p
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
