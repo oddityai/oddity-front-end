@@ -118,7 +118,7 @@ const PricingPage = () => {
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
               >
-                GPT-4
+                Uses GPT-4
               </p>
               <p
                 className={nunito.className}
@@ -204,7 +204,7 @@ const PricingPage = () => {
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
               >
-                GPT-4
+                Uses GPT-4
               </p>
               <p
                 className={nunito.className}
@@ -335,7 +335,7 @@ const PricingPage = () => {
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
               >
-                GPT-4
+                Uses GPT-4
               </p>
               <p
                 className={nunito.className}
