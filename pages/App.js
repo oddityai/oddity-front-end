@@ -445,9 +445,9 @@ setIsLoadingScreen(false)
             profileData?.subscribed ||
             (profileData?.credits > 4 && profileData?.credits < 100)
           ) {
-            return "gpt-3.5-turbo";
+            return "gpt-4-1106-preview";
           } else {
-            return "gpt-3.5-turbo";
+            return "gpt-4-1106-preview";
           }
         };
         ws.send(
