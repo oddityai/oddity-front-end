@@ -48,10 +48,11 @@ const Buttons = ({ children, handleClick, tutorhandleFeedback }) => {
             >
               <p style={{ fontSize: 16, fontWeight: 600 }}>General Genius</p>
               <p style={{ fontSize: 12, color: "black" }}>
-                A GPT 4 enabled broad bot that is educational focused but without a target domain.
+                A GPT 4 enabled broad bot that is educational focused but
+                without a target domain.
               </p>
               <Button
-                onClick={() => handleFeedback("chat")}
+                onClick={() => handleClick("tutorchat")}
                 style={{
                   zIndex: 10,
                   backgroundColor: "#b58024",
