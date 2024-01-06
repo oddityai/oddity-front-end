@@ -243,7 +243,7 @@ const Contact = () => {
             <br />
             Enjoy 10 free uses on our Free Trial, or choose unlimited access
             with our $9.99 Subscription Plan. Or for tailored flexibility, get
-            20 uses for just $0.99 on buy as you go.
+            250 uses for just $4.99 on buy as you go.
             <br />
             <br />
             Each Plan is designed to fit differing learning needs and budgets,
