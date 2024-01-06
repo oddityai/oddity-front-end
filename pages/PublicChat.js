@@ -59,6 +59,10 @@ const ChatApp = ({ profileData }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messagesEndRef.current]);
+
   return (
     <div
       style={{
@@ -76,68 +80,87 @@ const ChatApp = ({ profileData }) => {
           marginBottom: "10px",
         }}
       >
-        {messages.filter(((ele) => ele.visible)).map(({ id, text, user, timestamp, likes }) => (
-          <div
-            key={id}
-            style={{
-              display: "flex",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              padding: "5px 0",
-              flexDirection: user === profileData.email ? "row-reverse" : "row",
-            }}
-          >
-            {/* Avatar circle */}
+        {messages
+          .filter((ele) => ele.visible)
+          .map(({ id, text, user, timestamp, likes }) => (
             <div
+              key={id}
               style={{
-                height: "35px",
-                width: "35px",
-                backgroundColor:
-                  user === profileData.email ? "#007aff" : "#e5e5ea", // Adjust color to match the bubble
-                borderRadius: "50%",
                 display: "flex",
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 alignItems: "center",
-                fontSize: "16px",
-                color: user === profileData.email ? "white" : "black", // Adjust text color for contrast
-                fontWeight: "bold",
-                margin: user === profileData.email ? "0 0 0 10px" : "0 10px",
+                padding: "5px 0",
+                flexDirection:
+                  user === profileData.email ? "row-reverse" : "row",
               }}
             >
-              {user && user.charAt(0).toUpperCase()}
-            </div>
-            {/* Message bubble */}
-            <div
-              style={{
-                background: user === profileData.email ? "#007aff" : "#e5e5ea",
-                color: user === profileData.email ? "white" : "black",
-                borderRadius: "20px",
-                padding: "10px 14px",
-                maxWidth: "calc(100% - 60px)", // account for avatar and margins
-                boxShadow: "0 1px 1px rgba(0, 0, 0, 0.1)",
-                fontSize: "16px",
-                wordBreak: "break-word",
-                order: user === profileData.email ? 0 : 1, // Adjust order based on user
-              }}
-            >
-              <p style={{ margin: 0 }}>{text}</p>
-              <small
+              {/* Avatar circle */}
+              <div
                 style={{
-                  display: "block",
-                  marginTop: "8px",
-                  fontSize: "12px",
-                  color: user === profileData.email ? "#b6d0ff" : "#888",
+                  height: "35px",
+                  width: "35px",
+                  backgroundColor:
+                    user === profileData.email ? "#007aff" : "#e5e5ea", // Adjust color to match the bubble
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: "16px",
+                  color: user === profileData.email ? "white" : "black", // Adjust text color for contrast
+                  fontWeight: "bold",
+                  margin: user === profileData.email ? "0 0 0 10px" : "0 10px",
                 }}
               >
-                {timestamp.toLocaleString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: true,
-                })}
-              </small>
+                {user && user.charAt(0).toUpperCase()}
+              </div>
+              {/* Message bubble */}
+              <div
+                style={{
+                  background:
+                    user === profileData.email ? "#007aff" : "#e5e5ea",
+                  color: user === profileData.email ? "white" : "black",
+                  borderRadius: "20px",
+                  padding: "10px 14px",
+                  maxWidth: "calc(100% - 60px)", // account for avatar and margins
+                  boxShadow: "0 1px 1px rgba(0, 0, 0, 0.1)",
+                  fontSize: "16px",
+                  wordBreak: "break-word",
+                  order: user === profileData.email ? 0 : 1, // Adjust order based on user
+                }}
+              >
+                <p style={{ margin: 0 }}>{text}</p>
+                <small
+                  style={{
+                    display: "block",
+                    marginTop: "8px",
+                    fontSize: "12px",
+                    color: user === profileData.email ? "#b6d0ff" : "#888",
+                  }}
+                >
+                  {timestamp.toLocaleString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                  <button
+                    onClick={() => handleLike(id, likes)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      fontSize: "12px",
+                      color: "black",
+                      cursor: "pointer",
+                      marginLeft: 16,
+                      padding: "0",
+                      outline: "none",
+                    }}
+                  >
+                    Like ({likes.length})
+                  </button>{" "}
+                </small>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
 
         <div ref={messagesEndRef} />
       </div>

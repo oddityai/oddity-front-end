@@ -98,7 +98,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                 </span>
               </Button>
             </div>
-            <div
+            {/* <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >
               <p
@@ -128,7 +128,7 @@ const Buttons = ({ children, handleClick, handleFeedback }) => {
                   Essay Writer
                 </span>
               </Button>
-            </div>
+            </div> */}
             <div
               style={{ marginTop: 16, padding: 16, backgroundColor: "#f5f5f5" }}
             >

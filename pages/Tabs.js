@@ -11,6 +11,7 @@ import { db } from '../firebase'
 import Buttons from './Buttons'
 import PricingContent from './PricingContent'
 import PublicChat from './PublicChat'
+import EssayWriter from './EssayWriter'
 import ReactGA from "react-ga4";
 import * as amplitude from "@amplitude/analytics-browser";
 
@@ -294,6 +295,12 @@ export default function BasicTabs({
             {...a11yProps(4)}
             value={4}
           />
+          <Tab
+            className={nunito.className}
+            label="Essay Writer"
+            {...a11yProps(4)}
+            value={5}
+          />
         </Tabs>
       </Box>
 
@@ -338,6 +345,12 @@ export default function BasicTabs({
           Here you can chat publicly with all other OddityAI users. Feel free to leave feedback, request new features, report bugs or whatever you want to talk about.
         </h3>
         <PublicChat profileData={profileData} />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <h3 className={nunito.className} style={{ fontSize: 13 }}>
+          The Essay Writer will generate a new custom essay with every use. Nobody will have the say essay as you. Using the essay writer costs 2 credits.
+        </h3>
+        <EssayWriter profileData={profileData} />
       </TabPanel>
     </Box>
   );
