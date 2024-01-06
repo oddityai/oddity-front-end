@@ -220,6 +220,7 @@ const [generatedPushed, setGeneratedPushed] = useState(false);
             something id write, but use proper grammar as if you were trying to get a 100% on this paper.  Here is a sample of my own writing to follow the sample:`
             }  ${specialInstructions}.`,
             history: [],
+            systemMessage: 'you are a helpful essay writing bot who does a good job at writing high quality essays',
             url: url,
             model: getModel(),
           })
