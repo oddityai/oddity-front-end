@@ -166,6 +166,51 @@ const TYPES = {
   engineering: `Hey${
     user?.given_name ? ` ${user?.given_name}` : ""
   }! Engineering puzzles to solve? Let's crack them together. Ask me anything from circuits to skyscrapers. I am powered by GPT4, the most powerful AI in the world.`,
+  tutormath: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! I'm your expert tutor in Math, here to help you learn and conquer any math challenge. Powered by GPT4, I'm ready to assist.`,
+  tutorhistory: `Greetings${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As your expert tutor in History, I'm here to guide you through historical events and concepts. Let's learn together with the help of GPT4.`,
+  tutorenglish: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! I'm your English tutor, ready to explore and learn English literature and grammar with you. Powered by GPT4, I'm equipped to assist on any topic.`,
+  tutorprompt: `What's up${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }? As your writing tutor, I'm here to help you craft essays and stories. Let's make writing enjoyable with GPT4's power.`,
+  tutorchat: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! I'm your conversational tutor, here to answer and discuss any topic. Let's learn together with GPT4's vast knowledge.`,
+  tutorscience: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready to dive into science? As your science tutor, I'll help explain complex concepts in an understandable way. Powered by GPT4, no topic is too big or small.`,
+  tutorfeedback: `Hey there${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As a tutor, I'm here to provide helpful feedback. Share your thoughts and let's improve together with the support of GPT4.`,
+  tutorreply: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Need to craft the perfect reply? As your communication tutor, I'm here to assist. Let's create impactful messages with GPT4's help.`,
+  tutorjoke: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! Ready for some fun? As your humor tutor, I'll share jokes to lighten the mood. Let GPT4 add a touch of laughter to our learning.`,
+  tutorart: `Salutations${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As your art tutor, I'm here to discuss and explore the world of art with you. Let's learn about styles, history, and techniques with GPT4.`,
+  tutorlaw: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As your law tutor, I'm here to demystify legal concepts and laws. Let's navigate the legal world with the help of GPT4.`,
+  tutorpsychology: `Greetings${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! I'm your tutor in Psychology, ready to delve into the human mind and behavior. Let's explore and learn with the support of GPT4.`,
+  tutorbusiness: `Hello${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As your business tutor, let's tackle topics in markets, strategies, and economics. With GPT4, we can explore and learn the business world together.`,
+  tutorhealth: `Hi${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! I'm your tutor in Health Sciences, here to answer your health-related queries. Let's learn and explore wellness and anatomy with GPT4's assistance.`,
+  tutorengineering: `Hey${
+    user?.given_name ? ` ${user?.given_name}` : ""
+  }! As your engineering tutor, I'm ready to solve puzzles and answer questions from circuits to construction. Let's learn engineering with GPT4's help.`,
 };
 
 

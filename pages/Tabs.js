@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
+import TutorButtons from './TutorButtons'
 import PricingContent from './PricingContent'
 import PublicChat from './PublicChat'
 import EssayWriter from './EssayWriter'
@@ -257,50 +258,33 @@ export default function BasicTabs({
         <Tabs
           value={value}
           onChange={handleChange}
-          className={nunito.className}
           aria-label="basic tabs example"
-          variant="fullWidth"
-          scrollButtons
+          variant="scrollable"
+          scrollButtons="auto"
           allowScrollButtonsMobile
+          sx={{
+            ".MuiTab-root": {
+              // Default styles for larger screens
+              fontSize: "1rem", // Default font size
+              padding: "12px 24px", // Default padding
+              "@media (max-width: 600px)": {
+                // Styles for mobile screens
+                fontSize: "0.8rem", // Smaller font size for mobile
+                padding: "6px 12px", // Reduced padding for mobile
+              },
+            },
+            ".MuiTabs-indicator": {
+              // Customizing the indicator
+              backgroundColor: "primary.main",
+              height: "4px",
+            },
+          }}
         >
-          {/* <Tab
-            className={nunito.className}
-            label="WORKSHEET UPLOAD"
-            {...a11yProps(0)}
-          /> */}
-          <Tab
-            className={nunito.className}
-            label="Homework Answer Bots"
-            {...a11yProps(0)}
-          />
-          {/* <Tab
-            className={nunito.className}
-            label='fun BOTS'
-            {...a11yProps(1)}
-          /> */}
-          <Tab
-            className={nunito.className}
-            label="Subscription / Credits"
-            {...a11yProps(2)}
-          />
-
-          {/* <Tab
-            className={nunito.className}
-            label="Chat History"
-            {...a11yProps(2)}
-          /> */}
-          <Tab
-            className={nunito.className}
-            label="Public Chat (beta)"
-            {...a11yProps(4)}
-            value={4}
-          />
-          <Tab
-            className={nunito.className}
-            label="Essay Writer"
-            {...a11yProps(4)}
-            value={5}
-          />
+          <Tab value={0} label="Homework answer Bots" {...a11yProps(0)} />
+          <Tab value={6} label="24/7 AI Tutor" {...a11yProps(4)} />
+          <Tab value={5} label="Essay Writer" {...a11yProps(5)} />
+          <Tab value={4} label="Public Chat (beta)" {...a11yProps(1)} />
+          <Tab value={1} label="Subscription / Credits" {...a11yProps(2)} />
         </Tabs>
       </Box>
 
@@ -309,6 +293,10 @@ export default function BasicTabs({
           <h3 className={nunito.className} style={{ fontSize: 18 }}>
             Choose one of our AI bots below and get answers to your homework.
             Each AI is specially designed for each subject.
+          </h3>{" "}
+          <h3 className={nunito.className} style={{ fontSize: 12 }}>
+            This bot is meant to help you find the correct answers for your
+            homework so you can make sure you get the right answer.
           </h3>
           <Buttons handleClick={handleClick} handleFeedback={handleFeedback} />
         </>
@@ -342,15 +330,38 @@ export default function BasicTabs({
 
       <TabPanel value={value} index={4}>
         <h3 className={nunito.className} style={{ fontSize: 13 }}>
-          Here you can chat publicly with all other OddityAI users. Feel free to leave feedback, request new features, report bugs or whatever you want to talk about.
+          Here you can chat publicly with all other OddityAI users. Feel free to
+          leave feedback, request new features, report bugs or whatever you want
+          to talk about.
         </h3>
         <PublicChat profileData={profileData} />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        <h3 className={nunito.className} style={{ fontSize: 13 }}>
-          The Essay Writer will generate a new custom essay with every use. Nobody will have the say essay as you. Using the essay writer costs 2 credits.
+        <h3
+          className={nunito.className}
+          style={{ fontSize: 13, maxWidth: "70%", marginLeft: "15%" }}
+        >
+          The Essay Writer will generate a new custom essay with every use.
+          Nobody will have the say essay as you. Using the essay writer costs 2
+          credits. This essay generator is meant to give you an outline and get
+          started on your essay. You should edit it and make it your own.
         </h3>
         <EssayWriter profileData={profileData} />
+      </TabPanel>
+
+      <TabPanel value={value} index={6}>
+        <>
+          <h3 className={nunito.className} style={{ fontSize: 18 }}>
+            Choose one of 24/7 Tutor AI bots below and get answers to your
+            homework. Each Tutor Bot is specially designed for each subject.
+          </h3>{" "}
+          <h3 className={nunito.className} style={{ fontSize: 12 }}>
+            This Tutor bot is here to help explain topics and help you
+            understand your subjects better. It is not meant to give answers
+            like the Homework Helper bot.
+          </h3>
+          <TutorButtons handleClick={handleClick} handleFeedback={handleFeedback} />
+        </>
       </TabPanel>
     </Box>
   );

@@ -1,3 +1,7 @@
+body {
+  margin: 0px !important;
+}
+
 @font-face {
   font-family: "ColfaxAI";
   src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2)
@@ -29,6 +33,7 @@
 .main .icon {
   width: 34px;
 }
+
 .main h3 {
   font-size: 32px;
   line-height: 40px;

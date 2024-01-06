@@ -61,7 +61,7 @@ const ChatApp = ({ profileData }) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messagesEndRef.current]);
+  }, [messagesEndRef]);
 
   return (
     <div

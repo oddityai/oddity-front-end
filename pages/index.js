@@ -7,6 +7,7 @@ import Hotjar from "@hotjar/browser";
 import Image from "next/image";
 import { auth } from "../firebase";
 import ReactGA from "react-ga4";
+import "./index.css"
 
 import * as amplitude from "@amplitude/analytics-browser";
 

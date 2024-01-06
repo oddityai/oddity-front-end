@@ -30,10 +30,14 @@ const getFingerprint = async () => {
 
 const TYPES = {
   math: "Quickly solve this math problem. Keep your response meaningful but as short as possible.: ",
-  history: "In a few sentences, explain this history topic. Keep your response meaningful but as short as possible.: ",
-  english: "Summarize this English topic in a short paragraph. Keep your response meaningful but as short as possible.: ",
-  science: "Briefly explain this science concept or question. Keep your response meaningful but as short as possible.: ",
-  prompt: "Write a concise essay (about 300 words) on this topic. Cite sources at the very bottom.: ",
+  history:
+    "In a few sentences, explain this history topic. Keep your response meaningful but as short as possible.: ",
+  english:
+    "Summarize this English topic in a short paragraph. Keep your response meaningful but as short as possible.: ",
+  science:
+    "Briefly explain this science concept or question. Keep your response meaningful but as short as possible.: ",
+  prompt:
+    "Write a concise essay (about 300 words) on this topic. Cite sources at the very bottom.: ",
   chat: "Quickly provide expert insight on this query. Keep your response meaningful but as short as possible.: ",
   feedback:
     "Give a brief reply to this feedback. Use our specialized bots for academic questions. Keep your response meaningful but as short as possible.: ",
@@ -42,11 +46,39 @@ const TYPES = {
   joke: "Tell a quick joke about this topic. For academic queries, use our bots. Keep your response meaningful but as short as possible.: ",
   art: "In a few sentences, discuss this art-related topic. Keep your response meaningful but as short as possible.: ",
   law: "Explain this legal query in a concise manner. Keep your response meaningful but as short as possible.: ",
-  psychology: "Briefly describe this psychology topic. Keep your response meaningful but as short as possible.: ",
-  business: "Quickly summarize this business or economics concept. Keep your response meaningful but as short as possible.: ",
-  health: "In a short explanation, answer this health science question. Keep your response meaningful but as short as possible.: ",
+  psychology:
+    "Briefly describe this psychology topic. Keep your response meaningful but as short as possible.: ",
+  business:
+    "Quickly summarize this business or economics concept. Keep your response meaningful but as short as possible.: ",
+  health:
+    "In a short explanation, answer this health science question. Keep your response meaningful but as short as possible.: ",
   engineering:
     "Provide a quick explanation or solution for this engineering problem. Keep your response meaningful but as short as possible.: ",
+  tutormath: "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Math - answer the following question in a concise way to help the student learn.",
+  tutorhistory:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in History - answer the following question in a concise way to help the student learn.",
+  tutorenglish:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in English - answer the following question in a concise way to help the student learn.",
+  tutorscience:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Science - answer the following question in a concise way to help the student learn.",
+  tutorprompt:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Essay Writing - answer the following question in a concise way to help the student learn.",
+  tutorchat: "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in General Knowledge - answer the following question in a concise way to help the student learn.",
+  tutorfeedback:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Providing Feedback - answer the following question in a concise way to help the student learn.",
+  tutorreply:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Communication - answer the following question in a concise way to help the student learn.",
+  tutorjoke: "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Humor - answer the following question in a concise way to help the student learn.",
+  tutorart: "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Art - answer the following question in a concise way to help the student learn.",
+  tutorlaw: "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Law - answer the following question in a concise way to help the student learn.",
+  tutorpsychology:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Psychology - answer the following question in a concise way to help the student learn.",
+  tutorbusiness:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Business - answer the following question in a concise way to help the student learn.",
+  tutorhealth:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Health Sciences - answer the following question in a concise way to help the student learn.",
+  tutorengineering:
+    "Give straight answers, but also help the student to remember and learn the answers. You are a helpful tutor bot and an expert in Engineering - answer the following question in a concise way to help the student learn.",
 };
 
 
@@ -391,11 +423,19 @@ setIsLoadingScreen(false)
         } else {
                   ReactGA.event({
                     category: "User",
-                    action: "Asked a question",
+                    action: subject.includes("tutor")
+                      ? "Got tutored"
+                      : "Asked a question",
                   });
-                  amplitude.track("Asked a question", undefined, {
-                    user_id: profileData?.email,
-                  });
+                  amplitude.track(
+                    subject.includes("tutor")
+                      ? "Got tutored"
+                      : "Asked a question",
+                    undefined,
+                    {
+                      user_id: profileData?.email,
+                    }
+                  );
         }
         const res = {
           result: "",
@@ -456,6 +496,7 @@ setIsLoadingScreen(false)
               ? 'Think about this step by step. First, read all the questions in this image. Second, answer each one in an ordered list in this format (state the question then the answer) "1. {QUESTION}: {ANSWER}". Dont explain too much just give answers. Dont explain anything else just give answers.'
               : `${TYPES[subject]} ${animalInput}`,
             history: messageHistoryUpdate,
+            systemMessage: subject.includes('tutor') ? "You are a helpful homework tutor bot meant to help tutor students. Your name is OddityAI and you were made by the OddityAI team if anyone asks. Do not EVER mention OpenAI." : "You are a helpful homework bot meant to help with homework. Your name is OddityAI and you were made by the OddityAI team if anyone asks. Do not EVER mention OpenAI.",
             url: url,
             model: getModel(),
           })
@@ -722,7 +763,7 @@ homework helper"
         <div
           style={{
             textAlign: "center",
-            padding: "20px 20px",
+            padding: "0px 0px",
             color: "#232A31",
             fontFamily: "'ColfaxAI', sans-serif",
           }}
