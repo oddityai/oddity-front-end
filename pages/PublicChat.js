@@ -15,7 +15,7 @@ const ChatApp = ({ profileData }) => {
           const loadedMessages = snapshot.docs.map((doc) => ({
             id: doc.id,
             text: doc.data().text || "",
-            visible: doc.data().visible || true,
+            visible: doc.data().visible,
             user: doc.data().user || "Unknown",
             timestamp: doc.data().timestamp?.toDate() || new Date(),
             likes: doc.data().likes || [],
