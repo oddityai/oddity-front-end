@@ -793,7 +793,7 @@ homework helper"
                           cursor: "pointer",
                         }}
                       >
-                        Credits: {profileData?.credits}
+                        Answers left: {profileData?.credits}
                       </p>
                     </div>
                   )}
@@ -834,8 +834,6 @@ homework helper"
           textAlign: "center",
         }}
       >
-        <br />
-        <br />
       </div>
     </div>
   );

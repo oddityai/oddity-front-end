@@ -9,6 +9,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { db } from '../firebase'
 import Buttons from './Buttons'
+import PublicChat from './PublicChat'
 import ReactGA from "react-ga4";
 import * as amplitude from "@amplitude/analytics-browser";
 
@@ -267,7 +268,7 @@ export default function BasicTabs({
           /> */}
           <Tab
             className={nunito.className}
-            label="Specialized Bots"
+            label="Homework Answer Bots"
             {...a11yProps(0)}
           />
           {/* <Tab
@@ -281,10 +282,16 @@ export default function BasicTabs({
             {...a11yProps(2)}
           />
 
-          <Tab
+          {/* <Tab
             className={nunito.className}
             label="Chat History"
             {...a11yProps(2)}
+          /> */}
+          <Tab
+            className={nunito.className}
+            label="Public Chat (beta)"
+            {...a11yProps(4)}
+            value={4}
           />
         </Tabs>
       </Box>
@@ -321,7 +328,10 @@ export default function BasicTabs({
                 support@oddityai.com and include your accounts email address.
               </h4>
               {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
-              <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+              <p
+                className={nunito.className}
+                style={{ fontSize: 14, margin: 6 }}
+              >
                 We are working on a self-cancel, it will be available soon.
               </p>
             </div>
@@ -348,25 +358,49 @@ export default function BasicTabs({
             >
               <div style={{ padding: 8 }}>
                 <h3 className={nunito.className}>Free Trial</h3>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Our GPT-4 powered bots provide accurate answers at half the
+                  cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>Free</h3>
                 <hr />
-                <h4>10 credits</h4>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                <h4>10 Answers</h4>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  GPT-4
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
                   Image Uploading
                 </p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Never expire</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  5 Questions
-                </p>
-                <form
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
                 >
+                  Never expire
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  5 Answers
+                </p>
+                <form>
                   <section>
-                    <button disabled style={{backgroundColor: 'silver'}} type="submit" role="link">
+                    <button
+                      disabled
+                      style={{ backgroundColor: "silver" }}
+                      type="submit"
+                      role="link"
+                    >
                       Your current plan
                     </button>
                   </section>
@@ -409,20 +443,40 @@ export default function BasicTabs({
               }}
             >
               <div style={{ padding: 8 }}>
-                <h3 className={nunito.className}>50 GPT-4 Credits</h3>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
+                <h3 className={nunito.className}>50 Answers</h3>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Our GPT-4 powered bots provide accurate answers at half the
+                  cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$0.99</h3>
                 <hr />
-                <h4>50 credits</h4>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  50 Questions or image uploads
+                <h4>50 Answers</h4>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  GPT-4
                 </p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Never expire</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  50 Answers or image uploads
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Never expire
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
                   Usable on any current/future AI bots
                 </p>
                 <form
@@ -473,19 +527,41 @@ export default function BasicTabs({
               }}
             >
               <div style={{ padding: 8 }}>
-                <h3 className={nunito.className}>Unlimited GPT-4 Answers</h3>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
-                  Our GPT-4 powered bots provide accurate answers at half the cost of ChatGPT.
+                <h3 className={nunito.className}>Unlimited Answers</h3>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Our GPT-4 powered bots provide accurate answers at half the
+                  cost of ChatGPT.
                 </p>
                 <hr />
                 <h3 className={nunito.className}>$9.99/mo</h3>
                 <hr />
-                <h4>Unlimited Credits</h4>
+                <h4>Unlimited Answers</h4>
                 {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>GPT-4</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Unlimited questions.</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Unlimited picture uploads</p>
-                <p className={nunito.className} style={{fontSize: 14, margin: 6}}>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  GPT-4
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Unlimited Answers.
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
+                  Unlimited picture uploads
+                </p>
+                <p
+                  className={nunito.className}
+                  style={{ fontSize: 14, margin: 6 }}
+                >
                   Usable on any current/future AI bots
                 </p>
                 <form
@@ -552,11 +628,10 @@ export default function BasicTabs({
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        <>
-          <h3 className={nunito.className} style={{ fontSize: 18 }}>
-            Make homework a breeze with OddityAI Credits
-          </h3>
-        </>
+        <h3 className={nunito.className} style={{ fontSize: 13 }}>
+          Here you can chat publicly with all other OddityAI users. Feel free to leave feedback, request new features, report bugs or whatever you want to talk about.
+        </h3>
+        <PublicChat profileData={profileData} />
       </TabPanel>
     </Box>
   );

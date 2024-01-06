@@ -137,7 +137,7 @@ export default function ButtonAppBar({ profileData, value, setValue }) {
                     cursor: "pointer",
                   }}
                 >
-                  Credits: {profileData?.credits}
+                  Answers Left: {profileData?.credits}
                 </p>
               </div>
             )}

@@ -113,7 +113,7 @@ const PricingPage = () => {
               <hr />
               <h3 className={nunito.className}>Free</h3>
               <hr />
-              <h4>10 credits</h4>
+              <h4>10 Answers</h4>
               <p
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
@@ -188,7 +188,7 @@ const PricingPage = () => {
             }}
           >
             <div style={{ padding: 8 }}>
-              <h3 className={nunito.className}>50 Credits</h3>
+              <h3 className={nunito.className}>50 Answers</h3>
               <p
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
@@ -199,7 +199,7 @@ const PricingPage = () => {
               <hr />
               <h3 className={nunito.className}>$0.99</h3>
               <hr />
-              <h4>50 credits</h4>
+              <h4>50 Answers</h4>
               <p
                 className={nunito.className}
                 style={{ fontSize: 14, margin: 6 }}
@@ -329,7 +329,7 @@ const PricingPage = () => {
               <hr />
               <h3 className={nunito.className}>$9.99/mo</h3>
               <hr />
-              <h4>Unlimited Credits</h4>
+              <h4>Unlimited Answers</h4>
               {/* <p className={nunito.className} style={{fontSize: 14, margin: 6}}>Enough for a few months</p> */}
               <p
                 className={nunito.className}
