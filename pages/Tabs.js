@@ -342,7 +342,7 @@ export default function BasicTabs({
           style={{ fontSize: 13, maxWidth: "70%", marginLeft: "15%" }}
         >
           The Essay Writer will generate a new custom essay with every use.
-          Nobody will have the say essay as you. Using the essay writer costs 2
+          Nobody will have the same essay as you. Using the essay writer costs 2
           credits. This essay generator is meant to give you an outline and get
           started on your essay. You should edit it and make it your own.
         </h3>
